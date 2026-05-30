@@ -1,18 +1,25 @@
-import { getStrapiData } from "@/lib/strapi";
+import { getHomePage } from "@/lib/strapi";
 import { inter } from "./ui/fonts";
+import { HeroSection } from "@/components/hero-section";
+
+export async function generateMetadata() {
+   const strapiData = await getHomePage();
+   return {
+      title: strapiData?.title,
+      description: strapiData?.description,
+   };
+}
 
 export default async function Home() {
-   const strapiData = await getStrapiData(
-      "/api/home-page?populate[sections][on][layout.hero-section][populate][image][fields][0]=url&populate[sections][on][layout.hero-section][populate][link][populate]",
-   );
+   const strapiData = await getHomePage();
    console.log(strapiData);
 
-   const { title, description } = strapiData.data || {};
+   const { title, description } = strapiData || {};
+   const [heroSection] = strapiData.sections || [];
 
    return (
       <main className={`${inter.className} antialiased container mx-auto py-6`}>
-         <h1 className="text-3xl font-bold">{title}</h1>
-         <p className="text-gary-600"> {description} </p>
+         <HeroSection data={{ ...heroSection, title, description }} />
       </main>
    );
 }
