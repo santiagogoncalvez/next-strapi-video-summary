@@ -10004,7 +10004,7 @@ snapshots:
     dependencies:
       '@hapi/bourne': 3.0.0
       inflation: 2.1.0
-      qs: 6.15.0
+      qs: 6.15.2
       raw-body: 2.5.3
       type-is: 1.6.18
 
@@ -10674,7 +10674,7 @@ snapshots:
       '@paralleldrive/cuid2': 2.2.2
       dezalgo: 1.0.4
       once: 1.4.0
-      qs: 6.15.0
+      qs: 6.15.2
 
   formik@2.4.5(@types/react@18.3.29)(react@18.3.1):
     dependencies:

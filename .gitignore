@@ -1,43 +1,51 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# ==========================================
+# Carpetas de Dependencias e Instalación
+# ==========================================
+node_modules/
+**/node_modules/
+.pnpm-store/
+**/.pnpm-store/
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
+# ==========================================
+# Next.js (Frontend)
+# ==========================================
+.next/
+**/.next/
+out/
+build/
 
-# testing
-/coverage
+# ==========================================
+# Strapi (Backend)
+# ==========================================
+.cache/
+**/.cache/
+build/
+**/build/
+.tmp/
+**/.tmp/
 
-# next.js
-/.next/
-/out/
+# Base de datos local de Strapi (SQLite)
+*.db
+*.db-journal
+**/data/*.db
 
-# production
-/build
+# ==========================================
+# Variables de Entorno y Credenciales (¡Súper Importante!)
+# ==========================================
+.env
+*.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+**/.env*
 
-# misc
-.DS_Store
-*.pem
-
-# debug
+# ==========================================
+# Sistema y Logs
+# ==========================================
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
-
-# env files (can opt-in for committing if needed)
-.env*
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-
-node_modules/
+pnpm-debug.log*
+.DS_Store
+Thumbs.db
