@@ -12,13 +12,13 @@ export async function generateMetadata() {
 
 export default async function Home() {
    const strapiData = await getHomePage();
-   console.log(strapiData);
+   // console.log(strapiData);
 
    const { title, description } = strapiData || {};
    const [heroSection] = strapiData.sections || [];
 
    return (
-      <main className={`${inter.className} antialiased container mx-auto py-6`}>
+      <main className={` container mx-auto py-6`}>
          <HeroSection data={{ ...heroSection, title, description }} />
       </main>
    );

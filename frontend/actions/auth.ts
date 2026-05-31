@@ -1,0 +1,46 @@
+"use server"
+
+import { FormState, SignupFormSchema } from "@/validations/auth";
+import z from "zod";
+
+
+
+export async function registerUserAction(prevState: FormState, formData: FormData): Promise<FormState> {
+    console.log("registerUserAction");
+
+    const fields = {
+        username: formData.get('username') as string,
+        password: formData.get('password') as string,
+        email: formData.get('email') as string,
+    };
+
+    const validatedFields = SignupFormSchema.safeParse(fields);
+    
+    if (!validatedFields.success) {
+        const flattenedErrors = z.flattenError(validatedFields.error);
+
+        console.log("Validation errors:", flattenedErrors.fieldErrors);
+
+        return {
+            success: false,
+            message: "Validation error.",
+            strapiErrors: null,
+            zodErrors: flattenedErrors.fieldErrors,
+            data: {
+                ...prevState,
+                ...fields,
+            }
+        }
+    }
+
+    console.log("Validation successful");
+    console.log("Fields", fields);
+
+    return {
+        success: true,
+        message: "Registration successful",
+        strapiErrors: null,
+        zodErrors: null,
+        data: fields
+    }
+}

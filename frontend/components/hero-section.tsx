@@ -5,7 +5,7 @@ const styles = {
    header: "relative h-[600px] rounded-2xl overflow-hidden rounded-4xl",
    backgroundImage: "absolute inset-0 object-cover w-full h-full ",
    overlay:
-      "relative z-10 flex flex-col items-center justify-center h-full text-center text-white bg-white/90",
+      "relative z-10 flex flex-col items-center justify-center h-full text-center text-white bg-white/95",
    heading: "text-black text-4xl font-bold md:text-5xl lg:text-6xl",
    subheading: "mt-4 text-black text-lg md:text-xl lg:text-2xl",
    button:

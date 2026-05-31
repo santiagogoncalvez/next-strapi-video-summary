@@ -1,3 +1,4 @@
+import { cacheLife } from "next/cache";
 import qs from "qs"
 
 export const STRAPI_BASE_URL = process.env.STRAPI_BASE_URL || "http://localhost:1337";
@@ -28,6 +29,10 @@ export async function getHomePage() {
 }
 
 export async function getStrapiData(url: string) {
+    "use cache"
+    console.log("getStrapiData");
+
+    cacheLife({expire: 60}); // 1 minuto
     try {
         const response = await fetch(`${STRAPI_BASE_URL}${url}`);
         if (!response.ok) {
