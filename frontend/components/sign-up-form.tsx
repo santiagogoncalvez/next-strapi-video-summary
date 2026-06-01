@@ -92,8 +92,11 @@ export function SignupForm() {
                      <FormError error={formState.zodErrors?.password} />
                   </div>
                </CardContent>
-               <CardFooter className={styles.footer}>
-                  <Button className={styles.button}>Sign Up</Button>
+               <CardFooter className={`${styles.footer} ${styles.fieldGroup}`}>
+                  <Button className={`${styles.button}`}>Sign Up</Button>
+                  {formState.strapiErrors && (
+                     <FormError error={[formState.strapiErrors.message]} />
+                  )}
                </CardFooter>
             </Card>
             <div className={styles.prompt}>
