@@ -3,8 +3,16 @@
 import { registerUserService } from "@/lib/strapi";
 import { FormState, SignupFormSchema } from "@/validations/auth";
 import z from "zod";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
-
+const cookieConfig = {
+    maxAge: 60 * 60 * 24 * 7, // 1 week
+    path: "/",
+    httpOnly: true,
+    domain: process.env.HOST ?? "localhost",
+    secure: process.env.NODE_ENV === "production",
+}
 
 export async function registerUserAction(prevState: FormState, formData: FormData): Promise<FormState> {
     console.log("registerUserAction");
@@ -46,11 +54,7 @@ export async function registerUserAction(prevState: FormState, formData: FormDat
         }
     }
 
-    return {
-        success: true,
-        message: "Registration successful",
-        strapiErrors: null,
-        zodErrors: null,
-        data: fields
-    }
+    const cookieStore = await cookies();
+    cookieStore.set("jwt", response.jwt as string, cookieConfig);
+    redirect("/dashboard");
 } 
