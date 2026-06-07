@@ -29,12 +29,16 @@ export async function getHomePage() {
 }
 
 export async function getStrapiData(url: string) {
-    "use cache"
-    console.log("getStrapiData");
+    // "use cache"
+    // console.log("getStrapiData");
 
-    cacheLife({expire: 60}); // 1 minuto
+    // cacheLife({ expire: 60 });
     try {
-        const response = await fetch(`${STRAPI_BASE_URL}${url}`);
+        const response = await fetch(`${STRAPI_BASE_URL}${url}`, {
+            next: {
+                revalidate: 60,
+            },
+        });
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -47,7 +51,7 @@ export async function getStrapiData(url: string) {
     }
 }
 
-export async function registerUserService(userData: object){
+export async function registerUserService(userData: object) {
     const url = `${STRAPI_BASE_URL}/api/auth/local/register`
 
     try {
@@ -60,10 +64,10 @@ export async function registerUserService(userData: object){
         });
 
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
 
         return data;
-    } catch(error) {
+    } catch (error) {
         console.error("Error registering user:", error);
         throw error;
     }

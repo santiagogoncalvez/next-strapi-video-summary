@@ -15,7 +15,7 @@ const cookieConfig = {
 }
 
 export async function registerUserAction(prevState: FormState, formData: FormData): Promise<FormState> {
-    console.log("registerUserAction");
+    // console.log("registerUserAction");
 
     const fields = {
         username: formData.get('username') as string,
@@ -28,7 +28,7 @@ export async function registerUserAction(prevState: FormState, formData: FormDat
     if (!validatedFields.success) {
         const flattenedErrors = z.flattenError(validatedFields.error);
 
-        console.log("Validation errors:", flattenedErrors.fieldErrors);
+        // console.log("Validation errors:", flattenedErrors.fieldErrors);
 
         return {
             success: false,
