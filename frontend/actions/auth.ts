@@ -3,9 +3,8 @@
 import { loginUserService, registerUserService } from "@/lib/strapi";
 import { FormState, SigninFormSchema, SignupFormSchema } from "@/validations/auth";
 import z from "zod";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { setAuthCookie } from "@/lib/auth";
+import { removeAuthCookie, setAuthCookie } from "@/lib/auth";
 
 
 export async function registerUserAction(prevState: FormState, formData: FormData): Promise<FormState> {
@@ -58,7 +57,7 @@ export async function loginUserAction(
     formData: FormData,
 ): Promise<FormState> {
     const fields = {
-        identifier: formData.get("email") as string,
+        identifier: formData.get("identifier") as string,
         password: formData.get("password") as string,
     }
 
@@ -92,4 +91,10 @@ export async function loginUserAction(
     await setAuthCookie(response.jwt);
 
     redirect("/dashboard");
+}
+
+export async function logoutUserAction() {
+    await removeAuthCookie();
+
+    redirect("/signin");
 }

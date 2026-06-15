@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Loader2 } from "lucide-react";
 
 import {
    CardTitle,
@@ -14,6 +15,10 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { FormState } from "@/validations/auth";
+import { actions } from "@/actions";
+import { useActionState } from "react";
+import { FormError } from "./form-error";
 
 const styles = {
    container: "w-full max-w-md",
@@ -27,10 +32,23 @@ const styles = {
    link: "ml-2",
 };
 
+const INITIAL_STATE: FormState = {
+   success: false,
+   message: undefined,
+   strapiErrors: null,
+   zodErrors: null,
+   data: { identifier: "", password: "" },
+};
+
 export function SigninForm() {
+   const [formState, formAction, isPending] = useActionState(
+      actions.auth.loginUserAction,
+      INITIAL_STATE,
+   );
+
    return (
       <div className={styles.container}>
-         <form>
+         <form action={formAction}>
             <Card>
                <CardHeader className={styles.header}>
                   <CardTitle className={styles.title}>Sign In</CardTitle>
@@ -40,13 +58,16 @@ export function SigninForm() {
                </CardHeader>
                <CardContent className={styles.content}>
                   <div className={styles.fieldGroup}>
-                     <Label htmlFor="email">Email</Label>
+                     <Label htmlFor="identifier">Username or email</Label>
                      <Input
                         id="identifier"
                         name="identifier"
                         type="text"
                         placeholder="username or email"
+                        defaultValue={formState.data?.identifier ?? ""}
                      />
+
+                     <FormError error={formState.zodErrors?.identifier} />
                   </div>
                   <div className={styles.fieldGroup}>
                      <Label htmlFor="password">Password</Label>
@@ -55,11 +76,20 @@ export function SigninForm() {
                         name="password"
                         type="password"
                         placeholder="password"
+                        defaultValue={formState.data?.password ?? ""}
                      />
+
+                     <FormError error={formState.zodErrors?.password} />
                   </div>
                </CardContent>
                <CardFooter className={styles.footer}>
-                  <Button className={styles.button}>Sign In</Button>
+                  <Button className={styles.button} disabled={isPending}>
+                     {isPending && <Loader2 className="animate-spin" />}
+                     {!isPending && "Sign In"}
+                  </Button>
+                  {formState.strapiErrors && (
+                     <FormError error={[formState.strapiErrors.message]} />
+                  )}
                </CardFooter>
             </Card>
             <div className={styles.prompt}>

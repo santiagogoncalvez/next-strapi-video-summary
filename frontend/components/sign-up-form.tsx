@@ -93,7 +93,7 @@ export function SignupForm() {
                   </div>
                </CardContent>
                <CardFooter className={`${styles.footer} ${styles.fieldGroup}`}>
-                  <Button className={`${styles.button}`}>Sign Up</Button>
+                  <Button  className={`${styles.button}`}>Sign Up</Button>
                   {formState.strapiErrors && (
                      <FormError error={[formState.strapiErrors.message]} />
                   )}
