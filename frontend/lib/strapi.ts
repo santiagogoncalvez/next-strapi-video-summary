@@ -1,4 +1,4 @@
-import { cacheLife } from "next/cache";
+// import { cacheLife } from "next/cache";
 import qs from "qs"
 
 export const STRAPI_BASE_URL = process.env.STRAPI_BASE_URL || "http://localhost:1337";
@@ -69,6 +69,30 @@ export async function registerUserService(userData: object) {
         return data;
     } catch (error) {
         console.error("Error registering user:", error);
+        throw error;
+    }
+}
+
+export async function loginUserService(userData: {
+    identifier: string;
+    password: string;
+}) {
+    const url = `${STRAPI_BASE_URL}/api/auth/local`;
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userData),
+        });
+
+        const data = await response.json();
+
+        return data;
+    } catch (error) {
+        console.error("Error logging user:", error);
         throw error;
     }
 }

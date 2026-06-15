@@ -1,0 +1,233 @@
+[2026-06-07 16:54:20.513] info: [transfer] Diagnostic log file: C:\Users\music\Documents\Programacion\Nextjs\next-js-16-strapi-app\backend\transfer_1780862060298.log (info-level messages are written here even without --verbose)
+[2026-06-07 16:54:20.514] info: [remote-destination-provider] establishing websocket connection
+
+[2026-06-07 16:54:32.026] info: [remote-destination-provider] established websocket connection
+
+[2026-06-07 16:54:32.026] info: [remote-destination-provider] creating dispatcher
+
+[2026-06-07 16:54:32.027] info: [remote-destination-provider] created dispatcher
+
+[2026-06-07 16:54:32.027] info: [remote-destination-provider] initialize transfer
+
+[2026-06-07 16:54:32.028] info: [remote-destination-provider] dispatching message command:init uuid:7028ab85-f171-4512-959f-581f216f5d14 sent:0
+
+[2026-06-07 16:54:32.227] info: [push-handler] received command:init uuid:7028ab85-f171-4512-959f-581f216f5d14
+
+[2026-06-07 16:54:32.227] info: [remote-destination-provider] received response to message command: init uuid: 7028ab85-f171-4512-959f-581f216f5d14 sent: 0
+
+[2026-06-07 16:54:32.228] info: [remote-destination-provider] received response to message command: init uuid: 7028ab85-f171-4512-959f-581f216f5d14 sent: 0
+
+[2026-06-07 16:54:32.228] info: [remote-destination-provider] initialized transfer 31190798-a9b2-415e-a950-f75c12b60edb
+
+[2026-06-07 16:54:32.229] info: [remote-destination-provider] dispatching message action:bootstrap  uuid:1067966c-7bb7-4c24-911c-f6076303098e sent:0
+
+[2026-06-07 16:54:32.418] info: [push-handler] received transfer action:bootstrap step:action uuid:1067966c-7bb7-4c24-911c-f6076303098e
+
+[2026-06-07 16:54:32.418] info: [remote-destination-provider] received response to message action:bootstrap  uuid:1067966c-7bb7-4c24-911c-f6076303098e sent:0
+
+[2026-06-07 16:54:32.419] info: [local-destination-provider] validating options
+
+[2026-06-07 16:54:32.419] info: [remote-destination-provider] received response to message action:bootstrap  uuid:1067966c-7bb7-4c24-911c-f6076303098e sent:0
+
+[2026-06-07 16:54:32.419] info: [remote-destination-provider] received response to message action:bootstrap  uuid:1067966c-7bb7-4c24-911c-f6076303098e sent:0
+
+[2026-06-07 16:54:32.419] info: [local-source-provider] getting metadata
+
+[2026-06-07 16:54:32.420] info: [remote-destination-provider] dispatching message action:getMetadata  uuid:0523839b-9214-47ea-8852-e8d6f1193b53 sent:0
+
+[2026-06-07 16:54:32.635] info: [push-handler] received transfer action:getMetadata step:action uuid:0523839b-9214-47ea-8852-e8d6f1193b53
+
+[2026-06-07 16:54:32.635] info: [remote-destination-provider] received response to message action:getMetadata  uuid:0523839b-9214-47ea-8852-e8d6f1193b53 sent:0
+
+[2026-06-07 16:54:32.658] info: [local-destination-provider] getting metadata
+
+[2026-06-07 16:54:32.658] info: [remote-destination-provider] received response to message action:getMetadata  uuid:0523839b-9214-47ea-8852-e8d6f1193b53 sent:0
+
+[2026-06-07 16:54:32.659] info: [remote-destination-provider] received response to message action:getMetadata  uuid:0523839b-9214-47ea-8852-e8d6f1193b53 sent:0
+
+[2026-06-07 16:54:32.659] info: [local-source-provider] getting metadata
+
+[2026-06-07 16:54:32.660] info: [remote-destination-provider] dispatching message action:getMetadata  uuid:1bcc705c-e858-488d-bc57-de9d1de2856b sent:0
+
+[2026-06-07 16:54:32.882] info: [push-handler] received transfer action:getMetadata step:action uuid:1bcc705c-e858-488d-bc57-de9d1de2856b
+
+[2026-06-07 16:54:32.883] info: [remote-destination-provider] received response to message action:getMetadata  uuid:1bcc705c-e858-488d-bc57-de9d1de2856b sent:0
+
+[2026-06-07 16:54:32.883] info: [local-destination-provider] getting metadata
+
+[2026-06-07 16:54:32.883] info: [remote-destination-provider] received response to message action:getMetadata  uuid:1bcc705c-e858-488d-bc57-de9d1de2856b sent:0
+
+[2026-06-07 16:54:32.883] info: [remote-destination-provider] received response to message action:getMetadata  uuid:1bcc705c-e858-488d-bc57-de9d1de2856b sent:0
+
+[2026-06-07 16:54:32.884] info: [local-source-provider] getting schemas
+
+[2026-06-07 16:54:32.887] info: [remote-destination-provider] dispatching message action:getSchemas  uuid:a627895d-8282-4499-9af8-db31745f7f64 sent:0
+
+[2026-06-07 16:54:33.140] info: [push-handler] received transfer action:getSchemas step:action uuid:a627895d-8282-4499-9af8-db31745f7f64
+
+[2026-06-07 16:54:33.141] info: [remote-destination-provider] received response to message action:getSchemas  uuid:a627895d-8282-4499-9af8-db31745f7f64 sent:0
+
+[2026-06-07 16:54:33.141] info: [local-destination-provider] getting schema
+
+[2026-06-07 16:54:33.142] info: [remote-destination-provider] received response to message action:getSchemas  uuid:a627895d-8282-4499-9af8-db31745f7f64 sent:0
+
+[2026-06-07 16:54:33.355] info: [remote-destination-provider] received response to message action:getSchemas  uuid:a627895d-8282-4499-9af8-db31745f7f64 sent:0
+
+[2026-06-07 16:54:33.371] info: [remote-destination-provider] dispatching message action:beforeTransfer  uuid:ea7a383a-95f1-4c8b-9d18-b85b3e0cc712 sent:0
+
+[2026-06-07 16:54:33.655] info: [push-handler] received transfer action:beforeTransfer step:action uuid:ea7a383a-95f1-4c8b-9d18-b85b3e0cc712
+
+[2026-06-07 16:54:33.656] info: [remote-destination-provider] received response to message action:beforeTransfer  uuid:ea7a383a-95f1-4c8b-9d18-b85b3e0cc712 sent:0
+
+[2026-06-07 16:54:33.656] info: [local-destination-provider] deleting all assets
+
+[2026-06-07 16:54:33.658] info: [remote-destination-provider] received response to message action:beforeTransfer  uuid:ea7a383a-95f1-4c8b-9d18-b85b3e0cc712 sent:0
+
+[2026-06-07 16:54:33.700] info: [local-destination-provider] deleted all assets
+
+[2026-06-07 16:54:33.701] info: [remote-destination-provider] received response to message action:beforeTransfer  uuid:ea7a383a-95f1-4c8b-9d18-b85b3e0cc712 sent:0
+
+[2026-06-07 16:54:33.701] info: [local-destination-provider] deleting record 
+
+[2026-06-07 16:54:33.701] info: [remote-destination-provider] received response to message action:beforeTransfer  uuid:ea7a383a-95f1-4c8b-9d18-b85b3e0cc712 sent:0
+
+[2026-06-07 16:54:33.861] info: [remote-destination-provider] received response to message action:beforeTransfer  uuid:ea7a383a-95f1-4c8b-9d18-b85b3e0cc712 sent:0
+
+[2026-06-07 16:54:33.862] info: [local-source-provider] getting schemas
+
+[2026-06-07 16:54:33.866] info: [local-source-provider] creating entities read stream
+
+[2026-06-07 16:54:34.635] info: [remote-destination-provider] dispatching message action:start step:entities uuid:ef0e404f-85c0-43ad-9c9a-5cfafbd0895d sent:0
+
+[2026-06-07 16:54:34.827] info: [push-handler] received transfer action:start step:step uuid:ef0e404f-85c0-43ad-9c9a-5cfafbd0895d
+
+[2026-06-07 16:54:34.827] info: [remote-destination-provider] received response to message action:start step:entities uuid:ef0e404f-85c0-43ad-9c9a-5cfafbd0895d sent:0
+
+[2026-06-07 16:54:34.828] info: [local-destination-provider] creating entities stream
+
+[2026-06-07 16:54:34.828] info: [remote-destination-provider] received response to message action:start step:entities uuid:ef0e404f-85c0-43ad-9c9a-5cfafbd0895d sent:0
+
+[2026-06-07 16:54:34.828] info: [remote-destination-provider] received response to message action:start step:entities uuid:ef0e404f-85c0-43ad-9c9a-5cfafbd0895d sent:0
+
+[2026-06-07 16:54:34.831] info: [remote-destination-provider] dispatching message action:stream step:entities uuid:adb418f3-11a4-4f45-b7ea-12ae8d98b729 sent:0
+
+[2026-06-07 16:54:35.035] info: [push-handler] received transfer action:stream step:step uuid:adb418f3-11a4-4f45-b7ea-12ae8d98b729
+
+[2026-06-07 16:54:35.036] info: [remote-destination-provider] received response to message action:stream step:entities uuid:adb418f3-11a4-4f45-b7ea-12ae8d98b729 sent:0
+
+[2026-06-07 16:54:35.322] info: [remote-destination-provider] received response to message action:stream step:entities uuid:adb418f3-11a4-4f45-b7ea-12ae8d98b729 sent:0
+
+[2026-06-07 16:54:35.323] info: [remote-destination-provider] dispatching message action:end step:entities uuid:27ca0191-fcb2-4aca-98bc-fd040d0b7446 sent:0
+
+[2026-06-07 16:54:35.507] info: [push-handler] received transfer action:end step:step uuid:27ca0191-fcb2-4aca-98bc-fd040d0b7446
+
+[2026-06-07 16:54:35.508] info: [remote-destination-provider] received response to message action:end step:entities uuid:27ca0191-fcb2-4aca-98bc-fd040d0b7446 sent:0
+
+[2026-06-07 16:54:35.508] info: [remote-destination-provider] received response to message action:end step:entities uuid:27ca0191-fcb2-4aca-98bc-fd040d0b7446 sent:0
+
+[2026-06-07 16:54:35.512] info: [local-source-provider] creating assets read stream
+
+[2026-06-07 16:54:35.522] info: [remote-destination-provider] dispatching message action:start step:assets uuid:0ea1fa54-4b87-43aa-aa50-b8e97f6ba295 sent:0
+
+[2026-06-07 16:54:35.708] info: [push-handler] received transfer action:start step:step uuid:0ea1fa54-4b87-43aa-aa50-b8e97f6ba295
+
+[2026-06-07 16:54:35.708] info: [remote-destination-provider] received response to message action:start step:assets uuid:0ea1fa54-4b87-43aa-aa50-b8e97f6ba295 sent:0
+
+[2026-06-07 16:54:35.710] info: [local-destination-provider] creating assets write stream
+
+[2026-06-07 16:54:35.711] info: [remote-destination-provider] received response to message action:start step:assets uuid:0ea1fa54-4b87-43aa-aa50-b8e97f6ba295 sent:0
+
+[2026-06-07 16:54:35.712] info: [remote-destination-provider] received response to message action:start step:assets uuid:0ea1fa54-4b87-43aa-aa50-b8e97f6ba295 sent:0
+
+[2026-06-07 16:54:35.715] info: [remote-destination-provider] dispatching message action:stream step:assets uuid:58252431-47c7-4e3d-9c1f-310393dd4565 sent:0
+
+[2026-06-07 16:54:36.465] info: [push-handler] received transfer action:stream step:step uuid:58252431-47c7-4e3d-9c1f-310393dd4565
+
+[2026-06-07 16:54:36.465] info: [remote-destination-provider] received response to message action:stream step:assets uuid:58252431-47c7-4e3d-9c1f-310393dd4565 sent:0
+
+[2026-06-07 16:54:37.051] info: [remote-destination-provider] received response to message action:stream step:assets uuid:58252431-47c7-4e3d-9c1f-310393dd4565 sent:0
+
+[2026-06-07 16:54:37.051] info: [remote-destination-provider] dispatching message action:end step:assets uuid:e70b08c5-9a22-4b64-8fab-58f0aa2a4c3b sent:0
+
+[2026-06-07 16:54:37.246] info: [push-handler] received transfer action:end step:step uuid:e70b08c5-9a22-4b64-8fab-58f0aa2a4c3b
+
+[2026-06-07 16:54:37.246] info: [remote-destination-provider] received response to message action:end step:assets uuid:e70b08c5-9a22-4b64-8fab-58f0aa2a4c3b sent:0
+
+[2026-06-07 16:54:37.247] info: [remote-destination-provider] received response to message action:end step:assets uuid:e70b08c5-9a22-4b64-8fab-58f0aa2a4c3b sent:0
+
+[2026-06-07 16:54:37.248] info: [local-source-provider] creating links read stream
+
+[2026-06-07 16:54:37.424] info: [remote-destination-provider] dispatching message action:start step:links uuid:684f8b0b-a6cf-4bde-8887-1bce9eb3012c sent:0
+
+[2026-06-07 16:54:37.604] info: [push-handler] received transfer action:start step:step uuid:684f8b0b-a6cf-4bde-8887-1bce9eb3012c
+
+[2026-06-07 16:54:37.604] info: [remote-destination-provider] received response to message action:start step:links uuid:684f8b0b-a6cf-4bde-8887-1bce9eb3012c sent:0
+
+[2026-06-07 16:54:37.604] info: [local-destination-provider] creating links write stream
+
+[2026-06-07 16:54:37.604] info: [remote-destination-provider] received response to message action:start step:links uuid:684f8b0b-a6cf-4bde-8887-1bce9eb3012c sent:0
+
+[2026-06-07 16:54:37.604] info: [remote-destination-provider] received response to message action:start step:links uuid:684f8b0b-a6cf-4bde-8887-1bce9eb3012c sent:0
+
+[2026-06-07 16:54:37.606] info: [remote-destination-provider] dispatching message action:stream step:links uuid:c9e629de-03a4-4ba6-b35b-3791e69953d7 sent:0
+
+[2026-06-07 16:54:37.800] info: [push-handler] received transfer action:stream step:step uuid:c9e629de-03a4-4ba6-b35b-3791e69953d7
+
+[2026-06-07 16:54:37.800] info: [remote-destination-provider] received response to message action:stream step:links uuid:c9e629de-03a4-4ba6-b35b-3791e69953d7 sent:0
+
+[2026-06-07 16:54:37.935] info: [remote-destination-provider] received response to message action:stream step:links uuid:c9e629de-03a4-4ba6-b35b-3791e69953d7 sent:0
+
+[2026-06-07 16:54:37.936] info: [remote-destination-provider] dispatching message action:end step:links uuid:ec553dc3-897c-47b0-a943-de9a18ddd102 sent:0
+
+[2026-06-07 16:54:38.182] info: [push-handler] received transfer action:end step:step uuid:ec553dc3-897c-47b0-a943-de9a18ddd102
+
+[2026-06-07 16:54:38.183] info: [remote-destination-provider] received response to message action:end step:links uuid:ec553dc3-897c-47b0-a943-de9a18ddd102 sent:0
+
+[2026-06-07 16:54:38.183] info: [remote-destination-provider] received response to message action:end step:links uuid:ec553dc3-897c-47b0-a943-de9a18ddd102 sent:0
+
+[2026-06-07 16:54:38.184] info: [local-source-provider] creating configuration read stream
+
+[2026-06-07 16:54:38.191] info: [remote-destination-provider] dispatching message action:start step:configuration uuid:f41a523c-f2e7-46fd-af8a-5d2afeceba6c sent:0
+
+[2026-06-07 16:54:38.376] info: [push-handler] received transfer action:start step:step uuid:f41a523c-f2e7-46fd-af8a-5d2afeceba6c
+
+[2026-06-07 16:54:38.376] info: [remote-destination-provider] received response to message action:start step:configuration uuid:f41a523c-f2e7-46fd-af8a-5d2afeceba6c sent:0
+
+[2026-06-07 16:54:38.376] info: [local-destination-provider] creating configuration write stream
+
+[2026-06-07 16:54:38.376] info: [remote-destination-provider] received response to message action:start step:configuration uuid:f41a523c-f2e7-46fd-af8a-5d2afeceba6c sent:0
+
+[2026-06-07 16:54:38.376] info: [remote-destination-provider] received response to message action:start step:configuration uuid:f41a523c-f2e7-46fd-af8a-5d2afeceba6c sent:0
+
+[2026-06-07 16:54:38.398] info: [remote-destination-provider] dispatching message action:stream step:configuration uuid:1f7836af-233a-4aee-994f-9f39b501041f sent:0
+
+[2026-06-07 16:54:38.651] info: [push-handler] received transfer action:stream step:step uuid:1f7836af-233a-4aee-994f-9f39b501041f
+
+[2026-06-07 16:54:38.652] info: [remote-destination-provider] received response to message action:stream step:configuration uuid:1f7836af-233a-4aee-994f-9f39b501041f sent:0
+
+[2026-06-07 16:54:38.840] info: [remote-destination-provider] received response to message action:stream step:configuration uuid:1f7836af-233a-4aee-994f-9f39b501041f sent:0
+
+[2026-06-07 16:54:38.841] info: [remote-destination-provider] dispatching message action:end step:configuration uuid:a843dc2f-8bc5-44bf-90ea-70f205977f2d sent:0
+
+[2026-06-07 16:54:39.032] info: [push-handler] received transfer action:end step:step uuid:a843dc2f-8bc5-44bf-90ea-70f205977f2d
+
+[2026-06-07 16:54:39.032] info: [remote-destination-provider] received response to message action:end step:configuration uuid:a843dc2f-8bc5-44bf-90ea-70f205977f2d sent:0
+
+[2026-06-07 16:54:39.033] info: [remote-destination-provider] received response to message action:end step:configuration uuid:a843dc2f-8bc5-44bf-90ea-70f205977f2d sent:0
+
+[2026-06-07 16:54:39.037] info: [remote-destination-provider] dispatching message action:close  uuid:0d91c13c-ce54-4cc5-ac6e-cfd655412e5b sent:0
+
+[2026-06-07 16:54:39.223] info: [push-handler] received transfer action:close step:action uuid:0d91c13c-ce54-4cc5-ac6e-cfd655412e5b
+
+[2026-06-07 16:54:39.223] info: [remote-destination-provider] received response to message action:close  uuid:0d91c13c-ce54-4cc5-ac6e-cfd655412e5b sent:0
+
+[2026-06-07 16:54:39.223] info: [remote-destination-provider] received response to message action:close  uuid:0d91c13c-ce54-4cc5-ac6e-cfd655412e5b sent:0
+
+[2026-06-07 16:54:39.224] info: [remote-destination-provider] dispatching message command:end uuid:895faf2b-9e49-40cc-bdf2-29fab1ac1907 sent:0
+
+[2026-06-07 16:54:39.412] info: [push-handler] received command:end uuid:895faf2b-9e49-40cc-bdf2-29fab1ac1907
+
+[2026-06-07 16:54:39.412] info: [remote-destination-provider] received response to message command: end uuid: 895faf2b-9e49-40cc-bdf2-29fab1ac1907 sent: 0
+
+[2026-06-07 16:54:39.412] info: [remote-destination-provider] received response to message command: end uuid: 895faf2b-9e49-40cc-bdf2-29fab1ac1907 sent: 0
+
