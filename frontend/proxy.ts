@@ -1,45 +1,53 @@
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { STRAPI_BASE_URL } from "./lib/strapi";
 
 const protectedRoutes = ["/dashboard"];
-
-function checkIsProtectedRoute(path: string) {
-    return protectedRoutes.includes(path);
-}
+const authRoutes = [
+    "/signin",
+    "/signup",
+];
 
 export async function proxy(request: NextRequest) {
     const currentPath = request.nextUrl.pathname;
 
-    const isProtectedRoute = checkIsProtectedRoute(currentPath);
+    const isProtectedRoute = protectedRoutes.includes(currentPath);
+    const isAuthRoute = authRoutes.includes(currentPath);
 
-    if (!isProtectedRoute) return NextResponse.next(); // Se deja pasar.
+    if (!isProtectedRoute && !isAuthRoute) {
+        return NextResponse.next();
+    }// Se deja pasar.
 
-    // La ruta es una ruta protegida, por lo que debemos verificar si el usuario está autenticado.
+    // La ruta requiere una validación de autenticación.
     try {
         // 1. Validar si el usuario tiene el token (jwt)
         // 2. Si el usuario está en la base de datos
         // 3. Si el usuaro está activo (Bloqueado?)
 
-        const cookieStore = await cookies();
-        const jwt = cookieStore.get("jwt")?.value;
+        const jwt = request.cookies.get("jwt")?.value;
 
-        if (!jwt) {
+        if (isProtectedRoute && !jwt) {
             return NextResponse.redirect(new URL("/signin", request.url));
+        }
+
+        if (isAuthRoute) {
+            if (jwt) {
+                return NextResponse.redirect(new URL("/dashboard", request.url));
+            }
+
+            return NextResponse.next();
         }
 
         const response = await fetch(`${STRAPI_BASE_URL}/api/users/me`, {
             headers: {
                 "Authorization": `Bearer ${jwt}`,
-                "Content-Type": "application/json",
             }
         });
-        const userResponse = await response.json();
-        // console.log(userResponse);
 
-        if (!userResponse) {
+        if (!response.ok) {
             return NextResponse.redirect(new URL("/signin", request.url));
         }
+        // console.log(userResponse);
+
 
         // Todo fue bien. Entonces se le permite ingresar.
         return NextResponse.next();
@@ -52,8 +60,6 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
     matcher: [
-        "/((?!api|_next/static|_next/image|favicon.ico).*)",
-        "/dashboard",
-        "/dashboard/:path*",
-    ]
-}
+        '/((?!api|_next/static|_next/image|.*\\.png$).*)',
+    ],
+};
