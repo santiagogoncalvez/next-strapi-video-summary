@@ -23,7 +23,7 @@ import { FormError } from "./form-error";
 const styles = {
    container: "w-full max-w-md",
    header: "space-y-1",
-   title: "text-3xl font-bold",
+   title: "text-3xl font-bold text-center",
    content: "space-y-4",
    fieldGroup: "space-y-2",
    footer: "flex flex-col",
@@ -51,31 +51,33 @@ export function SigninForm() {
          <form action={formAction}>
             <Card>
                <CardHeader className={styles.header}>
-                  <CardTitle className={styles.title}>Sign In</CardTitle>
-                  <CardDescription>
-                     Enter your details to sign in to your account
+                  <CardTitle className={styles.title}>Iniciar sesión</CardTitle>
+                  <CardDescription className="text-center">
+                     Introduce tus datos para iniciar sesión en tu cuenta.
                   </CardDescription>
                </CardHeader>
                <CardContent className={styles.content}>
                   <div className={styles.fieldGroup}>
-                     <Label htmlFor="identifier">Username or email</Label>
+                     <Label htmlFor="identifier">
+                        Nombre de usuario o correo electrónico
+                     </Label>
                      <Input
                         id="identifier"
                         name="identifier"
                         type="text"
-                        placeholder="username or email"
+                        placeholder="pablo o pablo@gmail.com"
                         defaultValue={formState.data?.identifier ?? ""}
                      />
 
                      <FormError error={formState.zodErrors?.identifier} />
                   </div>
                   <div className={styles.fieldGroup}>
-                     <Label htmlFor="password">Password</Label>
+                     <Label htmlFor="password">Contraseña</Label>
                      <Input
                         id="password"
                         name="password"
                         type="password"
-                        placeholder="password"
+                        placeholder="Ingresar contraseña"
                         defaultValue={formState.data?.password ?? ""}
                      />
 
@@ -85,7 +87,7 @@ export function SigninForm() {
                <CardFooter className={styles.footer}>
                   <Button className={styles.button} disabled={isPending}>
                      {isPending && <Loader2 className="animate-spin" />}
-                     {!isPending && "Sign In"}
+                     {!isPending && "Iniciar sesión"}
                   </Button>
                   {formState.strapiErrors && (
                      <FormError error={[formState.strapiErrors.message]} />
@@ -93,9 +95,9 @@ export function SigninForm() {
                </CardFooter>
             </Card>
             <div className={styles.prompt}>
-               Don&apos;t have an account?
+               ¿No tienes una cuenta?
                <Link className={styles.link} href="signup">
-                  Sign Up
+                  Crear cuenta
                </Link>
             </div>
          </form>

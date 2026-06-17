@@ -1,15 +1,16 @@
+import { BUTTON_VARIANTS } from "@/constants/styles";
 import { STRAPI_BASE_URL } from "@/lib/strapi";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 const styles = {
    header: "relative h-[600px] rounded-2xl overflow-hidden rounded-4xl",
    backgroundImage: "absolute inset-0 object-cover w-full h-full ",
    overlay:
-      "relative z-10 flex flex-col items-center justify-center h-full text-center text-white bg-white/95",
+      "relative flex flex-col items-center justify-center h-full text-center bg-white/98",
    heading: "text-black text-4xl font-bold md:text-5xl lg:text-6xl",
-   subheading: "mt-4 text-black text-lg md:text-xl lg:text-2xl",
-   button:
-      "mt-8 inline-flex items-center justify-center px-6 py-3 text-base font-medium text-whhite bg-black rounded-md shadow hover:bg-gray-800 transition-colors",
+   subheading: "mt-8 text-black text-lg md:text-xl lg:text-2xl",
+   button: "mt-8 text-base font-medium px-6 py-6 ",
 };
 
 export function HeroSection({
@@ -19,12 +20,13 @@ export function HeroSection({
       heading: string;
       subHeading: string;
       link: { href: string; label: string };
+      secondaryLink: { href: string; label: string };
       image: { url: string; alternativeText: string };
    };
 }) {
    if (!data) return null;
 
-   const { heading, subHeading, link } = data;
+   const { heading, subHeading, link, secondaryLink } = data;
 
    const imageURL = data.image?.url.startsWith("http")
       ? data.image.url
@@ -32,7 +34,7 @@ export function HeroSection({
 
    return (
       <header className={styles.header}>
-         <img
+         {/* <img
             alt="Background"
             className={styles.backgroundImage}
             height={1080}
@@ -42,13 +44,36 @@ export function HeroSection({
                objectFit: "cover",
             }}
             width={1920}
-         />
+         /> */}
          <div className={styles.overlay}>
             <h1 className={styles.heading}>{heading}</h1>
             <p className={styles.subheading}>{subHeading}</p>
-            <Link className={styles.button} href={link.href}>
-               {link.label}
-            </Link>
+            <div className="flex gap-4">
+               <Link
+                  className={cn(
+                     BUTTON_VARIANTS({
+                        variant: "default",
+                        size: "lg",
+                        className: styles.button,
+                     }),
+                  )}
+                  href={link.href}
+               >
+                  {link.label}
+               </Link>
+               <Link
+                  className={cn(
+                     BUTTON_VARIANTS({
+                        variant: "outline",
+                        size: "lg",
+                        className: styles.button,
+                     }),
+                  )}
+                  href={secondaryLink.href}
+               >
+                  {secondaryLink.label}
+               </Link>
+            </div>
          </div>
       </header>
    );

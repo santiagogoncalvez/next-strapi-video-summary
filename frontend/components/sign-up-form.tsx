@@ -22,7 +22,7 @@ import { FormError } from "./form-error";
 const styles = {
    container: "w-full max-w-md",
    header: "space-y-1",
-   title: "text-3xl font-bold",
+   title: "text-3xl font-bold text-center",
    content: "space-y-4",
    fieldGroup: "space-y-2",
    footer: "flex flex-col",
@@ -52,57 +52,57 @@ export function SignupForm() {
          <form action={formAction}>
             <Card>
                <CardHeader className={styles.header}>
-                  <CardTitle className={styles.title}>Sign Up</CardTitle>
-                  <CardDescription>
-                     Enter your details to create a new account
+                  <CardTitle className={styles.title}>Crear cuenta</CardTitle>
+                  <CardDescription className="text-center">
+                     Introduce tus datos para crear una nueva cuenta.
                   </CardDescription>
                </CardHeader>
                <CardContent className={styles.content}>
                   <div className={styles.fieldGroup}>
-                     <Label htmlFor="username">Username</Label>
+                     <Label htmlFor="username">Nombre de usuario</Label>
                      <Input
                         id="username"
                         name="username"
                         type="text"
-                        placeholder="username"
+                        placeholder="pablo"
                         defaultValue={formState.data?.username ?? ""}
                      />
                      <FormError error={formState.zodErrors?.username} />
                   </div>
                   <div className={styles.fieldGroup}>
-                     <Label htmlFor="email">Email</Label>
+                     <Label htmlFor="email">Correo electrónico</Label>
                      <Input
                         id="email"
                         name="email"
                         type="email"
-                        placeholder="name@example.com"
+                        placeholder="pablo@gmail.com"
                         defaultValue={formState.data?.email ?? ""}
                      />
                      <FormError error={formState.zodErrors?.email} />
                   </div>
                   <div className={styles.fieldGroup}>
-                     <Label htmlFor="password">Password</Label>
+                     <Label htmlFor="password">Constraseña</Label>
                      <Input
                         id="password"
                         name="password"
                         type="password"
-                        placeholder="password"
+                        placeholder="Ingresar contraseña"
                         defaultValue={formState.data?.password ?? ""}
                      />
                      <FormError error={formState.zodErrors?.password} />
                   </div>
                </CardContent>
                <CardFooter className={`${styles.footer} ${styles.fieldGroup}`}>
-                  <Button  className={`${styles.button}`}>Sign Up</Button>
+                  <Button className={`${styles.button}`}>Crear cuenta</Button>
                   {formState.strapiErrors && (
                      <FormError error={[formState.strapiErrors.message]} />
                   )}
                </CardFooter>
             </Card>
             <div className={styles.prompt}>
-               Have an account?
+               ¿Tienes una cuenta?
                <Link className={styles.link} href="signin">
-                  Sign In
+                  Iniciar sesión
                </Link>
             </div>
          </form>

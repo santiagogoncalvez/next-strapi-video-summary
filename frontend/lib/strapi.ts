@@ -14,7 +14,10 @@ const QUERY_HOME_PAGE = {
                         },
                         link: {
                             populate: true
-                        }
+                        },
+                        secondaryLink: {
+                            populate: true
+                        },
                     }
                 }
             }
