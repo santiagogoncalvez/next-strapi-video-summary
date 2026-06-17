@@ -25,6 +25,7 @@ export interface LayoutHeroSection extends Struct.ComponentSchema {
     heading: Schema.Attribute.String;
     image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     link: Schema.Attribute.Component<'component.link', false>;
+    secondaryLink: Schema.Attribute.Component<'component.link', false>;
     subHeading: Schema.Attribute.Text;
   };
 }
