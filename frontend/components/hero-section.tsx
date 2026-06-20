@@ -1,5 +1,5 @@
 import { BUTTON_VARIANTS } from "@/constants/styles";
-import { STRAPI_BASE_URL } from "@/lib/strapi";
+// import { STRAPI_BASE_URL } from "@/lib/strapi";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
@@ -28,9 +28,9 @@ export function HeroSection({
 
    const { heading, subHeading, link, secondaryLink } = data;
 
-   const imageURL = data.image?.url.startsWith("http")
-      ? data.image.url
-      : `${STRAPI_BASE_URL}${data.image.url}`;
+   // const imageURL = data.image?.url.startsWith("http")
+   //    ? data.image.url
+   //    : `${STRAPI_BASE_URL}${data.image.url}`;
 
    return (
       <header className={styles.header}>
