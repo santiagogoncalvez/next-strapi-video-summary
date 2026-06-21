@@ -96,7 +96,7 @@ export function SigninForm() {
             </Card>
             <div className={styles.prompt}>
                ¿No tienes una cuenta?
-               <Link className={styles.link} href="signup">
+               <Link className={styles.link} href="/auth/signup">
                   Crear cuenta
                </Link>
             </div>

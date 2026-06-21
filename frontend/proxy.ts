@@ -3,8 +3,8 @@ import { STRAPI_BASE_URL } from "./lib/strapi";
 
 const protectedRoutes = ["/dashboard"];
 const authRoutes = [
-    "/signin",
-    "/signup",
+    "/auth/login",
+    "/auth/signup",
 ];
 
 export async function proxy(request: NextRequest) {
@@ -26,7 +26,7 @@ export async function proxy(request: NextRequest) {
         const jwt = request.cookies.get("jwt")?.value;
 
         if (isProtectedRoute && !jwt) {
-            return NextResponse.redirect(new URL("/signin", request.url));
+            return NextResponse.redirect(new URL("/auth/login", request.url));
         }
 
         if (isAuthRoute) {
@@ -44,7 +44,7 @@ export async function proxy(request: NextRequest) {
         });
 
         if (!response.ok) {
-            return NextResponse.redirect(new URL("/signin", request.url));
+            return NextResponse.redirect(new URL("/auth/login", request.url));
         }
         // console.log(userResponse);
 
@@ -54,7 +54,7 @@ export async function proxy(request: NextRequest) {
 
     } catch (error) {
         console.error("Error verifying user authentication", error);
-        return NextResponse.redirect(new URL("/signin", request.url));
+        return NextResponse.redirect(new URL("/auth/login", request.url));
     }
 };
 

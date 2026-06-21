@@ -1,5 +1,4 @@
 import { getHomePage } from "@/lib/strapi";
-import { inter } from "./ui/fonts";
 import { HeroSection } from "@/components/hero-section";
 
 export async function generateMetadata() {
@@ -18,8 +17,8 @@ export default async function Home() {
    const [heroSection] = strapiData.sections || [];
 
    return (
-      <main className={` container mx-auto py-6`}>
+      <div className={"container mx-auto"}>
          <HeroSection data={{ ...heroSection, title, description }} />
-      </main>
+      </div>
    );
 }
