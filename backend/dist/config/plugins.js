@@ -3,14 +3,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const config = ({ env }) => ({
     email: {
         config: {
-            provider: 'sendgrid', // For community providers pass the full package name (e.g. provider: 'strapi-provider-email-mandrill')
+            provider: "sendgrid",
             providerOptions: {
-                apiKey: env('SENDGRID_API_KEY'), // TODO: crear api key y crear la variable de entorno. Hacerlo
+                apiKey: env("SENDGRID_API_KEY"), // Required
             },
             settings: {
-                defaultFrom: 'juliasedefdjian@strapi.io',
-                defaultReplyTo: 'juliasedefdjian@strapi.io',
-                testAddress: 'santiago.goncalvez.dev@gmail.com',
+                defaultFrom: env("SENDGRID_EMAIL"),
+                defaultReplyTo: env("SENDGRID_EMAIL"),
             },
         },
     },
