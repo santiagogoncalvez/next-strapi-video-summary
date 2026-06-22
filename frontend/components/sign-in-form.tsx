@@ -22,8 +22,6 @@ import { FormError } from "./form-error";
 import Logo from "./Logo";
 import { SIGN_IN_FORM_STYLES } from "@/constants/styles";
 
-
-
 const INITIAL_STATE: FormState = {
    success: false,
    message: undefined,
@@ -44,7 +42,9 @@ export function SigninForm() {
          <form className="w-full" action={formAction}>
             <Card>
                <CardHeader className={SIGN_IN_FORM_STYLES.header}>
-                  <CardTitle className={SIGN_IN_FORM_STYLES.title}>Iniciar sesión</CardTitle>
+                  <CardTitle className={SIGN_IN_FORM_STYLES.title}>
+                     Iniciar sesión
+                  </CardTitle>
                   <CardDescription className="text-center">
                      Introduce tus datos para iniciar sesión en tu cuenta.
                   </CardDescription>
@@ -77,22 +77,32 @@ export function SigninForm() {
                      <FormError error={formState.zodErrors?.password} />
                   </div>
                </CardContent>
-               <CardFooter className={SIGN_IN_FORM_STYLES.footer}>
-                  <Button className={SIGN_IN_FORM_STYLES.button} disabled={isPending}>
+               <CardFooter
+                  className={`${SIGN_IN_FORM_STYLES.footer} ${SIGN_IN_FORM_STYLES.fieldGroup}`}
+               >
+                  <Button
+                     className={SIGN_IN_FORM_STYLES.button}
+                     disabled={isPending}
+                     size="lg"
+                  >
                      {isPending && <Loader2 className="animate-spin" />}
                      {!isPending && "Iniciar sesión"}
                   </Button>
                   {formState.strapiErrors && (
                      <FormError error={[formState.strapiErrors.message]} />
                   )}
+
+                  <div className={SIGN_IN_FORM_STYLES.prompt}>
+                     ¿No tienes una cuenta?
+                     <Link
+                        className={SIGN_IN_FORM_STYLES.link}
+                        href="/auth/signup"
+                     >
+                        Crear cuenta
+                     </Link>
+                  </div>
                </CardFooter>
             </Card>
-            <div className={SIGN_IN_FORM_STYLES.prompt}>
-               ¿No tienes una cuenta?
-               <Link className={SIGN_IN_FORM_STYLES.link} href="/auth/signup">
-                  Crear cuenta
-               </Link>
-            </div>
          </form>
       </div>
    );

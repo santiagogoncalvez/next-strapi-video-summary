@@ -39,7 +39,7 @@ export function SignupForm() {
 
    return (
       <div className={SIGN_UP_FORM_STYLES.container}>
-         <Logo/>
+         <Logo />
          <form className="w-full" action={formAction}>
             <Card>
                <CardHeader className={SIGN_UP_FORM_STYLES.header}>
@@ -101,20 +101,27 @@ export function SignupForm() {
                <CardFooter
                   className={`${SIGN_UP_FORM_STYLES.footer} ${SIGN_UP_FORM_STYLES.fieldGroup}`}
                >
-                  <Button className={`${SIGN_UP_FORM_STYLES.button}`}>
+                  <Button
+                     className={`${SIGN_UP_FORM_STYLES.button} `}
+                     size="lg"
+                  >
                      Crear cuenta
                   </Button>
                   {formState.strapiErrors && (
                      <FormError error={[formState.strapiErrors.message]} />
                   )}
+
+                  <div className={SIGN_UP_FORM_STYLES.prompt}>
+                     ¿Tienes una cuenta?
+                     <Link
+                        className={SIGN_UP_FORM_STYLES.link}
+                        href="/auth/login"
+                     >
+                        Iniciar sesión
+                     </Link>
+                  </div>
                </CardFooter>
             </Card>
-            <div className={SIGN_UP_FORM_STYLES.prompt}>
-               ¿Tienes una cuenta?
-               <Link className={SIGN_UP_FORM_STYLES.link} href="/auth/login">
-                  Iniciar sesión
-               </Link>
-            </div>
          </form>
       </div>
    );

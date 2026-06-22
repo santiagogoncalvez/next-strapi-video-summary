@@ -1,10 +1,9 @@
 import { BUTTON_VARIANTS } from "@/constants/styles";
 import { NavBarLinks } from "@/lib/definitions";
 import { cn } from "@/lib/utils";
-import clsx from "clsx";
 import Link from "next/link";
 
-const styles = "text-base font-medium px-6 py-6 ";
+const styles = "text-base font-medium px-4 py-6 ";
 
 interface Props extends NavBarLinks {
    isHero?: boolean;

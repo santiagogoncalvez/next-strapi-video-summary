@@ -8,7 +8,7 @@ export const BUTTON_VARIANTS = cva(
             variant: {
                 default: "bg-primary text-primary-foreground [a]:hover:bg-primary/80",
                 outline:
-                    "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
+                    "border-foreground/10 bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
                 secondary:
                     "bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
                 ghost:
@@ -43,10 +43,10 @@ export const SIGN_UP_FORM_STYLES = {
    header: "space-y-1",
    title: "text-3xl font-bold text-center",
    content: "space-y-4",
-   fieldGroup: "space-y-2",
+   fieldGroup: "space-y-4",
    footer: "flex flex-col",
    button: "w-full",
-   prompt: "mt-4 text-center text-sm",
+   prompt: "mt-0 text-center text-sm",
    link: "ml-2",
 };
 
@@ -55,9 +55,9 @@ export const SIGN_IN_FORM_STYLES = {
    header: "space-y-1",
    title: "text-3xl font-bold text-center",
    content: "space-y-4",
-   fieldGroup: "space-y-2",
+   fieldGroup: "space-y-4",
    footer: "flex flex-col",
    button: "w-full",
-   prompt: "mt-4 text-center text-sm",
+   prompt: "mt-0 text-center text-sm",
    link: "ml-2",
 };

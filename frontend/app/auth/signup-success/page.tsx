@@ -1,22 +1,52 @@
-import { SIGN_UP_FORM_STYLES } from "@/constants/styles";
+import Logo from "@/components/Logo";
+import {
+   Card,
+   CardDescription,
+   CardFooter,
+   CardHeader,
+   CardTitle,
+} from "@/components/ui/card";
+import {
+   BUTTON_VARIANTS,
+   SIGN_IN_FORM_STYLES,
+   SIGN_UP_FORM_STYLES,
+} from "@/constants/styles";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 export default function EmailConfirmed() {
    return (
-      <div className="flex min-h-screen items-center justify-center px-4">
-         <div className="w-full max-w-md p-6 space-y-6 rounded-lg  text-center">
-            <h2 className="text-2xl font-semibold">
-               Correo electrónico confirmado
-            </h2>
-
-            <p className="text-gray-700 text-sm">
-               Tu correo electrónico ha sido verificado correctamente. Ahora
-               puedes iniciar sesión en tu cuenta.
-            </p>
-
-            <Link className={SIGN_UP_FORM_STYLES.link} href="/auth/login">
-               Iniciar sesión
-            </Link>
+      <div className={SIGN_IN_FORM_STYLES.container}>
+         <Logo />
+         <div className="w-full">
+            <Card>
+               <CardHeader className={SIGN_IN_FORM_STYLES.header}>
+                  <CardTitle className={SIGN_IN_FORM_STYLES.title}>
+                     Correo electrónico confirmado
+                  </CardTitle>
+                  <CardDescription className="text-center">
+                     Tu correo electrónico ha sido verificado correctamente.
+                     Ahora puedes iniciar sesión en tu cuenta.
+                  </CardDescription>
+               </CardHeader>
+               <CardFooter
+                  
+                  className={`${SIGN_IN_FORM_STYLES.footer} ${SIGN_IN_FORM_STYLES.fieldGroup}`}
+               >
+                  <Link
+                     className={cn(
+                        BUTTON_VARIANTS({
+                           variant: "default",
+                           size: "lg",
+                           className: "w-full"
+                        }),
+                     )}
+                     href="/auth/login"
+                  >
+                     Ir a iniciar sesión
+                  </Link>
+               </CardFooter>
+            </Card>
          </div>
       </div>
    );
