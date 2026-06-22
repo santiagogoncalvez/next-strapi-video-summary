@@ -19,18 +19,10 @@ import { FormState } from "@/validations/auth";
 import { actions } from "@/actions";
 import { useActionState } from "react";
 import { FormError } from "./form-error";
+import Logo from "./Logo";
+import { SIGN_IN_FORM_STYLES } from "@/constants/styles";
 
-const styles = {
-   container: "w-full max-w-md",
-   header: "space-y-1",
-   title: "text-3xl font-bold text-center",
-   content: "space-y-4",
-   fieldGroup: "space-y-2",
-   footer: "flex flex-col",
-   button: "w-full",
-   prompt: "mt-4 text-center text-sm",
-   link: "ml-2",
-};
+
 
 const INITIAL_STATE: FormState = {
    success: false,
@@ -47,17 +39,18 @@ export function SigninForm() {
    );
 
    return (
-      <div className={styles.container}>
-         <form action={formAction}>
+      <div className={SIGN_IN_FORM_STYLES.container}>
+         <Logo />
+         <form className="w-full" action={formAction}>
             <Card>
-               <CardHeader className={styles.header}>
-                  <CardTitle className={styles.title}>Iniciar sesión</CardTitle>
+               <CardHeader className={SIGN_IN_FORM_STYLES.header}>
+                  <CardTitle className={SIGN_IN_FORM_STYLES.title}>Iniciar sesión</CardTitle>
                   <CardDescription className="text-center">
                      Introduce tus datos para iniciar sesión en tu cuenta.
                   </CardDescription>
                </CardHeader>
-               <CardContent className={styles.content}>
-                  <div className={styles.fieldGroup}>
+               <CardContent className={SIGN_IN_FORM_STYLES.content}>
+                  <div className={SIGN_IN_FORM_STYLES.fieldGroup}>
                      <Label htmlFor="identifier">
                         Nombre de usuario o correo electrónico
                      </Label>
@@ -71,7 +64,7 @@ export function SigninForm() {
 
                      <FormError error={formState.zodErrors?.identifier} />
                   </div>
-                  <div className={styles.fieldGroup}>
+                  <div className={SIGN_IN_FORM_STYLES.fieldGroup}>
                      <Label htmlFor="password">Contraseña</Label>
                      <Input
                         id="password"
@@ -84,8 +77,8 @@ export function SigninForm() {
                      <FormError error={formState.zodErrors?.password} />
                   </div>
                </CardContent>
-               <CardFooter className={styles.footer}>
-                  <Button className={styles.button} disabled={isPending}>
+               <CardFooter className={SIGN_IN_FORM_STYLES.footer}>
+                  <Button className={SIGN_IN_FORM_STYLES.button} disabled={isPending}>
                      {isPending && <Loader2 className="animate-spin" />}
                      {!isPending && "Iniciar sesión"}
                   </Button>
@@ -94,9 +87,9 @@ export function SigninForm() {
                   )}
                </CardFooter>
             </Card>
-            <div className={styles.prompt}>
+            <div className={SIGN_IN_FORM_STYLES.prompt}>
                ¿No tienes una cuenta?
-               <Link className={styles.link} href="/auth/signup">
+               <Link className={SIGN_IN_FORM_STYLES.link} href="/auth/signup">
                   Crear cuenta
                </Link>
             </div>

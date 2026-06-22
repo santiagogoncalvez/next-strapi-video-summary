@@ -1,26 +1,34 @@
+import { Credentials } from "@/lib/definitions";
 import { z } from "zod";
 
 export const SigninFormSchema = z.object({
     identifier: z
         .string()
-        .min(3, "Username or email must be at least 3 characters"),
+        .min(3, "El nombre de usuario o correo electrónico debe tener al menos 3 caracteres"),
     password: z
         .string()
-        .min(6, "Password must be at least 6 characters")
-        .max(100, "Password must be less than 100 characters"),
+        .min(6, "La contraseña debe tener al menos 6 caracteres.")
+        .max(100, "La contraseña debe tener menos de 100 caracteres."),
 });
 
 export const SignupFormSchema = z.object({
     username: z
         .string()
-        .min(3, "Username must be at least 3 characters")
-        .max(20, "Username must be less than 20 characters"),
-    email: z.email("Please enter a valid email address"),
+        .min(3, "El nombre de usuario debe tener al menos 3 caracteres.")
+        .max(20, "El nombre de usuario debe tener menos de 20 caracteres."),
+    email: z.email("Por favor, introduce una dirección de correo electrónico válida"),
     password: z
         .string()
-        .min(6, "Password must be at least 6 characters")
-        .max(100, "Password must be less than 100 characters"),
-});
+        .min(6, "La contraseña debe tener al menos 6 caracteres.")
+        .max(100, "La contraseña debe tener menos de 100 caracteres."),
+    confirmPassword: z
+        .string()
+        .min(6, "La contraseña debe tener al menos 6 caracteres.")
+        .max(100, "La contraseña debe tener menos de 100 caracteres."),
+}).refine((data) => data.password === data.confirmPassword, {
+    message: "Las contraseñas no coinciden",
+    path: ["confirmPassword"],
+});;
 
 export type SigninFormValues = z.infer<typeof SigninFormSchema>;
 export type SignupFormValues = z.infer<typeof SignupFormSchema>;
@@ -28,12 +36,7 @@ export type SignupFormValues = z.infer<typeof SignupFormSchema>;
 export type FormState = {
     success?: boolean;
     message?: string;
-    data?: {
-        identifier?: string;
-        username?: string;
-        email?: string;
-        password?: string;
-    };
+    data?: Credentials;
     strapiErrors?: {
         status: number;
         name: string;
@@ -45,5 +48,6 @@ export type FormState = {
         username?: string[];
         email?: string[];
         password?: string[];
+        confirmPassword?: string[];
     } | null;
 };

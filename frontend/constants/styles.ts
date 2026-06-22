@@ -37,3 +37,27 @@ export const BUTTON_VARIANTS = cva(
         },
     }
 )
+
+export const SIGN_UP_FORM_STYLES = {
+   container: "w-full max-w-md flex flex-col gap-4 justify-center items-center",
+   header: "space-y-1",
+   title: "text-3xl font-bold text-center",
+   content: "space-y-4",
+   fieldGroup: "space-y-2",
+   footer: "flex flex-col",
+   button: "w-full",
+   prompt: "mt-4 text-center text-sm",
+   link: "ml-2",
+};
+
+export const SIGN_IN_FORM_STYLES = {
+    container: "w-full max-w-md flex flex-col gap-4 justify-center items-center",
+   header: "space-y-1",
+   title: "text-3xl font-bold text-center",
+   content: "space-y-4",
+   fieldGroup: "space-y-2",
+   footer: "flex flex-col",
+   button: "w-full",
+   prompt: "mt-4 text-center text-sm",
+   link: "ml-2",
+};

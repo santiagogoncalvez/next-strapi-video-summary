@@ -1,14 +1,11 @@
-import { BUTTON_VARIANTS } from "@/constants/styles";
 // import { STRAPI_BASE_URL } from "@/lib/strapi";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
 import NavBar from "./NavBar";
 
 const styles = {
    header: "relative h-[500px] rounded-2xl overflow-hidden rounded-4xl",
    backgroundImage: "absolute inset-0 object-cover w-full h-full ",
    overlay:
-      "relative flex flex-col items-center justify-center h-full text-center bg-white/98",
+      "relative flex flex-col items-center justify-center h-full text-center",
    heading: "text-black text-4xl font-bold md:text-5xl lg:text-6xl",
    subheading: "mt-8 text-black text-lg md:text-xl lg:text-2xl",
    button: "mt-8 ",

@@ -5,6 +5,7 @@ import { FormState, SigninFormSchema, SignupFormSchema } from "@/validations/aut
 import z from "zod";
 import { redirect } from "next/navigation";
 import { removeAuthCookie, setAuthCookie } from "@/lib/auth";
+import { Credentials } from "@/lib/definitions";
 
 
 export async function registerUserAction(prevState: FormState, formData: FormData): Promise<FormState> {
@@ -12,12 +13,13 @@ export async function registerUserAction(prevState: FormState, formData: FormDat
 
     const fields = {
         username: formData.get('username') as string,
-        password: formData.get('password') as string,
         email: formData.get('email') as string,
+        password: formData.get('password') as string,
+        confirmPassword: formData.get('confirmPassword') as string,
     };
 
     const validatedFields = SignupFormSchema.safeParse(fields);
-    
+
     if (!validatedFields.success) {
         const flattenedErrors = z.flattenError(validatedFields.error);
 
@@ -35,22 +37,23 @@ export async function registerUserAction(prevState: FormState, formData: FormDat
         }
     }
 
-    const response = await registerUserService(validatedFields.data);
-    
+    const response: any = await registerUserService(validatedFields.data as Credentials);
+
     if (!response || response.error) {
         return {
             success: false,
             message: "Registration error",
             strapiErrors: response?.error,
             zodErrors: null,
-            data: fields
+            data: fields as Credentials
         }
     }
 
-    await setAuthCookie(response.jwt);
+    // await setAuthCookie(response.jwt);
 
-    redirect("/dashboard");
-} 
+    // redirect to confirm email
+    redirect("/auth/confirm-email");
+}
 
 export async function loginUserAction(
     prevState: FormState,
@@ -96,5 +99,5 @@ export async function loginUserAction(
 export async function logoutUserAction() {
     await removeAuthCookie();
 
-    redirect("/signin");
+    redirect("/auth/login");
 }

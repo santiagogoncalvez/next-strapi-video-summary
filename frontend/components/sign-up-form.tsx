@@ -18,25 +18,15 @@ import { actions } from "@/actions";
 import { useActionState } from "react";
 import { FormState } from "@/validations/auth";
 import { FormError } from "./form-error";
-
-const styles = {
-   container: "w-full max-w-md",
-   header: "space-y-1",
-   title: "text-3xl font-bold text-center",
-   content: "space-y-4",
-   fieldGroup: "space-y-2",
-   footer: "flex flex-col",
-   button: "w-full",
-   prompt: "mt-4 text-center text-sm",
-   link: "ml-2",
-};
+import { SIGN_UP_FORM_STYLES } from "@/constants/styles";
+import Logo from "./Logo";
 
 const INITIAL_STATE: FormState = {
    success: false,
    message: undefined,
    strapiErrors: null,
    zodErrors: null,
-   data: { username: "", password: "", email: "" },
+   data: { username: "", email: "", password: "", confirmPassword: "" },
 };
 
 export function SignupForm() {
@@ -48,17 +38,20 @@ export function SignupForm() {
    // console.log(formState);
 
    return (
-      <div className={styles.container}>
-         <form action={formAction}>
+      <div className={SIGN_UP_FORM_STYLES.container}>
+         <Logo/>
+         <form className="w-full" action={formAction}>
             <Card>
-               <CardHeader className={styles.header}>
-                  <CardTitle className={styles.title}>Crear cuenta</CardTitle>
+               <CardHeader className={SIGN_UP_FORM_STYLES.header}>
+                  <CardTitle className={SIGN_UP_FORM_STYLES.title}>
+                     Crear cuenta
+                  </CardTitle>
                   <CardDescription className="text-center">
                      Introduce tus datos para crear una nueva cuenta.
                   </CardDescription>
                </CardHeader>
-               <CardContent className={styles.content}>
-                  <div className={styles.fieldGroup}>
+               <CardContent className={SIGN_UP_FORM_STYLES.content}>
+                  <div className={SIGN_UP_FORM_STYLES.fieldGroup}>
                      <Label htmlFor="username">Nombre de usuario</Label>
                      <Input
                         id="username"
@@ -69,7 +62,7 @@ export function SignupForm() {
                      />
                      <FormError error={formState.zodErrors?.username} />
                   </div>
-                  <div className={styles.fieldGroup}>
+                  <div className={SIGN_UP_FORM_STYLES.fieldGroup}>
                      <Label htmlFor="email">Correo electrónico</Label>
                      <Input
                         id="email"
@@ -80,7 +73,7 @@ export function SignupForm() {
                      />
                      <FormError error={formState.zodErrors?.email} />
                   </div>
-                  <div className={styles.fieldGroup}>
+                  <div className={SIGN_UP_FORM_STYLES.fieldGroup}>
                      <Label htmlFor="password">Constraseña</Label>
                      <Input
                         id="password"
@@ -91,17 +84,34 @@ export function SignupForm() {
                      />
                      <FormError error={formState.zodErrors?.password} />
                   </div>
+                  <div className={SIGN_UP_FORM_STYLES.fieldGroup}>
+                     <Label htmlFor="confirmPassword">
+                        Confirmar contraseña
+                     </Label>
+                     <Input
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        type="password"
+                        placeholder="Confirmar contraseña"
+                        defaultValue={formState.data?.confirmPassword ?? ""}
+                     />
+                     <FormError error={formState.zodErrors?.confirmPassword} />
+                  </div>
                </CardContent>
-               <CardFooter className={`${styles.footer} ${styles.fieldGroup}`}>
-                  <Button className={`${styles.button}`}>Crear cuenta</Button>
+               <CardFooter
+                  className={`${SIGN_UP_FORM_STYLES.footer} ${SIGN_UP_FORM_STYLES.fieldGroup}`}
+               >
+                  <Button className={`${SIGN_UP_FORM_STYLES.button}`}>
+                     Crear cuenta
+                  </Button>
                   {formState.strapiErrors && (
                      <FormError error={[formState.strapiErrors.message]} />
                   )}
                </CardFooter>
             </Card>
-            <div className={styles.prompt}>
+            <div className={SIGN_UP_FORM_STYLES.prompt}>
                ¿Tienes una cuenta?
-               <Link className={styles.link} href="/auth/login">
+               <Link className={SIGN_UP_FORM_STYLES.link} href="/auth/login">
                   Iniciar sesión
                </Link>
             </div>

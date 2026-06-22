@@ -1,5 +1,7 @@
 // import { cacheLife } from "next/cache";
 import qs from "qs"
+import { Credentials } from "./definitions";
+import axios from "axios";
 
 export const STRAPI_BASE_URL = process.env.STRAPI_BASE_URL || "http://localhost:1337";
 
@@ -54,25 +56,21 @@ export async function getStrapiData(url: string) {
     }
 }
 
-export async function registerUserService(userData: object) {
+export async function registerUserService(credentials: Credentials) {
     const url = `${STRAPI_BASE_URL}/api/auth/local/register`
 
     try {
-        const response = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(userData),
+        const response = await axios.post(url, {
+            username: credentials.username,
+            email: credentials.email,
+            password: credentials.password
         });
 
-        const data = await response.json();
-        // console.log(data);
-
-        return data;
-    } catch (error) {
-        console.error("Error registering user:", error);
-        throw error;
+        return response;
+    } catch (error: any) {
+        const logError = "Error registering user:";
+        console.error(logError, error);
+        throw error?.response?.data?.error?.message || logError;
     }
 }
 
