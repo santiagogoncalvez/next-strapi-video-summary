@@ -1,7 +1,7 @@
 "use server"
 
-import { loginUserService, registerUserService } from "@/lib/strapi";
-import { FormState, SigninFormSchema, SignupFormSchema } from "@/validations/auth";
+import { confirmEmailRequest, loginUserService, registerUserService } from "@/lib/strapi";
+import { FormState, resendConfirmEmailFormSchema, SigninFormSchema, SignupFormSchema } from "@/validations/auth";
 import z from "zod";
 import { redirect } from "next/navigation";
 import { removeAuthCookie, setAuthCookie } from "@/lib/auth";
@@ -23,11 +23,11 @@ export async function registerUserAction(prevState: FormState, formData: FormDat
     if (!validatedFields.success) {
         const flattenedErrors = z.flattenError(validatedFields.error);
 
-        // console.log("Validation errors:", flattenedErrors.fieldErrors);
+        // console.log("Error de validacións:", flattenedErrors.fieldErrors);
 
         return {
             success: false,
-            message: "Validation error.",
+            message: "Error de validación",
             strapiErrors: null,
             zodErrors: flattenedErrors.fieldErrors,
             data: {
@@ -51,8 +51,8 @@ export async function registerUserAction(prevState: FormState, formData: FormDat
 
     // await setAuthCookie(response.jwt);
 
-    // redirect to confirm email
-    redirect("/auth/confirm-email");
+    // redirect to confirm email with user email
+    redirect("/auth/confirm-email?email=" + fields.email);
 }
 
 export async function loginUserAction(
@@ -72,7 +72,7 @@ export async function loginUserAction(
 
         return {
             success: false,
-            message: "Validation error",
+            message: "Error de validación",
             strapiErrors: null,
             zodErrors: flattenedErrors.fieldErrors,
             data: fields,
@@ -100,4 +100,48 @@ export async function logoutUserAction() {
     await removeAuthCookie();
 
     redirect("/auth/login");
+}
+
+export async function resendConfirmEmailAction(
+    initialState: FormState,
+    formData: FormData
+): Promise<FormState> {
+    const fields = {
+        email: formData.get("email") as string,
+    }
+
+    const validatedFields = resendConfirmEmailFormSchema.safeParse(fields);
+
+
+    if (!validatedFields.success) {
+        const flattenedErrors = z.flattenError(validatedFields.error);
+
+        return {
+            success: false,
+            message: "Error de validación",
+            strapiErrors: null,
+            zodErrors: flattenedErrors.fieldErrors,
+            data: fields,
+        }
+    }
+
+    const response = await confirmEmailRequest(validatedFields.data.email);
+
+    if (!response || response.error) {
+        return {
+            success: false,
+            message: "Error en la solicitud de confirmar correo electrónico",
+            strapiErrors: response?.error,
+            zodErrors: null,
+            data: fields
+        }
+    }
+
+    return {
+        success: true,
+        message: "Correo electrónico de confirmación enviado",
+        strapiErrors: null,
+        zodErrors: null,
+        data: fields,
+    }
 }

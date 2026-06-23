@@ -97,3 +97,21 @@ export async function loginUserService(userData: {
         throw error;
     }
 }
+
+export const confirmEmailRequest = async (email: string) => {
+    try {
+        const response = await axios.post(
+            `${STRAPI_BASE_URL}/api/auth/send-email-confirmation`,
+            {
+                email,
+            }
+        );
+
+        return response;
+    } catch (error: any) {
+        return (
+            error?.response?.data?.error?.message ||
+            "Error sending confirmation email"
+        );
+    }
+};

@@ -28,7 +28,12 @@ export const SignupFormSchema = z.object({
 }).refine((data) => data.password === data.confirmPassword, {
     message: "Las contraseñas no coinciden",
     path: ["confirmPassword"],
-});;
+});
+
+export const resendConfirmEmailFormSchema = z.object({
+    email: z.email("Por favor, introduce una dirección de correo electrónico válida"),
+
+})
 
 export type SigninFormValues = z.infer<typeof SigninFormSchema>;
 export type SignupFormValues = z.infer<typeof SignupFormSchema>;

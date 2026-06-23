@@ -6,7 +6,7 @@ export const BUTTON_VARIANTS = cva(
     {
         variants: {
             variant: {
-                default: "bg-primary text-primary-foreground [a]:hover:bg-primary/80",
+                default: "bg-primary text-primary-foreground hover:bg-primary/80",
                 outline:
                     "border-foreground/10 bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
                 secondary:
@@ -43,7 +43,7 @@ export const SIGN_UP_FORM_STYLES = {
    header: "space-y-1",
    title: "text-3xl font-bold text-center",
    content: "space-y-4",
-   fieldGroup: "space-y-4",
+   fieldGroup: "space-y-2",
    footer: "flex flex-col",
    button: "w-full",
    prompt: "mt-0 text-center text-sm",
@@ -55,7 +55,7 @@ export const SIGN_IN_FORM_STYLES = {
    header: "space-y-1",
    title: "text-3xl font-bold text-center",
    content: "space-y-4",
-   fieldGroup: "space-y-4",
+   fieldGroup: "space-y-2",
    footer: "flex flex-col",
    button: "w-full",
    prompt: "mt-0 text-center text-sm",

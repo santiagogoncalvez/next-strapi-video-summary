@@ -20,7 +20,8 @@ import { actions } from "@/actions";
 import { useActionState } from "react";
 import { FormError } from "./form-error";
 import Logo from "./Logo";
-import { SIGN_IN_FORM_STYLES } from "@/constants/styles";
+import { BUTTON_VARIANTS, SIGN_IN_FORM_STYLES } from "@/constants/styles";
+import { cn } from "@/lib/utils";
 
 const INITIAL_STATE: FormState = {
    success: false,
@@ -81,7 +82,13 @@ export function SigninForm() {
                   className={`${SIGN_IN_FORM_STYLES.footer} ${SIGN_IN_FORM_STYLES.fieldGroup}`}
                >
                   <Button
-                     className={SIGN_IN_FORM_STYLES.button}
+                     className={cn(
+                        BUTTON_VARIANTS({
+                           variant: "default",
+                           size: "lg",
+                           className: SIGN_IN_FORM_STYLES.button,
+                        }),
+                     )}
                      disabled={isPending}
                      size="lg"
                   >

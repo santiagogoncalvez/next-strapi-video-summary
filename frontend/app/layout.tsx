@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { geistSans } from "./ui/fonts";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
    title: "Create Next App",
@@ -19,7 +18,7 @@ export default async function RootLayout({
          <body className="min-h-full flex flex-col">
             {children}
 
-            <ToastContainer />
+            <Toaster />
          </body>
       </html>
    );

@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import "../globals.css";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "@/components/header";
 import { getHomePage } from "@/lib/strapi";
-import { geistSans } from "../ui/fonts";
 
 export const metadata: Metadata = {
    title: "Create Next App",
@@ -25,8 +23,6 @@ export default async function RootLayout({
       <div>
          <Header link={link} secondaryLink={secondaryLink} />
          <main className="px-8">{children}</main>
-
-         <ToastContainer />
       </div>
    );
 }

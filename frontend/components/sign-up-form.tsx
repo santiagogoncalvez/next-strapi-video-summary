@@ -18,8 +18,10 @@ import { actions } from "@/actions";
 import { useActionState } from "react";
 import { FormState } from "@/validations/auth";
 import { FormError } from "./form-error";
-import { SIGN_UP_FORM_STYLES } from "@/constants/styles";
+import { BUTTON_VARIANTS, SIGN_UP_FORM_STYLES } from "@/constants/styles";
 import Logo from "./Logo";
+import { Loader2 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const INITIAL_STATE: FormState = {
    success: false,
@@ -30,7 +32,7 @@ const INITIAL_STATE: FormState = {
 };
 
 export function SignupForm() {
-   const [formState, formAction] = useActionState(
+   const [formState, formAction, isPending] = useActionState(
       actions.auth.registerUserAction,
       INITIAL_STATE,
    );
@@ -102,10 +104,18 @@ export function SignupForm() {
                   className={`${SIGN_UP_FORM_STYLES.footer} ${SIGN_UP_FORM_STYLES.fieldGroup}`}
                >
                   <Button
-                     className={`${SIGN_UP_FORM_STYLES.button} `}
+                     className={cn(
+                        BUTTON_VARIANTS({
+                           variant: "default",
+                           size: "lg",
+                           className: SIGN_UP_FORM_STYLES.button,
+                        }),
+                     )}
+                     disabled={isPending}
                      size="lg"
                   >
-                     Crear cuenta
+                     {isPending && <Loader2 className="animate-spin" />}
+                     {!isPending && "Crear cuenta"}
                   </Button>
                   {formState.strapiErrors && (
                      <FormError error={[formState.strapiErrors.message]} />
