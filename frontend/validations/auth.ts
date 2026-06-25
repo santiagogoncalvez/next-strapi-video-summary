@@ -55,4 +55,5 @@ export type FormState = {
         password?: string[];
         confirmPassword?: string[];
     } | null;
+    timestamp?: number,
 };

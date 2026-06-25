@@ -1,9 +1,13 @@
 import Link from "next/link";
 
-export default function Logo() {
+interface Props {
+   isHeader?: boolean;
+}
+
+export default function Logo({isHeader = false}: Props) {
    return (
-      <Link className="w-fit font-medium text-4xl" href="/">
-         R
+      <Link className="w-fit font-medium text-3xl" href="/">
+         {isHeader ? "RESU" : "R"}
       </Link>
    );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { geistSans } from "./ui/fonts";
 import { Toaster } from "sonner";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
    title: "Create Next App",
@@ -16,7 +17,7 @@ export default async function RootLayout({
    return (
       <html lang="en" className={`${geistSans.className} h-full antialiased`}>
          <body className="min-h-full flex flex-col">
-            {children}
+            <Suspense fallback={<div>Cargando...</div>}>{children}</Suspense>
 
             <Toaster />
          </body>

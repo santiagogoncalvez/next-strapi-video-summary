@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "../globals.css";
-import "react-toastify/dist/ReactToastify.css";
 import Header from "@/components/header";
 import { getHomePage } from "@/lib/strapi";
 

@@ -143,5 +143,6 @@ export async function resendConfirmEmailAction(
         strapiErrors: null,
         zodErrors: null,
         data: fields,
+        timestamp: Date.now(),
     }
 }
