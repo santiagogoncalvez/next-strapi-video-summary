@@ -1,57 +1,43 @@
 import { NextRequest, NextResponse } from "next/server";
-import { STRAPI_BASE_URL } from "./lib/strapi";
+import { decrypt } from "./lib/session";
 
-const protectedRoutes = ["/dashboard"];
-const authRoutes = [
+// 1. Especificar rutas protegidas y públicas
+const protectedRoutes = ["/dashboard", "/auth/change-password"];
+const publicRoutes = [
     "/auth/login",
     "/auth/signup",
+    "/"
 ];
 
 export async function proxy(request: NextRequest) {
+    // 2. Comprobar si la ruta actual es protegida o pública
     const currentPath = request.nextUrl.pathname;
-
     const isProtectedRoute = protectedRoutes.includes(currentPath);
-    const isAuthRoute = authRoutes.includes(currentPath);
+    const isPublicRoute = publicRoutes.includes(currentPath);
 
-    if (!isProtectedRoute && !isAuthRoute) {
+    if (!isProtectedRoute && !isPublicRoute) {
         return NextResponse.next();
-    }// Se deja pasar.
+    }
 
-    // La ruta requiere una validación de autenticación.
     try {
-        // 1. Validar si el usuario tiene el token (jwt)
-        // 2. Si el usuario está en la base de datos
-        // 3. Si el usuaro está activo (Bloqueado?)
+        // 3. Descifrar la sesión a partir de la cookie.
+        const cookie = request.cookies.get("session")?.value;
+        const session = await decrypt(cookie);
 
-        const jwt = request.cookies.get("jwt")?.value;
-
-        if (isProtectedRoute && !jwt) {
+        if (isProtectedRoute && !session?.jwt) {
             return NextResponse.redirect(new URL("/auth/login", request.url));
         }
 
-        if (isAuthRoute) {
-            if (jwt) {
-                return NextResponse.redirect(new URL("/dashboard", request.url));
-            }
-
-            return NextResponse.next();
+        // 5. Redirigir a /dashboard si el usuario está autenticado
+        if (
+            isPublicRoute &&
+            session?.jwt &&
+            !request.nextUrl.pathname.startsWith("/dashboard")
+        ) {
+            return NextResponse.redirect(new URL("/dashboard", request.nextUrl));
         }
 
-        const response = await fetch(`${STRAPI_BASE_URL}/api/users/me`, {
-            headers: {
-                "Authorization": `Bearer ${jwt}`,
-            }
-        });
-
-        if (!response.ok) {
-            return NextResponse.redirect(new URL("/auth/login", request.url));
-        }
-        // console.log(userResponse);
-
-
-        // Todo fue bien. Entonces se le permite ingresar.
         return NextResponse.next();
-
     } catch (error) {
         console.error("Error verifying user authentication", error);
         return NextResponse.redirect(new URL("/auth/login", request.url));

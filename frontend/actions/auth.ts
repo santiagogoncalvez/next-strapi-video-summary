@@ -4,8 +4,8 @@ import { confirmEmailRequest, loginUserService, registerUserService } from "@/li
 import { FormState, resendConfirmEmailFormSchema, SigninFormSchema, SignupFormSchema } from "@/validations/auth";
 import z from "zod";
 import { redirect } from "next/navigation";
-import { removeAuthCookie, setAuthCookie } from "@/lib/auth";
 import { Credentials } from "@/lib/definitions";
+import { createSession, deleteSession } from "@/lib/session";
 
 
 export async function registerUserAction(prevState: FormState, formData: FormData): Promise<FormState> {
@@ -49,8 +49,6 @@ export async function registerUserAction(prevState: FormState, formData: FormDat
         }
     }
 
-    // await setAuthCookie(response.jwt);
-
     // redirect to confirm email with user email
     redirect("/auth/confirm-email?email=" + fields.email);
 }
@@ -91,13 +89,15 @@ export async function loginUserAction(
         }
     }
 
-    await setAuthCookie(response.jwt);
+    // console.log("response loginUserAction:", response);
+
+    await createSession(response);
 
     redirect("/dashboard");
 }
 
 export async function logoutUserAction() {
-    await removeAuthCookie();
+    await deleteSession();
 
     redirect("/auth/login");
 }
