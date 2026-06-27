@@ -1,4 +1,11 @@
-import { Home, Settings, Users, Folder, KeyRound } from "lucide-react";
+import {
+   Home,
+   Settings,
+   Users,
+   Folder,
+   KeyRound,
+   LockKeyholeOpen,
+} from "lucide-react";
 import {
    Sidebar,
    SidebarContent,
@@ -12,7 +19,7 @@ import {
    SidebarMenuItem,
    SidebarRail,
 } from "@/components/ui/sidebar";
-import Logo from "./Logo";
+import Logo from "./logo";
 import { LogoutForm } from "./log-out-form";
 import Link from "next/link";
 
@@ -40,11 +47,17 @@ export function DashboardSidebar() {
                   <SidebarMenu>
                      <SidebarMenuItem>
                         <SidebarMenuButton asChild>
+                           <Link href="/auth/forgot-password">
+                              <LockKeyholeOpen />
+                              <span>Recuperar constraseña</span>
+                           </Link>
+                        </SidebarMenuButton>
+                        {/* <SidebarMenuButton asChild>
                            <Link href="/auth/change-password">
                               <KeyRound />
                               <span>Cambiar contraseña</span>
                            </Link>
-                        </SidebarMenuButton>
+                        </SidebarMenuButton> */}
                      </SidebarMenuItem>
                   </SidebarMenu>
                </SidebarGroupContent>

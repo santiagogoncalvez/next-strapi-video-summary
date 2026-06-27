@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { geistSans } from "./ui/fonts";
-import { Toaster } from "sonner";
 import { Suspense } from "react";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
    title: "Create Next App",

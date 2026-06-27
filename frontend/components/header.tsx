@@ -1,6 +1,6 @@
 import { NavBarLinks } from "@/lib/definitions";
-import NavBar from "./NavBar";
-import Logo from "./Logo";
+import NavBar from "./nav-bar";
+import Logo from "./logo";
 
 export default async function Header({ link, secondaryLink }: NavBarLinks) {
    return (

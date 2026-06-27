@@ -1,7 +1,7 @@
 "use server"
 
-import { confirmEmailRequest, loginUserService, registerUserService } from "@/lib/strapi";
-import { FormState, resendConfirmEmailFormSchema, SigninFormSchema, SignupFormSchema } from "@/validations/auth";
+import { confirmEmailRequest, forgotPasswordRequest, loginUserService, registerUserService, resetPasswordRequest } from "@/lib/strapi";
+import { FormState, resendConfirmEmailFormSchema, resetPasswordSchema, SigninFormSchema, SignupFormSchema } from "@/validations/auth";
 import z from "zod";
 import { redirect } from "next/navigation";
 import { Credentials } from "@/lib/definitions";
@@ -99,7 +99,7 @@ export async function loginUserAction(
 export async function logoutUserAction() {
     await deleteSession();
 
-    redirect("/auth/login");
+    redirect("/");
 }
 
 export async function resendConfirmEmailAction(
@@ -140,6 +140,98 @@ export async function resendConfirmEmailAction(
     return {
         success: true,
         message: "Correo electrónico de confirmación enviado",
+        strapiErrors: null,
+        zodErrors: null,
+        data: fields,
+        timestamp: Date.now(),
+    }
+}
+
+export async function forgotPasswordAction(
+    initialState: FormState,
+    formData: FormData
+): Promise<FormState> {
+    const fields = {
+        email: formData.get("email") as string,
+    }
+
+    const validatedFields = resendConfirmEmailFormSchema.safeParse(fields);
+
+
+    if (!validatedFields.success) {
+        const flattenedErrors = z.flattenError(validatedFields.error);
+
+        return {
+            success: false,
+            message: "Error de validación",
+            strapiErrors: null,
+            zodErrors: flattenedErrors.fieldErrors,
+            data: fields,
+        }
+    }
+
+    const response = await forgotPasswordRequest(validatedFields.data.email);
+
+    if (!response || response.error) {
+        return {
+            success: false,
+            message: "Error al enviar el correo electrónico para restablecer la contraseña",
+            strapiErrors: response?.error,
+            zodErrors: null,
+            data: fields
+        }
+    }
+
+    return {
+        success: true,
+        message: "Se ha enviado un correo electrónico para restablecer la contraseña",
+        strapiErrors: null,
+        zodErrors: null,
+        data: fields,
+        timestamp: Date.now(),
+    }
+}
+
+export async function resetPasswordAction(
+    initialState: FormState,
+    formData: FormData
+): Promise<FormState> {
+    const fields = {
+        code: formData.get("code") as string,
+        password: formData.get("password") as string,
+        confirmPassword: formData.get("confirmPassword") as string,
+    }
+
+    const validatedFields = resetPasswordSchema.safeParse(fields);
+
+
+    if (!validatedFields.success) {
+        const flattenedErrors = z.flattenError(validatedFields.error);
+
+        return {
+            success: false,
+            message: "Error de validación",
+            strapiErrors: null,
+            zodErrors: flattenedErrors.fieldErrors,
+            data: fields,
+        }
+    }
+
+    const response: any = await resetPasswordRequest(fields as Credentials);
+
+    if (!response || response.error) {
+        return {
+            success: false,
+            message: "Error al restablecer la contraseña.",
+            strapiErrors: response?.error,
+            zodErrors: null,
+            data: fields
+        }
+    }
+
+    return {
+        success: true,
+        message: "¡Contraseña restablecida con éxito!",
         strapiErrors: null,
         zodErrors: null,
         data: fields,

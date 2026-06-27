@@ -1,8 +1,6 @@
 // import { STRAPI_BASE_URL } from "@/lib/strapi";
 import { HERO_SECTION_STYLES } from "@/constants/styles";
-import NavBar from "./NavBar";
-
-
+import NavBar from "./nav-bar";
 
 export function HeroSection({
    data,

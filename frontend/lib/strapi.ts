@@ -68,9 +68,7 @@ export async function registerUserService(credentials: Credentials) {
 
         return response;
     } catch (error: any) {
-        const logError = "Error registering user:";
-        console.error(logError, error);
-        throw error?.response?.data?.error?.message || logError;
+        return error?.response?.data?.error?.message || "Error registering user";
     }
 }
 
@@ -92,13 +90,12 @@ export async function loginUserService(userData: {
         const data = await response.json();
 
         return data;
-    } catch (error) {
-        console.error("Error logging user:", error);
-        throw error;
+    } catch (error: any) {
+        return error?.response?.data?.error?.message || "Error logging user";
     }
 }
 
-export const confirmEmailRequest = async (email: string) => {
+export async function confirmEmailRequest(email: string) {
     try {
         const response = await axios.post(
             `${STRAPI_BASE_URL}/api/auth/send-email-confirmation`,
@@ -115,3 +112,38 @@ export const confirmEmailRequest = async (email: string) => {
         );
     }
 };
+
+export async function forgotPasswordRequest(email: string) {
+    const url = `${STRAPI_BASE_URL}/api/auth/forgot-password`;
+    try {
+        const response = await axios.post(
+            url,
+            {
+                email,
+            }
+        );
+
+        return response;
+    } catch (error: any) {
+        return (
+            error?.response?.data?.error?.message ||
+            "Error sending reset password email"
+        );
+    }
+};
+
+export async function resetPasswordRequest(credentials: Credentials) {
+    const url = `${STRAPI_BASE_URL}/api/auth/reset-password`
+
+    try {
+        const response = await axios.post(url, {
+            code: credentials?.code,
+            password: credentials?.password,
+            passwordConfirmation: credentials?.confirmPassword,
+        });
+
+        return response;
+    } catch (error: any) {
+        return error?.response?.data?.error?.message || "Error resetting password";
+    }
+}

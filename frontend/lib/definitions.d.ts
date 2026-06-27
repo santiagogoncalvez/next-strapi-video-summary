@@ -12,6 +12,7 @@ export type Credentials = {
     confirmPassword?: string;
     newPassword?: string;
     code?: string;
+    passwordConfirmation?: string;
 };
 
 // Form state for form handling and server actions

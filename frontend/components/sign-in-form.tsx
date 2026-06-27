@@ -19,7 +19,7 @@ import { FormState } from "@/validations/auth";
 import { actions } from "@/actions";
 import { useActionState } from "react";
 import { FormError } from "./form-error";
-import Logo from "./Logo";
+import Logo from "./logo";
 import { BUTTON_VARIANTS, SIGN_IN_FORM_STYLES } from "@/constants/styles";
 import { cn } from "@/lib/utils";
 

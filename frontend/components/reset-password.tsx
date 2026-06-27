@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-
 import {
    CardTitle,
    CardDescription,
@@ -15,29 +13,39 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { actions } from "@/actions";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { FormState } from "@/validations/auth";
 import { FormError } from "./form-error";
 import { BUTTON_VARIANTS, SIGN_UP_FORM_STYLES } from "@/constants/styles";
 import Logo from "./logo";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
+import { redirect } from "next/navigation";
 
-const INITIAL_STATE: FormState = {
-   success: false,
-   message: undefined,
-   strapiErrors: null,
-   zodErrors: null,
-   data: { username: "", email: "", password: "", confirmPassword: "" },
-};
+export function ResetPassword({ code }: { code: string }) {
+   const INITIAL_STATE: FormState = {
+      success: false,
+      message: undefined,
+      strapiErrors: null,
+      zodErrors: null,
+      data: { code },
+      timestamp: undefined,
+   };
 
-export function SignupForm() {
    const [formState, formAction, isPending] = useActionState(
-      actions.auth.registerUserAction,
+      actions.auth.resetPasswordAction,
       INITIAL_STATE,
    );
 
-   // console.log(formState);
+   // 2. Este efecto reacciona ÚNICAMENTE cuando el servidor responde con éxito
+   useEffect(() => {
+      if (formState.success) {
+         toast.success(formState.message, { position: "top-center" });
+
+         redirect("/auth/login");
+      }
+   }, [formState.success, formState.message, formState.timestamp]);
 
    return (
       <div className={SIGN_UP_FORM_STYLES.container}>
@@ -46,35 +54,14 @@ export function SignupForm() {
             <Card>
                <CardHeader className={SIGN_UP_FORM_STYLES.header}>
                   <CardTitle className={SIGN_UP_FORM_STYLES.title}>
-                     Crear cuenta
+                     Restablecer su contraseña
                   </CardTitle>
                   <CardDescription className="text-center">
-                     Introduce tus datos para crear una nueva cuenta.
+                     Introduce tu nueva contraseña a continuación para
+                     actualizar tus credenciales.
                   </CardDescription>
                </CardHeader>
                <CardContent className={SIGN_UP_FORM_STYLES.content}>
-                  <div className={SIGN_UP_FORM_STYLES.fieldGroup}>
-                     <Label htmlFor="username">Nombre de usuario</Label>
-                     <Input
-                        id="username"
-                        name="username"
-                        type="text"
-                        placeholder="pablo"
-                        defaultValue={formState.data?.username ?? ""}
-                     />
-                     <FormError error={formState.zodErrors?.username} />
-                  </div>
-                  <div className={SIGN_UP_FORM_STYLES.fieldGroup}>
-                     <Label htmlFor="email">Correo electrónico</Label>
-                     <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        placeholder="pablo@gmail.com"
-                        defaultValue={formState.data?.email ?? ""}
-                     />
-                     <FormError error={formState.zodErrors?.email} />
-                  </div>
                   <div className={SIGN_UP_FORM_STYLES.fieldGroup}>
                      <Label htmlFor="password">Constraseña</Label>
                      <Input
@@ -95,9 +82,13 @@ export function SignupForm() {
                         name="confirmPassword"
                         type="password"
                         placeholder="Confirmar contraseña"
-                        defaultValue={formState.data?.confirmPassword ?? ""}
+                        defaultValue={
+                           formState.data?.confirmPassword ?? ""
+                        }
                      />
-                     <FormError error={formState.zodErrors?.confirmPassword} />
+                     <FormError
+                        error={formState.zodErrors?.confirmPassword}
+                     />
                   </div>
                </CardContent>
                <CardFooter
@@ -115,23 +106,16 @@ export function SignupForm() {
                      size="lg"
                   >
                      {isPending && <Loader2 className="animate-spin" />}
-                     {!isPending && "Crear cuenta"}
+                     {!isPending && "Restablecer contraseña"}
                   </Button>
                   {formState.strapiErrors && (
                      <FormError error={[formState.strapiErrors.message]} />
                   )}
-
-                  <div className={SIGN_UP_FORM_STYLES.prompt}>
-                     ¿Tienes una cuenta?
-                     <Link
-                        className={SIGN_UP_FORM_STYLES.link}
-                        href="/auth/login"
-                     >
-                        Iniciar sesión
-                     </Link>
-                  </div>
                </CardFooter>
             </Card>
+
+            <input type="hidden" name="code" value={code} />
+            <input type="hidden" name="passwordType" value="reset" />
          </form>
       </div>
    );

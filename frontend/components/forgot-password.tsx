@@ -14,17 +14,22 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { BUTTON_VARIANTS, SIGN_IN_FORM_STYLES } from "@/constants/styles";
+import {
+   BUTTON_VARIANTS,
+   SIGN_IN_FORM_STYLES,
+   SIGN_UP_FORM_STYLES,
+} from "@/constants/styles";
 import { useCountdown } from "@/hooks/use-countdown";
 import { cn } from "@/lib/utils";
 import { FormState } from "@/validations/auth";
 import { Loader2 } from "lucide-react";
+import Link from "next/link";
 import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
 
 const COOLDOWN_TIME = 30;
 
-export default function ConfirmEmail({ email }: { email: string }) {
+export default function ForgotPassword() {
    const [count, { startCountdown, resetCountdown, isRunning }] = useCountdown({
       countStart: COOLDOWN_TIME,
    });
@@ -40,12 +45,12 @@ export default function ConfirmEmail({ email }: { email: string }) {
       message: undefined,
       strapiErrors: null,
       zodErrors: null,
-      data: { email },
+      data: { email: "" },
       timestamp: undefined,
    };
 
    const [formState, formAction, isPending] = useActionState(
-      actions.auth.resendConfirmEmailAction,
+      actions.auth.forgotPasswordAction,
       INITIAL_STATE,
    );
 
@@ -69,24 +74,19 @@ export default function ConfirmEmail({ email }: { email: string }) {
             <Card>
                <CardHeader className={SIGN_IN_FORM_STYLES.header}>
                   <CardTitle className={SIGN_IN_FORM_STYLES.title}>
-                     Confirma tu correo electrónico
+                     Has olvidado tu contraseña
                   </CardTitle>
 
                   <CardDescription className="text-center">
                      <p>
-                        Te hemos enviado un enlace de confirmación a tu correo
-                        electrónico. Por favor, revisa tu bandeja de entrada y
-                        haz clic en el enlace para verificar tu cuenta antes de
-                        registrarte.
+                        Introduce tu correo electrónico y te enviaremos un
+                        enlace para restablecer tu contraseña.
                      </p>
                   </CardDescription>
                </CardHeader>
                <CardContent className={SIGN_IN_FORM_STYLES.content}>
                   <div className={SIGN_IN_FORM_STYLES.fieldGroup}>
-                     <Label htmlFor="email">
-                        ¿No recibiste el correo electrónico? Revisa tu carpeta
-                        de correo no deseado o intenta reenviarlo abajo.
-                     </Label>
+                     <Label htmlFor="email">Correo electrónico</Label>
                      <Input
                         id="email"
                         name="email"
@@ -117,7 +117,7 @@ export default function ConfirmEmail({ email }: { email: string }) {
                      {!isPending &&
                         (isRunning
                            ? `Reintentar en ${count}s`
-                           : "Reenviar correo electrónico de confirmación")}
+                           : "Enviar enlace de restablecimiento")}
                   </Button>
                   {!formState.success && formState.message && (
                      <FormError error={[formState.message]} />
@@ -125,6 +125,16 @@ export default function ConfirmEmail({ email }: { email: string }) {
                   {formState.strapiErrors && (
                      <FormError error={[formState.strapiErrors.message]} />
                   )}
+
+                  <div className={SIGN_UP_FORM_STYLES.prompt}>
+                     ¿Recuerdas tu contraseña?
+                     <Link
+                        className={SIGN_UP_FORM_STYLES.link}
+                        href="/auth/login"
+                     >
+                        Iniciar sesión
+                     </Link>
+                  </div>
                </CardFooter>
             </Card>
          </form>

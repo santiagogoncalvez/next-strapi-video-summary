@@ -1,4 +1,4 @@
-import Logo from "@/components/Logo";
+import Logo from "@/components/logo";
 import {
    Card,
    CardDescription,
@@ -30,7 +30,6 @@ export default function EmailConfirmed() {
                   </CardDescription>
                </CardHeader>
                <CardFooter
-                  
                   className={`${SIGN_IN_FORM_STYLES.footer} ${SIGN_IN_FORM_STYLES.fieldGroup}`}
                >
                   <Link
@@ -38,7 +37,7 @@ export default function EmailConfirmed() {
                         BUTTON_VARIANTS({
                            variant: "default",
                            size: "lg",
-                           className: "w-full"
+                           className: "w-full",
                         }),
                      )}
                      href="/auth/login"

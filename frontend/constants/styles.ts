@@ -41,9 +41,9 @@ export const BUTTON_VARIANTS = cva(
 )
 
 export const SIGN_UP_FORM_STYLES = {
-   container: "w-full max-w-md flex flex-col gap-4 justify-center items-center",
+   container: "w-full max-w-sm flex flex-col gap-4 justify-center items-center",
    header: "space-y-1",
-   title: "text-3xl font-bold text-center",
+   title: "text-xl font-bold text-center",
    content: "space-y-4",
    fieldGroup: "space-y-2",
    footer: "flex flex-col",
@@ -53,9 +53,9 @@ export const SIGN_UP_FORM_STYLES = {
 };
 
 export const SIGN_IN_FORM_STYLES = {
-    container: "w-full max-w-md flex flex-col gap-4 justify-center items-center",
+    container: "w-full max-w-sm flex flex-col gap-4 justify-center items-center",
    header: "space-y-1",
-   title: "text-3xl font-bold text-center",
+    title: "text-xl font-bold text-center",
    content: "space-y-4",
    fieldGroup: "space-y-2",
    footer: "flex flex-col",
