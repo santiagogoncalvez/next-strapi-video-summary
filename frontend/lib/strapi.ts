@@ -1,30 +1,32 @@
 // import { cacheLife } from "next/cache";
-import qs from "qs"
-import { Credentials } from "./definitions";
+import qs from "qs";
+import { Credentials, SessionPayload } from "./definitions";
 import axios from "axios";
+import { verifySession } from "./dal";
 
-export const STRAPI_BASE_URL = process.env.STRAPI_BASE_URL || "http://localhost:1337";
+export const STRAPI_BASE_URL =
+    process.env.STRAPI_BASE_URL || "http://localhost:1337";
 
 const QUERY_HOME_PAGE = {
     populate: {
         sections: {
             on: {
-                'layout.hero-section': {
+                "layout.hero-section": {
                     populate: {
                         image: {
-                            fields: ['url', "alternativeText"]
+                            fields: ["url", "alternativeText"],
                         },
                         link: {
-                            populate: true
+                            populate: true,
                         },
                         secondaryLink: {
-                            populate: true
+                            populate: true,
                         },
-                    }
-                }
-            }
-        }
-    }
+                    },
+                },
+            },
+        },
+    },
 };
 
 export async function getHomePage() {
@@ -34,10 +36,6 @@ export async function getHomePage() {
 }
 
 export async function getStrapiData(url: string) {
-    // "use cache"
-    // console.log("getStrapiData");
-
-    // cacheLife({ expire: 60 });
     try {
         const response = await fetch(`${STRAPI_BASE_URL}${url}`, {
             next: {
@@ -51,24 +49,30 @@ export async function getStrapiData(url: string) {
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error('Error fetching data:', error)
+        console.error("Error fetching data:", error);
         return null;
     }
 }
 
 export async function registerUserService(credentials: Credentials) {
-    const url = `${STRAPI_BASE_URL}/api/auth/local/register`
+    const url = `${STRAPI_BASE_URL}/api/auth/local/register`;
 
     try {
         const response = await axios.post(url, {
             username: credentials.username,
             email: credentials.email,
-            password: credentials.password
+            password: credentials.password,
         });
 
         return response;
-    } catch (error: any) {
-        return error?.response?.data?.error?.message || "Error registering user";
+    } catch (error) {
+        console.error(error);
+
+        if (axios.isAxiosError(error) && error.response?.data) {
+            throw error.response.data;
+        }
+
+        throw error;
     }
 }
 
@@ -82,16 +86,26 @@ export async function loginUserService(userData: {
         const response = await fetch(url, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
             body: JSON.stringify(userData),
         });
 
         const data = await response.json();
 
+        if (!response.ok) {
+            throw data;
+        }
+
         return data;
-    } catch (error: any) {
-        return error?.response?.data?.error?.message || "Error logging user";
+    } catch (error) {
+        console.error(error);
+
+        if (axios.isAxiosError(error) && error.response?.data) {
+            throw error.response.data;
+        }
+
+        throw error;
     }
 }
 
@@ -101,39 +115,42 @@ export async function confirmEmailRequest(email: string) {
             `${STRAPI_BASE_URL}/api/auth/send-email-confirmation`,
             {
                 email,
-            }
+            },
         );
 
         return response;
-    } catch (error: any) {
-        return (
-            error?.response?.data?.error?.message ||
-            "Error sending confirmation email"
-        );
+    } catch (error) {
+        console.error(error);
+
+        if (axios.isAxiosError(error) && error.response?.data) {
+            throw error.response.data;
+        }
+
+        throw error;
     }
-};
+}
 
 export async function forgotPasswordRequest(email: string) {
     const url = `${STRAPI_BASE_URL}/api/auth/forgot-password`;
     try {
-        const response = await axios.post(
-            url,
-            {
-                email,
-            }
-        );
+        const response = await axios.post(url, {
+            email,
+        });
 
         return response;
-    } catch (error: any) {
-        return (
-            error?.response?.data?.error?.message ||
-            "Error sending reset password email"
-        );
+    } catch (error) {
+        console.error(error);
+
+        if (axios.isAxiosError(error) && error.response?.data) {
+            throw error.response.data;
+        }
+
+        throw error;
     }
-};
+}
 
 export async function resetPasswordRequest(credentials: Credentials) {
-    const url = `${STRAPI_BASE_URL}/api/auth/reset-password`
+    const url = `${STRAPI_BASE_URL}/api/auth/reset-password`;
 
     try {
         const response = await axios.post(url, {
@@ -143,7 +160,53 @@ export async function resetPasswordRequest(credentials: Credentials) {
         });
 
         return response;
-    } catch (error: any) {
-        return error?.response?.data?.error?.message || "Error resetting password";
+    } catch (error) {
+        console.error(error);
+
+        if (axios.isAxiosError(error) && error.response?.data) {
+            throw error.response.data;
+        }
+
+        throw error;
     }
 }
+
+export const changePasswordRequest = async (credentials: Credentials) => {
+    const url = `${STRAPI_BASE_URL}/api/auth/change-password`;
+
+    try {
+        const result = await verifySession();
+
+        if (!result.isAuth) {
+            // nunca debería entrar porque verifySession hace redirect,
+            // pero TypeScript queda satisfecho.
+            throw new Error("Not authenticated");
+        }
+
+        const { jwt } = result.session;
+
+        const response = await axios.post(
+            url,
+            {
+                currentPassword: credentials.password,
+                password: credentials.newPassword,
+                passwordConfirmation: credentials.confirmPassword,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${jwt}`,
+                },
+            },
+        );
+
+        return response;
+    } catch (error) {
+        console.error(error);
+
+        if (axios.isAxiosError(error) && error.response?.data) {
+            throw error.response.data;
+        }
+
+        throw error;
+    }
+};

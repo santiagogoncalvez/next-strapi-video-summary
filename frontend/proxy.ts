@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { decrypt } from "./lib/session";
 
 // 1. Especificar rutas protegidas y públicas
-const protectedRoutes = ["/dashboard", "/auth/change-password", "/auth/reset-password"];
+const protectedRoutes = ["/dashboard", "/auth/change-password"];
 const publicRoutes = [
     "/auth/login",
     "/auth/signup",

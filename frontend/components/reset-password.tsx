@@ -82,18 +82,12 @@ export function ResetPassword({ code }: { code: string }) {
                         name="confirmPassword"
                         type="password"
                         placeholder="Confirmar contraseña"
-                        defaultValue={
-                           formState.data?.confirmPassword ?? ""
-                        }
+                        defaultValue={formState.data?.confirmPassword ?? ""}
                      />
-                     <FormError
-                        error={formState.zodErrors?.confirmPassword}
-                     />
+                     <FormError error={formState.zodErrors?.confirmPassword} />
                   </div>
                </CardContent>
-               <CardFooter
-                  className={`${SIGN_UP_FORM_STYLES.footer} ${SIGN_UP_FORM_STYLES.fieldGroup}`}
-               >
+               <CardFooter className={`${SIGN_UP_FORM_STYLES.footer}`}>
                   <Button
                      className={cn(
                         BUTTON_VARIANTS({

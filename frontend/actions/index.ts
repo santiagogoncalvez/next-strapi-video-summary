@@ -1,4 +1,4 @@
-import { forgotPasswordAction, loginUserAction, logoutUserAction, registerUserAction, resendConfirmEmailAction, resetPasswordAction } from "./auth";
+import { changePasswordAction, forgotPasswordAction, loginUserAction, logoutUserAction, registerUserAction, resendConfirmEmailAction, resetPasswordAction } from "./auth";
 
 export const actions = {
     auth: {
@@ -7,6 +7,7 @@ export const actions = {
         logoutUserAction,
         resendConfirmEmailAction,
         forgotPasswordAction,
-        resetPasswordAction
+        resetPasswordAction,
+        changePasswordAction
     }
 }

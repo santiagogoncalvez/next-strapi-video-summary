@@ -51,25 +51,61 @@ export const resetPasswordSchema = z.object({
     path: ["confirmPassword"],
 });
 
+export const changePassworSchema = z.object({
+    password: z
+        .string()
+        .min(6, "La contraseña debe tener al menos 6 caracteres")
+        .max(100, "La contraseña debe tener menos de 100 caracteres"),
+    newPassword: z
+        .string()
+        .min(6, "La contraseña debe tener al menos 6 caracteres")
+        .max(100, "La contraseña debe tener menos de 100 caracteres"),
+    confirmPassword: z
+        .string()
+        .min(6, "La contraseña debe tener al menos 6 caracteres")
+        .max(100, "La contraseña debe tener menos de 100 caracteres"),
+}).refine((data) => data.newPassword === data.confirmPassword, {
+    message: "Las contraseñas no coinciden",
+    path: ["confirmPassword"],
+});
+
 export type SigninFormValues = z.infer<typeof SigninFormSchema>;
 export type SignupFormValues = z.infer<typeof SignupFormSchema>;
+
+export type StrapiErrors = {
+    status: number;
+    name: string;
+    message: string;
+    details?: Record<string, string[]>;
+} | null;
+
+export type StrapiThrowError = {
+    data: null,
+    error: StrapiErrors;
+}
+
+export function isStrapiThrowError(
+    error: unknown
+): error is StrapiThrowError {
+    return (
+        typeof error === "object" &&
+        error !== null &&
+        "error" in error
+    );
+}
 
 export type FormState = {
     success?: boolean;
     message?: string;
     data?: Credentials;
-    strapiErrors?: {
-        status: number;
-        name: string;
-        message: string;
-        details?: Record<string, string[]>;
-    } | null;
+    strapiErrors?: StrapiErrors;
     zodErrors?: {
         identifier?: string[];
         username?: string[];
         email?: string[];
         password?: string[];
         confirmPassword?: string[];
+        newPassword?: string[];
     } | null;
     timestamp?: number,
 };

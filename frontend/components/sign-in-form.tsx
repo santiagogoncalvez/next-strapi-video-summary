@@ -76,10 +76,17 @@ export function SigninForm() {
                      />
 
                      <FormError error={formState.zodErrors?.password} />
+
+                     <Link
+                        className={SIGN_IN_FORM_STYLES.link}
+                        href="/auth/forgot-password"
+                     >
+                        ¿Olvidaste tu contraseña?
+                     </Link>
                   </div>
                </CardContent>
                <CardFooter
-                  className={`${SIGN_IN_FORM_STYLES.footer} ${SIGN_IN_FORM_STYLES.fieldGroup}`}
+                  className={`${SIGN_IN_FORM_STYLES.footer}`}
                >
                   <Button
                      className={cn(

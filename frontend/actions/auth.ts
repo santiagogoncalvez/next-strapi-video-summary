@@ -1,7 +1,7 @@
 "use server"
 
-import { confirmEmailRequest, forgotPasswordRequest, loginUserService, registerUserService, resetPasswordRequest } from "@/lib/strapi";
-import { FormState, resendConfirmEmailFormSchema, resetPasswordSchema, SigninFormSchema, SignupFormSchema } from "@/validations/auth";
+import { changePasswordRequest, confirmEmailRequest, forgotPasswordRequest, loginUserService, registerUserService, resetPasswordRequest } from "@/lib/strapi";
+import { changePassworSchema, FormState, isStrapiThrowError, resendConfirmEmailFormSchema, resetPasswordSchema, SigninFormSchema, SignupFormSchema } from "@/validations/auth";
 import z from "zod";
 import { redirect } from "next/navigation";
 import { Credentials } from "@/lib/definitions";
@@ -37,20 +37,24 @@ export async function registerUserAction(prevState: FormState, formData: FormDat
         }
     }
 
-    const response: any = await registerUserService(validatedFields.data as Credentials);
+    try {
+        const response = await registerUserService(validatedFields.data as Credentials);
 
-    if (!response || response.error) {
-        return {
-            success: false,
-            message: "Registration error",
-            strapiErrors: response?.error,
-            zodErrors: null,
-            data: fields as Credentials
+        // redirect to confirm email with user email
+        redirect("/auth/confirm-email?email=" + fields.email);
+    } catch (error) {
+        if (isStrapiThrowError(error)) {
+            return {
+                success: false,
+                message: error?.error?.message,
+                strapiErrors: error?.error,
+                zodErrors: null,
+                data: fields,
+            };
         }
-    }
 
-    // redirect to confirm email with user email
-    redirect("/auth/confirm-email?email=" + fields.email);
+        throw error;
+    }
 }
 
 export async function loginUserAction(
@@ -77,23 +81,25 @@ export async function loginUserAction(
         }
     }
 
-    const response = await loginUserService(validatedFields.data);
+    try {
+        const response = await loginUserService(validatedFields.data);
 
-    if (!response || response.error) {
-        return {
-            success: false,
-            message: "Login error",
-            strapiErrors: response?.error,
-            zodErrors: null,
-            data: fields
+        await createSession(response);
+
+        redirect("/dashboard");
+    } catch (error) {
+        if (isStrapiThrowError(error)) {
+            return {
+                success: false,
+                message: error?.error?.message,
+                strapiErrors: error?.error,
+                zodErrors: null,
+                data: fields,
+            };
         }
+
+        throw error;
     }
-
-    // console.log("response loginUserAction:", response);
-
-    await createSession(response);
-
-    redirect("/dashboard");
 }
 
 export async function logoutUserAction() {
@@ -125,25 +131,29 @@ export async function resendConfirmEmailAction(
         }
     }
 
-    const response = await confirmEmailRequest(validatedFields.data.email);
+    try {
+        const response = await confirmEmailRequest(validatedFields.data.email);
 
-    if (!response || response.error) {
         return {
-            success: false,
-            message: "Error en la solicitud de confirmar correo electrónico",
-            strapiErrors: response?.error,
+            success: true,
+            message: "Correo electrónico de confirmación enviado",
+            strapiErrors: null,
             zodErrors: null,
-            data: fields
+            data: fields,
+            timestamp: Date.now(),
         }
-    }
+    } catch (error) {
+        if (isStrapiThrowError(error)) {
+            return {
+                success: false,
+                message: error?.error?.message,
+                strapiErrors: error?.error,
+                zodErrors: null,
+                data: fields,
+            };
+        }
 
-    return {
-        success: true,
-        message: "Correo electrónico de confirmación enviado",
-        strapiErrors: null,
-        zodErrors: null,
-        data: fields,
-        timestamp: Date.now(),
+        throw error;
     }
 }
 
@@ -170,25 +180,29 @@ export async function forgotPasswordAction(
         }
     }
 
-    const response = await forgotPasswordRequest(validatedFields.data.email);
+    try {
+        const response = await forgotPasswordRequest(validatedFields.data.email);
 
-    if (!response || response.error) {
         return {
-            success: false,
-            message: "Error al enviar el correo electrónico para restablecer la contraseña",
-            strapiErrors: response?.error,
+            success: true,
+            message: "Se ha enviado un correo electrónico para restablecer la contraseña",
+            strapiErrors: null,
             zodErrors: null,
-            data: fields
+            data: fields,
+            timestamp: Date.now(),
         }
-    }
+    } catch (error) {
+        if (isStrapiThrowError(error)) {
+            return {
+                success: false,
+                message: error?.error?.message,
+                strapiErrors: error?.error,
+                zodErrors: null,
+                data: fields,
+            };
+        }
 
-    return {
-        success: true,
-        message: "Se ha enviado un correo electrónico para restablecer la contraseña",
-        strapiErrors: null,
-        zodErrors: null,
-        data: fields,
-        timestamp: Date.now(),
+        throw error;
     }
 }
 
@@ -217,24 +231,79 @@ export async function resetPasswordAction(
         }
     }
 
-    const response: any = await resetPasswordRequest(fields as Credentials);
+    try {
+        const response = await resetPasswordRequest(fields as Credentials);
 
-    if (!response || response.error) {
+        return {
+            success: true,
+            message: "¡Contraseña restablecida con éxito!",
+            strapiErrors: null,
+            zodErrors: null,
+            data: fields,
+            timestamp: Date.now(),
+        }
+    } catch (error) {
+        if (isStrapiThrowError(error)) {
+            return {
+                success: false,
+                message: error?.error?.message,
+                strapiErrors: error?.error,
+                zodErrors: null,
+                data: fields,
+            };
+        }
+
+        throw error;
+    }
+}
+
+export async function changePasswordAction(
+    initialState: FormState,
+    formData: FormData
+): Promise<FormState> {
+    const fields = {
+        password: formData.get("password") as string,
+        newPassword: formData.get("newPassword") as string,
+        confirmPassword: formData.get("confirmPassword") as string,
+    }
+
+    const validatedFields = changePassworSchema.safeParse(fields);
+
+
+    if (!validatedFields.success) {
+        const flattenedErrors = z.flattenError(validatedFields.error);
+
         return {
             success: false,
-            message: "Error al restablecer la contraseña.",
-            strapiErrors: response?.error,
-            zodErrors: null,
-            data: fields
+            message: "Error de validación",
+            strapiErrors: null,
+            zodErrors: flattenedErrors.fieldErrors,
+            data: fields,
         }
     }
 
-    return {
-        success: true,
-        message: "¡Contraseña restablecida con éxito!",
-        strapiErrors: null,
-        zodErrors: null,
-        data: fields,
-        timestamp: Date.now(),
+    try {
+        const response = await changePasswordRequest(fields as Credentials);
+
+        return {
+            success: true,
+            message: "Restablecimiento de contraseña exitosa!",
+            strapiErrors: null,
+            zodErrors: null,
+            data: fields,
+            timestamp: Date.now(),
+        }
+    } catch (error) {
+        if (isStrapiThrowError(error)) {
+            return {
+                success: false,
+                message: error?.error?.message,
+                strapiErrors: error?.error,
+                zodErrors: null,
+                data: fields,
+            };
+        }
+
+        throw error;
     }
 }

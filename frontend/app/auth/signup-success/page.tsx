@@ -30,7 +30,7 @@ export default function EmailConfirmed() {
                   </CardDescription>
                </CardHeader>
                <CardFooter
-                  className={`${SIGN_IN_FORM_STYLES.footer} ${SIGN_IN_FORM_STYLES.fieldGroup}`}
+                  className={`${SIGN_IN_FORM_STYLES.footer}`}
                >
                   <Link
                      className={cn(

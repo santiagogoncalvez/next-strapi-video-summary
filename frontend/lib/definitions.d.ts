@@ -24,7 +24,27 @@ export type Credentials = {
 // };
 
 export type SessionPayload = {
-    user?: any;
-    expiresAt?: Date;
-    jwt?: string;
+    user: User;
+    expiresAt: Date;
+    jwt: Jwt;
 };
+
+export type Jwt = string;
+
+export interface StrapiLoginResponse {
+    jwt: Jwt;
+    user: User;
+}
+
+export interface User {
+    id: number
+    documentId: string
+    username: string
+    email: string
+    provider: string
+    confirmed: boolean
+    blocked: boolean
+    createdAt: string
+    updatedAt: string
+    publishedAt: string
+}

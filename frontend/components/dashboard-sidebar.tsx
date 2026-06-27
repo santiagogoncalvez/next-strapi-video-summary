@@ -35,7 +35,7 @@ export function DashboardSidebar() {
    return (
       <Sidebar collapsible="icon">
          {/* HEADER: Branding o Logo de la App */}
-         <SidebarHeader className="p-4 border-b">
+         <SidebarHeader className="flex justify-center items-center border-b">
             <Logo />
          </SidebarHeader>
 
@@ -46,18 +46,18 @@ export function DashboardSidebar() {
                <SidebarGroupContent>
                   <SidebarMenu>
                      <SidebarMenuItem>
-                        <SidebarMenuButton asChild>
+                        {/* <SidebarMenuButton asChild>
                            <Link href="/auth/forgot-password">
                               <LockKeyholeOpen />
                               <span>Recuperar constraseña</span>
                            </Link>
-                        </SidebarMenuButton>
-                        {/* <SidebarMenuButton asChild>
+                        </SidebarMenuButton> */}
+                        <SidebarMenuButton asChild>
                            <Link href="/auth/change-password">
                               <KeyRound />
                               <span>Cambiar contraseña</span>
                            </Link>
-                        </SidebarMenuButton> */}
+                        </SidebarMenuButton>
                      </SidebarMenuItem>
                   </SidebarMenu>
                </SidebarGroupContent>
@@ -65,7 +65,7 @@ export function DashboardSidebar() {
          </SidebarContent>
 
          {/* FOOTER: Botón de ayuda o usuario */}
-         <SidebarFooter className="p-4 border-t">
+         <SidebarFooter className="border-t">
             <SidebarMenu>
                <SidebarMenuItem>
                   <SidebarMenuButton asChild>

@@ -41,27 +41,27 @@ export const BUTTON_VARIANTS = cva(
 )
 
 export const SIGN_UP_FORM_STYLES = {
-   container: "w-full max-w-sm flex flex-col gap-4 justify-center items-center",
-   header: "space-y-1",
-   title: "text-xl font-bold text-center",
-   content: "space-y-4",
-   fieldGroup: "space-y-2",
-   footer: "flex flex-col",
-   button: "w-full",
-   prompt: "mt-0 text-center text-sm",
-   link: "ml-2",
+    container: "w-full max-w-sm flex flex-col gap-4 justify-center items-center",
+    header: "space-y-1",
+    title: "text-2xl font-bold text-center",
+    content: "space-y-4",
+    fieldGroup: "space-y-2",
+    footer: "flex flex-col space-y-4",
+    button: "w-full",
+    prompt: "mt-0 text-center text-sm",
+    link: "ml-2",
 };
 
 export const SIGN_IN_FORM_STYLES = {
     container: "w-full max-w-sm flex flex-col gap-4 justify-center items-center",
-   header: "space-y-1",
-    title: "text-xl font-bold text-center",
-   content: "space-y-4",
-   fieldGroup: "space-y-2",
-   footer: "flex flex-col",
-   button: "w-full",
-   prompt: "mt-0 text-center text-sm",
-   link: "ml-2",
+    header: "space-y-1",
+    title: "text-2xl font-bold text-center",
+    content: "space-y-4",
+    fieldGroup: "space-y-2",
+    footer: "flex flex-col space-y-4",
+    button: "w-full",
+    prompt: "mt-0 text-center text-sm",
+    link: "ml-2",
 };
 
 export const HERO_SECTION_STYLES = {

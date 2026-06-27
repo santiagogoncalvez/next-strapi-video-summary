@@ -99,7 +99,7 @@ export default function ConfirmEmail({ email }: { email: string }) {
                </CardContent>
 
                <CardFooter
-                  className={`${SIGN_IN_FORM_STYLES.footer} ${SIGN_IN_FORM_STYLES.fieldGroup}`}
+                  className={`${SIGN_IN_FORM_STYLES.footer}`}
                >
                   <Button
                      className={cn(
