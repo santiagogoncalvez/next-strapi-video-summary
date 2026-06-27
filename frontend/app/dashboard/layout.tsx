@@ -8,9 +8,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
          <DashboardSidebar />
 
          {/* 2. El contenedor de tu contenido principal */}
-         <main className="flex-1 p-6">
+         <main className="relative flex flex-1 justify-center items-center p-6">
             {/* Botón flotante para abrir/cerrar la barra */}
-            <SidebarTrigger className="mb-4"/>
+            <SidebarTrigger className="absolute left-2 top-2"/>
             {children}
          </main>
       </SidebarProvider>

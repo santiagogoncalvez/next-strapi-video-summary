@@ -13,7 +13,7 @@ export default async function DashboardRoute() {
    const { user } = result.session;
 
    return (
-      <div className="flex flex-col items-center justify-center gap-8 min-h-screen ">
+      <div className="flex flex-col items-center justify-center gap-8  ">
          <h1 className={HERO_SECTION_STYLES.heading}>¡Hola {user?.username}!</h1>
       </div>
    );
