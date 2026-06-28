@@ -9,7 +9,6 @@ import {
 import {
    BUTTON_VARIANTS,
    SIGN_IN_FORM_STYLES,
-   SIGN_UP_FORM_STYLES,
 } from "@/constants/styles";
 import { cn } from "@/lib/utils";
 import Link from "next/link";

@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 const stylesHero = "text-base font-medium px-4 py-6 ";
-const styles = "text-base font-medium";
+const styles = "text-sm font-medium";
 
 interface Props extends NavBarLinks {
    isHero?: boolean;
@@ -17,7 +17,7 @@ export default async function NavBar({
 }: Props) {
    return (
       <nav
-         className={cn("flex gap-4", {
+         className={cn("flex gap-2", {
             "flex-row-reverse": isHero,
          })}
       >

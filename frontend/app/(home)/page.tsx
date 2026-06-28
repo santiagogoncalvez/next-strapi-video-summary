@@ -12,6 +12,7 @@ export async function generateMetadata() {
 export default async function Home() {
    const strapiData = await getHomePage();
    // console.log(strapiData);
+   console.dir(strapiData, { depth: null });
 
    const { title, description } = strapiData || {};
    const [heroSection] = strapiData.sections || [];
