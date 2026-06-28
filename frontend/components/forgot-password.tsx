@@ -2,7 +2,7 @@
 
 import { actions } from "@/actions";
 import { FormError } from "@/components/form-error";
-import Logo from "@/components/logo";
+import Logo from "@/components/logo-page";
 import { Button } from "@/components/ui/button";
 import {
    Card,
@@ -98,9 +98,7 @@ export default function ForgotPassword() {
                   </div>
                </CardContent>
 
-               <CardFooter
-                  className={`${SIGN_IN_FORM_STYLES.footer}`}
-               >
+               <CardFooter className={`${SIGN_IN_FORM_STYLES.footer}`}>
                   <Button
                      className={cn(
                         BUTTON_VARIANTS({

@@ -1,4 +1,4 @@
-import Logo from "@/components/logo";
+import Logo from "@/components/logo-page";
 import {
    Card,
    CardDescription,
@@ -6,10 +6,7 @@ import {
    CardHeader,
    CardTitle,
 } from "@/components/ui/card";
-import {
-   BUTTON_VARIANTS,
-   SIGN_IN_FORM_STYLES,
-} from "@/constants/styles";
+import { BUTTON_VARIANTS, SIGN_IN_FORM_STYLES } from "@/constants/styles";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
@@ -28,9 +25,7 @@ export default function EmailConfirmed() {
                      Ahora puedes iniciar sesión en tu cuenta.
                   </CardDescription>
                </CardHeader>
-               <CardFooter
-                  className={`${SIGN_IN_FORM_STYLES.footer}`}
-               >
+               <CardFooter className={`${SIGN_IN_FORM_STYLES.footer}`}>
                   <Link
                      className={cn(
                         BUTTON_VARIANTS({

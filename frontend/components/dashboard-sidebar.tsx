@@ -19,7 +19,7 @@ import {
    SidebarMenuItem,
    SidebarRail,
 } from "@/components/ui/sidebar";
-import Logo from "@/components/logo";
+import Logo from "@/components/logo-page";
 import { LogoutForm } from "./log-out-form";
 import Link from "next/link";
 
