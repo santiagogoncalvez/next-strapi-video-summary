@@ -19,8 +19,8 @@ import {
    SidebarMenuItem,
    SidebarRail,
 } from "@/components/ui/sidebar";
-import Logo from "@/components/logo-page";
-import { LogoutForm } from "./log-out-form";
+import Logo from "@/components/custom/logo-page";
+import { LogoutForm } from "../form/log-out-form";
 import Link from "next/link";
 
 // Menú de navegación ficticio

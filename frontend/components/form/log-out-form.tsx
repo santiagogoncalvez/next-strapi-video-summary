@@ -1,11 +1,11 @@
 import { actions } from "@/actions";
-import { Button, BUTTON_VARIANTS } from "./ui/button";
+import { Button, BUTTON_VARIANTS } from "../ui/button";
 import { VariantProps } from "class-variance-authority";
 import { LogOut } from "lucide-react";
 
 export function LogoutForm({
    variant = "default",
-   size ="default"
+   size = "default",
 }: {
    variant?: VariantProps<typeof BUTTON_VARIANTS>["variant"];
    size?: VariantProps<typeof BUTTON_VARIANTS>["size"];

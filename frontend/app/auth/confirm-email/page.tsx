@@ -1,6 +1,6 @@
 // app/confirm-email/page.tsx
 
-import ConfirmEmail from "@/components/confirm-email";
+import ConfirmEmail from "@/components/form/confirm-email";
 
 export default async function ConfirmEmailPage({
    searchParams,

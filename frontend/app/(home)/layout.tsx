@@ -1,6 +1,6 @@
 // import type { Metadata } from "next";
 import "../globals.css";
-import Header from "@/components/header";
+import Header from "@/components/custom/header";
 import { getHomePage } from "@/lib/strapi";
 
 // export const metadata: Metadata = {

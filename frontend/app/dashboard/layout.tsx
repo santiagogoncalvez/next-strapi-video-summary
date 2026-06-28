@@ -1,4 +1,4 @@
-import { DashboardSidebar } from "@/components/dashboard-sidebar";
+import { DashboardSidebar } from "@/components/custom/dashboard-sidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -10,7 +10,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
          {/* 2. El contenedor de tu contenido principal */}
          <main className="relative flex flex-1 justify-center items-center p-6">
             {/* Botón flotante para abrir/cerrar la barra */}
-            <SidebarTrigger className="absolute left-2 top-2"/>
+            <SidebarTrigger className="absolute left-2 top-2" />
             {children}
          </main>
       </SidebarProvider>

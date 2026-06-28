@@ -1,8 +1,8 @@
 "use client";
 
 import { actions } from "@/actions";
-import { FormError } from "@/components/form-error";
-import Logo from "@/components/logo-page";
+import { FormError } from "@/components/form/form-error";
+import Logo from "@/components/custom/logo-page";
 import { Button } from "@/components/ui/button";
 import {
    Card,
@@ -14,22 +14,17 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-   BUTTON_VARIANTS,
-   SIGN_IN_FORM_STYLES,
-   SIGN_UP_FORM_STYLES,
-} from "@/constants/styles";
+import { BUTTON_VARIANTS, SIGN_IN_FORM_STYLES } from "@/constants/styles";
 import { useCountdown } from "@/hooks/use-countdown";
 import { cn } from "@/lib/utils";
 import { FormState } from "@/validations/auth";
 import { Loader2 } from "lucide-react";
-import Link from "next/link";
 import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
 
 const COOLDOWN_TIME = 30;
 
-export default function ForgotPassword() {
+export default function ConfirmEmail({ email }: { email: string }) {
    const [count, { startCountdown, resetCountdown, isRunning }] = useCountdown({
       countStart: COOLDOWN_TIME,
    });
@@ -45,12 +40,12 @@ export default function ForgotPassword() {
       message: undefined,
       strapiErrors: null,
       zodErrors: null,
-      data: { email: "" },
+      data: { email },
       timestamp: undefined,
    };
 
    const [formState, formAction, isPending] = useActionState(
-      actions.auth.forgotPasswordAction,
+      actions.auth.resendConfirmEmailAction,
       INITIAL_STATE,
    );
 
@@ -74,19 +69,24 @@ export default function ForgotPassword() {
             <Card>
                <CardHeader className={SIGN_IN_FORM_STYLES.header}>
                   <CardTitle className={SIGN_IN_FORM_STYLES.title}>
-                     Has olvidado tu contraseña
+                     Confirma tu correo electrónico
                   </CardTitle>
 
                   <CardDescription className="text-center">
                      <p>
-                        Introduce tu correo electrónico y te enviaremos un
-                        enlace para restablecer tu contraseña.
+                        Te hemos enviado un enlace de confirmación a tu correo
+                        electrónico. Por favor, revisa tu bandeja de entrada y
+                        haz clic en el enlace para verificar tu cuenta antes de
+                        registrarte.
                      </p>
                   </CardDescription>
                </CardHeader>
                <CardContent className={SIGN_IN_FORM_STYLES.content}>
                   <div className={SIGN_IN_FORM_STYLES.fieldGroup}>
-                     <Label htmlFor="email">Correo electrónico</Label>
+                     <Label htmlFor="email">
+                        ¿No recibiste el correo electrónico? Revisa tu carpeta
+                        de correo no deseado o intenta reenviarlo abajo.
+                     </Label>
                      <Input
                         id="email"
                         name="email"
@@ -115,7 +115,7 @@ export default function ForgotPassword() {
                      {!isPending &&
                         (isRunning
                            ? `Reintentar en ${count}s`
-                           : "Enviar enlace de restablecimiento")}
+                           : "Reenviar correo electrónico de confirmación")}
                   </Button>
                   {!formState.success && formState.message && (
                      <FormError error={[formState.message]} />
@@ -123,16 +123,6 @@ export default function ForgotPassword() {
                   {formState.strapiErrors && (
                      <FormError error={[formState.strapiErrors.message]} />
                   )}
-
-                  <div className={SIGN_UP_FORM_STYLES.prompt}>
-                     ¿Recuerdas tu contraseña?
-                     <Link
-                        className={SIGN_UP_FORM_STYLES.link}
-                        href="/auth/login"
-                     >
-                        Iniciar sesión
-                     </Link>
-                  </div>
                </CardFooter>
             </Card>
          </form>

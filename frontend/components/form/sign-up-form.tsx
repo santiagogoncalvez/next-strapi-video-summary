@@ -19,7 +19,7 @@ import { useActionState } from "react";
 import { FormState } from "@/validations/auth";
 import { FormError } from "./form-error";
 import { BUTTON_VARIANTS, SIGN_UP_FORM_STYLES } from "@/constants/styles";
-import Logo from "@/components/logo-page";
+import Logo from "@/components/custom/logo-page";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 

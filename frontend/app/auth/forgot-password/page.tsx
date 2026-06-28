@@ -1,4 +1,4 @@
-import ForgotPassword from "@/components/forgot-password";
+import ForgotPassword from "@/components/form/forgot-password";
 
 
 export default async function ForgotPasswordPage() {

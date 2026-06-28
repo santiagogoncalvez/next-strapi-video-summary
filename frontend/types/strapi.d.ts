@@ -137,3 +137,13 @@ export interface HeroSectionProps {
     link: Link;
     secondaryLink: Link;
 }
+
+interface StrapiMediaProps {
+    src: string;
+    alt: string | null;
+    height?: number;
+    width?: number;
+    className?: string;
+    fill?: boolean;
+    priority?: boolean;
+}

@@ -1,4 +1,4 @@
-import Logo from "@/components/logo-page";
+import Logo from "@/components/custom/logo-page";
 import {
    Card,
    CardDescription,
