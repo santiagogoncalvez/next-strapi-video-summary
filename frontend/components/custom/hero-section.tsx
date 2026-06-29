@@ -2,14 +2,22 @@
 import { HERO_SECTION_STYLES } from "@/constants/styles";
 import NavBar from "./nav-bar";
 import { HeroSectionProps } from "@/types/strapi";
+import { StrapiImage } from "./strapi-image";
 
 export function HeroSection({ data }: { readonly data: HeroSectionProps }) {
    if (!data) return null;
 
-   const { heading, subHeading, link, secondaryLink } = data;
+   const { heading, subHeading, image, link, secondaryLink } = data;
 
    return (
       <header className={HERO_SECTION_STYLES.header}>
+         <StrapiImage
+            alt={image.alternativeText ?? "no alternative text"}
+            className="absolute inset-0 object-cover w-full h-full aspect/16:9"
+            src={image.url}
+            height={1080}
+            width={1920}
+         />
          <div className={HERO_SECTION_STYLES.overlay}>
             <h1 className={HERO_SECTION_STYLES.heading}>{heading}</h1>
             <p className={HERO_SECTION_STYLES.subheading}>{subHeading}</p>

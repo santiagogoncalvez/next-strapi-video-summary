@@ -3,6 +3,7 @@ import qs from "qs";
 import { Credentials } from "./definitions";
 import axios from "axios";
 import { verifySession } from "./dal";
+import { getStrapiURL } from "./utils";
 
 export const STRAPI_BASE_URL =
     process.env.STRAPI_BASE_URL || "http://localhost:1337";
@@ -24,6 +25,13 @@ const QUERY_HOME_PAGE = qs.stringify({
                         },
                     },
                 },
+                "layout.features-section": {
+                    populate: {
+                        features: {
+                            populate: true,
+                        },
+                    },
+                },
             },
         },
     },
@@ -36,8 +44,8 @@ export async function getHomePage() {
 }
 
 export async function getStrapiData(url: string) {
-    const fullUrl = `${STRAPI_BASE_URL}${url}`;
-    
+    const fullUrl = `${getStrapiURL()}${url}`;
+
     try {
         const response = await fetch(fullUrl, {
             next: {
@@ -49,6 +57,8 @@ export async function getStrapiData(url: string) {
         }
 
         const data = await response.json();
+
+        console.log(data);
         return data;
     } catch (error) {
         console.error("Error fetching data:", error);

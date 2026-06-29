@@ -1,5 +1,6 @@
 import { getHomePage } from "@/lib/strapi";
 import { HeroSection } from "@/components/custom/hero-section";
+import { FeaturesSection } from "@/components/custom/features-section";
 
 export async function generateMetadata() {
    const strapiData = await getHomePage();
@@ -14,12 +15,12 @@ export default async function Home() {
    // console.log(strapiData);
    console.dir(strapiData, { depth: null });
 
-   const { title, description } = strapiData || {};
-   const [heroSection] = strapiData.sections || [];
+   const [heroSection, featuresSection] = strapiData.sections || [];
 
    return (
-      <div className={"container mx-auto"}>
-         <HeroSection data={{ ...heroSection, title, description }} />
+      <div className={"container"}>
+         <HeroSection data={{ ...heroSection }} />
+         <FeaturesSection data={{ ...featuresSection }} />
       </div>
    );
 }

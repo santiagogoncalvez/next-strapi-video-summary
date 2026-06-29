@@ -68,8 +68,18 @@ export const HERO_SECTION_STYLES = {
     header: "relative h-[500px] rounded-2xl overflow-hidden rounded-4xl",
     backgroundImage: "absolute inset-0 object-cover w-full h-full ",
     overlay:
-        "relative flex flex-col items-center justify-center h-full text-center",
+        "relative flex flex-col items-center justify-center h-full text-center bg-white/98",
     heading: "text-black text-4xl font-bold md:text-5xl lg:text-6xl",
     subheading: "mt-8 text-black text-lg md:text-xl lg:text-2xl",
     button: "mt-8 ",
+};
+
+export const FEATURES_SECTION_STYLES = {
+   container: "flex-1",
+   section: "container px-4 py-6 mx-auto md:px-6 lg:py-24",
+   grid: "grid gap-8 md:grid-cols-3",
+   featureCard: "flex flex-col items-center text-center",
+   icon: "w-12 h-12 mb-4 text-gray-900",
+   heading: "mb-4 text-2xl font-medium",
+   description: "text-gray-500",
 };
