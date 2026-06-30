@@ -1,26 +1,38 @@
-import { getHomePage } from "@/lib/strapi";
-import { HeroSection } from "@/components/custom/hero-section";
 import { FeaturesSection } from "@/components/custom/features-section";
+import { HeroSection } from "@/components/custom/hero-section";
+import { loaders } from "@/data/loaders";
+import { validateApiResponse } from "@/lib/error-handler";
+import {
+   FeaturesSectionProps,
+   HeroSectionProps,
+   StrapiSections,
+} from "@/types/strapi";
 
-export async function generateMetadata() {
-   const strapiData = await getHomePage();
-   return {
-      title: strapiData?.title,
-      description: strapiData?.description,
-   };
+function blockRenderer(section: StrapiSections, index: number) {
+   switch (section.__component) {
+      case "layout.hero-section":
+         return <HeroSection key={index} data={section as HeroSectionProps} />;
+      case "layout.features-section":
+         console.log("Sections data:", section);
+         return (
+            <FeaturesSection
+               key={index}
+               data={section as FeaturesSectionProps}
+            />
+         );
+      default:
+         return null;
+   }
 }
 
 export default async function Home() {
-   const strapiData = await getHomePage();
-   // console.log(strapiData);
-   console.dir(strapiData, { depth: null });
-
-   const [heroSection, featuresSection] = strapiData.sections || [];
+   const homePageData = await loaders.getHomePageData();
+   const data = validateApiResponse(homePageData, "home page");
+   const { sections } = data;
 
    return (
-      <div className={"container"}>
-         <HeroSection data={{ ...heroSection }} />
-         <FeaturesSection data={{ ...featuresSection }} />
-      </div>
+      <main>
+         {sections.map((section, index) => blockRenderer(section, index))}
+      </main>
    );
 }

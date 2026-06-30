@@ -1,15 +1,7 @@
-import { Feature } from "@/types/strapi";
+import { Feature, FeaturesSectionProps } from "@/types/strapi";
 import { CheckIcon, ClockIcon, CloudIcon } from "../icons/features";
 import { FEATURES_SECTION_STYLES } from "@/constants/styles";
 
-
-export interface IFeaturesSectionProps {
-   id: number;
-   __component: string;
-   title: string;
-   description: string;
-   features?: Feature[] | null;
-}
 
 function getIcon(name: string) {
    switch (name) {
@@ -24,7 +16,7 @@ function getIcon(name: string) {
    }
 }
 
-export function FeaturesSection({ data }: { data: IFeaturesSectionProps }) {
+export function FeaturesSection({ data }: { data: FeaturesSectionProps }) {
    if (!data?.features) return null;
    return (
       <div>

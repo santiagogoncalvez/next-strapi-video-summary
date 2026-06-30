@@ -1,7 +1,10 @@
 // import type { Metadata } from "next";
+import { loaders } from "@/data/loaders";
 import "../globals.css";
 import Header from "@/components/custom/header";
-import { getHomePage } from "@/lib/strapi";
+import { validateApiResponse } from "@/lib/error-handler";
+import { HeroSectionProps } from "@/types/strapi";
+import { Suspense } from "react";
 
 // export const metadata: Metadata = {
 //    title: "RESU | Resume tus videos",
@@ -13,15 +16,22 @@ export default async function RootLayout({
 }: Readonly<{
    children: React.ReactNode;
 }>) {
-   const strapiData = await getHomePage();
+   const globalDataResponse = await loaders.getGlobalData();
+   const globalData = validateApiResponse(globalDataResponse, "global page");
 
-   const [heroSection] = strapiData.sections || [];
-   const { link, secondaryLink } = heroSection;
+   const { header } = globalData;
 
    return (
-      <div>
-         <Header link={link} secondaryLink={secondaryLink} />
-         <main className="px-8">{children}</main>
-      </div>
+      <Suspense fallback={<div>Cargando...</div>}>
+         <div>
+            <Header
+               logoText={header.logoText}
+               link={header.ctaButton}
+               secondaryLink={header.secondaryCtaButton}
+            />
+
+            <main className="px-8">{children}</main>
+         </div>
+      </Suspense>
    );
 }

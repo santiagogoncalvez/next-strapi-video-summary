@@ -2,14 +2,14 @@ import qs from "qs";
 
 import { api } from "@/data/data-api";
 import { getStrapiURL } from "@/lib/utils";
-import { HomePage, StrapiResponse } from "@/types/strapi";
+import { Global, HomePage, StrapiResponse } from "@/types/strapi";
 
 const baseUrl = getStrapiURL();
 
 async function getHomePageData(): Promise<StrapiResponse<HomePage>> {
     const query = qs.stringify({
         populate: {
-            blocks: {
+            sections: {
                 on: {
                     "layout.hero-section": {
                         populate: {
@@ -17,6 +17,9 @@ async function getHomePageData(): Promise<StrapiResponse<HomePage>> {
                                 fields: ["url", "alternativeText"],
                             },
                             link: {
+                                populate: true,
+                            },
+                            secondaryLink: {
                                 populate: true,
                             },
                         },
@@ -38,6 +41,23 @@ async function getHomePageData(): Promise<StrapiResponse<HomePage>> {
     return api.get<HomePage>(url.href);
 }
 
+async function getGlobalData(): Promise<StrapiResponse<Global>> {
+    const query = qs.stringify({
+        populate: [
+            "header.logoText",
+            "header.ctaButton",
+            "header.secondaryCtaButton",
+            "footer.logoText",
+            "footer.socialLink",
+        ],
+    });
+
+    const url = new URL("/api/global", baseUrl);
+    url.search = query;
+    return api.get<Global>(url.href);
+}
+
 export const loaders = {
     getHomePageData,
+    getGlobalData
 };

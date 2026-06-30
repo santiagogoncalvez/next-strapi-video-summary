@@ -1,0 +1,24 @@
+{
+    "collectionName": "components_layout_footers",
+    "info": {
+        "displayName": "Footer",
+        "icon": "dashboard"
+    },
+    "options": {},
+    "attributes": {
+        "logoText": {
+            "type": "component",
+            "component": "component.link",
+            "repeatable": false
+        },
+        "text": {
+            "type": "text"
+        },
+        "socialLink": {
+            "type": "component",
+            "component": "component.link",
+            "repeatable": true
+        }
+    },
+    "config": {}
+}

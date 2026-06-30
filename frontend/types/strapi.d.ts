@@ -45,12 +45,13 @@ export type HomePage = {
     createdAt: string;
     updatedAt: string;
     publishedAt: string;
-    blocks: any; // we will change this soon
+    sections: StrapiSections[]; // we will change this soon
 };
 
 export type Header = {
     logoText: Link;
     ctaButton: Link;
+    secondaryCtaButton: Link;
 };
 
 export type Footer = {
@@ -137,6 +138,17 @@ export interface HeroSectionProps {
     link: Link;
     secondaryLink: Link;
 }
+
+export interface FeaturesSectionProps {
+   id: number;
+   __component: string;
+   title: string;
+   description: string;
+   features?: Feature[] | null;
+}
+
+export type StrapiSections = HeroSectionProps | FeaturesSectionProps;
+
 
 interface StrapiMediaProps {
     src: string;

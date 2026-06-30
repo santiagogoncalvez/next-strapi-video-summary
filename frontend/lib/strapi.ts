@@ -1,47 +1,9 @@
-// import { cacheLife } from "next/cache";
-import qs from "qs";
 import { Credentials } from "./definitions";
 import axios from "axios";
 import { verifySession } from "./dal";
 import { getStrapiURL } from "./utils";
 
-export const STRAPI_BASE_URL =
-    process.env.STRAPI_BASE_URL || "http://localhost:1337";
-
-const QUERY_HOME_PAGE = qs.stringify({
-    populate: {
-        sections: {
-            on: {
-                "layout.hero-section": {
-                    populate: {
-                        image: {
-                            fields: ["url", "alternativeText"],
-                        },
-                        link: {
-                            populate: true,
-                        },
-                        secondaryLink: {
-                            populate: true,
-                        },
-                    },
-                },
-                "layout.features-section": {
-                    populate: {
-                        features: {
-                            populate: true,
-                        },
-                    },
-                },
-            },
-        },
-    },
-});
-
-export async function getHomePage() {
-    const query = QUERY_HOME_PAGE;
-    const response = await getStrapiData(`/api/home-page?${query}`);
-    return response?.data;
-}
+export const STRAPI_BASE_URL = getStrapiURL();
 
 export async function getStrapiData(url: string) {
     const fullUrl = `${getStrapiURL()}${url}`;
