@@ -12,10 +12,10 @@ interface Props {
 export default function Logo({ showText = true, logoText, dark }: Props) {
    return (
       <Link
-         className="w-fit font-medium text-3xl flex gap-1"
+         className="w-fit font-normal text-3xl flex gap-1 items-center"
          href={logoText.href}
       >
-         <LogoIcon className="size-4" />
+         <LogoIcon className="size-10" />
          {showText && (
             <span className={`${dark ? "text-white" : ""}`}>
                {" "}

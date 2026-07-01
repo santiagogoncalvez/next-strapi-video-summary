@@ -17,7 +17,6 @@ import { useActionState, useEffect } from "react";
 import { FormState } from "@/validations/auth";
 import { FormError } from "./form-error";
 import { BUTTON_VARIANTS, SIGN_UP_FORM_STYLES } from "@/constants/styles";
-import Logo from "@/components/custom/logo-page";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
@@ -49,7 +48,6 @@ export function ChangePassword() {
 
    return (
       <div className={SIGN_UP_FORM_STYLES.container}>
-         <Logo />
          <form className="w-full" action={formAction}>
             <Card>
                <CardHeader className={SIGN_UP_FORM_STYLES.header}>

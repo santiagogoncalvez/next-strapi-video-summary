@@ -19,7 +19,6 @@ import { FormState } from "@/validations/auth";
 import { actions } from "@/actions";
 import { useActionState } from "react";
 import { FormError } from "./form-error";
-import Logo from "@/components/custom/logo-page";
 import { BUTTON_VARIANTS, SIGN_IN_FORM_STYLES } from "@/constants/styles";
 import { cn } from "@/lib/utils";
 
@@ -39,7 +38,6 @@ export function SigninForm() {
 
    return (
       <div className={SIGN_IN_FORM_STYLES.container}>
-         <Logo />
          <form className="w-full" action={formAction}>
             <Card>
                <CardHeader className={SIGN_IN_FORM_STYLES.header}>

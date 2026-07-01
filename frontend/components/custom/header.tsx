@@ -1,17 +1,21 @@
-import { NavBarLinks } from "@/lib/definitions";
 import NavBar from "./nav-bar";
 import Logo from "@/components/custom/logo-page";
-import { Link } from "@/types/strapi";
+import { type Header } from "@/types/strapi";
 
-interface Props extends NavBarLinks {
-   logoText: Link;
+interface Props {
+   data?: Header | null;
 }
 
-export default async function Header({ link, secondaryLink, logoText }: Props) {
+export default async function Header({ data }: Props) {
+   if (!data) return null;
+
    return (
-      <header className="w-full flex justify-between px-8 py-4">
-         <Logo logoText={logoText} />
-         <NavBar link={link} secondaryLink={secondaryLink} />
+      <header className="w-full border-b border-b-foreground/10 flex justify-between px-8 py-4">
+         <Logo logoText={data.logoText} />
+         <NavBar
+            link={data.ctaButton}
+            secondaryLink={data.secondaryCtaButton}
+         />
       </header>
    );
 }

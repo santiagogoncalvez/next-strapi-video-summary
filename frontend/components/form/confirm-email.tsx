@@ -2,7 +2,6 @@
 
 import { actions } from "@/actions";
 import { FormError } from "@/components/form/form-error";
-import Logo from "@/components/custom/logo-page";
 import { Button } from "@/components/ui/button";
 import {
    Card,
@@ -64,7 +63,6 @@ export default function ConfirmEmail({ email }: { email: string }) {
 
    return (
       <div className={SIGN_IN_FORM_STYLES.container}>
-         <Logo />
          <form className="w-full" action={formAction}>
             <Card>
                <CardHeader className={SIGN_IN_FORM_STYLES.header}>

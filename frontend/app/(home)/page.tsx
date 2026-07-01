@@ -13,7 +13,7 @@ function blockRenderer(section: StrapiSections, index: number) {
       case "layout.hero-section":
          return <HeroSection key={index} data={section as HeroSectionProps} />;
       case "layout.features-section":
-         console.log("Sections data:", section);
+         // console.log("Sections data:", section);
          return (
             <FeaturesSection
                key={index}

@@ -1,16 +1,16 @@
-import "./globals.css";
 import { geistSans } from "./ui/fonts";
-import { Suspense } from "react";
 import { Toaster } from "@/components/ui/sonner";
-import { validateApiResponse } from "@/lib/error-handler";
 import { loaders } from "@/data/loaders";
+import type { Metadata } from "next";
+import "./globals.css";
 
-export async function generateMetadata() {
-   const globalDataResponse = await loaders.getGlobalData();
-   const globalData = validateApiResponse(globalDataResponse, "global page");
+export async function generateMetadata(): Promise<Metadata> {
+   const metadata = await loaders.getMetaData();
+   
    return {
-      title: globalData?.title,
-      description: globalData?.description,
+      title: metadata?.data?.title ?? "RESU | Resume tus videos",
+      description:
+      metadata?.data?.description ?? "Plataforma para resumir videos",
    };
 }
 
@@ -19,14 +19,10 @@ export default async function RootLayout({
 }: Readonly<{
    children: React.ReactNode;
 }>) {
-   const globalDataResponse = await loaders.getGlobalData();
-   const globalData = validateApiResponse(globalDataResponse, "global page");
-   console.dir(globalData, { depth: null });
-
    return (
       <html lang="en" className={`${geistSans.className} h-full antialiased`}>
          <body className="min-h-full flex flex-col">
-            <Suspense fallback={<div>Cargando...</div>}>{children}</Suspense>
+            {children}
 
             <Toaster />
          </body>

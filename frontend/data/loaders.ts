@@ -1,8 +1,8 @@
 import qs from "qs";
+import type { StrapiResponse, HomePage, Global, MetaData } from "@/types/strapi";
 
 import { api } from "@/data/data-api";
 import { getStrapiURL } from "@/lib/utils";
-import { Global, HomePage, StrapiResponse } from "@/types/strapi";
 
 const baseUrl = getStrapiURL();
 
@@ -57,7 +57,18 @@ async function getGlobalData(): Promise<StrapiResponse<Global>> {
     return api.get<Global>(url.href);
 }
 
+async function getMetaData(): Promise<StrapiResponse<MetaData>> {
+    const query = qs.stringify({
+        fields: ["title", "description"],
+    });
+
+    const url = new URL("/api/global", baseUrl);
+    url.search = query;
+    return api.get<MetaData>(url.href);
+}
+
 export const loaders = {
     getHomePageData,
-    getGlobalData
+    getGlobalData,
+    getMetaData,
 };

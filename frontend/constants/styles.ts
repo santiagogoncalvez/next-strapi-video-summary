@@ -75,11 +75,47 @@ export const HERO_SECTION_STYLES = {
 };
 
 export const FEATURES_SECTION_STYLES = {
-   container: "flex-1",
-   section: "container px-4 py-6 mx-auto md:px-6 lg:py-24",
-   grid: "grid gap-8 md:grid-cols-3",
-   featureCard: "flex flex-col items-center text-center",
-   icon: "w-12 h-12 mb-4 text-gray-900",
-   heading: "mb-4 text-2xl font-medium",
-   description: "text-gray-500",
+    container: "flex-1",
+    section: "container px-4 py-6 md:px-6 lg:py-24",
+    grid: "grid gap-8 md:grid-cols-3",
+    featureCard: "flex flex-col items-center text-center",
+    icon: "w-12 h-12 mb-4 text-gray-900",
+    heading: "mb-4 text-2xl font-medium",
+    description: "text-gray-500",
+};
+
+export const FOOTER_STYLES = {
+    footer: "w-full border-t border-t-foreground/10 py-4 text-black",
+    container:
+        "w-full px-8 flex flex-col md:flex-row items-center justify-between",
+    text: "mt-4 md:mt-0 text-sm text-gray-800",
+    socialContainer: "w-40 flex justify-end gap-4",
+    socialLink: "transition-all hover:text-gray-800",
+    icon: "h-6 w-6",
+    srOnly: "sr-only",
+};
+
+export const NOT_FOUND_STYLES = {
+   container:
+      "bg-gradient-to-br flex items-center justify-center p-4 w-full h-full flex-1",
+    content: "w-full max-w-2xl  text-center space-y-8",
+   textSection: "space-y-4",
+    heading404: "text-black text-4xl font-bold md:text-5xl lg:text-6xl select-none",
+   headingContainer: "relative flex flex-col items-center justify-center",
+   pageTitle: "text-4xl font-bold text-gray-800 mb-4",
+   description: "text-lg text-gray-600 max-w-md  leading-relaxed",
+   illustrationContainer: "flex justify-center",
+   illustration: "relative animate-pulse",
+   searchCircle:
+      "w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center transition-all duration-300 hover:bg-gray-300",
+   searchIcon: "w-8 h-8 text-gray-400",
+   errorBadge:
+      "absolute -top-2 -right-2 w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center animate-bounce",
+   errorSymbol: "text-gray-500 text-xs font-bold",
+   buttonContainer:
+      "flex flex-col sm:flex-row gap-4 justify-center items-center",
+   button: "min-w-[160px]",
+   buttonContent: "flex items-center gap-2",
+   buttonIcon: "w-4 h-4",
+   outlineButton: "min-w-[160px] bg-transparent",
 };

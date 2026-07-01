@@ -35,6 +35,9 @@ async function apiWithTimeout(
         const response = await fetch(input, {
             ...init,
             signal: controller.signal, // Connect the abort signal to fetch
+            next: {
+                revalidate: 60,
+            },
         });
         return response;
     } finally {
