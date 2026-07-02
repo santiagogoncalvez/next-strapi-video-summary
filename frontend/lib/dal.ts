@@ -3,7 +3,7 @@ import { cache } from "react"
 import "server-only"
 import { decrypt } from "./session";
 import { redirect } from "next/navigation";
-import { SessionPayload } from "./definitions";
+import { SessionPayload } from "@/types/strapi";
 
 type VerifySessionResult =
     | {

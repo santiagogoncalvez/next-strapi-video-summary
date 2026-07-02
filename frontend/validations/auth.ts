@@ -84,6 +84,17 @@ export type StrapiThrowError = {
     error: StrapiErrors;
 }
 
+interface ZodError {
+    identifier?: string[];
+    username?: string[];
+    email?: string[];
+    password?: string[];
+    confirmPassword?: string[];
+    newPassword?: string[];
+}
+
+type ZodErrors = ZodError | null;
+
 export function isStrapiThrowError(
     error: unknown
 ): error is StrapiThrowError {
@@ -99,13 +110,6 @@ export type FormState = {
     message?: string;
     data?: Credentials;
     strapiErrors?: StrapiErrors;
-    zodErrors?: {
-        identifier?: string[];
-        username?: string[];
-        email?: string[];
-        password?: string[];
-        confirmPassword?: string[];
-        newPassword?: string[];
-    } | null;
+    zodErrors?: ZodErrors,
     timestamp?: number,
 };

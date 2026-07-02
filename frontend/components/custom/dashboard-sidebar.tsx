@@ -1,10 +1,4 @@
-import {
-   Home,
-   Settings,
-   Users,
-   Folder,
-   KeyRound,
-} from "lucide-react";
+import { KeyRound } from "lucide-react";
 import {
    Sidebar,
    SidebarContent,
@@ -19,24 +13,24 @@ import {
    SidebarRail,
 } from "@/components/ui/sidebar";
 import Logo from "@/components/custom/logo-page";
-import { LogoutForm } from "../form/log-out-form";
 import Link from "next/link";
 import { validateApiResponse } from "@/lib/error-handler";
 import { loaders } from "@/data/loaders";
+import { LogoutFormSideBar } from "../form/log-out-form-slidebar";
 
 // Menú de navegación ficticio
-const navigationItems = [
-   { name: "Inicio", url: "/dashboard", icon: Home },
-   { name: "Proyectos", url: "/projects", icon: Folder },
-   { name: "Usuarios", url: "/users", icon: Users },
-   { name: "Configuración", url: "/settings", icon: Settings },
-];
+// const navigationItems = [
+//    { name: "Inicio", url: "/dashboard", icon: Home },
+//    { name: "Proyectos", url: "/projects", icon: Folder },
+//    { name: "Usuarios", url: "/users", icon: Users },
+//    { name: "Configuración", url: "/settings", icon: Settings },
+// ];
 
 export async function DashboardSidebar() {
    const globalDataResponse = await loaders.getGlobalData();
-      const globalData = validateApiResponse(globalDataResponse, "global page");
-   
-      const { header } = globalData;
+   const globalData = validateApiResponse(globalDataResponse, "global page");
+
+   const { header } = globalData;
 
    return (
       <Sidebar collapsible="icon">
@@ -74,9 +68,7 @@ export async function DashboardSidebar() {
          <SidebarFooter className="border-t">
             <SidebarMenu>
                <SidebarMenuItem>
-                  <SidebarMenuButton>
-                     <LogoutForm variant={"none"} size={"none"} />
-                  </SidebarMenuButton>
+                  <LogoutFormSideBar variant={"none"} size={"none"} />
                </SidebarMenuItem>
             </SidebarMenu>
          </SidebarFooter>

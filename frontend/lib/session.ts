@@ -2,9 +2,9 @@
 
 import "server-only";
 
-import { SignJWT, jwtVerify } from "jose";
+import { JWTVerifyResult, SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
-import { SessionPayload } from "./definitions";
+import { AuthResponse, SessionPayload } from "@/types/strapi";
 
 // Recuperar el secreto de sesión de las variables de entorno y codificarlo.
 const secretKey = process.env.SESSION_SECRET;
@@ -33,18 +33,23 @@ export async function decrypt(session: string | undefined = "") {
         });
         return payload as SessionPayload;
     } catch (error) {
-        console.error(error);
+        console.error(error as JWTVerifyResult);
     }
 }
 
 
 // Crea una nueva sesión cifrando la carga útil y almacenándola en una cookie segura.
-export async function createSession(payload: SessionPayload) {
+export async function createSession(payload: AuthResponse) {
+    const sessionPayload: SessionPayload = {
+        ...payload,
+    };
+
+    // Cifrar la carga útil de la sesión
+    const session = await encrypt(sessionPayload);
+
     // Configurar la cookie para que caduque en 7 días
     const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
-    // Cifrar la carga útil de la sesión
-    const session = await encrypt(payload);
     // Establece la cookie de sesión con la carga útil cifrada.
     const cookieStore = await cookies();
 

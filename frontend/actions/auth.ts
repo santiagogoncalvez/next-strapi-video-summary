@@ -6,6 +6,7 @@ import z from "zod";
 import { redirect } from "next/navigation";
 import { Credentials } from "@/lib/definitions";
 import { createSession, deleteSession } from "@/lib/session";
+import { RegisterUser } from "@/types/strapi";
 
 
 export async function registerUserAction(prevState: FormState, formData: FormData): Promise<FormState> {
@@ -38,7 +39,7 @@ export async function registerUserAction(prevState: FormState, formData: FormDat
     }
 
     try {
-        const response = await registerUserService(validatedFields.data as Credentials);
+        const response = await registerUserService(validatedFields.data as RegisterUser);
 
         // redirect to confirm email with user email
         redirect("/auth/confirm-email?email=" + fields.email);

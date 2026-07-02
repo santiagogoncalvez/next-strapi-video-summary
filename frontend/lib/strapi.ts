@@ -2,40 +2,19 @@ import { Credentials } from "./definitions";
 import axios from "axios";
 import { verifySession } from "./dal";
 import { getStrapiURL } from "./utils";
+import { AuthResponse, AuthServiceResponse, LoginUser, RegisterUser } from "@/types/strapi";
 
 export const STRAPI_BASE_URL = getStrapiURL();
 
-// export async function getStrapiData(url: string) {
-//     const fullUrl = `${getStrapiURL()}${url}`;
-
-//     try {
-//         const response = await fetch(fullUrl, {
-//             next: {
-//                 revalidate: 60,
-//             },
-//         });
-//         if (!response.ok) {
-//             throw new Error(`HTTP error! status: ${response.status}`);
-//         }
-
-//         const data = await response.json();
-
-//         return data;
-//     } catch (error) {
-//         console.error("Error fetching data:", error);
-//         return null;
-//     }
-// }
-
-export async function registerUserService(credentials: Credentials) {
+export async function registerUserService(credentials: RegisterUser): Promise<AuthServiceResponse | undefined> {
     const url = `${STRAPI_BASE_URL}/api/auth/local/register`;
 
     try {
-        const response = await axios.post(url, {
+        const response = (await axios.post(url, {
             username: credentials.username,
             email: credentials.email,
             password: credentials.password,
-        });
+        })) as AuthServiceResponse;
 
         return response;
     } catch (error) {
@@ -49,10 +28,7 @@ export async function registerUserService(credentials: Credentials) {
     }
 }
 
-export async function loginUserService(userData: {
-    identifier: string;
-    password: string;
-}) {
+export async function loginUserService(userData: LoginUser): Promise<AuthServiceResponse> {
     const url = `${STRAPI_BASE_URL}/api/auth/local`;
 
     try {
@@ -64,11 +40,13 @@ export async function loginUserService(userData: {
             body: JSON.stringify(userData),
         });
 
-        const data = await response.json();
+        const data = (await response.json()) as AuthServiceResponse;
 
         if (!response.ok) {
             throw data;
         }
+
+        // console.log("loginUserService data:", data);
 
         return data;
     } catch (error) {

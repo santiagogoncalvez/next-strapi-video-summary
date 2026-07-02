@@ -1,3 +1,5 @@
+import { JWTPayload } from "jose";
+
 export interface StrapiHeroSection {
     heading: string;
     subHeading: string;
@@ -140,17 +142,17 @@ export interface HeroSectionProps {
 }
 
 export interface FeaturesSectionProps {
-   id: number;
-   __component: string;
-   title: string;
-   description: string;
-   features?: Feature[] | null;
+    id: number;
+    __component: string;
+    title: string;
+    description: string;
+    features?: Feature[] | null;
 }
 
 export type StrapiSections = HeroSectionProps | FeaturesSectionProps;
 
 
-interface StrapiMediaProps {
+export interface StrapiMediaProps {
     src: string;
     alt: string | null;
     height?: number;
@@ -158,4 +160,42 @@ interface StrapiMediaProps {
     className?: string;
     fill?: boolean;
     priority?: boolean;
+}
+
+export type RegisterUser = {
+    username: string;
+    password: string;
+    email: string;
+};
+
+export type LoginUser = {
+    identifier: string;
+    password: string;
+};
+
+export type Jwt = string;
+
+export interface AuthResponse {
+    jwt: Jwt;
+    user: AuthUser;
+}
+
+export type AuthServiceResponse = AuthResponse | StrapiResponse<null>;
+
+// Type guard functions
+export function isAuthError(
+    response: AuthServiceResponse
+): response is StrapiResponse<null> {
+    return "error" in response;
+}
+
+export function isAuthSuccess(
+    response: AuthServiceResponse
+): response is AuthResponse {
+    return "jwt" in response;
+}
+
+export interface SessionPayload extends JWTPayload {
+    jwt: string;
+    user: AuthUser;
 }
