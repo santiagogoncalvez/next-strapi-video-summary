@@ -15,7 +15,7 @@ export default function Logo({ showText = true, logoText, dark }: Props) {
          className="w-fit font-normal text-3xl flex gap-1 items-center"
          href={logoText.href}
       >
-         <LogoIcon className="size-10" />
+         <LogoIcon className={`${showText ? 'size-10' : 'size-8'}`} />
          {showText && (
             <span className={`${dark ? "text-white" : ""}`}>
                {" "}

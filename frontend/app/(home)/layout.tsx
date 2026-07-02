@@ -15,6 +15,8 @@ export default async function RootLayout({
 
    const { header, footer } = globalData;
 
+   console.log(header, footer);
+
    return (
       <div>
          <Header data={header} />

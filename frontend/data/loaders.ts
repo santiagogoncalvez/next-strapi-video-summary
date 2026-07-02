@@ -7,6 +7,8 @@ import { getStrapiURL } from "@/lib/utils";
 const baseUrl = getStrapiURL();
 
 async function getHomePageData(): Promise<StrapiResponse<HomePage>> {
+    // throw new Error("Test error");
+
     const query = qs.stringify({
         populate: {
             sections: {
@@ -42,6 +44,7 @@ async function getHomePageData(): Promise<StrapiResponse<HomePage>> {
 }
 
 async function getGlobalData(): Promise<StrapiResponse<Global>> {
+
     const query = qs.stringify({
         populate: [
             "header.logoText",

@@ -97,7 +97,7 @@ export const FOOTER_STYLES = {
 
 export const NOT_FOUND_STYLES = {
    container:
-      "bg-gradient-to-br flex items-center justify-center p-4 w-full h-full flex-1",
+      "bg-gradient-to-br flex items-center justify-center p-16 w-full h-full flex-1",
     content: "w-full max-w-2xl  text-center space-y-8",
    textSection: "space-y-4",
     heading404: "text-black text-4xl font-bold md:text-5xl lg:text-6xl select-none",
@@ -117,5 +117,14 @@ export const NOT_FOUND_STYLES = {
    button: "min-w-[160px]",
    buttonContent: "flex items-center gap-2",
    buttonIcon: "w-4 h-4",
-   outlineButton: "min-w-[160px] bg-transparent",
+    outlineButton: "min-w-[160px] bg-transparent",
+    errorDetails:
+        "mt-8 p-4 bg-red-50 border border-red-200 rounded-lg text-left text-sm text-red-800",
+    errorTitle: "font-semibold mb-2",
+};
+
+export const LOADING_STYLES = {
+  overlay:
+    "fixed inset-0 flex items-center justify-center bg-gray-100 bg-opacity-60",
+  spinner: "animate-spin h-12 w-12",
 };

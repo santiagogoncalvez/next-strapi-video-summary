@@ -25,6 +25,7 @@ export function StrapiImage({
          alt={alt ?? "No alternative text provided"}
          className={className}
          {...rest}
+         loading="eager"
       />
    );
 }

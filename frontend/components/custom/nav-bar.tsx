@@ -10,7 +10,7 @@ interface Props extends NavBarLinks {
    isHero?: boolean;
 }
 
-export default async function NavBar({
+export default function NavBar({
    link,
    secondaryLink,
    isHero = false,

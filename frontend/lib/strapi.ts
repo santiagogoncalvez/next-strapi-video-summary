@@ -5,28 +5,27 @@ import { getStrapiURL } from "./utils";
 
 export const STRAPI_BASE_URL = getStrapiURL();
 
-export async function getStrapiData(url: string) {
-    const fullUrl = `${getStrapiURL()}${url}`;
+// export async function getStrapiData(url: string) {
+//     const fullUrl = `${getStrapiURL()}${url}`;
 
-    try {
-        const response = await fetch(fullUrl, {
-            next: {
-                revalidate: 60,
-            },
-        });
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+//     try {
+//         const response = await fetch(fullUrl, {
+//             next: {
+//                 revalidate: 60,
+//             },
+//         });
+//         if (!response.ok) {
+//             throw new Error(`HTTP error! status: ${response.status}`);
+//         }
 
-        const data = await response.json();
+//         const data = await response.json();
 
-        // console.log(data);
-        return data;
-    } catch (error) {
-        console.error("Error fetching data:", error);
-        return null;
-    }
-}
+//         return data;
+//     } catch (error) {
+//         console.error("Error fetching data:", error);
+//         return null;
+//     }
+// }
 
 export async function registerUserService(credentials: Credentials) {
     const url = `${STRAPI_BASE_URL}/api/auth/local/register`;

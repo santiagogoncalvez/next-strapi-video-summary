@@ -4,7 +4,6 @@ import {
    Users,
    Folder,
    KeyRound,
-   LockKeyholeOpen,
 } from "lucide-react";
 import {
    Sidebar,
@@ -22,6 +21,8 @@ import {
 import Logo from "@/components/custom/logo-page";
 import { LogoutForm } from "../form/log-out-form";
 import Link from "next/link";
+import { validateApiResponse } from "@/lib/error-handler";
+import { loaders } from "@/data/loaders";
 
 // Menú de navegación ficticio
 const navigationItems = [
@@ -31,12 +32,17 @@ const navigationItems = [
    { name: "Configuración", url: "/settings", icon: Settings },
 ];
 
-export function DashboardSidebar() {
+export async function DashboardSidebar() {
+   const globalDataResponse = await loaders.getGlobalData();
+      const globalData = validateApiResponse(globalDataResponse, "global page");
+   
+      const { header } = globalData;
+
    return (
       <Sidebar collapsible="icon">
          {/* HEADER: Branding o Logo de la App */}
          <SidebarHeader className="flex justify-center items-center border-b">
-            <Logo />
+            <Logo logoText={header.logoText} showText={false} />
          </SidebarHeader>
 
          {/* CONTENT: Navegación principal (scrolleable) */}
@@ -68,7 +74,7 @@ export function DashboardSidebar() {
          <SidebarFooter className="border-t">
             <SidebarMenu>
                <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton>
                      <LogoutForm variant={"none"} size={"none"} />
                   </SidebarMenuButton>
                </SidebarMenuItem>
