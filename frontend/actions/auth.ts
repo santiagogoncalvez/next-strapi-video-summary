@@ -1,310 +1,372 @@
-"use server"
+"use server";
 
-import { changePasswordRequest, confirmEmailRequest, forgotPasswordRequest, loginUserService, registerUserService, resetPasswordRequest } from "@/lib/strapi";
-import { changePassworSchema, FormState, isStrapiThrowError, resendConfirmEmailFormSchema, resetPasswordSchema, SigninFormSchema, SignupFormSchema } from "@/validations/auth";
+import {
+   changePasswordService,
+   confirmEmailService,
+   forgotPasswordService,
+   loginUserService,
+   registerUserService,
+   resetPasswordService,
+} from "@/lib/strapi";
+import {
+   changePassworSchema,
+   resendConfirmEmailFormSchema,
+   resetPasswordSchema,
+   SigninFormSchema,
+   SignupFormSchema,
+} from "@/validations/auth";
 import z from "zod";
 import { redirect } from "next/navigation";
-import { Credentials } from "@/lib/definitions";
+import { FormState } from "@/types/definitions";
 import { createSession, deleteSession } from "@/lib/session";
-import { RegisterUser } from "@/types/strapi";
+import {
+   AuthResponse,
+   ChangePasswordUser,
+   isStrapiError,
+   RegisterUser,
+   ResetPasswordUser,
+} from "@/types/strapi";
 
+export async function registerUserAction(
+   prevState: FormState,
+   formData: FormData,
+): Promise<FormState> {
+   // console.log("registerUserAction");
 
-export async function registerUserAction(prevState: FormState, formData: FormData): Promise<FormState> {
-    // console.log("registerUserAction");
+   const fields = {
+      username: formData.get("username") as string,
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
+      confirmPassword: formData.get("confirmPassword") as string,
+   };
 
-    const fields = {
-        username: formData.get('username') as string,
-        email: formData.get('email') as string,
-        password: formData.get('password') as string,
-        confirmPassword: formData.get('confirmPassword') as string,
-    };
+   const validatedFields = SignupFormSchema.safeParse(fields);
 
-    const validatedFields = SignupFormSchema.safeParse(fields);
+   if (!validatedFields.success) {
+      const flattenedErrors = z.flattenError(validatedFields.error);
 
-    if (!validatedFields.success) {
-        const flattenedErrors = z.flattenError(validatedFields.error);
+      return {
+         success: false,
+         message: "Validation error",
+         strapiErrors: null,
+         zodErrors: flattenedErrors.fieldErrors,
+         data: {
+            ...prevState,
+            ...fields,
+         },
+      };
+   }
 
-        // console.log("Error de validacións:", flattenedErrors.fieldErrors);
+   try {
+      await registerUserService(validatedFields.data as RegisterUser);
 
-        return {
+      // redirect to confirm email with user email
+      redirect("/auth/confirm-email?email=" + fields.email);
+   } catch (error) {
+      if (isStrapiError(error)) {
+         return {
             success: false,
-            message: "Error de validación",
-            strapiErrors: null,
-            zodErrors: flattenedErrors.fieldErrors,
-            data: {
-                ...prevState,
-                ...fields,
-            }
-        }
-    }
+            message: error.error?.message,
+            strapiErrors: error.error,
+            zodErrors: null,
+            data: fields,
+         };
+      }
 
-    try {
-        const response = await registerUserService(validatedFields.data as RegisterUser);
+      console.error(error);
 
-        // redirect to confirm email with user email
-        redirect("/auth/confirm-email?email=" + fields.email);
-    } catch (error) {
-        if (isStrapiThrowError(error)) {
-            return {
-                success: false,
-                message: error?.error?.message,
-                strapiErrors: error?.error,
-                zodErrors: null,
-                data: fields,
-            };
-        }
-
-        throw error;
-    }
+      return {
+         success: false,
+         message: "Ops! Something went wrong. Please try again.",
+         strapiErrors: null,
+         zodErrors: null,
+         data: fields,
+      };
+   }
 }
 
 export async function loginUserAction(
-    prevState: FormState,
-    formData: FormData,
+   prevState: FormState,
+   formData: FormData,
 ): Promise<FormState> {
-    const fields = {
-        identifier: formData.get("identifier") as string,
-        password: formData.get("password") as string,
-    }
+   const fields = {
+      identifier: formData.get("identifier") as string,
+      password: formData.get("password") as string,
+   };
 
-    const validatedFields = SigninFormSchema.safeParse(fields);
+   const validatedFields = SigninFormSchema.safeParse(fields);
 
+   if (!validatedFields.success) {
+      const flattenedErrors = z.flattenError(validatedFields.error);
 
-    if (!validatedFields.success) {
-        const flattenedErrors = z.flattenError(validatedFields.error);
+      return {
+         success: false,
+         message: "Validation error",
+         strapiErrors: null,
+         zodErrors: flattenedErrors.fieldErrors,
+         data: fields,
+      };
+   }
 
-        return {
+   try {
+      const response = await loginUserService(validatedFields.data);
+
+      await createSession(response as AuthResponse);
+
+      redirect("/dashboard");
+   } catch (error) {
+      if (isStrapiError(error)) {
+         return {
             success: false,
-            message: "Error de validación",
-            strapiErrors: null,
-            zodErrors: flattenedErrors.fieldErrors,
+            message: error.error?.message,
+            strapiErrors: error.error,
+            zodErrors: null,
             data: fields,
-        }
-    }
+         };
+      }
 
-    try {
-        const response = await loginUserService(validatedFields.data);
+      console.error(error);
 
-        await createSession(response);
-
-        redirect("/dashboard");
-    } catch (error) {
-        if (isStrapiThrowError(error)) {
-            return {
-                success: false,
-                message: error?.error?.message,
-                strapiErrors: error?.error,
-                zodErrors: null,
-                data: fields,
-            };
-        }
-
-        throw error;
-    }
+      return {
+         success: false,
+         message: "Ops! Something went wrong. Please try again.",
+         strapiErrors: null,
+         zodErrors: null,
+         data: fields,
+      };
+   }
 }
 
 export async function logoutUserAction() {
-    await deleteSession();
+   await deleteSession();
 
-    redirect("/");
+   redirect("/");
 }
 
 export async function resendConfirmEmailAction(
-    initialState: FormState,
-    formData: FormData
+   initialState: FormState,
+   formData: FormData,
 ): Promise<FormState> {
-    const fields = {
-        email: formData.get("email") as string,
-    }
+   const fields = {
+      email: formData.get("email") as string,
+   };
 
-    const validatedFields = resendConfirmEmailFormSchema.safeParse(fields);
+   const validatedFields = resendConfirmEmailFormSchema.safeParse(fields);
 
+   if (!validatedFields.success) {
+      const flattenedErrors = z.flattenError(validatedFields.error);
 
-    if (!validatedFields.success) {
-        const flattenedErrors = z.flattenError(validatedFields.error);
+      return {
+         success: false,
+         message: "Validation error",
+         strapiErrors: null,
+         zodErrors: flattenedErrors.fieldErrors,
+         data: fields,
+      };
+   }
 
-        return {
+   try {
+      await confirmEmailService(validatedFields.data.email);
+
+      return {
+         success: true,
+         message: "Confirmation email sent",
+         strapiErrors: null,
+         zodErrors: null,
+         data: fields,
+         timestamp: Date.now(),
+      };
+   } catch (error) {
+      if (isStrapiError(error)) {
+         return {
             success: false,
-            message: "Error de validación",
-            strapiErrors: null,
-            zodErrors: flattenedErrors.fieldErrors,
-            data: fields,
-        }
-    }
-
-    try {
-        const response = await confirmEmailRequest(validatedFields.data.email);
-
-        return {
-            success: true,
-            message: "Correo electrónico de confirmación enviado",
-            strapiErrors: null,
+            message: error.error?.message,
+            strapiErrors: error.error,
             zodErrors: null,
             data: fields,
-            timestamp: Date.now(),
-        }
-    } catch (error) {
-        if (isStrapiThrowError(error)) {
-            return {
-                success: false,
-                message: error?.error?.message,
-                strapiErrors: error?.error,
-                zodErrors: null,
-                data: fields,
-            };
-        }
+         };
+      }
 
-        throw error;
-    }
+      console.error(error);
+
+      return {
+         success: false,
+         message: "Ops! Something went wrong. Please try again.",
+         strapiErrors: null,
+         zodErrors: null,
+         data: fields,
+      };
+   }
 }
 
 export async function forgotPasswordAction(
-    initialState: FormState,
-    formData: FormData
+   initialState: FormState,
+   formData: FormData,
 ): Promise<FormState> {
-    const fields = {
-        email: formData.get("email") as string,
-    }
+   const fields = {
+      email: formData.get("email") as string,
+   };
 
-    const validatedFields = resendConfirmEmailFormSchema.safeParse(fields);
+   const validatedFields = resendConfirmEmailFormSchema.safeParse(fields);
 
+   if (!validatedFields.success) {
+      const flattenedErrors = z.flattenError(validatedFields.error);
 
-    if (!validatedFields.success) {
-        const flattenedErrors = z.flattenError(validatedFields.error);
+      return {
+         success: false,
+         message: "Validation error",
+         strapiErrors: null,
+         zodErrors: flattenedErrors.fieldErrors,
+         data: fields,
+      };
+   }
 
-        return {
+   try {
+      await forgotPasswordService(validatedFields.data.email);
+
+      return {
+         success: true,
+         message: "An email has been sent to reset your password",
+         strapiErrors: null,
+         zodErrors: null,
+         data: fields,
+         timestamp: Date.now(),
+      };
+   } catch (error) {
+      if (isStrapiError(error)) {
+         return {
             success: false,
-            message: "Error de validación",
-            strapiErrors: null,
-            zodErrors: flattenedErrors.fieldErrors,
-            data: fields,
-        }
-    }
-
-    try {
-        const response = await forgotPasswordRequest(validatedFields.data.email);
-
-        return {
-            success: true,
-            message: "Se ha enviado un correo electrónico para restablecer la contraseña",
-            strapiErrors: null,
+            message: error.error?.message,
+            strapiErrors: error.error,
             zodErrors: null,
             data: fields,
-            timestamp: Date.now(),
-        }
-    } catch (error) {
-        if (isStrapiThrowError(error)) {
-            return {
-                success: false,
-                message: error?.error?.message,
-                strapiErrors: error?.error,
-                zodErrors: null,
-                data: fields,
-            };
-        }
+         };
+      }
 
-        throw error;
-    }
+      console.error(error);
+
+      return {
+         success: false,
+         message: "Ops! Something went wrong. Please try again.",
+         strapiErrors: null,
+         zodErrors: null,
+         data: fields,
+      };
+   }
 }
 
 export async function resetPasswordAction(
-    initialState: FormState,
-    formData: FormData
+   initialState: FormState,
+   formData: FormData,
 ): Promise<FormState> {
-    const fields = {
-        code: formData.get("code") as string,
-        password: formData.get("password") as string,
-        confirmPassword: formData.get("confirmPassword") as string,
-    }
+   const fields = {
+      code: formData.get("code") as string,
+      password: formData.get("password") as string,
+      confirmPassword: formData.get("confirmPassword") as string,
+   };
 
-    const validatedFields = resetPasswordSchema.safeParse(fields);
+   const validatedFields = resetPasswordSchema.safeParse(fields);
 
+   if (!validatedFields.success) {
+      const flattenedErrors = z.flattenError(validatedFields.error);
 
-    if (!validatedFields.success) {
-        const flattenedErrors = z.flattenError(validatedFields.error);
+      return {
+         success: false,
+         message: "Validation error",
+         strapiErrors: null,
+         zodErrors: flattenedErrors.fieldErrors,
+         data: fields,
+      };
+   }
 
-        return {
+   try {
+      await resetPasswordService(fields as ResetPasswordUser);
+
+      return {
+         success: true,
+         message: "Password successfully reset",
+         strapiErrors: null,
+         zodErrors: null,
+         data: fields,
+         timestamp: Date.now(),
+      };
+   } catch (error) {
+      if (isStrapiError(error)) {
+         return {
             success: false,
-            message: "Error de validación",
-            strapiErrors: null,
-            zodErrors: flattenedErrors.fieldErrors,
-            data: fields,
-        }
-    }
-
-    try {
-        const response = await resetPasswordRequest(fields as Credentials);
-
-        return {
-            success: true,
-            message: "¡Contraseña restablecida con éxito!",
-            strapiErrors: null,
+            message: error.error?.message,
+            strapiErrors: error.error,
             zodErrors: null,
             data: fields,
-            timestamp: Date.now(),
-        }
-    } catch (error) {
-        if (isStrapiThrowError(error)) {
-            return {
-                success: false,
-                message: error?.error?.message,
-                strapiErrors: error?.error,
-                zodErrors: null,
-                data: fields,
-            };
-        }
+         };
+      }
 
-        throw error;
-    }
+      console.error(error);
+
+      return {
+         success: false,
+         message: "Ops! Something went wrong. Please try again.",
+         strapiErrors: null,
+         zodErrors: null,
+         data: fields,
+      };
+   }
 }
 
 export async function changePasswordAction(
-    initialState: FormState,
-    formData: FormData
+   initialState: FormState,
+   formData: FormData,
 ): Promise<FormState> {
-    const fields = {
-        password: formData.get("password") as string,
-        newPassword: formData.get("newPassword") as string,
-        confirmPassword: formData.get("confirmPassword") as string,
-    }
+   const fields = {
+      password: formData.get("password") as string,
+      newPassword: formData.get("newPassword") as string,
+      confirmPassword: formData.get("confirmPassword") as string,
+   };
 
-    const validatedFields = changePassworSchema.safeParse(fields);
+   const validatedFields = changePassworSchema.safeParse(fields);
 
+   if (!validatedFields.success) {
+      const flattenedErrors = z.flattenError(validatedFields.error);
 
-    if (!validatedFields.success) {
-        const flattenedErrors = z.flattenError(validatedFields.error);
+      return {
+         success: false,
+         message: "Validation error",
+         strapiErrors: null,
+         zodErrors: flattenedErrors.fieldErrors,
+         data: fields,
+      };
+   }
 
-        return {
+   try {
+      await changePasswordService(fields as ChangePasswordUser);
+
+      return {
+         success: true,
+         message: "Password reset successful",
+         strapiErrors: null,
+         zodErrors: null,
+         data: fields,
+         timestamp: Date.now(),
+      };
+   } catch (error) {
+      if (isStrapiError(error)) {
+         return {
             success: false,
-            message: "Error de validación",
-            strapiErrors: null,
-            zodErrors: flattenedErrors.fieldErrors,
-            data: fields,
-        }
-    }
-
-    try {
-        const response = await changePasswordRequest(fields as Credentials);
-
-        return {
-            success: true,
-            message: "Restablecimiento de contraseña exitosa!",
-            strapiErrors: null,
+            message: error.error?.message,
+            strapiErrors: error.error,
             zodErrors: null,
             data: fields,
-            timestamp: Date.now(),
-        }
-    } catch (error) {
-        if (isStrapiThrowError(error)) {
-            return {
-                success: false,
-                message: error?.error?.message,
-                strapiErrors: error?.error,
-                zodErrors: null,
-                data: fields,
-            };
-        }
+         };
+      }
 
-        throw error;
-    }
+      console.error(error);
+
+      return {
+         success: false,
+         message: "Ops! Something went wrong. Please try again.",
+         strapiErrors: null,
+         zodErrors: null,
+         data: fields,
+      };
+   }
 }

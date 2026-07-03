@@ -1,4 +1,3 @@
-import Logo from "@/components/custom/logo-page";
 import {
    Card,
    CardDescription,
@@ -13,7 +12,6 @@ import Link from "next/link";
 export default function EmailConfirmed() {
    return (
       <div className={SIGN_IN_FORM_STYLES.container}>
-         <Logo />
          <div className="w-full">
             <Card>
                <CardHeader className={SIGN_IN_FORM_STYLES.header}>

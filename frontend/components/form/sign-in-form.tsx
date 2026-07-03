@@ -15,12 +15,12 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { FormState } from "@/validations/auth";
 import { actions } from "@/actions";
 import { useActionState } from "react";
 import { FormError } from "./form-error";
 import { BUTTON_VARIANTS, SIGN_IN_FORM_STYLES } from "@/constants/styles";
 import { cn } from "@/lib/utils";
+import { FormState } from "@/types/definitions";
 
 const INITIAL_STATE: FormState = {
    success: false,

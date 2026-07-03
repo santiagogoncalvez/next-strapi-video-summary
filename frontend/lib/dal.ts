@@ -3,17 +3,8 @@ import { cache } from "react"
 import "server-only"
 import { decrypt } from "./session";
 import { redirect } from "next/navigation";
-import { SessionPayload } from "@/types/strapi";
+import { VerifySessionResult } from "@/types/definitions";
 
-type VerifySessionResult =
-    | {
-        isAuth: true;
-        session: SessionPayload;
-    }
-    | {
-        isAuth: false;
-        session: null;
-    };
 
 export const verifySession = cache(async (): Promise<VerifySessionResult> => {
     const cookie = (await cookies()).get("session")?.value;

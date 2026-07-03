@@ -110,15 +110,19 @@ export type AuthUser = {
     publishedAt: string;
 };
 
+export interface StrapiError {
+    status: number;
+    name: string;
+    message: string;
+    details?: Record<string, string[]>;
+}
+
+export type StrapiErrors = StrapiError | null;
+
 export type StrapiResponse<T = null> = {
     success: boolean;
     data?: T;
-    error?: {
-        status: number;
-        name: string;
-        message: string;
-        details?: Record<string, string[]>;
-    };
+    error?: StrapiError;
     meta?: {
         pagination: {
             page: number;
@@ -173,6 +177,18 @@ export type LoginUser = {
     password: string;
 };
 
+export type ResetPasswordUser = {
+   code: string;
+   password: string;
+   confirmPassword: string;
+};
+
+export type ChangePasswordUser = {
+   password: string;
+   newPassword: string;
+   confirmPassword: string;
+};
+
 export type Jwt = string;
 
 export interface AuthResponse {
@@ -182,11 +198,17 @@ export interface AuthResponse {
 
 export type AuthServiceResponse = AuthResponse | StrapiResponse<null>;
 
-// Type guard functions
-export function isAuthError(
-    response: AuthServiceResponse
-): response is StrapiResponse<null> {
-    return "error" in response;
+export function isStrapiError(
+    value: unknown
+): value is StrapiResponse<null> {
+    return (
+        typeof value === "object" &&
+        value !== null &&
+        "error" in value &&
+        typeof value.error === "object" &&
+        value.error !== null &&
+        "message" in value.error
+    );
 }
 
 export function isAuthSuccess(

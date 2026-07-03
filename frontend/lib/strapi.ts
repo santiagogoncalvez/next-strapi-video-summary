@@ -1,165 +1,161 @@
-import { Credentials } from "./definitions";
 import axios from "axios";
 import { verifySession } from "./dal";
 import { getStrapiURL } from "./utils";
-import { AuthResponse, AuthServiceResponse, LoginUser, RegisterUser } from "@/types/strapi";
+import {
+   AuthServiceResponse,
+   ChangePasswordUser,
+   LoginUser,
+   RegisterUser,
+   ResetPasswordUser,
+} from "@/types/strapi";
 
 export const STRAPI_BASE_URL = getStrapiURL();
 
-export async function registerUserService(credentials: RegisterUser): Promise<AuthServiceResponse | undefined> {
-    const url = `${STRAPI_BASE_URL}/api/auth/local/register`;
+export async function registerUserService(
+   userData: RegisterUser,
+): Promise<AuthServiceResponse> {
+   const url = `${STRAPI_BASE_URL}/api/auth/local/register`;
 
-    try {
-        const response = (await axios.post(url, {
-            username: credentials.username,
-            email: credentials.email,
-            password: credentials.password,
-        })) as AuthServiceResponse;
+   try {
+      const { data } = await axios.post(url, userData);
 
-        return response;
-    } catch (error) {
-        console.error(error);
+      return data;
+   } catch (error) {
+      console.error("Registration Service Error:", error);
 
-        if (axios.isAxiosError(error) && error.response?.data) {
-            throw error.response.data;
-        }
+      if (axios.isAxiosError(error) && error.response?.data) {
+         throw error.response.data;
+      }
 
-        throw error;
-    }
+      throw error;
+   }
 }
 
-export async function loginUserService(userData: LoginUser): Promise<AuthServiceResponse> {
-    const url = `${STRAPI_BASE_URL}/api/auth/local`;
+export async function loginUserService(
+   userData: LoginUser,
+): Promise<AuthServiceResponse> {
+   const url = `${STRAPI_BASE_URL}/api/auth/local`;
 
-    try {
-        const response = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(userData),
-        });
+   try {
+      const { data } = await axios.post(url, userData);
 
-        const data = (await response.json()) as AuthServiceResponse;
+      return data;
+   } catch (error) {
+      console.error("Login Service Error:", error);
 
-        if (!response.ok) {
-            throw data;
-        }
+      if (axios.isAxiosError(error) && error.response?.data) {
+         throw error.response.data;
+      }
 
-        // console.log("loginUserService data:", data);
-
-        return data;
-    } catch (error) {
-        console.error(error);
-
-        if (axios.isAxiosError(error) && error.response?.data) {
-            throw error.response.data;
-        }
-
-        throw error;
-    }
+      throw error;
+   }
 }
 
-export async function confirmEmailRequest(email: string) {
-    const url = `${STRAPI_BASE_URL}/api/auth/send-email-confirmation`;
+export async function confirmEmailService(
+   email: string,
+): Promise<AuthServiceResponse> {
+   const url = `${STRAPI_BASE_URL}/api/auth/send-email-confirmation`;
 
-    try {
-        const response = await axios.post(
-            url,
-            {
-                email,
-            },
-        );
+   try {
+      const { data } = await axios.post(url, {
+         email,
+      });
 
-        return response;
-    } catch (error) {
-        console.error(error);
+      return data;
+   } catch (error) {
+      console.error("Confirm Email Service Error:", error);
 
-        if (axios.isAxiosError(error) && error.response?.data) {
-            throw error.response.data;
-        }
+      if (axios.isAxiosError(error) && error.response?.data) {
+         throw error.response.data;
+      }
 
-        throw error;
-    }
+      throw error;
+   }
 }
 
-export async function forgotPasswordRequest(email: string) {
-    const url = `${STRAPI_BASE_URL}/api/auth/forgot-password`;
-    try {
-        const response = await axios.post(url, {
-            email,
-        });
+export async function forgotPasswordService(
+   email: string,
+): Promise<AuthServiceResponse> {
+   const url = `${STRAPI_BASE_URL}/api/auth/forgot-password`;
+   try {
+      const { data } = await axios.post(url, {
+         email,
+      });
 
-        return response;
-    } catch (error) {
-        console.error(error);
+      return data;
+   } catch (error) {
+      console.error("Forgot Password Service Error:", error);
 
-        if (axios.isAxiosError(error) && error.response?.data) {
-            throw error.response.data;
-        }
+      if (axios.isAxiosError(error) && error.response?.data) {
+         throw error.response.data;
+      }
 
-        throw error;
-    }
+      throw error;
+   }
 }
 
-export async function resetPasswordRequest(credentials: Credentials) {
-    const url = `${STRAPI_BASE_URL}/api/auth/reset-password`;
+export async function resetPasswordService(
+   userData: ResetPasswordUser,
+): Promise<AuthServiceResponse> {
+   const url = `${STRAPI_BASE_URL}/api/auth/reset-password`;
 
-    try {
-        const response = await axios.post(url, {
-            code: credentials?.code,
-            password: credentials?.password,
-            passwordConfirmation: credentials?.confirmPassword,
-        });
+   const payload = {
+      code: userData?.code,
+      password: userData?.password,
+      passwordConfirmation: userData?.confirmPassword,
+   };
 
-        return response;
-    } catch (error) {
-        console.error(error);
+   try {
+      const { data } = await axios.post(url, payload);
 
-        if (axios.isAxiosError(error) && error.response?.data) {
-            throw error.response.data;
-        }
+      return data;
+   } catch (error) {
+      console.error("Reset Password Service Error:", error);
 
-        throw error;
-    }
+      if (axios.isAxiosError(error) && error.response?.data) {
+         throw error.response.data;
+      }
+
+      throw error;
+   }
 }
 
-export const changePasswordRequest = async (credentials: Credentials) => {
-    const url = `${STRAPI_BASE_URL}/api/auth/change-password`;
+export const changePasswordService = async (
+   userData: ChangePasswordUser,
+): Promise<AuthServiceResponse> => {
+   const url = `${STRAPI_BASE_URL}/api/auth/change-password`;
 
-    try {
-        const result = await verifySession();
+   const payload = {
+      currentPassword: userData.password,
+      password: userData.newPassword,
+      passwordConfirmation: userData.confirmPassword,
+   };
 
-        if (!result.isAuth) {
-            // nunca debería entrar porque verifySession hace redirect,
-            // pero TypeScript queda satisfecho.
-            throw new Error("Not authenticated");
-        }
+   try {
+      const result = await verifySession();
 
-        const { jwt } = result.session;
+      if (!result.isAuth) {
+         // nunca debería entrar porque verifySession hace redirect,
+         // pero TypeScript queda satisfecho.
+         throw new Error("Not authenticated");
+      }
 
-        const response = await axios.post(
-            url,
-            {
-                currentPassword: credentials.password,
-                password: credentials.newPassword,
-                passwordConfirmation: credentials.confirmPassword,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${jwt}`,
-                },
-            },
-        );
+      const { jwt } = result.session;
 
-        return response;
-    } catch (error) {
-        console.error(error);
+      const { data } = await axios.post(url, payload, {
+         headers: {
+            Authorization: `Bearer ${jwt}`,
+         },
+      });
 
-        if (axios.isAxiosError(error) && error.response?.data) {
-            throw error.response.data;
-        }
+      return data;
+   } catch (error) {
+      console.error("Change Password Service Error:", error);
 
-        throw error;
-    }
+      if (axios.isAxiosError(error) && error.response?.data) {
+         throw error.response.data;
+      }
+
+      throw error;
+   }
 };

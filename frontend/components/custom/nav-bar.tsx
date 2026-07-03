@@ -1,5 +1,5 @@
 import { BUTTON_VARIANTS } from "@/constants/styles";
-import { NavBarLinks } from "@/lib/definitions";
+import { NavBarLinks } from "@/types/definitions";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
@@ -10,11 +10,7 @@ interface Props extends NavBarLinks {
    isHero?: boolean;
 }
 
-export default function NavBar({
-   link,
-   secondaryLink,
-   isHero = false,
-}: Props) {
+export default function NavBar({ link, secondaryLink, isHero = false }: Props) {
    return (
       <nav
          className={cn("flex gap-2", {

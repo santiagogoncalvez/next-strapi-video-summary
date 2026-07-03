@@ -20,7 +20,7 @@ import {
 } from "@/constants/styles";
 import { useCountdown } from "@/hooks/use-countdown";
 import { cn } from "@/lib/utils";
-import { FormState } from "@/validations/auth";
+import { FormState } from "@/types/definitions";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useActionState, useEffect } from "react";

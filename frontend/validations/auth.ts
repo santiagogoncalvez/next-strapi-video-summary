@@ -1,88 +1,75 @@
-import { Credentials } from "@/lib/definitions";
 import { z } from "zod";
 
 export const SigninFormSchema = z.object({
     identifier: z
         .string()
-        .min(3, "El nombre de usuario o correo electrónico debe tener al menos 3 caracteres"),
+        .min(3, "The username or email address must be at least 3 characters long"),
     password: z
         .string()
-        .min(6, "La contraseña debe tener al menos 6 caracteres")
-        .max(100, "La contraseña debe tener menos de 100 caracteres"),
+        .min(6, "The password must be at least 6 characters long")
+        .max(100, "The password must be less than 100 characters"),
 });
 
 export const SignupFormSchema = z.object({
     username: z
         .string()
-        .min(3, "El nombre de usuario debe tener al menos 3 caracteres")
-        .max(20, "El nombre de usuario debe tener menos de 20 caracteres"),
-    email: z.email("Por favor, introduce una dirección de correo electrónico válida"),
+        .min(3, "The username must be at least 3 characters long")
+        .max(20, "The username must be less than 20 characters"),
+    email: z.email("Please enter a valid email address"),
     password: z
         .string()
-        .min(6, "La contraseña debe tener al menos 6 caracteres")
-        .max(100, "La contraseña debe tener menos de 100 caracteres"),
+        .min(6, "The password must be at least 6 characters long")
+        .max(100, "The password must be less than 100 characters"),
     confirmPassword: z
         .string()
-        .min(6, "La contraseña debe tener al menos 6 caracteres")
-        .max(100, "La contraseña debe tener menos de 100 caracteres"),
+        .min(6, "The password must be at least 6 characters long")
+        .max(100, "The password must be less than 100 characters"),
 }).refine((data) => data.password === data.confirmPassword, {
-    message: "Las contraseñas no coinciden",
+    message: "The passwords do not match",
     path: ["confirmPassword"],
 });
 
 export const resendConfirmEmailFormSchema = z.object({
-    email: z.email("Por favor, introduce una dirección de correo electrónico válida"),
+    email: z.email("Please enter a valid email address"),
 
 });
 
 export const resetPasswordSchema = z.object({
     code: z
-        .string().min(1, "Error al restablecer la contraseña"),
+        .string().min(1, "Password reset error"),
     password: z
         .string()
-        .min(6, "La contraseña debe tener al menos 6 caracteres")
-        .max(100, "La contraseña debe tener menos de 100 caracteres"),
+        .min(6, "The password must be at least 6 characters long")
+        .max(100, "The password must be less than 100 characters"),
     confirmPassword: z
         .string()
-        .min(6, "La contraseña debe tener al menos 6 caracteres")
-        .max(100, "La contraseña debe tener menos de 100 caracteres"),
+        .min(6, "The password must be at least 6 characters long")
+        .max(100, "The password must be less than 100 characters"),
 }).refine((data) => data.password === data.confirmPassword, {
-    message: "Las contraseñas no coinciden",
+    message: "The passwords do not match",
     path: ["confirmPassword"],
 });
 
 export const changePassworSchema = z.object({
     password: z
         .string()
-        .min(6, "La contraseña debe tener al menos 6 caracteres")
-        .max(100, "La contraseña debe tener menos de 100 caracteres"),
+        .min(6, "The password must be at least 6 characters long")
+        .max(100, "The password must be less than 100 characters"),
     newPassword: z
         .string()
-        .min(6, "La contraseña debe tener al menos 6 caracteres")
-        .max(100, "La contraseña debe tener menos de 100 caracteres"),
+        .min(6, "The password must be at least 6 characters long")
+        .max(100, "The password must be less than 100 characters"),
     confirmPassword: z
         .string()
-        .min(6, "La contraseña debe tener al menos 6 caracteres")
-        .max(100, "La contraseña debe tener menos de 100 caracteres"),
+        .min(6, "The password must be at least 6 characters long")
+        .max(100, "The password must be less than 100 characters"),
 }).refine((data) => data.newPassword === data.confirmPassword, {
-    message: "Las contraseñas no coinciden",
+    message: "The passwords do not match",
     path: ["confirmPassword"],
 });
 
 export type SigninFormValues = z.infer<typeof SigninFormSchema>;
 export type SignupFormValues = z.infer<typeof SignupFormSchema>;
-
-export type StrapiErrors = {
-    status: number;
-    name: string;
-    message: string;
-    details?: Record<string, string[]>;
-} | null;
-
-export type StrapiThrowError = {
-    data: null,
-    error: StrapiErrors;
-}
 
 interface ZodError {
     identifier?: string[];
@@ -93,23 +80,4 @@ interface ZodError {
     newPassword?: string[];
 }
 
-type ZodErrors = ZodError | null;
-
-export function isStrapiThrowError(
-    error: unknown
-): error is StrapiThrowError {
-    return (
-        typeof error === "object" &&
-        error !== null &&
-        "error" in error
-    );
-}
-
-export type FormState = {
-    success?: boolean;
-    message?: string;
-    data?: Credentials;
-    strapiErrors?: StrapiErrors;
-    zodErrors?: ZodErrors,
-    timestamp?: number,
-};
+export type ZodErrors = ZodError | null;

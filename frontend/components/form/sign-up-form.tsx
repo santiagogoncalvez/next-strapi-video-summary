@@ -16,11 +16,11 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { actions } from "@/actions";
 import { useActionState } from "react";
-import { FormState } from "@/validations/auth";
 import { FormError } from "./form-error";
 import { BUTTON_VARIANTS, SIGN_UP_FORM_STYLES } from "@/constants/styles";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { FormState } from "@/types/definitions";
 
 const INITIAL_STATE: FormState = {
    success: false,

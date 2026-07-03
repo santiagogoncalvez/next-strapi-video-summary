@@ -16,7 +16,7 @@ import { Label } from "@/components/ui/label";
 import { BUTTON_VARIANTS, SIGN_IN_FORM_STYLES } from "@/constants/styles";
 import { useCountdown } from "@/hooks/use-countdown";
 import { cn } from "@/lib/utils";
-import { FormState } from "@/validations/auth";
+import { FormState } from "@/types/definitions";
 import { Loader2 } from "lucide-react";
 import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
