@@ -22,10 +22,10 @@ import { createSession, deleteSession } from "@/lib/session";
 import {
    AuthResponse,
    ChangePasswordUser,
-   isStrapiError,
    RegisterUser,
    ResetPasswordUser,
 } from "@/types/strapi";
+import { handleActionError } from "./helpers";
 
 export async function registerUserAction(
    prevState: FormState,
@@ -63,25 +63,7 @@ export async function registerUserAction(
       // redirect to confirm email with user email
       redirect("/auth/confirm-email?email=" + fields.email);
    } catch (error) {
-      if (isStrapiError(error)) {
-         return {
-            success: false,
-            message: error.error?.message,
-            strapiErrors: error.error,
-            zodErrors: null,
-            data: fields,
-         };
-      }
-
-      console.error(error);
-
-      return {
-         success: false,
-         message: "Ops! Something went wrong. Please try again.",
-         strapiErrors: null,
-         zodErrors: null,
-         data: fields,
-      };
+      return handleActionError(error, fields);
    }
 }
 
@@ -115,25 +97,7 @@ export async function loginUserAction(
 
       redirect("/dashboard");
    } catch (error) {
-      if (isStrapiError(error)) {
-         return {
-            success: false,
-            message: error.error?.message,
-            strapiErrors: error.error,
-            zodErrors: null,
-            data: fields,
-         };
-      }
-
-      console.error(error);
-
-      return {
-         success: false,
-         message: "Ops! Something went wrong. Please try again.",
-         strapiErrors: null,
-         zodErrors: null,
-         data: fields,
-      };
+      return handleActionError(error, fields);
    }
 }
 
@@ -177,25 +141,7 @@ export async function resendConfirmEmailAction(
          timestamp: Date.now(),
       };
    } catch (error) {
-      if (isStrapiError(error)) {
-         return {
-            success: false,
-            message: error.error?.message,
-            strapiErrors: error.error,
-            zodErrors: null,
-            data: fields,
-         };
-      }
-
-      console.error(error);
-
-      return {
-         success: false,
-         message: "Ops! Something went wrong. Please try again.",
-         strapiErrors: null,
-         zodErrors: null,
-         data: fields,
-      };
+      return handleActionError(error, fields);
    }
 }
 
@@ -233,25 +179,7 @@ export async function forgotPasswordAction(
          timestamp: Date.now(),
       };
    } catch (error) {
-      if (isStrapiError(error)) {
-         return {
-            success: false,
-            message: error.error?.message,
-            strapiErrors: error.error,
-            zodErrors: null,
-            data: fields,
-         };
-      }
-
-      console.error(error);
-
-      return {
-         success: false,
-         message: "Ops! Something went wrong. Please try again.",
-         strapiErrors: null,
-         zodErrors: null,
-         data: fields,
-      };
+      return handleActionError(error, fields);
    }
 }
 
@@ -291,25 +219,7 @@ export async function resetPasswordAction(
          timestamp: Date.now(),
       };
    } catch (error) {
-      if (isStrapiError(error)) {
-         return {
-            success: false,
-            message: error.error?.message,
-            strapiErrors: error.error,
-            zodErrors: null,
-            data: fields,
-         };
-      }
-
-      console.error(error);
-
-      return {
-         success: false,
-         message: "Ops! Something went wrong. Please try again.",
-         strapiErrors: null,
-         zodErrors: null,
-         data: fields,
-      };
+      return handleActionError(error, fields);
    }
 }
 
@@ -349,24 +259,6 @@ export async function changePasswordAction(
          timestamp: Date.now(),
       };
    } catch (error) {
-      if (isStrapiError(error)) {
-         return {
-            success: false,
-            message: error.error?.message,
-            strapiErrors: error.error,
-            zodErrors: null,
-            data: fields,
-         };
-      }
-
-      console.error(error);
-
-      return {
-         success: false,
-         message: "Ops! Something went wrong. Please try again.",
-         strapiErrors: null,
-         zodErrors: null,
-         data: fields,
-      };
+      return handleActionError(error, fields);
    }
 }
