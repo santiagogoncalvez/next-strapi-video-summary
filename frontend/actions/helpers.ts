@@ -39,3 +39,17 @@ export function getValidationErrorState(
       data,
    };
 }
+
+export function getSuccessFormState(
+   message: string,
+   data: FormState["data"],
+): FormState {
+   return {
+      success: true,
+      message,
+      strapiErrors: null,
+      zodErrors: null,
+      data,
+      timestamp: Date.now(),
+   };
+}

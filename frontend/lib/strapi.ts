@@ -2,6 +2,7 @@ import axios from "axios";
 import { verifySession } from "./dal";
 import { getStrapiURL } from "./utils";
 import {
+   AuthResponse,
    AuthServiceResponse,
    ChangePasswordUser,
    LoginUser,
@@ -31,13 +32,13 @@ export async function registerUserService(
    }
 }
 
-export async function loginUserService(
-   userData: LoginUser,
-): Promise<AuthServiceResponse> {
+export async function loginUserService(userData: LoginUser): Promise<AuthResponse> {
    const url = `${STRAPI_BASE_URL}/api/auth/local`;
 
    try {
       const { data } = await axios.post(url, userData);
+
+      console.log(data);
 
       return data;
    } catch (error) {

@@ -15,20 +15,17 @@ import {
    SigninFormSchema,
    SignupFormSchema,
 } from "@/validations/auth";
-import z from "zod";
 import { redirect } from "next/navigation";
 import { FormState } from "@/types/definitions";
 import { createSession, deleteSession } from "@/lib/session";
 import {
-   AuthResponse,
-   ChangePasswordUser,
-   RegisterUser,
-   ResetPasswordUser,
-} from "@/types/strapi";
-import { getValidationErrorState, handleActionError } from "./helpers";
+   getSuccessFormState,
+   getValidationErrorState,
+   handleActionError,
+} from "./helpers";
 
 export async function registerUserAction(
-   prevState: FormState,
+   _prevState: FormState,
    formData: FormData,
 ): Promise<FormState> {
    // console.log("registerUserAction");
@@ -47,7 +44,7 @@ export async function registerUserAction(
    }
 
    try {
-      await registerUserService(validatedFields.data as RegisterUser);
+      await registerUserService(validatedFields.data);
 
       // redirect to confirm email with user email
       redirect("/auth/confirm-email?email=" + fields.email);
@@ -57,7 +54,7 @@ export async function registerUserAction(
 }
 
 export async function loginUserAction(
-   prevState: FormState,
+   _prevState: FormState,
    formData: FormData,
 ): Promise<FormState> {
    const fields = {
@@ -74,7 +71,7 @@ export async function loginUserAction(
    try {
       const response = await loginUserService(validatedFields.data);
 
-      await createSession(response as AuthResponse);
+      await createSession(response);
 
       redirect("/dashboard");
    } catch (error) {
@@ -89,7 +86,7 @@ export async function logoutUserAction() {
 }
 
 export async function resendConfirmEmailAction(
-   initialState: FormState,
+   _prevState: FormState,
    formData: FormData,
 ): Promise<FormState> {
    const fields = {
@@ -105,21 +102,14 @@ export async function resendConfirmEmailAction(
    try {
       await confirmEmailService(validatedFields.data.email);
 
-      return {
-         success: true,
-         message: "Confirmation email sent",
-         strapiErrors: null,
-         zodErrors: null,
-         data: fields,
-         timestamp: Date.now(),
-      };
+      return getSuccessFormState("Confirmation email sent", fields);
    } catch (error) {
       return handleActionError(error, fields);
    }
 }
 
 export async function forgotPasswordAction(
-   initialState: FormState,
+   _prevState: FormState,
    formData: FormData,
 ): Promise<FormState> {
    const fields = {
@@ -135,21 +125,17 @@ export async function forgotPasswordAction(
    try {
       await forgotPasswordService(validatedFields.data.email);
 
-      return {
-         success: true,
-         message: "An email has been sent to reset your password",
-         strapiErrors: null,
-         zodErrors: null,
-         data: fields,
-         timestamp: Date.now(),
-      };
+      return getSuccessFormState(
+         "An email has been sent to reset your password",
+         fields,
+      );
    } catch (error) {
       return handleActionError(error, fields);
    }
 }
 
 export async function resetPasswordAction(
-   initialState: FormState,
+   _prevState: FormState,
    formData: FormData,
 ): Promise<FormState> {
    const fields = {
@@ -165,23 +151,16 @@ export async function resetPasswordAction(
    }
 
    try {
-      await resetPasswordService(fields as ResetPasswordUser);
+      await resetPasswordService(fields);
 
-      return {
-         success: true,
-         message: "Password successfully reset",
-         strapiErrors: null,
-         zodErrors: null,
-         data: fields,
-         timestamp: Date.now(),
-      };
+      return getSuccessFormState("Password successfully reset", fields);
    } catch (error) {
       return handleActionError(error, fields);
    }
 }
 
 export async function changePasswordAction(
-   initialState: FormState,
+   _prevState: FormState,
    formData: FormData,
 ): Promise<FormState> {
    const fields = {
@@ -197,16 +176,9 @@ export async function changePasswordAction(
    }
 
    try {
-      await changePasswordService(fields as ChangePasswordUser);
+      await changePasswordService(fields);
 
-      return {
-         success: true,
-         message: "Password reset successful",
-         strapiErrors: null,
-         zodErrors: null,
-         data: fields,
-         timestamp: Date.now(),
-      };
+      return getSuccessFormState("Password successfully changed", fields);
    } catch (error) {
       return handleActionError(error, fields);
    }
