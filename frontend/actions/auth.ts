@@ -25,7 +25,7 @@ import {
    RegisterUser,
    ResetPasswordUser,
 } from "@/types/strapi";
-import { handleActionError } from "./helpers";
+import { getValidationErrorState, handleActionError } from "./helpers";
 
 export async function registerUserAction(
    prevState: FormState,
@@ -43,18 +43,7 @@ export async function registerUserAction(
    const validatedFields = SignupFormSchema.safeParse(fields);
 
    if (!validatedFields.success) {
-      const flattenedErrors = z.flattenError(validatedFields.error);
-
-      return {
-         success: false,
-         message: "Validation error",
-         strapiErrors: null,
-         zodErrors: flattenedErrors.fieldErrors,
-         data: {
-            ...prevState,
-            ...fields,
-         },
-      };
+      return getValidationErrorState(validatedFields.error, fields);
    }
 
    try {
@@ -79,15 +68,7 @@ export async function loginUserAction(
    const validatedFields = SigninFormSchema.safeParse(fields);
 
    if (!validatedFields.success) {
-      const flattenedErrors = z.flattenError(validatedFields.error);
-
-      return {
-         success: false,
-         message: "Validation error",
-         strapiErrors: null,
-         zodErrors: flattenedErrors.fieldErrors,
-         data: fields,
-      };
+      return getValidationErrorState(validatedFields.error, fields);
    }
 
    try {
@@ -118,15 +99,7 @@ export async function resendConfirmEmailAction(
    const validatedFields = resendConfirmEmailFormSchema.safeParse(fields);
 
    if (!validatedFields.success) {
-      const flattenedErrors = z.flattenError(validatedFields.error);
-
-      return {
-         success: false,
-         message: "Validation error",
-         strapiErrors: null,
-         zodErrors: flattenedErrors.fieldErrors,
-         data: fields,
-      };
+      return getValidationErrorState(validatedFields.error, fields);
    }
 
    try {
@@ -156,15 +129,7 @@ export async function forgotPasswordAction(
    const validatedFields = resendConfirmEmailFormSchema.safeParse(fields);
 
    if (!validatedFields.success) {
-      const flattenedErrors = z.flattenError(validatedFields.error);
-
-      return {
-         success: false,
-         message: "Validation error",
-         strapiErrors: null,
-         zodErrors: flattenedErrors.fieldErrors,
-         data: fields,
-      };
+      return getValidationErrorState(validatedFields.error, fields);
    }
 
    try {
@@ -196,15 +161,7 @@ export async function resetPasswordAction(
    const validatedFields = resetPasswordSchema.safeParse(fields);
 
    if (!validatedFields.success) {
-      const flattenedErrors = z.flattenError(validatedFields.error);
-
-      return {
-         success: false,
-         message: "Validation error",
-         strapiErrors: null,
-         zodErrors: flattenedErrors.fieldErrors,
-         data: fields,
-      };
+      return getValidationErrorState(validatedFields.error, fields);
    }
 
    try {
@@ -236,15 +193,7 @@ export async function changePasswordAction(
    const validatedFields = changePassworSchema.safeParse(fields);
 
    if (!validatedFields.success) {
-      const flattenedErrors = z.flattenError(validatedFields.error);
-
-      return {
-         success: false,
-         message: "Validation error",
-         strapiErrors: null,
-         zodErrors: flattenedErrors.fieldErrors,
-         data: fields,
-      };
+      return getValidationErrorState(validatedFields.error, fields);
    }
 
    try {
