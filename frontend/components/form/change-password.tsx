@@ -11,16 +11,14 @@ import {
 
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { actions } from "@/actions";
 import { useActionState, useEffect } from "react";
 import { FormError } from "./form-error";
-import { BUTTON_VARIANTS, SIGN_UP_FORM_STYLES } from "@/constants/styles";
-import { Loader2 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { SIGN_UP_FORM_STYLES } from "@/constants/styles";
 import { toast } from "sonner";
 import { redirect } from "next/navigation";
 import { FormState } from "@/types/definitions";
+import { SubmitButton } from "./submit-button";
 
 export function ChangePassword() {
    const INITIAL_STATE: FormState = {
@@ -97,20 +95,13 @@ export function ChangePassword() {
                   </div>
                </CardContent>
                <CardFooter className={`${SIGN_UP_FORM_STYLES.footer}`}>
-                  <Button
-                     className={cn(
-                        BUTTON_VARIANTS({
-                           variant: "default",
-                           size: "lg",
-                           className: SIGN_UP_FORM_STYLES.button,
-                        }),
-                     )}
-                     disabled={isPending}
-                     size="lg"
-                  >
-                     {isPending && <Loader2 className="animate-spin" />}
-                     {!isPending && "Cambiar la contraseña"}
-                  </Button>
+                  <SubmitButton
+                     className={SIGN_UP_FORM_STYLES.button}
+                     text="Cambiar la contraseña"
+                     loadingText="Cambiando la contraseña"
+                     loading={isPending}
+                  />
+
                   {formState.strapiErrors && (
                      <FormError error={[formState.strapiErrors.message]} />
                   )}

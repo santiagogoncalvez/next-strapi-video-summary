@@ -1,3 +1,4 @@
+import { AppLink } from "@/components/custom/CustomLink";
 import {
    Card,
    CardDescription,
@@ -24,18 +25,12 @@ export default function EmailConfirmed() {
                   </CardDescription>
                </CardHeader>
                <CardFooter className={`${SIGN_IN_FORM_STYLES.footer}`}>
-                  <Link
-                     className={cn(
-                        BUTTON_VARIANTS({
-                           variant: "default",
-                           size: "lg",
-                           className: "w-full",
-                        }),
-                     )}
+                  <AppLink
                      href="/auth/login"
+                     className={SIGN_IN_FORM_STYLES.button}
                   >
-                     Ir a iniciar sesión
-                  </Link>
+                     Ir al inicio
+                  </AppLink>
                </CardFooter>
             </Card>
          </div>

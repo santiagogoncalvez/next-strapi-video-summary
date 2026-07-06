@@ -28,8 +28,6 @@ export async function registerUserAction(
    _prevState: FormState,
    formData: FormData,
 ): Promise<FormState> {
-   // console.log("registerUserAction");
-
    const fields = {
       username: formData.get("username") as string,
       email: formData.get("email") as string,
@@ -44,13 +42,15 @@ export async function registerUserAction(
    }
 
    try {
-      await registerUserService(validatedFields.data);
+      const { username, email, password } = validatedFields.data;
 
-      // redirect to confirm email with user email
-      redirect("/auth/confirm-email?email=" + fields.email);
+      await registerUserService({ username, email, password });
    } catch (error) {
       return handleActionError(error, fields);
    }
+
+   // redirect to confirm email with user email
+   redirect("/auth/confirm-email?email=" + fields.email);
 }
 
 export async function loginUserAction(
@@ -72,11 +72,11 @@ export async function loginUserAction(
       const response = await loginUserService(validatedFields.data);
 
       await createSession(response);
-
-      redirect("/dashboard");
    } catch (error) {
       return handleActionError(error, fields);
    }
+
+   redirect("/dashboard");
 }
 
 export async function logoutUserAction() {

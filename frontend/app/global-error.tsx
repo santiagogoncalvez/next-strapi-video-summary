@@ -9,6 +9,7 @@ import FallbackHeader from "@/components/custom/fallback-header";
 import { usePathname } from "next/navigation";
 import { geistSans } from "./ui/fonts";
 import { Button } from "@/components/ui/button";
+import { AppLink } from "@/components/custom/CustomLink";
 
 interface IGlobalError {
    error: Error & { digest?: string };
@@ -90,22 +91,10 @@ export default function GlobalError({ error, reset }: IGlobalError) {
                         </Button>
 
                         {isHomePage && (
-                           <Link
-                              href="/"
-                              className={cn(
-                                 BUTTON_VARIANTS({
-                                    variant: "default",
-                                    size: "lg",
-                                 }),
-                              )}
-                           >
-                              <div className="flex gap-2 justify-center items-center">
-                                 <Home
-                                    className={NOT_FOUND_STYLES.buttonIcon}
-                                 />
-                                 <span>Ir al inicio</span>
-                              </div>
-                           </Link>
+                           <AppLink href="/">
+                              <Home className={NOT_FOUND_STYLES.buttonIcon} />
+                              <span>Ir al inicio</span>
+                           </AppLink>
                         )}
                      </div>
 

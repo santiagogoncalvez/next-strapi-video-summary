@@ -6,13 +6,13 @@ import Header from "@/components/custom/header";
 import { Footer } from "@/components/custom/footer";
 import { cn } from "@/lib/utils";
 import { BUTTON_VARIANTS, NOT_FOUND_STYLES } from "@/constants/styles";
+import { AppLink } from "@/components/custom/CustomLink";
 
 export default async function NotFound() {
    const globalDataResponse = await loaders.getGlobalData();
    const globalData = validateApiResponse(globalDataResponse, "global page");
 
    const { header, footer } = globalData;
-
 
    return (
       <div className="w-full h-full flex flex-1 flex-col justify-center items-center">
@@ -48,21 +48,10 @@ export default async function NotFound() {
 
                {/* Action Buttons */}
                <div className={NOT_FOUND_STYLES.buttonContainer}>
-                  <Link
-                     href="/"
-                     className={cn(
-                        BUTTON_VARIANTS({
-                           variant: "default",
-                           size: "lg",
-                        }),
-                     )}
-                  >
-                     <div className="flex gap-2 justify-center items-center">
-                        <Home className={NOT_FOUND_STYLES.buttonIcon} />
-                        <span>Ir al inicio</span>
-                     </div>
-                  </Link>
-
+                  <AppLink href="/">
+                     <Home className={NOT_FOUND_STYLES.buttonIcon} />
+                     <span>Ir al inicio</span>
+                  </AppLink>
                </div>
             </div>
          </div>

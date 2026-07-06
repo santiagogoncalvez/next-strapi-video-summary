@@ -21,6 +21,8 @@ import { FormError } from "./form-error";
 import { BUTTON_VARIANTS, SIGN_IN_FORM_STYLES } from "@/constants/styles";
 import { cn } from "@/lib/utils";
 import { FormState } from "@/types/definitions";
+import { SubmitButton } from "./submit-button";
+import { AppLink } from "../custom/CustomLink";
 
 const INITIAL_STATE: FormState = {
    success: false,
@@ -75,41 +77,32 @@ export function SigninForm() {
 
                      <FormError error={formState.zodErrors?.password} />
 
-                     <Link
-                        className={SIGN_IN_FORM_STYLES.link}
+                     <AppLink
                         href="/auth/forgot-password"
+                        variant="link"
+                        size="none"
                      >
                         ¿Olvidaste tu contraseña?
-                     </Link>
+                     </AppLink>
                   </div>
                </CardContent>
                <CardFooter className={`${SIGN_IN_FORM_STYLES.footer}`}>
-                  <Button
-                     className={cn(
-                        BUTTON_VARIANTS({
-                           variant: "default",
-                           size: "lg",
-                           className: SIGN_IN_FORM_STYLES.button,
-                        }),
-                     )}
-                     disabled={isPending}
-                     size="lg"
-                  >
-                     {isPending && <Loader2 className="animate-spin" />}
-                     {!isPending && "Iniciar sesión"}
-                  </Button>
+                  <SubmitButton
+                     className={SIGN_IN_FORM_STYLES.button}
+                     text="Iniciar sesión"
+                     loadingText="Iniciando sesión"
+                     loading={isPending}
+                  />
+
                   {formState.strapiErrors && (
                      <FormError error={[formState.strapiErrors.message]} />
                   )}
 
                   <div className={SIGN_IN_FORM_STYLES.prompt}>
                      ¿No tienes una cuenta?
-                     <Link
-                        className={SIGN_IN_FORM_STYLES.link}
-                        href="/auth/signup"
-                     >
+                     <AppLink href="/auth/signup" variant="link" size="none">
                         Crear cuenta
-                     </Link>
+                     </AppLink>
                   </div>
                </CardFooter>
             </Card>

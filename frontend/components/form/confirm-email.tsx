@@ -20,6 +20,7 @@ import { FormState } from "@/types/definitions";
 import { Loader2 } from "lucide-react";
 import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
+import { SubmitButton } from "./submit-button";
 
 const COOLDOWN_TIME = 30;
 
@@ -97,24 +98,12 @@ export default function ConfirmEmail({ email }: { email: string }) {
                </CardContent>
 
                <CardFooter className={`${SIGN_IN_FORM_STYLES.footer}`}>
-                  <Button
-                     className={cn(
-                        BUTTON_VARIANTS({
-                           variant: "default",
-                           size: "lg",
-                           className: SIGN_IN_FORM_STYLES.button,
-                        }),
-                     )}
-                     disabled={isPending || isRunning}
-                     size="lg"
-                  >
-                     {isPending && <Loader2 className="animate-spin" />}
-
-                     {!isPending &&
-                        (isRunning
-                           ? `Reintentar en ${count}s`
-                           : "Reenviar correo electrónico de confirmación")}
-                  </Button>
+                  <SubmitButton
+                     className={SIGN_IN_FORM_STYLES.button}
+                     text={`Reintentar en ${count}s`}
+                     loadingText="Reenviar correo electrónico de confirmación"
+                     loading={isPending || isRunning}
+                  />
                   {!formState.success && formState.message && (
                      <FormError error={[formState.message]} />
                   )}

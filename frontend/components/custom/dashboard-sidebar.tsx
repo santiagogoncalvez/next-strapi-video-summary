@@ -13,10 +13,10 @@ import {
    SidebarRail,
 } from "@/components/ui/sidebar";
 import Logo from "@/components/custom/logo-page";
-import Link from "next/link";
 import { validateApiResponse } from "@/lib/error-handler";
 import { loaders } from "@/data/loaders";
 import { LogoutFormSideBar } from "../form/log-out-form-slidebar";
+import { AppLink } from "./CustomLink";
 
 // Menú de navegación ficticio
 // const navigationItems = [
@@ -46,17 +46,11 @@ export async function DashboardSidebar() {
                <SidebarGroupContent>
                   <SidebarMenu>
                      <SidebarMenuItem>
-                        {/* <SidebarMenuButton asChild>
-                           <Link href="/auth/forgot-password">
-                              <LockKeyholeOpen />
-                              <span>Recuperar constraseña</span>
-                           </Link>
-                        </SidebarMenuButton> */}
                         <SidebarMenuButton asChild>
-                           <Link href="/auth/change-password">
+                           <AppLink href="/auth/change-password" variant="none" className="justify-start">
                               <KeyRound />
                               <span>Cambiar contraseña</span>
-                           </Link>
+                           </AppLink>
                         </SidebarMenuButton>
                      </SidebarMenuItem>
                   </SidebarMenu>

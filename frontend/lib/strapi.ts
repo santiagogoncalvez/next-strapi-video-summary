@@ -38,7 +38,7 @@ export async function loginUserService(userData: LoginUser): Promise<AuthRespons
    try {
       const { data } = await axios.post(url, userData);
 
-      console.log(data);
+      // console.log(data);
 
       return data;
    } catch (error) {

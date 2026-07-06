@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { redirect } from "next/navigation";
 import { FormState } from "@/types/definitions";
+import { SubmitButton } from "./submit-button";
 
 export function ResetPassword({ code }: { code: string }) {
    const INITIAL_STATE: FormState = {
@@ -86,20 +87,12 @@ export function ResetPassword({ code }: { code: string }) {
                   </div>
                </CardContent>
                <CardFooter className={`${SIGN_UP_FORM_STYLES.footer}`}>
-                  <Button
-                     className={cn(
-                        BUTTON_VARIANTS({
-                           variant: "default",
-                           size: "lg",
-                           className: SIGN_UP_FORM_STYLES.button,
-                        }),
-                     )}
-                     disabled={isPending}
-                     size="lg"
-                  >
-                     {isPending && <Loader2 className="animate-spin" />}
-                     {!isPending && "Restablecer contraseña"}
-                  </Button>
+                  <SubmitButton
+                     className={SIGN_UP_FORM_STYLES.button}
+                     text="Restablecer contraseña"
+                     loadingText="Restableciendo contraseña"
+                     loading={isPending}
+                  />
                   {formState.strapiErrors && (
                      <FormError error={[formState.strapiErrors.message]} />
                   )}

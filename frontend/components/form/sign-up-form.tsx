@@ -21,6 +21,8 @@ import { BUTTON_VARIANTS, SIGN_UP_FORM_STYLES } from "@/constants/styles";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FormState } from "@/types/definitions";
+import { SubmitButton } from "./submit-button";
+import { AppLink } from "../custom/CustomLink";
 
 const INITIAL_STATE: FormState = {
    success: false,
@@ -99,32 +101,25 @@ export function SignupForm() {
                   </div>
                </CardContent>
                <CardFooter className={`${SIGN_UP_FORM_STYLES.footer}`}>
-                  <Button
-                     className={cn(
-                        BUTTON_VARIANTS({
-                           variant: "default",
-                           size: "lg",
-                           className: SIGN_UP_FORM_STYLES.button,
-                        }),
-                     )}
-                     disabled={isPending}
-                     size="lg"
-                  >
-                     {isPending && <Loader2 className="animate-spin" />}
-                     {!isPending && "Crear cuenta"}
-                  </Button>
+                  <SubmitButton
+                     className={SIGN_UP_FORM_STYLES.button}
+                     text="Crear cuenta"
+                     loadingText="Creando cuenta"
+                     loading={isPending}
+                  />
                   {formState.strapiErrors && (
                      <FormError error={[formState.strapiErrors.message]} />
                   )}
 
                   <div className={SIGN_UP_FORM_STYLES.prompt}>
                      ¿Tienes una cuenta?
-                     <Link
-                        className={SIGN_UP_FORM_STYLES.link}
+                     <AppLink
                         href="/auth/login"
+                        variant="link"
+                        size="none"
                      >
                         Iniciar sesión
-                     </Link>
+                     </AppLink>
                   </div>
                </CardFooter>
             </Card>

@@ -1,106 +1,105 @@
-import { cva } from "class-variance-authority"
-
+import { cva } from "class-variance-authority";
 
 export const BUTTON_VARIANTS = cva(
-    "group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 hover:cursor-pointer",
-    {
-        variants: {
-            variant: {
-                default: "bg-primary text-primary-foreground hover:bg-primary/80",
-                outline:
-                    "border-foreground/10 bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
-                secondary:
-                    "bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
-                ghost:
-                    "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
-                destructive:
-                    "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
-                link: "text-primary underline-offset-4 hover:underline",
-                none: ""
-            },
-            size: {
-                default:
-                    "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
-                xs: "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
-                sm: "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
-                lg: "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
-                icon: "size-8",
-                "icon-xs":
-                    "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
-                "icon-sm":
-                    "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
-                "icon-lg": "size-9",
-                none: ""
-            },
-        },
-        defaultVariants: {
-            variant: "default",
-            size: "default",
-        },
-    }
-)
+   "group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 hover:cursor-pointer",
+   {
+      variants: {
+         variant: {
+            default: "bg-primary text-primary-foreground hover:bg-primary/80",
+            outline:
+               "border-foreground/10 bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
+            secondary:
+               "bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
+            ghost: "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
+            destructive:
+               "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
+            link: "text-primary underline-offset-4 hover:underline",
+            none: "",
+         },
+         size: {
+            default:
+               "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
+            xs: "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
+            sm: "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
+            lg: "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
+            icon: "size-8",
+            "icon-xs":
+               "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
+            "icon-sm":
+               "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
+            "icon-lg": "size-9",
+            none: "",
+         },
+      },
+      defaultVariants: {
+         variant: "default",
+         size: "default",
+      },
+   },
+);
 
 export const SIGN_UP_FORM_STYLES = {
-    container: "w-full max-w-sm flex flex-col gap-4 justify-center items-center",
-    header: "space-y-1",
-    title: "text-2xl font-bold text-center",
-    content: "space-y-4",
-    fieldGroup: "space-y-2",
-    footer: "flex flex-col space-y-4",
-    button: "w-full",
-    prompt: "mt-0 text-center text-sm",
-    link: "ml-2",
+   container: "w-full max-w-sm flex flex-col gap-4 justify-center items-center",
+   header: "space-y-1",
+   title: "text-2xl font-bold text-center",
+   content: "space-y-4",
+   fieldGroup: "space-y-2",
+   footer: "flex flex-col space-y-4",
+   button: "w-full",
+   prompt: "mt-0 text-center text-sm flex gap-2",
+   link: "ml-2",
 };
 
 export const SIGN_IN_FORM_STYLES = {
-    container: "w-full max-w-sm flex flex-col gap-4 justify-center items-center",
-    header: "space-y-1",
-    title: "text-2xl font-bold text-center",
-    content: "space-y-4",
-    fieldGroup: "space-y-2",
-    footer: "flex flex-col space-y-4",
-    button: "w-full",
-    prompt: "mt-0 text-center text-sm",
-    link: "ml-2",
+   container: "w-full max-w-sm flex flex-col gap-4 justify-center items-center",
+   header: "space-y-1",
+   title: "text-2xl font-bold text-center",
+   content: "space-y-4",
+   fieldGroup: "space-y-2",
+   footer: "flex flex-col space-y-4",
+   button: "w-full",
+   prompt: "mt-0 text-center text-sm flex gap-2",
+   link: "ml-2",
 };
 
 export const HERO_SECTION_STYLES = {
-    header: "relative h-[500px] rounded-2xl overflow-hidden rounded-4xl",
-    backgroundImage: "absolute inset-0 object-cover w-full h-full ",
-    overlay:
-        "relative flex flex-col items-center justify-center h-full text-center bg-white/98",
-    heading: "text-black text-4xl font-bold md:text-5xl lg:text-6xl",
-    subheading: "mt-8 text-black text-lg md:text-xl lg:text-2xl",
-    button: "mt-8 ",
+   header: "relative h-[500px] rounded-2xl overflow-hidden rounded-4xl",
+   backgroundImage: "absolute inset-0 object-cover w-full h-full ",
+   overlay:
+      "relative flex flex-col items-center justify-center h-full text-center bg-white/98",
+   heading: "text-black text-4xl font-bold md:text-5xl lg:text-6xl",
+   subheading: "mt-8 text-black text-lg md:text-xl lg:text-2xl",
+   button: "mt-8 ",
 };
 
 export const FEATURES_SECTION_STYLES = {
-    container: "flex-1",
-    section: "container px-4 py-6 md:px-6 lg:py-24",
-    grid: "grid gap-8 md:grid-cols-3",
-    featureCard: "flex flex-col items-center text-center",
-    icon: "w-12 h-12 mb-4 text-gray-900",
-    heading: "mb-4 text-2xl font-medium",
-    description: "text-gray-500",
+   container: "flex-1",
+   section: "container px-4 py-6 md:px-6 lg:py-24",
+   grid: "grid gap-8 md:grid-cols-3",
+   featureCard: "flex flex-col items-center text-center",
+   icon: "w-12 h-12 mb-4 text-gray-900",
+   heading: "mb-4 text-2xl font-medium",
+   description: "text-gray-500",
 };
 
 export const FOOTER_STYLES = {
-    footer: "w-full border-t border-t-foreground/10 py-4 text-black",
-    container:
-        "w-full px-8 flex flex-col md:flex-row items-center justify-between",
-    text: "mt-4 md:mt-0 text-sm text-gray-800",
-    socialContainer: "w-40 flex justify-end gap-4",
-    socialLink: "transition-all hover:text-gray-800",
-    icon: "h-6 w-6",
-    srOnly: "sr-only",
+   footer: "w-full border-t border-t-foreground/10 py-4 text-black",
+   container:
+      "w-full px-8 flex flex-col md:flex-row items-center justify-between",
+   text: "mt-4 md:mt-0 text-sm text-gray-800",
+   socialContainer: "w-40 flex justify-end gap-4",
+   socialLink: "transition-all hover:text-gray-800",
+   icon: "h-6 w-6",
+   srOnly: "sr-only",
 };
 
 export const NOT_FOUND_STYLES = {
    container:
       "bg-gradient-to-br flex items-center justify-center p-16 w-full h-full flex-1",
-    content: "w-full max-w-2xl  text-center space-y-8",
+   content: "w-full max-w-2xl  text-center space-y-8",
    textSection: "space-y-4",
-    heading404: "text-black text-4xl font-bold md:text-5xl lg:text-6xl select-none",
+   heading404:
+      "text-black text-4xl font-bold md:text-5xl lg:text-6xl select-none",
    headingContainer: "relative flex flex-col items-center justify-center",
    pageTitle: "text-4xl font-bold text-gray-800 mb-4",
    description: "text-lg text-gray-600 max-w-md  leading-relaxed",
@@ -117,14 +116,14 @@ export const NOT_FOUND_STYLES = {
    button: "min-w-[160px]",
    buttonContent: "flex items-center gap-2",
    buttonIcon: "w-4 h-4",
-    outlineButton: "min-w-[160px] bg-transparent",
-    errorDetails:
-        "mt-8 p-4 bg-red-50 border border-red-200 rounded-lg text-left text-sm text-red-800",
-    errorTitle: "font-semibold mb-2",
+   outlineButton: "min-w-[160px] bg-transparent",
+   errorDetails:
+      "mt-8 p-4 bg-red-50 border border-red-200 rounded-lg text-left text-sm text-red-800",
+   errorTitle: "font-semibold mb-2",
 };
 
 export const LOADING_STYLES = {
-  overlay:
-    "fixed inset-0 flex items-center justify-center bg-gray-100 bg-opacity-60",
-  spinner: "animate-spin h-12 w-12",
+   overlay:
+      "fixed inset-0 flex items-center justify-center bg-gray-100 bg-opacity-60",
+   spinner: "animate-spin h-12 w-12",
 };

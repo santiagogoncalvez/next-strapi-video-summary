@@ -25,6 +25,8 @@ import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
+import { SubmitButton } from "./submit-button";
+import { AppLink } from "../custom/CustomLink";
 
 const COOLDOWN_TIME = 30;
 
@@ -97,24 +99,12 @@ export default function ForgotPassword() {
                </CardContent>
 
                <CardFooter className={`${SIGN_IN_FORM_STYLES.footer}`}>
-                  <Button
-                     className={cn(
-                        BUTTON_VARIANTS({
-                           variant: "default",
-                           size: "lg",
-                           className: SIGN_IN_FORM_STYLES.button,
-                        }),
-                     )}
-                     disabled={isPending || isRunning}
-                     size="lg"
-                  >
-                     {isPending && <Loader2 className="animate-spin" />}
-
-                     {!isPending &&
-                        (isRunning
-                           ? `Reintentar en ${count}s`
-                           : "Enviar enlace de restablecimiento")}
-                  </Button>
+                  <SubmitButton
+                     className={SIGN_IN_FORM_STYLES.button}
+                     text={`Reintentar en ${count}s`}
+                     loadingText="Enviar enlace de restablecimiento"
+                     loading={isPending || isRunning}
+                  />
                   {!formState.success && formState.message && (
                      <FormError error={[formState.message]} />
                   )}
@@ -124,12 +114,9 @@ export default function ForgotPassword() {
 
                   <div className={SIGN_UP_FORM_STYLES.prompt}>
                      ¿Recuerdas tu contraseña?
-                     <Link
-                        className={SIGN_UP_FORM_STYLES.link}
-                        href="/auth/login"
-                     >
+                     <AppLink href="/auth/login" variant="link" size="none">
                         Iniciar sesión
-                     </Link>
+                     </AppLink>
                   </div>
                </CardFooter>
             </Card>
