@@ -9,6 +9,7 @@ import {
    RegisterUser,
    ResetPasswordUser,
 } from "@/types/strapi";
+import { redirect } from "next/navigation";
 
 export const STRAPI_BASE_URL = getStrapiURL();
 
@@ -136,9 +137,7 @@ export const changePasswordService = async (
       const result = await verifySession();
 
       if (!result.isAuth) {
-         // nunca debería entrar porque verifySession hace redirect,
-         // pero TypeScript queda satisfecho.
-         throw new Error("Not authenticated");
+         redirect("/auth/login");
       }
 
       const { jwt } = result.session;

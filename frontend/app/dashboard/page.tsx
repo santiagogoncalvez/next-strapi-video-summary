@@ -1,13 +1,12 @@
 import { HERO_SECTION_STYLES } from "@/constants/styles";
 import { verifySession } from "@/lib/dal";
+import { redirect } from "next/navigation";
 
 export default async function DashboardRoute() {
    const result = await verifySession();
 
    if (!result.isAuth) {
-      // nunca debería entrar porque verifySession hace redirect,
-      // pero TypeScript queda satisfecho.
-      throw new Error("Not authenticated");
+      redirect("/auth/login");
    }
 
    const { user } = result.session;

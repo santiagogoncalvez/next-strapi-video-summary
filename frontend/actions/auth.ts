@@ -17,7 +17,7 @@ import {
 } from "@/validations/auth";
 import { redirect } from "next/navigation";
 import { FormState } from "@/types/definitions";
-import { createSession, deleteSession } from "@/lib/session";
+import { createSession, deleteSession, getSession } from "@/lib/session";
 import {
    getSuccessFormState,
    getValidationErrorState,
@@ -182,4 +182,10 @@ export async function changePasswordAction(
    } catch (error) {
       return handleActionError(error, fields);
    }
+}
+
+export async function getAuthTokenAction() {
+   const session = await getSession();
+
+   return session?.jwt ?? null;
 }

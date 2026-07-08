@@ -10,61 +10,65 @@ import { AuthResponse, SessionPayload } from "@/types/strapi";
 const secretKey = process.env.SESSION_SECRET;
 const encodedKey = new TextEncoder().encode(secretKey);
 
-
 // Cifra y firma la carga útil de la sesión como un JWT con una caducidad de 7 días.
 export async function encrypt(payload: SessionPayload) {
-    return new SignJWT(payload)
-        .setProtectedHeader({ alg: "HS256" })
-        .setIssuedAt()
-        .setExpirationTime("7d")
-        .sign(encodedKey);
+   return new SignJWT(payload)
+      .setProtectedHeader({ alg: "HS256" })
+      .setIssuedAt()
+      .setExpirationTime("7d")
+      .sign(encodedKey);
 }
-
 
 // Verifica y decodifica el token de sesión JWT
 export async function decrypt(session: string | undefined = "") {
-    // Si la cookie viene vacía o no existe, salimos inmediatamente sin romper
-    // SI NO HAY COOKIE, CORRE QUE NO INTENTE VALIDAR NADA
-    if (!session || session.trim() === "") return null;
+   // Si la cookie viene vacía o no existe, salimos inmediatamente sin romper
+   // SI NO HAY COOKIE, CORRE QUE NO INTENTE VALIDAR NADA
+   if (!session || session.trim() === "") return null;
 
-    try {
-        const { payload } = await jwtVerify(session, encodedKey, {
-            algorithms: ["HS256"],
-        });
-        return payload as SessionPayload;
-    } catch (error) {
-        console.error(error as JWTVerifyResult);
-    }
+   try {
+      const { payload } = await jwtVerify(session, encodedKey, {
+         algorithms: ["HS256"],
+      });
+      return payload as SessionPayload;
+   } catch (error) {
+      console.error(error as JWTVerifyResult);
+   }
 }
-
 
 // Crea una nueva sesión cifrando la carga útil y almacenándola en una cookie segura.
 export async function createSession(payload: AuthResponse) {
-    const sessionPayload: SessionPayload = {
-        ...payload,
-    };
+   const sessionPayload: SessionPayload = {
+      ...payload,
+   };
 
-    // Cifrar la carga útil de la sesión
-    const session = await encrypt(sessionPayload);
+   // Cifrar la carga útil de la sesión
+   const session = await encrypt(sessionPayload);
 
-    // Configurar la cookie para que caduque en 7 días
-    const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+   // Configurar la cookie para que caduque en 7 días
+   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
-    // Establece la cookie de sesión con la carga útil cifrada.
-    const cookieStore = await cookies();
+   // Establece la cookie de sesión con la carga útil cifrada.
+   const cookieStore = await cookies();
 
-    // Establece la cookie con el token de sesión.
-    cookieStore.set("session", session, {
-        httpOnly: true, // Impide que JavaScript del lado del cliente acceda a la cookie.
-        secure: false,
-        expires: expiresAt,
-        sameSite: "lax",
-        path: "/",
-    });
+   // Establece la cookie con el token de sesión.
+   cookieStore.set("session", session, {
+      httpOnly: true, // Impide que JavaScript del lado del cliente acceda a la cookie.
+      secure: false,
+      expires: expiresAt,
+      sameSite: "lax",
+      path: "/",
+   });
 }
 
 // Elimina la cookie de sesión para cerrar la sesión del usuario.
 export async function deleteSession() {
-    const cookieStore = await cookies();
-    cookieStore.delete("session");
+   const cookieStore = await cookies();
+   cookieStore.delete("session");
+}
+
+export async function getSession() {
+   const cookieStore = await cookies();
+   const cookie = cookieStore.get("session")?.value;
+
+   return decrypt(cookie);
 }
