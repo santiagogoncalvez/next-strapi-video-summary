@@ -1,8 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { Loader2 } from "lucide-react";
-
 import {
    CardTitle,
    CardDescription,
@@ -14,15 +11,13 @@ import {
 
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { actions } from "@/actions";
 import { useActionState } from "react";
 import { FormError } from "./form-error";
-import { BUTTON_VARIANTS, SIGN_IN_FORM_STYLES } from "@/constants/styles";
-import { cn } from "@/lib/utils";
+import { SIGN_IN_FORM_STYLES } from "@/constants/styles";
 import { FormState } from "@/types/definitions";
 import { SubmitButton } from "./submit-button";
-import { AppLink } from "../custom/CustomLink";
+import { AppLink } from "../custom/custom-link";
 
 const INITIAL_STATE: FormState = {
    success: false,

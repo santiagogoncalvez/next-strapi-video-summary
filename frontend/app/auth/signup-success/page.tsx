@@ -1,4 +1,4 @@
-import { AppLink } from "@/components/custom/CustomLink";
+import { AppLink } from "@/components/custom/custom-link";
 import {
    Card,
    CardDescription,
@@ -6,9 +6,7 @@ import {
    CardHeader,
    CardTitle,
 } from "@/components/ui/card";
-import { BUTTON_VARIANTS, SIGN_IN_FORM_STYLES } from "@/constants/styles";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
+import { SIGN_IN_FORM_STYLES } from "@/constants/styles";
 
 export default function EmailConfirmed() {
    return (

@@ -1,6 +1,6 @@
 import { NavBarLinks } from "@/types/definitions";
 import { cn } from "@/lib/utils";
-import { AppLink } from "./CustomLink";
+import { AppLink } from "./custom-link";
 
 interface Props extends NavBarLinks {
    isHero?: boolean;

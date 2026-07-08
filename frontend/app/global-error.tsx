@@ -1,15 +1,13 @@
 "use client";
 
-import Link from "next/link";
 import { AlertTriangle, Home, RefreshCw } from "lucide-react";
 import { Footer } from "@/components/custom/footer";
-import { cn } from "@/lib/utils";
-import { BUTTON_VARIANTS, NOT_FOUND_STYLES } from "@/constants/styles";
+import { NOT_FOUND_STYLES } from "@/constants/styles";
 import FallbackHeader from "@/components/custom/fallback-header";
 import { usePathname } from "next/navigation";
 import { geistSans } from "./ui/fonts";
 import { Button } from "@/components/ui/button";
-import { AppLink } from "@/components/custom/CustomLink";
+import { AppLink } from "@/components/custom/custom-link";
 
 interface IGlobalError {
    error: Error & { digest?: string };

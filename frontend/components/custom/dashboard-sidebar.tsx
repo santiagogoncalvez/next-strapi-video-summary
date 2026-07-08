@@ -1,4 +1,6 @@
-import { KeyRound } from "lucide-react";
+"use client";
+
+import { FileText, User } from "lucide-react";
 import {
    Sidebar,
    SidebarContent,
@@ -11,55 +13,82 @@ import {
    SidebarMenuButton,
    SidebarMenuItem,
    SidebarRail,
+   SidebarTrigger,
+   useSidebar,
 } from "@/components/ui/sidebar";
 import Logo from "@/components/custom/logo-page";
-import { validateApiResponse } from "@/lib/error-handler";
-import { loaders } from "@/data/loaders";
 import { LogoutFormSideBar } from "../form/log-out-form-slidebar";
-import { AppLink } from "./CustomLink";
+import Link from "next/link";
 
 // Menú de navegación ficticio
-// const navigationItems = [
-//    { name: "Inicio", url: "/dashboard", icon: Home },
-//    { name: "Proyectos", url: "/projects", icon: Folder },
-//    { name: "Usuarios", url: "/users", icon: Users },
-//    { name: "Configuración", url: "/settings", icon: Settings },
-// ];
+const sidebarGroups = [
+   {
+      label: "General",
+      items: [
+         {
+            name: "Resúmenes",
+            url: "/dashboard/summaries",
+            icon: FileText,
+         },
+         {
+            name: "Cuenta",
+            url: "/dashboard/account",
+            icon: User,
+         },
+      ],
+   },
+];
 
-export async function DashboardSidebar() {
-   const globalDataResponse = await loaders.getGlobalData();
-   const globalData = validateApiResponse(globalDataResponse, "global page");
-
-   const { header } = globalData;
+export function DashboardSidebar() {
+   const { open } = useSidebar();
 
    return (
-      <Sidebar collapsible="icon">
+      <Sidebar collapsible="icon" variant="floating" className="group">
          {/* HEADER: Branding o Logo de la App */}
-         <SidebarHeader className="flex justify-center items-center border-b">
-            <Logo logoText={header.logoText} showText={false} />
+         <SidebarHeader
+            className={`relative flex flex-row  items-center border-b bg-white justify-between`}
+         >
+            <Logo
+               logoText={{
+                  id: 0,
+                  href: "/",
+                  label: "RESU",
+               }}
+               showText={false}
+               className={`transition-opacity ${!open ? "group-hover:opacity-0" : ""}`}
+            />
+            {open && <SidebarTrigger className="size-8" />}
+            {!open && (
+               <SidebarTrigger className="absolute opacity-0 group-hover:opacity-100 transition-opacity size-8" />
+            )}
          </SidebarHeader>
 
          {/* CONTENT: Navegación principal (scrolleable) */}
-         <SidebarContent>
-            <SidebarGroup>
-               <SidebarGroupLabel>Seguridad</SidebarGroupLabel>
-               <SidebarGroupContent>
-                  <SidebarMenu>
-                     <SidebarMenuItem>
-                        <SidebarMenuButton asChild>
-                           <AppLink href="/auth/change-password" variant="none" className="justify-start">
-                              <KeyRound />
-                              <span>Cambiar contraseña</span>
-                           </AppLink>
-                        </SidebarMenuButton>
-                     </SidebarMenuItem>
-                  </SidebarMenu>
-               </SidebarGroupContent>
-            </SidebarGroup>
+         <SidebarContent className="bg-white">
+            {sidebarGroups.map((group) => (
+               <SidebarGroup key={group.label}>
+                  <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+
+                  <SidebarGroupContent>
+                     <SidebarMenu>
+                        {group.items.map((project) => (
+                           <SidebarMenuItem key={project.name}>
+                              <SidebarMenuButton asChild>
+                                 <Link href={project.url}>
+                                    <project.icon />
+                                    <span>{project.name}</span>
+                                 </Link>
+                              </SidebarMenuButton>
+                           </SidebarMenuItem>
+                        ))}
+                     </SidebarMenu>
+                  </SidebarGroupContent>
+               </SidebarGroup>
+            ))}
          </SidebarContent>
 
          {/* FOOTER: Botón de ayuda o usuario */}
-         <SidebarFooter className="border-t">
+         <SidebarFooter className="border-t bg-white">
             <SidebarMenu>
                <SidebarMenuItem>
                   <LogoutFormSideBar variant={"none"} size={"none"} />

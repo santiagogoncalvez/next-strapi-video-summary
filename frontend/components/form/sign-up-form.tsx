@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-
 import {
    CardTitle,
    CardDescription,
@@ -13,16 +11,13 @@ import {
 
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { actions } from "@/actions";
 import { useActionState } from "react";
 import { FormError } from "./form-error";
-import { BUTTON_VARIANTS, SIGN_UP_FORM_STYLES } from "@/constants/styles";
-import { Loader2 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { SIGN_UP_FORM_STYLES } from "@/constants/styles";
 import { FormState } from "@/types/definitions";
 import { SubmitButton } from "./submit-button";
-import { AppLink } from "../custom/CustomLink";
+import { AppLink } from "../custom/custom-link";
 
 const INITIAL_STATE: FormState = {
    success: false,
@@ -113,11 +108,7 @@ export function SignupForm() {
 
                   <div className={SIGN_UP_FORM_STYLES.prompt}>
                      ¿Tienes una cuenta?
-                     <AppLink
-                        href="/auth/login"
-                        variant="link"
-                        size="none"
-                     >
+                     <AppLink href="/auth/login" variant="link" size="none">
                         Iniciar sesión
                      </AppLink>
                   </div>

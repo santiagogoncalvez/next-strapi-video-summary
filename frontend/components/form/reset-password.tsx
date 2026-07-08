@@ -11,13 +11,10 @@ import {
 
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { actions } from "@/actions";
 import { useActionState, useEffect } from "react";
 import { FormError } from "./form-error";
-import { BUTTON_VARIANTS, SIGN_UP_FORM_STYLES } from "@/constants/styles";
-import { Loader2 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { SIGN_UP_FORM_STYLES } from "@/constants/styles";
 import { toast } from "sonner";
 import { redirect } from "next/navigation";
 import { FormState } from "@/types/definitions";

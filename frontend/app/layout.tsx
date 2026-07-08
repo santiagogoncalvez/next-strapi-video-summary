@@ -21,7 +21,7 @@ export default async function RootLayout({
 }>) {
    return (
       <html lang="en" className={`${geistSans.className} h-full antialiased`}>
-         <body className="min-h-full flex flex-col">
+         <body className="min-h-full flex flex-col bg-white">
             {children}
 
             <Toaster />

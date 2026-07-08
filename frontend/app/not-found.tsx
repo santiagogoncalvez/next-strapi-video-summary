@@ -1,12 +1,10 @@
-import Link from "next/link";
 import { Home, Search } from "lucide-react";
 import { loaders } from "@/data/loaders";
 import { validateApiResponse } from "@/lib/error-handler";
 import Header from "@/components/custom/header";
 import { Footer } from "@/components/custom/footer";
-import { cn } from "@/lib/utils";
-import { BUTTON_VARIANTS, NOT_FOUND_STYLES } from "@/constants/styles";
-import { AppLink } from "@/components/custom/CustomLink";
+import { NOT_FOUND_STYLES } from "@/constants/styles";
+import { AppLink } from "@/components/custom/custom-link";
 
 export default async function NotFound() {
    const globalDataResponse = await loaders.getGlobalData();
