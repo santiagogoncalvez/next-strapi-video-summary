@@ -241,7 +241,7 @@ function Sidebar({
            <div
               data-sidebar="sidebar"
               data-slot="sidebar-inner"
-              className="overflow-hidden flex size-full flex-col bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:shadow-sm group-data-[variant=floating]:ring-1 group-data-[variant=floating]:ring-sidebar-border"
+              className="overflow-hidden flex size-full flex-col bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:shadow-xs group-data-[variant=floating]:ring-1 group-data-[variant=floating]:ring-sidebar-border/50"
            >
               {children}
            </div>
@@ -330,24 +330,30 @@ function SidebarInput({
 
 function SidebarHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <div
-      data-slot="sidebar-header"
-      data-sidebar="header"
-      className={cn("flex flex-col gap-2 p-2", className)}
-      {...props}
-    />
-  )
+     <div
+        data-slot="sidebar-header"
+        data-sidebar="header"
+        className={cn(
+           "flex flex-col gap-2 p-2 border-b-sidebar-border/50",
+           className,
+        )}
+        {...props}
+     />
+  );
 }
 
 function SidebarFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <div
-      data-slot="sidebar-footer"
-      data-sidebar="footer"
-      className={cn("flex flex-col gap-2 p-2", className)}
-      {...props}
-    />
-  )
+     <div
+        data-slot="sidebar-footer"
+        data-sidebar="footer"
+        className={cn(
+           "flex flex-col gap-2 p-2 border-t-sidebar-border/50",
+           className,
+        )}
+        {...props}
+     />
+  );
 }
 
 function SidebarSeparator({

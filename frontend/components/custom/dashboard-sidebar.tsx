@@ -1,6 +1,6 @@
 "use client";
 
-import { FileText, User } from "lucide-react";
+import { FileText, User, Home } from "lucide-react";
 import {
    Sidebar,
    SidebarContent,
@@ -19,6 +19,8 @@ import {
 import Logo from "@/components/custom/logo-page";
 import { LogoutFormSideBar } from "../form/log-out-form-slidebar";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 // Menú de navegación ficticio
 const sidebarGroups = [
@@ -26,10 +28,15 @@ const sidebarGroups = [
       label: "General",
       items: [
          {
-            name: "Resúmenes",
-            url: "/dashboard/summaries",
-            icon: FileText,
+            name: "Inicio",
+            url: "/dashboard",
+            icon: Home,
          },
+         // {
+         //    name: "Resúmenes",
+         //    url: "/dashboard/summaries",
+         //    icon: FileText,
+         // },
          {
             name: "Cuenta",
             url: "/dashboard/account",
@@ -41,6 +48,7 @@ const sidebarGroups = [
 
 export function DashboardSidebar() {
    const { open } = useSidebar();
+   const pathname = usePathname();
 
    return (
       <Sidebar collapsible="icon" variant="floating" className="group">
@@ -57,10 +65,14 @@ export function DashboardSidebar() {
                showText={false}
                className={`transition-opacity ${!open ? "group-hover:opacity-0" : ""}`}
             />
-            {open && <SidebarTrigger className="size-8" />}
-            {!open && (
-               <SidebarTrigger className="absolute opacity-0 group-hover:opacity-100 transition-opacity size-8" />
-            )}
+            <SidebarTrigger
+               className={cn(
+                  "transition-all duration-200 size-8",
+                  open
+                     ? "opacity-100"
+                     : "absolute left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100",
+               )}
+            />
          </SidebarHeader>
 
          {/* CONTENT: Navegación principal (scrolleable) */}
@@ -71,12 +83,15 @@ export function DashboardSidebar() {
 
                   <SidebarGroupContent>
                      <SidebarMenu>
-                        {group.items.map((project) => (
-                           <SidebarMenuItem key={project.name}>
-                              <SidebarMenuButton asChild>
-                                 <Link href={project.url}>
-                                    <project.icon />
-                                    <span>{project.name}</span>
+                        {group.items.map((item) => (
+                           <SidebarMenuItem key={item.name}>
+                              <SidebarMenuButton
+                                 asChild
+                                 isActive={item.url === pathname}
+                              >
+                                 <Link href={item.url}>
+                                    <item.icon />
+                                    <span>{item.name}</span>
                                  </Link>
                               </SidebarMenuButton>
                            </SidebarMenuItem>

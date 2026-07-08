@@ -1,15 +1,8 @@
 import { HERO_SECTION_STYLES } from "@/constants/styles";
-import { verifySession } from "@/lib/dal";
-import { redirect } from "next/navigation";
+import { requireSession } from "@/lib/dal";
 
 export default async function DashboardRoute() {
-   const result = await verifySession();
-
-   if (!result.isAuth) {
-      redirect("/auth/login");
-   }
-
-   const { user } = result.session;
+   const { user } = await requireSession();
 
    return (
       <div className="flex flex-col items-center justify-center gap-8  ">
