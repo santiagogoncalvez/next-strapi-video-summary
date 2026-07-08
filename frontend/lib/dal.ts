@@ -3,6 +3,7 @@ import { cache } from "react";
 import "server-only";
 import { decrypt } from "./session";
 import { VerifySessionResult } from "@/types/definitions";
+import { redirect } from "next/navigation";
 
 export const verifySession = cache(async (): Promise<VerifySessionResult> => {
    const cookie = (await cookies()).get("session")?.value;
@@ -16,3 +17,13 @@ export const verifySession = cache(async (): Promise<VerifySessionResult> => {
 
    return { isAuth: true, session };
 });
+
+export async function requireSession() {
+   const result = await verifySession();
+
+   if (!result.isAuth) {
+      redirect("/auth/login");
+   }
+
+   return result.session;
+}

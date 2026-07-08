@@ -1,5 +1,5 @@
 import axios from "axios";
-import { verifySession } from "./dal";
+import { requireSession } from "./dal";
 import { getStrapiURL } from "./utils";
 import {
    AuthResponse,
@@ -9,7 +9,6 @@ import {
    RegisterUser,
    ResetPasswordUser,
 } from "@/types/strapi";
-import { redirect } from "next/navigation";
 
 export const STRAPI_BASE_URL = getStrapiURL();
 
@@ -33,7 +32,9 @@ export async function registerUserService(
    }
 }
 
-export async function loginUserService(userData: LoginUser): Promise<AuthResponse> {
+export async function loginUserService(
+   userData: LoginUser,
+): Promise<AuthResponse> {
    const url = `${STRAPI_BASE_URL}/api/auth/local`;
 
    try {
@@ -134,13 +135,7 @@ export const changePasswordService = async (
    };
 
    try {
-      const result = await verifySession();
-
-      if (!result.isAuth) {
-         redirect("/auth/login");
-      }
-
-      const { jwt } = result.session;
+      const { jwt } = await requireSession();
 
       const { data } = await axios.post(url, payload, {
          headers: {
