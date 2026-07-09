@@ -1,47 +1,44 @@
-import { StrapiResponse } from "@/types/strapi";
 import { notFound } from "next/navigation";
 
-/**
- * Handles API response errors consistently across all routes
- *
- * @param data - The API response data
- * @param resourceName - Optional name of the resource for better error messages (e.g., "summary", "user")
- * @throws Error when the response indicates failure (non-404 errors)
- * @returns void - Function either succeeds silently or throws/redirects
- */
-export function handleApiError<T>(
-    data: StrapiResponse<T> | null | undefined,
-    resourceName?: string
-): void {
-    if (!data) {
-        throw new Error(`Failed to load ${resourceName || "resource"}`);
-    }
+type ApiError = {
+   error?: {
+      status?: number;
+      message?: string;
+   };
+};
 
-    // Handle 404 errors specifically with notFound()
-    if (data?.error?.status === 404) {
-        notFound();
-    }
+export function handleApiError(
+   error: unknown,
+   resourceName = "resource",
+): never {
+   const apiError = error as ApiError;
 
-    // Handle all other API errors
-    if (!data?.success || !data?.data) {
-        const errorMessage =
-            data?.error?.message || `Failed to load ${resourceName || "resource"}`;
-        throw new Error(errorMessage);
-    }
+   if (apiError?.error?.status === 404) {
+      notFound();
+   }
+
+   throw new Error(
+      apiError?.error?.message ?? `Failed to load ${resourceName}`,
+   );
 }
 
-/**
- * Validates and extracts data from API response, handling errors automatically
- *
- * @param data - The API response data
- * @param resourceName - Optional name of the resource for better error messages
- * @returns The extracted data from the response
- * @throws Error when the response indicates failure
- */
 export function validateApiResponse<T>(
-    data: StrapiResponse<T> | null | undefined,
-    resourceName?: string
+   data: T | null | undefined,
+   resourceName = "resource",
 ): T {
-    handleApiError(data, resourceName);
-    return data!.data!;
+   if (data == null) {
+      throw new Error(`Failed to load ${resourceName}`);
+   }
+
+   return data;
+}
+
+/*
+ * Para casos donde querés agregar contexto extra
+ * antes de volver a propagar el error.
+ */
+export function handleServiceError(error: unknown, serviceName: string): never {
+   console.error(`${serviceName}:`, error);
+
+   throw error;
 }

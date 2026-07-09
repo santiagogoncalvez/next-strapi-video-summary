@@ -41,9 +41,9 @@ export async function registerUserAction(
       return getValidationErrorState(validatedFields.error, fields);
    }
 
-   try {
-      const { username, email, password } = validatedFields.data;
+   const { username, email, password } = validatedFields.data;
 
+   try {
       await registerUserService({ username, email, password });
    } catch (error) {
       return handleActionError(error, fields);
@@ -101,11 +101,11 @@ export async function resendConfirmEmailAction(
 
    try {
       await confirmEmailService(validatedFields.data.email);
-
-      return getSuccessFormState("Confirmation email sent", fields);
    } catch (error) {
       return handleActionError(error, fields);
    }
+
+   return getSuccessFormState("Confirmation email sent", fields);
 }
 
 export async function forgotPasswordAction(
@@ -124,14 +124,14 @@ export async function forgotPasswordAction(
 
    try {
       await forgotPasswordService(validatedFields.data.email);
-
-      return getSuccessFormState(
-         "An email has been sent to reset your password",
-         fields,
-      );
    } catch (error) {
       return handleActionError(error, fields);
    }
+
+   return getSuccessFormState(
+      "An email has been sent to reset your password",
+      fields,
+   );
 }
 
 export async function resetPasswordAction(
@@ -152,11 +152,10 @@ export async function resetPasswordAction(
 
    try {
       await resetPasswordService(fields);
-
-      return getSuccessFormState("Password successfully reset", fields);
    } catch (error) {
       return handleActionError(error, fields);
    }
+   return getSuccessFormState("Password successfully reset", fields);
 }
 
 export async function changePasswordAction(
@@ -177,9 +176,9 @@ export async function changePasswordAction(
 
    try {
       await changePasswordService(fields);
-
-      return getSuccessFormState("Password successfully changed", fields);
    } catch (error) {
       return handleActionError(error, fields);
    }
+
+   return getSuccessFormState("Password successfully changed", fields);
 }

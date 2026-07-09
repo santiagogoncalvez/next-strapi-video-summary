@@ -177,10 +177,31 @@ export type LoginUser = {
     password: string;
 };
 
+export type ConfirmEmail = {
+   email: string;
+};
+
+export type ForgotPassword = {
+   email: string;
+};
+
+
 export type ResetPasswordUser = {
    code: string;
    password: string;
    confirmPassword: string;
+};
+
+export type ResetPasswordUserStrapi = {
+   code: string;
+   password: string;
+   passwordConfirmation: string;
+};
+
+export type ChangePasswordUserStrapi = {
+   currentPassword: string;
+   password: string;
+   passwordConfirmation: string;
 };
 
 export type ChangePasswordUser = {

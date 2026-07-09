@@ -1,14 +1,18 @@
-import axios from "axios";
 import { requireSession } from "./dal";
 import { getStrapiURL } from "./utils";
 import {
    AuthResponse,
    AuthServiceResponse,
    ChangePasswordUser,
+   ChangePasswordUserStrapi,
+   ConfirmEmail,
+   ForgotPassword,
    LoginUser,
    RegisterUser,
    ResetPasswordUser,
+   ResetPasswordUserStrapi,
 } from "@/types/strapi";
+import { api } from "@/data/data-api";
 
 export const STRAPI_BASE_URL = getStrapiURL();
 
@@ -17,19 +21,7 @@ export async function registerUserService(
 ): Promise<AuthServiceResponse> {
    const url = `${STRAPI_BASE_URL}/api/auth/local/register`;
 
-   try {
-      const { data } = await axios.post(url, userData);
-
-      return data;
-   } catch (error) {
-      console.error("Registration Service Error:", error);
-
-      if (axios.isAxiosError(error) && error.response?.data) {
-         throw error.response.data;
-      }
-
-      throw error;
-   }
+   return api.post<AuthServiceResponse, RegisterUser>(url, userData);
 }
 
 export async function loginUserService(
@@ -37,21 +29,7 @@ export async function loginUserService(
 ): Promise<AuthResponse> {
    const url = `${STRAPI_BASE_URL}/api/auth/local`;
 
-   try {
-      const { data } = await axios.post(url, userData);
-
-      // console.log(data);
-
-      return data;
-   } catch (error) {
-      console.error("Login Service Error:", error);
-
-      if (axios.isAxiosError(error) && error.response?.data) {
-         throw error.response.data;
-      }
-
-      throw error;
-   }
+   return api.post<AuthResponse, LoginUser>(url, userData);
 }
 
 export async function confirmEmailService(
@@ -59,42 +37,19 @@ export async function confirmEmailService(
 ): Promise<AuthServiceResponse> {
    const url = `${STRAPI_BASE_URL}/api/auth/send-email-confirmation`;
 
-   try {
-      const { data } = await axios.post(url, {
-         email,
-      });
-
-      return data;
-   } catch (error) {
-      console.error("Confirm Email Service Error:", error);
-
-      if (axios.isAxiosError(error) && error.response?.data) {
-         throw error.response.data;
-      }
-
-      throw error;
-   }
+   return api.post<AuthServiceResponse, ConfirmEmail>(url, {
+      email,
+   });
 }
 
 export async function forgotPasswordService(
    email: string,
 ): Promise<AuthServiceResponse> {
    const url = `${STRAPI_BASE_URL}/api/auth/forgot-password`;
-   try {
-      const { data } = await axios.post(url, {
-         email,
-      });
 
-      return data;
-   } catch (error) {
-      console.error("Forgot Password Service Error:", error);
-
-      if (axios.isAxiosError(error) && error.response?.data) {
-         throw error.response.data;
-      }
-
-      throw error;
-   }
+   return api.post<AuthServiceResponse, ForgotPassword>(url, {
+      email,
+   });
 }
 
 export async function resetPasswordService(
@@ -108,19 +63,7 @@ export async function resetPasswordService(
       passwordConfirmation: userData?.confirmPassword,
    };
 
-   try {
-      const { data } = await axios.post(url, payload);
-
-      return data;
-   } catch (error) {
-      console.error("Reset Password Service Error:", error);
-
-      if (axios.isAxiosError(error) && error.response?.data) {
-         throw error.response.data;
-      }
-
-      throw error;
-   }
+   return api.post<AuthServiceResponse, ResetPasswordUserStrapi>(url, payload);
 }
 
 export const changePasswordService = async (
@@ -134,23 +77,15 @@ export const changePasswordService = async (
       passwordConfirmation: userData.confirmPassword,
    };
 
-   try {
-      const { jwt } = await requireSession();
+   const { jwt } = await requireSession();
 
-      const { data } = await axios.post(url, payload, {
+   return api.post<AuthServiceResponse, ChangePasswordUserStrapi>(
+      url,
+      payload,
+      {
          headers: {
             Authorization: `Bearer ${jwt}`,
          },
-      });
-
-      return data;
-   } catch (error) {
-      console.error("Change Password Service Error:", error);
-
-      if (axios.isAxiosError(error) && error.response?.data) {
-         throw error.response.data;
-      }
-
-      throw error;
-   }
+      },
+   );
 };
