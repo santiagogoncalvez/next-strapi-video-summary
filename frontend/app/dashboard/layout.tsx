@@ -10,7 +10,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <DashboardSidebar />
 
             {/* 2. El contenedor de tu contenido principal */}
-            <div className="relative flex flex-col flex-1 justify-start items-center p-2 gap-4">
+            <div className="relative flex flex-col flex-1 justify-start items-center p-2 pl-0 gap-4">
                {/* Botón flotante para abrir/cerrar la barra */}
                <DashboardHeader />
                <main className="w-full">{children}</main>

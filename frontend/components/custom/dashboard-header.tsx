@@ -6,7 +6,7 @@ export default function DashboardHeader() {
    const pathname = usePathname();
 
    return (
-      <header className="max-w-full w-full p-2 rounded-lg shadow-xs ring ring-sidebar-border/50 flex justify-between items-center">
+      <header className="max-w-full w-full py-2 px-4 rounded-lg shadow-xs ring ring-sidebar-border/50 flex justify-between items-center">
          <h1 className="text-normal text-black font-medium">
             {pathname === "/dashboard" && "Inicio"}
             {pathname === "/dashboard/account" && "Cuenta"}
