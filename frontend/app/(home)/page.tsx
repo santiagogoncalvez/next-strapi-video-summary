@@ -1,7 +1,7 @@
 import { FeaturesSection } from "@/components/custom/features-section";
 import { HeroSection } from "@/components/custom/hero-section";
 import { loaders } from "@/data/loaders";
-import { validateApiResponse } from "@/lib/error-handler";
+import { validateApiResponse } from "@/services/error-handler";
 import {
    FeaturesSectionProps,
    HeroSectionProps,

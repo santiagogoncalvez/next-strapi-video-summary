@@ -208,6 +208,13 @@ export type ChangePasswordUser = {
    confirmPassword: string;
 };
 
+
+export type UpdateProfileUser = {
+   firstName: string;
+   lastName: string;
+   bio: string;
+};
+
 export type Jwt = string;
 
 export interface AuthResponse {

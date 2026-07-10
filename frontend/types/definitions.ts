@@ -7,15 +7,19 @@ export interface NavBarLinks {
 }
 
 export type Credentials = {
-    username?: string;
-    email?: string;
-    identifier?: string;
-    currentPassword?: string;
-    password?: string;
-    confirmPassword?: string;
-    newPassword?: string;
-    code?: string;
-    passwordConfirmation?: string;
+   username?: string;
+   email?: string;
+   identifier?: string;
+   currentPassword?: string;
+   password?: string;
+   confirmPassword?: string;
+   newPassword?: string;
+   code?: string;
+   passwordConfirmation?: string;
+   firstName?: string;
+   lastName?: string;
+   bio?: string;
+   image?: File;
 };
 
 export type VerifySessionResult =

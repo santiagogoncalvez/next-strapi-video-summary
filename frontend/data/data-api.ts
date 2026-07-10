@@ -9,7 +9,7 @@ export async function request<T>(config: AxiosRequestConfig): Promise<T> {
          ...config,
       });
 
-      console.log("request from api", data);
+      // console.log("request from api", data);
 
       return data;
    } catch (error) {

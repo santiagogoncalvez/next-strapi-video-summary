@@ -1,5 +1,5 @@
-import { requireSession } from "./dal";
-import { getStrapiURL } from "./utils";
+import { requireSession } from "../lib/dal";
+import { getStrapiURL } from "../lib/utils";
 import {
    AuthResponse,
    AuthServiceResponse,
@@ -89,3 +89,4 @@ export const changePasswordService = async (
       },
    );
 };
+

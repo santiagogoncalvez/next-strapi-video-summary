@@ -2,7 +2,7 @@
 import { loaders } from "@/data/loaders";
 import "../globals.css";
 import Header from "@/components/custom/header";
-import { validateApiResponse } from "@/lib/error-handler";
+import { validateApiResponse } from "@/services/error-handler";
 import { Footer } from "@/components/custom/footer";
 
 export default async function RootLayout({

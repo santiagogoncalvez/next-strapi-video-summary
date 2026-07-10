@@ -7,7 +7,7 @@ import {
    loginUserService,
    registerUserService,
    resetPasswordService,
-} from "@/lib/strapi";
+} from "@/services/auth";
 import {
    changePassworSchema,
    resendConfirmEmailFormSchema,
@@ -155,7 +155,7 @@ export async function resetPasswordAction(
    } catch (error) {
       return handleActionError(error, fields);
    }
-   return getSuccessFormState("Password successfully reset", fields);
+   return getSuccessFormState("Password reset successfully", fields);
 }
 
 export async function changePasswordAction(
@@ -180,5 +180,5 @@ export async function changePasswordAction(
       return handleActionError(error, fields);
    }
 
-   return getSuccessFormState("Password successfully changed", fields);
+   return getSuccessFormState("Password changed successfully", fields);
 }

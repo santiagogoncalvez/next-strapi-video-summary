@@ -127,3 +127,18 @@ export const LOADING_STYLES = {
       "fixed inset-0 flex items-center justify-center bg-gray-100 bg-opacity-60",
    spinner: "animate-spin h-12 w-12",
 };
+
+
+export const PROFILE_FORM_STYLES = {
+   form: "space-y-4 w-full",
+   container: "space-y-4 flex flex-col w-full",
+   topRow: "flex gap-4",
+   nameRow: "flex gap-4",
+   fieldGroup: "space-y-2 w-full",
+   textarea: "resize-none border rounded-md w-full h-[224px] p-2",
+   buttonContainer: "flex justify-end",
+   countBox:
+      "flex items-center justify-center h-8 w-full rounded-md border border-input/80 bg-transparent px-3 py-1 text-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground/90 focus-visible:outline-none",
+   creditText: "font-bold text-md mx-1",
+   button: "w-full",
+};

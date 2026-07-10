@@ -1,6 +1,6 @@
 import { Home, Search } from "lucide-react";
 import { loaders } from "@/data/loaders";
-import { validateApiResponse } from "@/lib/error-handler";
+import { validateApiResponse } from "@/services/error-handler";
 import Header from "@/components/custom/header";
 import { Footer } from "@/components/custom/footer";
 import { NOT_FOUND_STYLES } from "@/constants/styles";

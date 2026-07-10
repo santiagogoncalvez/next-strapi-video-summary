@@ -1,6 +1,6 @@
 import Logo from "@/components/custom/logo-page";
 import { loaders } from "@/data/loaders";
-import { validateApiResponse } from "@/lib/error-handler";
+import { validateApiResponse } from "@/services/error-handler";
 
 export default async function AuthLayout({
    children,
