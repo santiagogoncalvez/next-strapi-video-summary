@@ -7,10 +7,12 @@ export default async function AuthLayout({
 }: {
    readonly children: React.ReactNode;
 }) {
-   const globalDataResponse = await loaders.getGlobalData();
-   const globalData = validateApiResponse(globalDataResponse, "global page");
+   const { data } = await validateApiResponse(
+      loaders.getGlobalData(),
+      "global page",
+   );
 
-   const { header } = globalData;
+   const { header } = data;
 
    return (
       <div className="flex flex-col items-center justify-center min-h-screen ">

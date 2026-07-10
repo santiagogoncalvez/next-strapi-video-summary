@@ -1,6 +1,6 @@
 "use client";
 
-import { FileText, User, Home } from "lucide-react";
+import { User, Home } from "lucide-react";
 import {
    Sidebar,
    SidebarContent,

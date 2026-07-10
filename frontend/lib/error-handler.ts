@@ -22,15 +22,21 @@ export function handleApiError(
    );
 }
 
-export function validateApiResponse<T>(
-   data: T | null | undefined,
+export async function validateApiResponse<T>(
+   promise: Promise<T>,
    resourceName = "resource",
-): T {
-   if (data == null) {
-      throw new Error(`Failed to load ${resourceName}`);
-   }
+): Promise<T> {
+   try {
+      const data = await promise;
 
-   return data;
+      if (data == null) {
+         throw new Error(`Failed to load ${resourceName}`);
+      }
+
+      return data;
+   } catch (error) {
+      handleApiError(error, resourceName);
+   }
 }
 
 /*

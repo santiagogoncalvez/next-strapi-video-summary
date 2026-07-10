@@ -7,10 +7,12 @@ import { NOT_FOUND_STYLES } from "@/constants/styles";
 import { AppLink } from "@/components/custom/custom-link";
 
 export default async function NotFound() {
-   const globalDataResponse = await loaders.getGlobalData();
-   const globalData = validateApiResponse(globalDataResponse, "global page");
+   const { data } = await validateApiResponse(
+      loaders.getGlobalData(),
+      "global page",
+   );
 
-   const { header, footer } = globalData;
+   const { header, footer } = data;
 
    return (
       <div className="w-full h-full flex flex-1 flex-col justify-center items-center">

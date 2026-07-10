@@ -26,8 +26,11 @@ function blockRenderer(section: StrapiSections, index: number) {
 }
 
 export default async function Home() {
-   const homePageData = await loaders.getHomePageData();
-   const data = validateApiResponse(homePageData, "home page");
+   const { data } = await validateApiResponse(
+      loaders.getHomePageData(),
+      "home page",
+   );
+
    const { sections } = data;
 
    return (

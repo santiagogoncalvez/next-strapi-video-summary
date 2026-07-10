@@ -120,8 +120,7 @@ export interface StrapiError {
 export type StrapiErrors = StrapiError | null;
 
 export type StrapiResponse<T = null> = {
-    success: boolean;
-    data?: T;
+    data: T;
     error?: StrapiError;
     meta?: {
         pagination: {
@@ -131,7 +130,6 @@ export type StrapiResponse<T = null> = {
             total: number;
         };
     };
-    status: number;
 };
 
 export interface HeroSectionProps {

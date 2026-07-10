@@ -10,12 +10,13 @@ export default async function RootLayout({
 }: Readonly<{
    children: React.ReactNode;
 }>) {
-   const globalDataResponse = await loaders.getGlobalData();
-   const globalData = validateApiResponse(globalDataResponse, "global page");
+   const globalData = await validateApiResponse(
+      loaders.getGlobalData(),
+      "global page",
+   );
 
-   const { header, footer } = globalData;
-
-   // console.log(header, footer);
+   const header = globalData?.data?.header || null;
+   const footer = globalData?.data?.footer || null;
 
    return (
       <div>
