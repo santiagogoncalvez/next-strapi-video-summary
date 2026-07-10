@@ -8,6 +8,7 @@ export const STRAPI_BASE_URL = getStrapiURL();
 export async function updateProfileService(
    profileData: UpdateProfileUser,
 ): Promise<AuthUser> {
+   // En una aplicación de producción, debe implementar políticas adicionales para garantizar que los usuarios solo puedan actualizar sus propios datos de perfil. Abordaremos patrones de seguridad avanzados en un tutorial posterior.
    const result = await verifySession();
 
    if (!result.isAuth) {

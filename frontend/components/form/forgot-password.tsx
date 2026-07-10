@@ -93,9 +93,14 @@ export default function ForgotPassword() {
                <CardFooter className={`${SIGN_IN_FORM_STYLES.footer}`}>
                   <SubmitButton
                      className={SIGN_IN_FORM_STYLES.button}
-                     text={`Reintentar en ${count}s`}
-                     loadingText="Enviar enlace de restablecimiento"
-                     loading={isPending || isRunning}
+                     text={
+                        isRunning
+                           ? `Reintentar en ${count}s`
+                           : "Enviar enlace de restablecimiento"
+                     }
+                     loadingText="Enviando enlace de restablecimiento"
+                     loading={isPending}
+                     disabled={isRunning}
                   />
                   {!formState.success && formState.message && (
                      <FormError error={[formState.message]} />

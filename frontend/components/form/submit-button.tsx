@@ -18,6 +18,7 @@ interface ButtonProps {
    loadingText: string;
    className?: string;
    loading?: boolean;
+   disabled?: boolean;
 }
 
 export function SubmitButton({
@@ -25,13 +26,14 @@ export function SubmitButton({
    loadingText,
    loading,
    className,
+   disabled,
 }: ButtonProps) {
    const status = useFormStatus();
    return (
       <Button
          type="submit"
          aria-disabled={status.pending || loading}
-         disabled={status.pending || loading}
+         disabled={status.pending || loading || disabled}
          size="lg"
          className={cn(className)}
       >
