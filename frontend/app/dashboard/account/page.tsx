@@ -1,14 +1,16 @@
 import { ProfileForm } from "@/components/form/profile-form";
+import { ProfileImageForm } from "@/components/form/profile-image-form";
 import { requireSession } from "@/lib/dal";
-// import { ProfileImageForm } from "@/components/forms/profile-image-form";
 
-export default async function AccountRoute() {
+export default async function AccountPage() {
    const { user } = await requireSession();
+   console.log("user accoun page:", user);
+   const userImage = user?.image;
 
    return (
-      <div className="flex gap-4 w-full max-w-full px-20">
-         <ProfileForm user={user} className="col-span-3" />
-         {/* <ProfileImageForm image={userImage} className="col-span-2" /> */}
+      <div className="flex flex-row gap-8 w-full max-w-full px-28">
+         <ProfileForm user={user} className="" />
+         <ProfileImageForm image={userImage} className="" />
       </div>
    );
 }

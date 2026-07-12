@@ -1,4 +1,3 @@
-import qs from "qs";
 import type {
    StrapiResponse,
    HomePage,
@@ -8,13 +7,14 @@ import type {
 
 import { api } from "@/data/data-api";
 import { getStrapiURL } from "@/lib/utils";
+import { stringify } from "qs";
 
 const baseUrl = getStrapiURL();
 
 async function getHomePageData(): Promise<StrapiResponse<HomePage>> {
    // throw new Error("Test error");
 
-   const query = qs.stringify({
+   const query = stringify({
       populate: {
          sections: {
             on: {
@@ -49,7 +49,7 @@ async function getHomePageData(): Promise<StrapiResponse<HomePage>> {
 }
 
 async function getGlobalData(): Promise<StrapiResponse<Global>> {
-   const query = qs.stringify({
+   const query = stringify({
       populate: [
          "header.logoText",
          "header.ctaButton",
@@ -65,7 +65,7 @@ async function getGlobalData(): Promise<StrapiResponse<Global>> {
 }
 
 async function getMetaData(): Promise<StrapiResponse<MetaData>> {
-   const query = qs.stringify({
+   const query = stringify({
       fields: ["title", "description"],
    });
 

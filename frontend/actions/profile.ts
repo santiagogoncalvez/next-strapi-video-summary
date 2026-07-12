@@ -7,7 +7,7 @@ import {
    getValidationErrorState,
    handleActionError,
 } from "./helpers";
-import { updateProfileService } from "@/services/profile";
+import {services} from "@/services"
 
 export async function updateProfileAction(
    _prevState: FormState,
@@ -19,7 +19,7 @@ export async function updateProfileAction(
       bio: formData.get("bio") as string,
    };
 
-   console.log("updateProfileAction. fields: fields", fields);
+   // console.log("updateProfileAction. fields: fields", fields);
 
    const validatedFields = ProfileFormSchema.safeParse(fields);
 
@@ -28,10 +28,34 @@ export async function updateProfileAction(
    }
 
    try {
-      await updateProfileService(validatedFields.data);
+      await services.profile.updateProfileService(validatedFields.data);
    } catch (error) {
       return handleActionError(error, fields);
    }
 
    return getSuccessFormState("Profile updated successfully", fields);
+}
+
+
+export async function updateProfileImageAction(
+   _prevState: FormState,
+   formData: FormData,
+): Promise<FormState> {
+   const fields = {
+      image: formData.get("image") as File,
+   };
+
+   const validatedFields = profileImageSchema.safeParse(fields);
+
+   if (!validatedFields.success) {
+      return getValidationErrorState(validatedFields.error, fields);
+   }
+
+   try {
+      await services.profile.updateProfileImageService(validatedFields.data.image);
+   } catch (error) {
+      return handleActionError(error, fields);
+   }
+
+   return getSuccessFormState("Profile image updated successfully", fields);
 }

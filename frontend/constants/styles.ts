@@ -66,7 +66,7 @@ export const HERO_SECTION_STYLES = {
    header: "relative h-[500px] rounded-2xl overflow-hidden rounded-4xl",
    backgroundImage: "absolute inset-0 object-cover w-full h-full ",
    overlay:
-      "relative flex flex-col items-center justify-center h-full text-center bg-white/98",
+      "relative flex flex-col items-center justify-center h-full text-center bg-white/0",
    heading: "text-black text-4xl font-bold md:text-5xl lg:text-6xl",
    subheading: "mt-8 text-black text-lg md:text-xl lg:text-2xl",
    button: "mt-8 ",
@@ -128,17 +128,31 @@ export const LOADING_STYLES = {
    spinner: "animate-spin h-12 w-12",
 };
 
-
 export const PROFILE_FORM_STYLES = {
-   form: "space-y-4 w-full",
-   container: "space-y-4 flex flex-col w-full",
-   topRow: "flex gap-4",
-   nameRow: "flex gap-4",
+   form: "w-full",
+   container: "w-full max-w-full flex flex-col gap-4 justify-center items-start",
+
+   title: "text-xl font-bold text-start",
+
+   content: "space-y-4",
+
    fieldGroup: "space-y-2 w-full",
-   textarea: "resize-none border rounded-md w-full h-[224px] p-2",
-   buttonContainer: "flex justify-end",
+
+   nameRow: "flex flex-col gap-4 md:flex-row",
+
+   footer: "flex flex-col space-y-4",
+
+   textarea: "min-h-56 resize-none",
+
    countBox:
-      "flex items-center justify-center h-8 w-full rounded-md border border-input/80 bg-transparent px-3 py-1 text-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground/90 focus-visible:outline-none",
+      "flex items-center justify-center h-8 w-full rounded-md border border-input/80 bg-transparent px-3 py-1 text-sm transition-colors",
+
    creditText: "font-bold text-md mx-1",
+
    button: "w-full",
+};
+
+export const IMAGE_FORM_STYLES = {
+   container:
+      "w-full max-w-xs flex flex-col gap-4 justify-start items-center",
 };

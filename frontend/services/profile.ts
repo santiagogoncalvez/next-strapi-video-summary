@@ -1,7 +1,8 @@
 import { api } from "@/data/data-api";
-import { verifySession } from "@/lib/dal";
+import { requireSession, verifySession } from "@/lib/dal";
 import { getStrapiURL } from "@/lib/utils";
 import { AuthUser, UpdateProfileUser } from "@/types/strapi";
+import { fileDeleteService, fileUploadService } from "./file";
 
 export const STRAPI_BASE_URL = getStrapiURL();
 
@@ -26,5 +27,23 @@ export async function updateProfileService(
       headers: {
          Authorization: `Bearer ${jwt}`,
       },
+   });
+}
+
+export async function updateProfileImageService(file: File): Promise<AuthUser> {
+   const {user} = await requireSession();
+
+   if (user.image?.id) {
+      try {
+         await fileDeleteService(user.image.id);
+      } catch (error) {
+         console.error("Failed to delete previous image:", error);
+      }
+   }
+
+   const uploadedImages = await fileUploadService(file);
+
+   return updateProfileService({
+      image: uploadedImages[0].id,
    });
 }

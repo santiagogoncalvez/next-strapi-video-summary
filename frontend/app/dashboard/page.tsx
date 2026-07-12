@@ -1,7 +1,7 @@
 import { HERO_SECTION_STYLES } from "@/constants/styles";
 import { requireSession } from "@/lib/dal";
 
-export default async function DashboardRoute() {
+export default async function DashboardPage() {
    const { user } = await requireSession();
 
    return (

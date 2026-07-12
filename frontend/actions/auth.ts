@@ -1,20 +1,6 @@
 "use server";
 
-import {
-   changePasswordService,
-   confirmEmailService,
-   forgotPasswordService,
-   loginUserService,
-   registerUserService,
-   resetPasswordService,
-} from "@/services/auth";
-import {
-   changePassworSchema,
-   resendConfirmEmailFormSchema,
-   resetPasswordSchema,
-   SigninFormSchema,
-   SignupFormSchema,
-} from "@/validations/auth";
+import { services } from "@/services";
 import { redirect } from "next/navigation";
 import { FormState } from "@/types/definitions";
 import { createSession, deleteSession } from "@/lib/session";
@@ -23,6 +9,7 @@ import {
    getValidationErrorState,
    handleActionError,
 } from "./helpers";
+import { changePassworSchema, resendConfirmEmailFormSchema, resetPasswordSchema, SigninFormSchema, SignupFormSchema } from "@/validations/auth";
 
 export async function registerUserAction(
    _prevState: FormState,
@@ -44,7 +31,7 @@ export async function registerUserAction(
    const { username, email, password } = validatedFields.data;
 
    try {
-      await registerUserService({ username, email, password });
+      await services.auth.registerUserService({ username, email, password });
    } catch (error) {
       return handleActionError(error, fields);
    }
@@ -69,7 +56,8 @@ export async function loginUserAction(
    }
 
    try {
-      const response = await loginUserService(validatedFields.data);
+      const response = await services.auth.loginUserService(validatedFields.data);
+      console.log("loginUserAction:", response);
 
       await createSession(response);
    } catch (error) {
@@ -100,7 +88,7 @@ export async function resendConfirmEmailAction(
    }
 
    try {
-      await confirmEmailService(validatedFields.data.email);
+      await services.auth.confirmEmailService(validatedFields.data.email);
    } catch (error) {
       return handleActionError(error, fields);
    }
@@ -123,7 +111,7 @@ export async function forgotPasswordAction(
    }
 
    try {
-      await forgotPasswordService(validatedFields.data.email);
+      await services.auth.forgotPasswordService(validatedFields.data.email);
    } catch (error) {
       return handleActionError(error, fields);
    }
@@ -151,7 +139,7 @@ export async function resetPasswordAction(
    }
 
    try {
-      await resetPasswordService(fields);
+      await services.auth.resetPasswordService(fields);
    } catch (error) {
       return handleActionError(error, fields);
    }
@@ -175,7 +163,7 @@ export async function changePasswordAction(
    }
 
    try {
-      await changePasswordService(fields);
+      await services.auth.changePasswordService(fields);
    } catch (error) {
       return handleActionError(error, fields);
    }

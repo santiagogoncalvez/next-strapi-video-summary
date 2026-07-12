@@ -8,6 +8,7 @@ export function HeroSection({ data }: { readonly data: HeroSectionProps }) {
    if (!data) return null;
 
    const { heading, subHeading, image, link, secondaryLink } = data;
+   console.log("user image:", image);
 
    return (
       <header className={HERO_SECTION_STYLES.header}>

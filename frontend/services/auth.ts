@@ -66,9 +66,9 @@ export async function resetPasswordService(
    return api.post<AuthServiceResponse, ResetPasswordUserStrapi>(url, payload);
 }
 
-export const changePasswordService = async (
+export async function changePasswordService(
    userData: ChangePasswordUser,
-): Promise<AuthServiceResponse> => {
+): Promise<AuthServiceResponse> {
    const url = `${STRAPI_BASE_URL}/api/auth/change-password`;
 
    const payload = {
@@ -88,5 +88,4 @@ export const changePasswordService = async (
          },
       },
    );
-};
-
+}

@@ -1,5 +1,5 @@
 import { changePasswordAction, forgotPasswordAction, loginUserAction, logoutUserAction, registerUserAction, resendConfirmEmailAction, resetPasswordAction } from "./auth";
-import { updateProfileAction } from "./profile";
+import { updateProfileAction, updateProfileImageAction } from "./profile";
 
 export const actions = {
    auth: {
@@ -13,5 +13,6 @@ export const actions = {
    },
    profile: {
       updateProfileAction,
+      updateProfileImageAction,
    },
 };
