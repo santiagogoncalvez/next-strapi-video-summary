@@ -60,7 +60,7 @@ export function SummaryForm() {
 
          // Step 3: Save summary to database
          toast.dismiss(currentToastId);
-         currentToastId = toast.loading("Saving summary...");
+         // currentToastId = toast.loading("Saving summary...");
 
          toast.success("Summary Created and Saved!");
          setValue("");
