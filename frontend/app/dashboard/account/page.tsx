@@ -1,10 +1,8 @@
 import { ProfileForm } from "@/components/form/profile-form";
 import { ProfileImageForm } from "@/components/form/profile-image-form";
-import { requireSession } from "@/lib/dal";
 import { getUserMeService } from "@/services/auth";
 
 export default async function AccountPage() {
-   await requireSession();
    const user = await getUserMeService();
    const userImage = user?.image;
 

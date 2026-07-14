@@ -1,5 +1,5 @@
 import { api } from "@/data/data-api";
-import { requireSession, verifySession } from "@/lib/dal";
+import { requireSession } from "@/lib/dal";
 import { getStrapiURL } from "@/lib/utils";
 import { AuthUser, UpdateProfileUser, User } from "@/types/strapi";
 import { fileDeleteService, fileUploadService } from "./file";
@@ -11,16 +11,12 @@ export async function updateProfileService(
    profileData: UpdateProfileUser,
 ): Promise<User> {
    // En una aplicación de producción, debe implementar políticas adicionales para garantizar que los usuarios solo puedan actualizar sus propios datos de perfil. Abordaremos patrones de seguridad avanzados en un tutorial posterior.
-   const result = await verifySession();
-
-   if (!result.isAuth) {
-      throw new Error("You are not authorized");
-   }
+   const result = await requireSession();
 
    const {
       jwt,
       user: { id },
-   } = result.session;
+   } = result;
 
    const url = `${STRAPI_BASE_URL}/api/users/${id}`;
 
@@ -32,8 +28,7 @@ export async function updateProfileService(
 }
 
 export async function updateProfileImageService(file: File): Promise<AuthUser> {
-   await requireSession();
-      const user = await getUserMeService();
+   const user = await getUserMeService();
 
    if (user.image?.id) {
       try {
