@@ -1,7 +1,7 @@
 "use server";
 
 import { FormState } from "@/types/definitions";
-import { ProfileFormSchema } from "@/validations/profile";
+import { ProfileFormSchema, ProfileImageFormSchema } from "@/validations/profile";
 import {
    getSuccessFormState,
    getValidationErrorState,
@@ -45,7 +45,7 @@ export async function updateProfileImageAction(
       image: formData.get("image") as File,
    };
 
-   const validatedFields = profileImageSchema.safeParse(fields);
+   const validatedFields = ProfileImageFormSchema.safeParse(fields);
 
    if (!validatedFields.success) {
       return getValidationErrorState(validatedFields.error, fields);

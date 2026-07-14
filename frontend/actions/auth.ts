@@ -57,7 +57,7 @@ export async function loginUserAction(
 
    try {
       const response = await services.auth.loginUserService(validatedFields.data);
-      console.log("loginUserAction:", response);
+      // console.log("loginUserAction:", response);
 
       await createSession(response);
    } catch (error) {

@@ -207,9 +207,10 @@ export type ChangePasswordUser = {
 };
 
 export type UpdateProfileUser = {
-   firstName: string;
-   lastName: string;
-   bio: string;
+   firstName?: string;
+   lastName?: string;
+   bio?: string;
+   image?: number;
 };
 
 export type Jwt = string;
@@ -284,3 +285,7 @@ export type ImageFormat = {
    sizeInBytes: number;
    url: string;
 };
+
+export interface User extends AuthUser {
+   image?: Image | null;
+}

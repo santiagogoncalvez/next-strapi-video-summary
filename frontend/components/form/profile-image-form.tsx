@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 
 import { actions } from "@/actions";
 import { cn } from "@/lib/utils";
@@ -20,7 +20,12 @@ import ImagePicker from "@/components/custom/image-picker";
 
 import { FormState } from "@/types/definitions";
 import { Image } from "@/types/strapi";
-import { IMAGE_FORM_STYLES, PROFILE_FORM_STYLES, SIGN_IN_FORM_STYLES } from "@/constants/styles";
+import {
+   IMAGE_FORM_STYLES,
+   PROFILE_FORM_STYLES,
+   SIGN_IN_FORM_STYLES,
+} from "@/constants/styles";
+import { toast } from "sonner";
 
 interface ProfileImageFormProps {
    image?: Image | null;
@@ -40,9 +45,17 @@ export function ProfileImageForm({ image, className }: ProfileImageFormProps) {
       INITIAL_STATE,
    );
 
+   useEffect(() => {
+      if (formState.success) {
+         toast.success(formState.message, {
+            position: "top-center",
+         });
+      }
+   }, [formState.success, formState.message, formState.timestamp]);
+
    return (
       <div className={IMAGE_FORM_STYLES.container}>
-         <form action={formAction} className={cn("w-full",className)}>
+         <form action={formAction} className={cn("w-full", className)}>
             <Card>
                <CardHeader className={SIGN_IN_FORM_STYLES.header}>
                   <CardTitle className={PROFILE_FORM_STYLES.title}>

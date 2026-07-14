@@ -11,8 +11,10 @@ import {
    RegisterUser,
    ResetPasswordUser,
    ResetPasswordUserStrapi,
+   User,
 } from "@/types/strapi";
 import { api } from "@/data/data-api";
+import { stringify } from "qs";
 
 export const STRAPI_BASE_URL = getStrapiURL();
 
@@ -88,4 +90,25 @@ export async function changePasswordService(
          },
       },
    );
+}
+
+export async function getUserMeService(): Promise<User> {
+   const { jwt } = await requireSession();
+
+   const query = stringify({
+      populate: {
+         image: {
+            fields: ["url", "alternativeText"],
+         },
+      },
+   });
+
+   const url = new URL("/api/users/me", STRAPI_BASE_URL);
+   url.search = query;
+
+   return api.get<User>(url.href, {
+      headers: {
+         Authorization: `Bearer ${jwt}`,
+      },
+   });
 }

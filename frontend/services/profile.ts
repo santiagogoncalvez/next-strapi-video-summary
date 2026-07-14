@@ -1,14 +1,15 @@
 import { api } from "@/data/data-api";
 import { requireSession, verifySession } from "@/lib/dal";
 import { getStrapiURL } from "@/lib/utils";
-import { AuthUser, UpdateProfileUser } from "@/types/strapi";
+import { AuthUser, UpdateProfileUser, User } from "@/types/strapi";
 import { fileDeleteService, fileUploadService } from "./file";
+import { getUserMeService } from "./auth";
 
 export const STRAPI_BASE_URL = getStrapiURL();
 
 export async function updateProfileService(
    profileData: UpdateProfileUser,
-): Promise<AuthUser> {
+): Promise<User> {
    // En una aplicación de producción, debe implementar políticas adicionales para garantizar que los usuarios solo puedan actualizar sus propios datos de perfil. Abordaremos patrones de seguridad avanzados en un tutorial posterior.
    const result = await verifySession();
 
@@ -23,7 +24,7 @@ export async function updateProfileService(
 
    const url = `${STRAPI_BASE_URL}/api/users/${id}`;
 
-   return api.put<AuthUser, UpdateProfileUser>(url, profileData, {
+   return api.put<User, UpdateProfileUser>(url, profileData, {
       headers: {
          Authorization: `Bearer ${jwt}`,
       },
@@ -31,7 +32,8 @@ export async function updateProfileService(
 }
 
 export async function updateProfileImageService(file: File): Promise<AuthUser> {
-   const {user} = await requireSession();
+   await requireSession();
+      const user = await getUserMeService();
 
    if (user.image?.id) {
       try {

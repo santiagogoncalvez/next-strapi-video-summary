@@ -88,6 +88,7 @@ interface ZodError {
    firstName?: string[];
    lastName?: string[];
    bio?: string[];
+   image?: string[];
 }
 
 export type ZodErrors = ZodError | null;
