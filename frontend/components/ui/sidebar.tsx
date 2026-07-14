@@ -28,7 +28,7 @@ const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
 const SIDEBAR_WIDTH = "16rem"
 const SIDEBAR_WIDTH_MOBILE = "18rem"
-const SIDEBAR_WIDTH_ICON = "2.875rem"
+const SIDEBAR_WIDTH_ICON = "3.45rem"
 const SIDEBAR_KEYBOARD_SHORTCUT = "b"
 
 type SidebarContextProps = {
@@ -232,7 +232,7 @@ function Sidebar({
               "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear data-[side=left]:left-0 data-[side=left]:group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)] data-[side=right]:right-0 data-[side=right]:group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)] md:flex",
               // Adjust the padding for floating and inset variants.
               variant === "floating" || variant === "inset"
-                 ? "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]"
+                 ? "p-2 pr-0 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]"
                  : "group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l",
               className,
            )}
@@ -241,7 +241,7 @@ function Sidebar({
            <div
               data-sidebar="sidebar"
               data-slot="sidebar-inner"
-              className="overflow-hidden flex size-full flex-col bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:shadow-xs group-data-[variant=floating]:ring-1 group-data-[variant=floating]:ring-sidebar-border/50"
+              className="overflow-hidden flex size-full flex-col bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:rounded-r-none group-data-[variant=floating]:border-r-1 group-data-[variant=floating]:shadow-none group-data-[variant=floating]:border-1 group-data-[variant=floating]:border-sidebar-border/50"
            >
               {children}
            </div>
@@ -334,7 +334,7 @@ function SidebarHeader({ className, ...props }: React.ComponentProps<"div">) {
         data-slot="sidebar-header"
         data-sidebar="header"
         className={cn(
-           "flex flex-col gap-2 p-2 border-b-sidebar-border/50",
+           "flex flex-col gap-2 p-2 px-4 border-b-sidebar-border/50",
            className,
         )}
         {...props}
@@ -348,7 +348,7 @@ function SidebarFooter({ className, ...props }: React.ComponentProps<"div">) {
         data-slot="sidebar-footer"
         data-sidebar="footer"
         className={cn(
-           "flex flex-col gap-2 p-2 border-t-sidebar-border/50",
+           "flex flex-col gap-2 p-2 px-4 border-t-sidebar-border/50",
            className,
         )}
         {...props}
@@ -386,13 +386,16 @@ function SidebarContent({ className, ...props }: React.ComponentProps<"div">) {
 
 function SidebarGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <div
-      data-slot="sidebar-group"
-      data-sidebar="group"
-      className={cn("relative flex w-full min-w-0 flex-col p-2", className)}
-      {...props}
-    />
-  )
+     <div
+        data-slot="sidebar-group"
+        data-sidebar="group"
+        className={cn(
+           "relative flex w-full min-w-0 flex-col p-2 px-4",
+           className,
+        )}
+        {...props}
+     />
+  );
 }
 
 function SidebarGroupLabel({
@@ -599,29 +602,32 @@ function SidebarMenuSkeleton({
   })
 
   return (
-    <div
-      data-slot="sidebar-menu-skeleton"
-      data-sidebar="menu-skeleton"
-      className={cn("flex h-8 items-center gap-2 rounded-md px-2", className)}
-      {...props}
-    >
-      {showIcon && (
+     <div
+        data-slot="sidebar-menu-skeleton"
+        data-sidebar="menu-skeleton"
+        className={cn(
+           "flex h-8 items-center gap-2 px-4 rounded-md px-2",
+           className,
+        )}
+        {...props}
+     >
+        {showIcon && (
+           <Skeleton
+              className="size-4 rounded-md"
+              data-sidebar="menu-skeleton-icon"
+           />
+        )}
         <Skeleton
-          className="size-4 rounded-md"
-          data-sidebar="menu-skeleton-icon"
+           className="h-4 max-w-(--skeleton-width) flex-1"
+           data-sidebar="menu-skeleton-text"
+           style={
+              {
+                 "--skeleton-width": width,
+              } as React.CSSProperties
+           }
         />
-      )}
-      <Skeleton
-        className="h-4 max-w-(--skeleton-width) flex-1"
-        data-sidebar="menu-skeleton-text"
-        style={
-          {
-            "--skeleton-width": width,
-          } as React.CSSProperties
-        }
-      />
-    </div>
-  )
+     </div>
+  );
 }
 
 function SidebarMenuSub({ className, ...props }: React.ComponentProps<"ul">) {

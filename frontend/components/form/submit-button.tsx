@@ -1,8 +1,9 @@
 "use client";
 import { useFormStatus } from "react-dom";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { Button, BUTTON_VARIANTS } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
+import { VariantProps } from "class-variance-authority";
 
 function Loader({ text }: { readonly text: string }) {
    return (
@@ -27,14 +28,15 @@ export function SubmitButton({
    loading,
    className,
    disabled,
-}: ButtonProps) {
+   size = "lg"
+}: ButtonProps & VariantProps<typeof BUTTON_VARIANTS>) {
    const status = useFormStatus();
    return (
       <Button
          type="submit"
          aria-disabled={status.pending || loading}
          disabled={status.pending || loading || disabled}
-         size="lg"
+         size={size}
          className={cn(className)}
       >
          {status.pending || loading ? <Loader text={loadingText} /> : text}

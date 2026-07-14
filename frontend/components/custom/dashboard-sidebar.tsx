@@ -1,6 +1,6 @@
 "use client";
 
-import { User, Home } from "lucide-react";
+import { User, SquarePen } from "lucide-react";
 import {
    Sidebar,
    SidebarContent,
@@ -23,20 +23,23 @@ import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 
 // Menú de navegación ficticio
-const sidebarGroups = [
+const principalSidebarGroups = [
    {
       label: "General",
       items: [
          {
-            name: "Inicio",
+            name: "Nuevo resumen",
             url: "/dashboard",
-            icon: Home,
+            icon: SquarePen,
          },
-         // {
-         //    name: "Resúmenes",
-         //    url: "/dashboard/summaries",
-         //    icon: FileText,
-         // },
+      ],
+   },
+];
+
+const sidebarGroups = [
+   {
+      label: "General",
+      items: [
          {
             name: "Cuenta",
             url: "/dashboard/account",
@@ -77,9 +80,34 @@ export function DashboardSidebar() {
 
          {/* CONTENT: Navegación principal (scrolleable) */}
          <SidebarContent className="bg-white">
+            {principalSidebarGroups.map((group) => (
+               <SidebarGroup key={group.label}>
+                  <SidebarGroupContent>
+                     <SidebarMenu>
+                        {group.items.map((item) => (
+                           <SidebarMenuItem key={item.name}>
+                              <SidebarMenuButton
+                                 asChild
+                                 isActive={item.url === pathname}
+                              >
+                                 <Link href={item.url}>
+                                    <item.icon />
+                                    <span>{item.name}</span>
+                                 </Link>
+                              </SidebarMenuButton>
+                           </SidebarMenuItem>
+                        ))}
+                     </SidebarMenu>
+                  </SidebarGroupContent>
+               </SidebarGroup>
+            ))}
             {sidebarGroups.map((group) => (
                <SidebarGroup key={group.label}>
-                  <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+                  <SidebarGroupLabel
+                     className={`${open ? "" : "select-none pointer-events-none"}`}
+                  >
+                     {group.label}
+                  </SidebarGroupLabel>
 
                   <SidebarGroupContent>
                      <SidebarMenu>
