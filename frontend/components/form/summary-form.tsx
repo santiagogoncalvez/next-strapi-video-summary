@@ -2,16 +2,11 @@
 import { FormEvent, useState } from "react";
 import { toast } from "sonner";
 import { cn, extractYouTubeID } from "@/lib/utils";
+import { api } from "@/data/data-api";
 
 import { Input } from "@/components/ui/input";
+import { TranscriptResponse } from "@/types/summary";
 import { SubmitButton } from "./submit-button";
-
-// type TranscriptResponse = {
-//    fullTranscript: string;
-//    title?: string;
-//    videoId?: string;
-//    thumbnailUrl?: string;
-// };
 
 interface Errors {
    message: string | null;
@@ -51,26 +46,46 @@ export function SummaryForm() {
       let currentToastId: string | number | undefined;
 
       try {
-         // Step 1: Get transcript
          currentToastId = toast.loading("Getting transcript...");
 
-         // Step 2: Generate summary
+         const transcriptResponse = await api.post<
+            TranscriptResponse,
+            { videoId: string }
+         >("/api/transcript", {
+            videoId: processedVideoId,
+         });
+
+         if (!transcriptResponse.data?.fullTranscript) {
+            toast.dismiss(currentToastId);
+            toast.error("No transcript data found");
+            return;
+         }
+
          toast.dismiss(currentToastId);
          currentToastId = toast.loading("Generating summary...");
 
-         // Step 3: Save summary to database
+         // ...
+
          toast.dismiss(currentToastId);
-         // currentToastId = toast.loading("Saving summary...");
+         currentToastId = toast.loading("Saving summary...");
 
-         toast.success("Summary Created and Saved!");
+         // ...
+
+         toast.dismiss(currentToastId);
+         toast.success("Summary created successfully");
+
          setValue("");
+      } catch (error: any) {
+         if (currentToastId) {
+            toast.dismiss(currentToastId);
+         }
 
-         // Redirect to the summary details page
-      } catch (error) {
-         if (currentToastId) toast.dismiss(currentToastId);
-         console.error("Error:", error);
+         console.error(error);
+
          toast.error(
-            error instanceof Error ? error.message : "Failed to create summary",
+            error?.error?.message ??
+               error?.message ??
+               "Failed to create summary",
          );
       } finally {
          setLoading(false);
@@ -87,27 +102,28 @@ export function SummaryForm() {
       : "";
 
    return (
-      <div className="w-full">
+      <div className="w-full flex-1 mx-4">
          <form onSubmit={handleFormSubmit} className="flex gap-2 items-center">
             <Input
                name="videoId"
                placeholder={
-                  error.message
-                     ? error.message
-                     : "ID o URL del vídeo de YouTube"
+                  error.message ? error.message : "Youtube Video ID or URL"
                }
                value={value}
                onChange={(e) => setValue(e.target.value)}
                onMouseDown={clearError}
-               className={cn("w-full", errorStyles)}
+               className={cn(
+                  "w-full focus:text-black focus-visible:ring-pink-500",
+                  errorStyles,
+               )}
                required
             />
 
             <SubmitButton
-               text="Crear resumen"
-               loadingText="Creando resumen"
+               text="Create Summary"
+               loadingText="Creating Summary"
+               className="bg-pink-500"
                loading={loading}
-               size="default"
             />
          </form>
       </div>
