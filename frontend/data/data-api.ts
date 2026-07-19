@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 
-const DEFAULT_TIMEOUT = 20000;
+const DEFAULT_TIMEOUT = 8000;
 
 export async function request<T>(config: AxiosRequestConfig): Promise<T> {
    try {

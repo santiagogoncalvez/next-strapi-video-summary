@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 import { services } from "@/services";
 import { verifySession } from "@/lib/dal";
 
-export const maxDuration = 20000;
+export const maxDuration = 150;
 
 export async function POST(req: NextRequest) {
    const result = await verifySession();
@@ -21,8 +21,6 @@ export async function POST(req: NextRequest) {
       const transcriptData =
          await services.summarize.generateTranscript(videoId);
       
-      // console.log("\n\nfullTranscript", transcriptData?.fullTranscript);
-
       if (!transcriptData?.fullTranscript) {
          throw new Error("No transcript data found");
       }

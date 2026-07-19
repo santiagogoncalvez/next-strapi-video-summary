@@ -130,7 +130,8 @@ export const LOADING_STYLES = {
 
 export const PROFILE_FORM_STYLES = {
    form: "w-full",
-   container: "w-full max-w-full flex flex-col gap-4 justify-center items-start",
+   container:
+      "w-full max-w-2xl flex flex-col gap-4 justify-center items-start",
 
    title: "text-xl font-bold text-start",
 
@@ -153,6 +154,19 @@ export const PROFILE_FORM_STYLES = {
 };
 
 export const IMAGE_FORM_STYLES = {
+   container: "w-full max-w-2xl flex flex-col gap-4 justify-start items-center",
+   fieldGroup: "space-y-2 w-full flex justify-center",
+};
+
+export const SUMMARY_FORM_STYLES = {
    container:
-      "w-full max-w-xs flex flex-col gap-4 justify-start items-center",
+      "w-full max-w-2xl flex flex-col gap-4 justify-center items-center",
+   header: "space-y-1",
+   title: "text-2xl font-bold text-center",
+   content: "space-y-4",
+   fieldGroup: "space-y-2",
+   footer: "flex flex-col space-y-4",
+   button: "w-full",
+   prompt: "mt-0 text-center text-sm flex gap-2",
+   link: "ml-2",
 };

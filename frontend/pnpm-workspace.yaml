@@ -5,3 +5,5 @@ allowBuilds:
 ignoredBuiltDependencies:
   - sharp
   - unrs-resolver
+overrides:
+  youtube-transcript-plus: link:../../../Proyectos/youtube-transcript-plus

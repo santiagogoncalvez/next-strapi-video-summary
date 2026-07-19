@@ -1,12 +1,23 @@
 "use client";
-import { FormEvent, useState } from "react";
+import { SubmitEvent, useState } from "react";
 import { toast } from "sonner";
-import { cn, extractYouTubeID } from "@/lib/utils";
+import { extractYouTubeID } from "@/lib/utils";
 import { api } from "@/data/data-api";
 
 import { Input } from "@/components/ui/input";
 import { TranscriptResponse } from "@/types/summary";
 import { SubmitButton } from "./submit-button";
+import {
+   Card,
+   CardContent,
+   CardDescription,
+   CardFooter,
+   CardHeader,
+   CardTitle,
+} from "../ui/card";
+import { FormError } from "./form-error";
+import { Label } from "../ui/label";
+import { SUMMARY_FORM_STYLES } from "@/constants/styles";
 
 interface Errors {
    message: string | null;
@@ -18,18 +29,20 @@ const INITIAL_STATE = {
    name: "",
 };
 
-export function SummaryForm() {
+export function SummaryForm({ username }: { username: string }) {
    const [loading, setLoading] = useState(false);
    const [error, setError] = useState<Errors>(INITIAL_STATE);
    const [value, setValue] = useState<string>("");
 
-   async function handleFormSubmit(event: FormEvent<HTMLFormElement>) {
+   async function handleFormSubmit(event: SubmitEvent<HTMLFormElement>) {
       event.preventDefault();
       setLoading(true);
 
       const formData = new FormData(event.currentTarget);
       const videoId = formData.get("videoId") as string;
       const processedVideoId = extractYouTubeID(videoId);
+
+      console.log(processedVideoId);
 
       if (!processedVideoId) {
          toast.error("Invalid Youtube Video ID");
@@ -60,6 +73,8 @@ export function SummaryForm() {
             toast.error("No transcript data found");
             return;
          }
+
+         console.log("Resume:\n", transcriptResponse.data?.fullTranscript);
 
          toast.dismiss(currentToastId);
          currentToastId = toast.loading("Generating summary...");
@@ -97,34 +112,51 @@ export function SummaryForm() {
       if (error.message) setValue("");
    }
 
-   const errorStyles = error.message
-      ? "outline-1 outline outline-red-500 placeholder:text-red-700"
-      : "";
-
    return (
-      <div className="w-full flex-1 mx-4">
-         <form onSubmit={handleFormSubmit} className="flex gap-2 items-center">
-            <Input
-               name="videoId"
-               placeholder={
-                  error.message ? error.message : "Youtube Video ID or URL"
-               }
-               value={value}
-               onChange={(e) => setValue(e.target.value)}
-               onMouseDown={clearError}
-               className={cn(
-                  "w-full focus:text-black focus-visible:ring-pink-500",
-                  errorStyles,
-               )}
-               required
-            />
+      <div className={SUMMARY_FORM_STYLES.container}>
+         <form onSubmit={handleFormSubmit} className="w-full">
+            <Card>
+               <CardHeader className={SUMMARY_FORM_STYLES.header}>
+                  <CardTitle className={SUMMARY_FORM_STYLES.title}>
+                     ¡Hola {username}! ¿Qué video quieres resumir?
+                  </CardTitle>
 
-            <SubmitButton
-               text="Create Summary"
-               loadingText="Creating Summary"
-               className="bg-pink-500"
-               loading={loading}
-            />
+                  <CardDescription className="text-center">
+                     Introduce la URL o el identificador de un video de YouTube
+                     para generar un resumen con IA.
+                  </CardDescription>
+               </CardHeader>
+
+               <CardContent className={SUMMARY_FORM_STYLES.content}>
+                  <div className={SUMMARY_FORM_STYLES.fieldGroup}>
+                     <Label htmlFor="videoId">
+                        URL o ID del video de YouTube
+                     </Label>
+
+                     <Input
+                        id="videoId"
+                        name="videoId"
+                        type="text"
+                        placeholder="https://youtu.be/dQw4w9WgXcQ o dQw4w9WgXcQ"
+                        value={value}
+                        onChange={(e) => setValue(e.target.value)}
+                        onMouseDown={clearError}
+                        required
+                     />
+                  </div>
+               </CardContent>
+
+               <CardFooter className={SUMMARY_FORM_STYLES.footer}>
+                  <SubmitButton
+                     className={SUMMARY_FORM_STYLES.button}
+                     text="Crear resumen"
+                     loadingText="Creando resumen"
+                     loading={loading}
+                  />
+
+                  {error.message && <FormError error={[error.message ?? ""]} />}
+               </CardFooter>
+            </Card>
          </form>
       </div>
    );

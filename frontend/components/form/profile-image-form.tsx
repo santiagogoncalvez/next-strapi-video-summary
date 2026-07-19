@@ -74,7 +74,7 @@ export function ProfileImageForm({ image, className }: ProfileImageFormProps) {
                      defaultValue={image?.documentId ?? ""}
                   />
 
-                  <div className={SIGN_IN_FORM_STYLES.fieldGroup}>
+                  <div className={IMAGE_FORM_STYLES.fieldGroup}>
                      <ImagePicker
                         id="image"
                         name="image"

@@ -4,6 +4,7 @@ import { StrapiImage } from "./strapi-image";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 
 interface ImagePickerProps {
    id: string;
@@ -35,9 +36,11 @@ function ImagePreview({ dataUrl }: { readonly dataUrl: string }) {
 function ImageCard({
    dataUrl,
    fileInput,
+   className,
 }: {
    readonly dataUrl: string;
    readonly fileInput: React.RefObject<HTMLInputElement | null>;
+   className: string;
 }) {
    const imagePreview = dataUrl ? (
       <ImagePreview dataUrl={dataUrl} />
@@ -46,7 +49,7 @@ function ImageCard({
    );
 
    return (
-      <div className="w-full relative">
+      <div className={cn("w-full relative", className)}>
          <div className=" flex items-center space-x-4 rounded-lg border border-input/80 p-2">
             {imagePreview}
          </div>
@@ -86,7 +89,11 @@ export default function ImagePicker({
                accept="image/*"
             />
          </div>
-         <ImageCard dataUrl={dataUrl ?? ""} fileInput={fileInput} />
+         <ImageCard
+            dataUrl={dataUrl ?? ""}
+            fileInput={fileInput}
+            className="max-w-xs"
+         />
       </Fragment>
    );
 }
