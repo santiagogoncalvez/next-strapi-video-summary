@@ -19,7 +19,8 @@ export type Credentials = {
    firstName?: string;
    lastName?: string;
    bio?: string;
-   image?: File;
+    image?: File;
+    videoId?: string;
 };
 
 export type VerifySessionResult =

@@ -1,14 +1,14 @@
 import { getYoutubeData, TranscriptData } from "youtube-transcript-plus";
 
-const validateIdentifier = (identifier: string): void => {
+function validateIdentifier(identifier: string): void {
    if (!identifier || typeof identifier !== "string") {
       throw new Error("Invalid YouTube video identifier");
    }
-};
+}
 
-export const generateTranscript = async (
+export async function generateTranscript(
    identifier: string,
-): Promise<TranscriptData> => {
+): Promise<TranscriptData> {
    try {
       validateIdentifier(identifier);
 
@@ -27,4 +27,4 @@ export const generateTranscript = async (
          error instanceof Error ? error.message : "Failed to fetch transcript",
       );
    }
-};
+}

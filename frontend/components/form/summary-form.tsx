@@ -1,11 +1,8 @@
 "use client";
-import { SubmitEvent, useState } from "react";
+import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
-import { extractYouTubeID } from "@/lib/utils";
-import { api } from "@/data/data-api";
 
 import { Input } from "@/components/ui/input";
-import { SummaryResponse, TranscriptResponse } from "@/types/summary";
 import { SubmitButton } from "./submit-button";
 import {
    Card,
@@ -18,122 +15,65 @@ import {
 import { FormError } from "./form-error";
 import { Label } from "../ui/label";
 import { SUMMARY_FORM_STYLES } from "@/constants/styles";
+import { FormState } from "@/types/definitions";
+import { actions } from "@/actions";
 
-interface Errors {
-   message: string | null;
-   name: string;
-}
+// interface Errors {
+//    message: string | null;
+//    name: string;
+// }
 
-const INITIAL_STATE = {
-   message: null,
-   name: "",
+const INITIAL_STATE: FormState = {
+   success: false,
+   message: undefined,
+   strapiErrors: null,
+   zodErrors: null,
 };
 
 export function SummaryForm({ username }: { username: string }) {
-   const [loading, setLoading] = useState(false);
-   const [error, setError] = useState<Errors>(INITIAL_STATE);
-   const [value, setValue] = useState<string>("");
+   const [formState, formAction, isPending] = useActionState(
+      actions.summarize.createSummaryAction,
+      INITIAL_STATE,
+   );
 
-   async function handleFormSubmit(event: SubmitEvent<HTMLFormElement>) {
-      event.preventDefault();
-      setLoading(true);
+   useEffect(() => {
+      let toastId: string | number | undefined;
 
-      const formData = new FormData(event.currentTarget);
-      const videoId = formData.get("videoId") as string;
-      const processedVideoId = extractYouTubeID(videoId);
-
-      // console.log(processedVideoId);
-
-      if (!processedVideoId) {
-         toast.error("Invalid Youtube Video ID");
-         setLoading(false);
-         setValue("");
-         setError({
-            ...INITIAL_STATE,
-            message: "Invalid Youtube Video ID",
-            name: "Invalid Id",
+      if (isPending) {
+         toastId = toast.loading("Creando resumen...", {
+            position: "top-center",
          });
-         return;
       }
 
-      let currentToastId: string | number | undefined;
+      return () => {
+         if (toastId) {
+            toast.dismiss(toastId);
+         }
+      };
+   }, [isPending]);
 
-      try {
-         // Step 1
-         currentToastId = toast.loading("Getting transcript...");
-
-         const transcriptResponse = await api.post<
-            TranscriptResponse,
-            { videoId: string }
-         >("/api/transcript", {
-            videoId: processedVideoId,
+   useEffect(() => {
+      if (formState.success) {
+         toast.success(formState.message, {
+            position: "top-center",
          });
-
-         const fullTranscript = transcriptResponse.data?.fullTranscript;
-
-         if (!fullTranscript) {
-            toast.dismiss(currentToastId);
-            toast.error("No transcript data found");
-            return;
-         }
-
-         console.log("Transcript:\n", fullTranscript);
-
-         // Step 2
-         const summaryResponse = await api.post<
-            SummaryResponse,
-            { fullTranscript: string }
-         >(
-            "/api/summarize",
-            { fullTranscript: fullTranscript },
-            { timeout: 120000 },
-         );
-
-         if (!summaryResponse) {
-            toast.dismiss(currentToastId);
-            toast.error("No summary generated");
-            return;
-         }
-
-         console.log("Summary\n:", summaryResponse.data);
-
-         toast.dismiss(currentToastId);
-         currentToastId = toast.loading("Generating summary...");
-
-         // Step 3
-         toast.dismiss(currentToastId);
-         currentToastId = toast.loading("Saving summary...");
-
-         toast.dismiss(currentToastId);
-         toast.success("Summary created successfully");
-
-         setValue("");
-      } catch (error: any) {
-         if (currentToastId) {
-            toast.dismiss(currentToastId);
-         }
-
-         console.error(error);
-
-         toast.error(
-            error?.error?.message ??
-               error?.message ??
-               error.error ??
-               "Failed to create summary",
-         );
-      } finally {
-         setLoading(false);
       }
-   }
 
-   function clearError() {
-      setError(INITIAL_STATE);
-      if (error.message) setValue("");
-   }
+      if (!formState.success) {
+         toast.error(formState.message, {
+            position: "top-center",
+         });
+      }
+   }, [
+      formState.success,
+      formState.message,
+      formState.strapiErrors,
+      formState.timestamp,
+   ]);
 
    return (
       <div className={SUMMARY_FORM_STYLES.container}>
-         <form onSubmit={handleFormSubmit} className="w-full">
+         <form action={formAction} className="w-full">
             <Card>
                <CardHeader className={SUMMARY_FORM_STYLES.header}>
                   <CardTitle className={SUMMARY_FORM_STYLES.title}>
@@ -157,11 +97,11 @@ export function SummaryForm({ username }: { username: string }) {
                         name="videoId"
                         type="text"
                         placeholder="https://youtu.be/dQw4w9WgXcQ o dQw4w9WgXcQ"
-                        value={value}
-                        onChange={(e) => setValue(e.target.value)}
-                        onMouseDown={clearError}
+                        defaultValue={formState.data?.videoId ?? ""}
                         required
                      />
+
+                     <FormError error={formState.zodErrors?.videoId} />
                   </div>
                </CardContent>
 
@@ -170,10 +110,12 @@ export function SummaryForm({ username }: { username: string }) {
                      className={SUMMARY_FORM_STYLES.button}
                      text="Crear resumen"
                      loadingText="Creando resumen"
-                     loading={loading}
+                     loading={isPending}
                   />
 
-                  {error.message && <FormError error={[error.message ?? ""]} />}
+                  {!formState.success && (
+                     <FormError error={[formState.message ?? ""]} />
+                  )}
                </CardFooter>
             </Card>
          </form>

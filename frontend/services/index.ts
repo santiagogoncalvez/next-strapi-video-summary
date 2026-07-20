@@ -8,7 +8,7 @@ import {
 } from "./auth";
 import { fileDeleteService, fileUploadService } from "./file";
 import { updateProfileImageService, updateProfileService } from "./profile";
-import { generateTranscript, generateSummary } from "./summary";
+import { generateTranscript, generateSummary, saveSummaryService } from "./summary";
 
 export const services = {
    auth: {
@@ -27,8 +27,9 @@ export const services = {
       fileUploadService,
       fileDeleteService,
    },
-   summarize: {
+   summary: {
       generateTranscript,
       generateSummary,
+      saveSummaryService,
    },
 };

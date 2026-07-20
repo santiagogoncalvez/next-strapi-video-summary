@@ -1,4 +1,5 @@
 import { generateSummary } from "./generate-summary";
 import { generateTranscript } from "./generate-transcript";
+import { saveSummaryService } from "./save-summary";
 
-export { generateTranscript, generateSummary };
+export { generateTranscript, generateSummary, saveSummaryService };
