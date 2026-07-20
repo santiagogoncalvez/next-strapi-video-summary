@@ -57,20 +57,6 @@ export interface YouTubeTranscriptContent {
    };
 }
 
-// Minimal interface for the properties we actually use from the YouTube API
-export interface YouTubeAPIVideoInfo {
-   basic_info: {
-      title?: string;
-      id: string;
-      thumbnail?: Array<{
-         url: string;
-         width?: number;
-         height?: number;
-      }>;
-   };
-   getTranscript(): Promise<YouTubeTranscriptContent>;
-}
-
 export type TranscriptResponseData = {
    fullTranscript: string;
    title?: string;
@@ -80,5 +66,10 @@ export type TranscriptResponseData = {
 
 export type TranscriptResponse = {
    data?: TranscriptResponseData;
+   error: string;
+};
+
+export type SummaryResponse = {
+   data?: string;
    error: string;
 };

@@ -5,7 +5,7 @@ import { extractYouTubeID } from "@/lib/utils";
 import { api } from "@/data/data-api";
 
 import { Input } from "@/components/ui/input";
-import { TranscriptResponse } from "@/types/summary";
+import { SummaryResponse, TranscriptResponse } from "@/types/summary";
 import { SubmitButton } from "./submit-button";
 import {
    Card,
@@ -42,7 +42,7 @@ export function SummaryForm({ username }: { username: string }) {
       const videoId = formData.get("videoId") as string;
       const processedVideoId = extractYouTubeID(videoId);
 
-      console.log(processedVideoId);
+      // console.log(processedVideoId);
 
       if (!processedVideoId) {
          toast.error("Invalid Youtube Video ID");
@@ -59,6 +59,7 @@ export function SummaryForm({ username }: { username: string }) {
       let currentToastId: string | number | undefined;
 
       try {
+         // Step 1
          currentToastId = toast.loading("Getting transcript...");
 
          const transcriptResponse = await api.post<
@@ -68,23 +69,40 @@ export function SummaryForm({ username }: { username: string }) {
             videoId: processedVideoId,
          });
 
-         if (!transcriptResponse.data?.fullTranscript) {
+         const fullTranscript = transcriptResponse.data?.fullTranscript;
+
+         if (!fullTranscript) {
             toast.dismiss(currentToastId);
             toast.error("No transcript data found");
             return;
          }
 
-         console.log("Resume:\n", transcriptResponse.data?.fullTranscript);
+         console.log("Transcript:\n", fullTranscript);
+
+         // Step 2
+         const summaryResponse = await api.post<
+            SummaryResponse,
+            { fullTranscript: string }
+         >(
+            "/api/summarize",
+            { fullTranscript: fullTranscript },
+            { timeout: 120000 },
+         );
+
+         if (!summaryResponse) {
+            toast.dismiss(currentToastId);
+            toast.error("No summary generated");
+            return;
+         }
+
+         console.log("Summary\n:", summaryResponse.data);
 
          toast.dismiss(currentToastId);
          currentToastId = toast.loading("Generating summary...");
 
-         // ...
-
+         // Step 3
          toast.dismiss(currentToastId);
          currentToastId = toast.loading("Saving summary...");
-
-         // ...
 
          toast.dismiss(currentToastId);
          toast.success("Summary created successfully");
@@ -100,6 +118,7 @@ export function SummaryForm({ username }: { username: string }) {
          toast.error(
             error?.error?.message ??
                error?.message ??
+               error.error ??
                "Failed to create summary",
          );
       } finally {
