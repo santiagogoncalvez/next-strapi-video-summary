@@ -26,8 +26,8 @@ const SUMMARY_GRID_STYLES = {
    grid: "grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
 
    card: cn(
-      "group h-full transition-all duration-200 p-4 aspect-square border border-border/50",
-      "hover:-translate-y-1 hover:shadow-xs",
+      "group flex h-full flex-col p-4 border border-border/50",
+      "transition-all duration-200 hover:-translate-y-1 hover:shadow-xs",
    ),
 
    header: "",
@@ -64,7 +64,7 @@ function SummaryCard({ summary }: SummaryCardProps) {
    return (
       <Link
          href={`/dashboard/summaries/${summary.documentId}`}
-         className="block h-fit w-fit"
+         className="block h-full"
       >
          <Card className={SUMMARY_GRID_STYLES.card}>
             <CardHeader className={SUMMARY_GRID_STYLES.header}>
@@ -100,7 +100,9 @@ export function SummariesGrid({ summaries, className }: SummariesGridProps) {
    return (
       <div className={cn(SUMMARY_GRID_STYLES.grid, className)}>
          {summaries.map((summary) => (
-            <SummaryCard key={summary.documentId} summary={summary} />
+            <div key={summary.documentId} className="aspect-square">
+               <SummaryCard summary={summary} />
+            </div>
          ))}
       </div>
    );

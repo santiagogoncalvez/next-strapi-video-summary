@@ -10,6 +10,7 @@ export default function DashboardHeader() {
          <h1 className="text-normal text-black font-medium">
             {pathname === "/dashboard" && "Nuevo resumen"}
             {pathname === "/dashboard/account" && "Cuenta"}
+            {pathname === "/dashboard/summaries" && "Resúmenes"}
          </h1>
 
          <div className="flex size-8 opacity-0"></div>

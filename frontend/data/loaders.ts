@@ -93,9 +93,25 @@ async function getSummaries(): Promise<StrapiResponse<Summary[]>> {
    });
 }
 
+async function getSummaryByDocumentId(
+   documentId: string,
+): Promise<StrapiResponse<Summary>> {
+   const { jwt } = await requireSession();
+
+   const path = `/api/summaries/${documentId}`;
+   const url = new URL(path, baseUrl);
+
+   return api.get<StrapiResponse<Summary>>(url.href, {
+      headers: {
+         Authorization: `Bearer ${jwt}`,
+      },
+   });
+}
+
 export const loaders = {
    getHomePageData,
    getGlobalData,
    getMetaData,
    getSummaries,
+   getSummaryByDocumentId,
 };

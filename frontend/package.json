@@ -11,10 +11,13 @@
   },
   "dependencies": {
     "@ai-sdk/groq": "^4.0.12",
+    "@mdxeditor/editor": "^4.1.0",
+    "@radix-ui/colors": "^3.0.0",
     "ai": "^7.0.31",
     "axios": "^1.18.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cm6-theme-basic-light": "^0.2.0",
     "jose": "^6.2.3",
     "lucide-react": "^1.17.0",
     "next": "16.2.6",

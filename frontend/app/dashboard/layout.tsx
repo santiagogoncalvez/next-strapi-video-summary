@@ -13,7 +13,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <div className="relative flex min-h-0 flex-1 flex-col p-2 pl-0">
                {/* Botón flotante para abrir/cerrar la barra */}
                <DashboardHeader />
-               <main className="min-h-0 flex-1 overflow-y-auto py-8 px-4 border border-sidebar-border/50 rounded-lg rounded-t-none rounded-l-none border-t-0 border-l-0">
+               <main className="min-h-0 flex-1 overflow-y-auto overflow-x-auto py-8 px-4 border border-sidebar-border/50 rounded-lg rounded-t-none rounded-l-none border-t-0 border-l-0">
                   {children}
                </main>
             </div>

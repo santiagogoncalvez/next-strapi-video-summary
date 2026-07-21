@@ -8,8 +8,8 @@ export default async function SummariesRoute() {
 //    console.log(summaries);
 
    return (
-      <div className="flex flex-col min-h-[calc(100vh-80px)] p-4 gap-6">
-         <SummariesGrid summaries={summaries} className="grow" />
+      <div className="flex flex-col gap-6">
+         <SummariesGrid summaries={summaries} className="" />
       </div>
    );
 }
