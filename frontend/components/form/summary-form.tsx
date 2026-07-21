@@ -18,11 +18,6 @@ import { SUMMARY_FORM_STYLES } from "@/constants/styles";
 import { FormState } from "@/types/definitions";
 import { actions } from "@/actions";
 
-// interface Errors {
-//    message: string | null;
-//    name: string;
-// }
-
 const INITIAL_STATE: FormState = {
    success: false,
    message: undefined,
@@ -40,7 +35,7 @@ export function SummaryForm({ username }: { username: string }) {
       let toastId: string | number | undefined;
 
       if (isPending) {
-         toastId = toast.loading("Creando resumen...", {
+         toastId = toast.loading("Creating summary...", {
             position: "top-center",
          });
       }
@@ -57,19 +52,15 @@ export function SummaryForm({ username }: { username: string }) {
          toast.success(formState.message, {
             position: "top-center",
          });
+         return;
       }
 
-      if (!formState.success) {
+      if (formState.message) {
          toast.error(formState.message, {
             position: "top-center",
          });
       }
-   }, [
-      formState.success,
-      formState.message,
-      formState.strapiErrors,
-      formState.timestamp,
-   ]);
+   }, [formState]);
 
    return (
       <div className={SUMMARY_FORM_STYLES.container}>
@@ -113,8 +104,8 @@ export function SummaryForm({ username }: { username: string }) {
                      loading={isPending}
                   />
 
-                  {!formState.success && (
-                     <FormError error={[formState.message ?? ""]} />
+                  {formState.success === false && formState.message && (
+                     <FormError error={[formState.message]} />
                   )}
                </CardFooter>
             </Card>

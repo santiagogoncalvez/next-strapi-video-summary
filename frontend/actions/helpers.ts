@@ -6,6 +6,8 @@ export function handleActionError(
    error: unknown,
    data: FormState["data"],
 ): FormState {
+   console.error(error);
+
    if (isStrapiError(error)) {
       return {
          success: false,
@@ -16,7 +18,15 @@ export function handleActionError(
       };
    }
 
-   console.error(error);
+   if (error instanceof Error) {
+      return {
+         success: false,
+         message: error.message,
+         strapiErrors: null,
+         zodErrors: null,
+         data,
+      };
+   }
 
    return {
       success: false,
