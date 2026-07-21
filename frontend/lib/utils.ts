@@ -54,3 +54,11 @@ export function extractYouTubeID(urlOrID: string): string | null {
    // Return null if no match is found
    return null;
 }
+
+export function formatDate(date: string | Date, locale = "es-AR"): string {
+   return new Intl.DateTimeFormat(locale, {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+   }).format(new Date(date));
+}

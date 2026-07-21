@@ -3,11 +3,13 @@ import type {
    HomePage,
    Global,
    MetaData,
+   Summary,
 } from "@/types/strapi";
 
 import { api } from "@/data/data-api";
 import { getStrapiURL } from "@/lib/utils";
 import { stringify } from "qs";
+import { requireSession } from "@/lib/dal";
 
 const baseUrl = getStrapiURL();
 
@@ -74,8 +76,26 @@ async function getMetaData(): Promise<StrapiResponse<MetaData>> {
    return api.get<StrapiResponse<MetaData>>(url.href);
 }
 
+async function getSummaries(): Promise<StrapiResponse<Summary[]>> {
+   const { jwt } = await requireSession();
+
+   const query = stringify({
+      sort: ["createdAt:desc"],
+   });
+
+   const url = new URL("/api/summaries", baseUrl);
+   url.search = query;
+
+   return api.get<StrapiResponse<Summary[]>>(url.href, {
+      headers: {
+         Authorization: `Bearer ${jwt}`,
+      },
+   });
+}
+
 export const loaders = {
    getHomePageData,
    getGlobalData,
    getMetaData,
+   getSummaries,
 };
