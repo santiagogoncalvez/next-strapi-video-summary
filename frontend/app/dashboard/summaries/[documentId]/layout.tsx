@@ -30,9 +30,11 @@ export default async function Layout({
             <div className="relative flex min-h-0 flex-1 flex-col p-2 pl-0">
                {/* Botón flotante para abrir/cerrar la barra */}
                <DashboardHeader title={title} />
-               <main className="min-h-0 flex-1 overflow-y-auto overflow-x-auto py-8 px-4 border border-sidebar-border/50 rounded-lg rounded-t-none rounded-l-none border-t-0 border-l-0">
+               <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl rounded-t-none rounded-l-none border border-sidebar-border/50 border-l-0 border-t-0">
+                  <main className="flex-1 overflow-y-auto px-4 py-8">
                   {children}
                </main>
+               </div>
             </div>
          </SidebarProvider>
       </div>
