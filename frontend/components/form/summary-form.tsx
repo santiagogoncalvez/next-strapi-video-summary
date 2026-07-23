@@ -75,20 +75,21 @@ export function SummaryForm({ username }: { username: string }) {
             <Card>
                <CardHeader className={SUMMARY_FORM_STYLES.header}>
                   <CardTitle className={SUMMARY_FORM_STYLES.title}>
-                     ¡Hola {username}! ¿Qué video quieres resumir?
+                     {/* ¡Hola {username}! */}
+                     ¿Qué video quieres resumir?
                   </CardTitle>
 
-                  <CardDescription className="text-center">
+                  {/* <CardDescription className="text-center">
                      Introduce la URL o el identificador de un video de YouTube
                      para generar un resumen con IA.
-                  </CardDescription>
+                  </CardDescription> */}
                </CardHeader>
 
                <CardContent className={SUMMARY_FORM_STYLES.content}>
                   <div className={SUMMARY_FORM_STYLES.fieldGroup}>
-                     <Label htmlFor="videoId">
+                     {/* <Label htmlFor="videoId">
                         URL o ID del video de YouTube
-                     </Label>
+                     </Label> */}
 
                      <Input
                         id="videoId"

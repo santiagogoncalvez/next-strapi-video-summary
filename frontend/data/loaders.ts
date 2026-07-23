@@ -76,11 +76,19 @@ async function getMetaData(): Promise<StrapiResponse<MetaData>> {
    return api.get<StrapiResponse<MetaData>>(url.href);
 }
 
-async function getSummaries(): Promise<StrapiResponse<Summary[]>> {
+async function getSummaries(queryString: string): Promise<StrapiResponse<Summary[]>> {
    const { jwt } = await requireSession();
 
    const query = stringify({
       sort: ["createdAt:desc"],
+      ...(queryString && {
+         filters: {
+            $or: [
+               { title: { $containsi: queryString } },
+               { content: { $containsi: queryString } },
+            ],
+         },
+      }),
    });
 
    const url = new URL("/api/summaries", baseUrl);

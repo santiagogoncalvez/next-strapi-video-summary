@@ -1,14 +1,20 @@
+import { Search } from "@/components/custom/search";
 import { SummariesGrid } from "@/components/custom/summaries-grid";
 import { loaders } from "@/data/loaders";
-// import { SummariesGrid } from "@/components/custom/summaries-grid";
+import { SearchParams } from "@/types/strapi";
 
-export default async function SummariesRoute() {
-   const { data: summaries } = await loaders.getSummaries();
+interface SummariesRouteProps {
+   searchParams: SearchParams;
+}
 
-//    console.log(summaries);
+export default async function SummariesRoute({ searchParams }: SummariesRouteProps) {
+    const resolvedSearchParams = await searchParams;
+    const query = resolvedSearchParams?.query as string;
+   const { data: summaries } = await loaders.getSummaries(query);
 
    return (
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
+         <Search className="w-full" />
          <SummariesGrid summaries={summaries} className="" />
       </div>
    );

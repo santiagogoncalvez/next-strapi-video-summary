@@ -21,7 +21,7 @@ export const BUTTON_VARIANTS = cva(
                "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
             xs: "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
             sm: "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
-            lg: "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
+            lg: "h-10 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
             icon: "size-8",
             "icon-xs":
                "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
@@ -145,7 +145,7 @@ export const PROFILE_FORM_STYLES = {
    textarea: "min-h-56 resize-none",
 
    countBox:
-      "flex items-center justify-center h-8 w-full rounded-md border border-input/80 bg-transparent px-3 py-1 text-sm transition-colors",
+      "flex items-center justify-center h-10 w-full rounded-lg border border-input/80 bg-transparent px-3 py-1 text-sm transition-colors",
 
    creditText: "font-bold text-md mx-1",
 
@@ -161,7 +161,7 @@ export const SUMMARY_FORM_STYLES = {
    container:
       "w-full max-w-2xl flex flex-col gap-4 justify-center items-center",
    header: "space-y-1",
-   title: "text-2xl font-bold text-center",
+   title: "text-2xl font-bold text-center text-pretty",
    content: "space-y-4",
    fieldGroup: "space-y-2",
    footer: "flex flex-col space-y-4",

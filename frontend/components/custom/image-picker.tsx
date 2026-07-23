@@ -45,12 +45,12 @@ function ImageCard({
    const imagePreview = dataUrl ? (
       <ImagePreview dataUrl={dataUrl} />
    ) : (
-      <p>No se ha seleccionado ninguna imagen</p>
+      <p className="w-full text-center">No se ha seleccionado ninguna imagen</p>
    );
 
    return (
       <div className={cn("w-full relative", className)}>
-         <div className=" flex items-center space-x-4 rounded-2xl border border-input/80 p-2">
+         <div className=" flex items-center space-x-4 rounded-2xl border border-input/80 p-2 w-xs aspect-square">
             {imagePreview}
          </div>
          <button

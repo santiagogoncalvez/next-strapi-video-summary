@@ -53,7 +53,7 @@ const SUMMARY_GRID_STYLES = {
    ),
 
    footer:
-      "pt-0 pb-4 text-sm font-medium text-primary underline-offset-4 group-hover:underline",
+      "pt-0 pb-4 text-sm font-normal text-primary",
 };
 
 interface SummaryCardProps {
@@ -71,10 +71,6 @@ function SummaryCard({ summary }: SummaryCardProps) {
                <CardTitle className={SUMMARY_GRID_STYLES.title}>
                   {summary.title || "Resumen sin título"}
                </CardTitle>
-
-               <p className="text-xs text-muted-foreground/80">
-                  {formatDate(summary.createdAt)}
-               </p>
             </CardHeader>
 
             <CardContent className={SUMMARY_GRID_STYLES.content}>
@@ -84,7 +80,9 @@ function SummaryCard({ summary }: SummaryCardProps) {
             </CardContent>
 
             <CardFooter className={SUMMARY_GRID_STYLES.footer}>
-               Ver resumen
+               <p className="text-xs text-muted-foreground/80">
+                  {formatDate(summary.createdAt)}
+               </p>
             </CardFooter>
          </Card>
       </Link>

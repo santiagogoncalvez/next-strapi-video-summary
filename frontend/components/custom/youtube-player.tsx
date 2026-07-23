@@ -13,7 +13,7 @@ const styles = {
    skeleton: "w-full h-full animate-pulse",
    iconContainer: "absolute inset-0 flex items-center justify-center",
    playIcon: "w-16 h-16 text-gray-400 animate-bounce",
-   iframe: "rounded-xl",
+   iframe: "rounded-2xl",
 };
 
 export function YouTubePlayer({ videoId }: YouTubePlayerProps) {
