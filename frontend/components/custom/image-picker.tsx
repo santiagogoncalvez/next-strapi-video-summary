@@ -28,7 +28,7 @@ function ImagePreview({ dataUrl }: { readonly dataUrl: string }) {
          alt="preview"
          height={200}
          width={200}
-         className="rounded-lg w-full object-cover"
+         className="rounded-2xl w-full object-cover"
       />
    );
 }
@@ -50,7 +50,7 @@ function ImageCard({
 
    return (
       <div className={cn("w-full relative", className)}>
-         <div className=" flex items-center space-x-4 rounded-lg border border-input/80 p-2">
+         <div className=" flex items-center space-x-4 rounded-2xl border border-input/80 p-2">
             {imagePreview}
          </div>
          <button

@@ -7,7 +7,7 @@ export default async function AccountPage() {
    const userImage = user?.image;
 
    return (
-      <div className="flex flex-col gap-8 w-full max-w-full  items-center justify-center">
+      <div className="flex flex-col gap-8 max-w-full  items-center justify-center h-fit">
          <ProfileForm user={user} className="" />
          <ProfileImageForm image={userImage} className="" />
       </div>

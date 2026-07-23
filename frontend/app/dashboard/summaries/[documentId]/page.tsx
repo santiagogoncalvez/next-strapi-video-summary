@@ -1,14 +1,9 @@
-// import { loaders } from "@/data/loaders";
-// import { extractYouTubeID } from "@/lib/utils";
-// import { validateApiResponse } from "@/lib/error-handler";
 import { SummaryUpdateForm } from "@/components/custom/editor";
 import { YouTubePlayer } from "@/components/custom/youtube-player";
 import { loaders } from "@/data/loaders";
 import { extractYouTubeID } from "@/lib/utils";
 import { Params } from "@/types/strapi";
 import { notFound } from "next/navigation";
-// import { YouTubePlayer } from "@/components/custom/youtube-player";
-// import { SummaryUpdateForm } from "@/components/forms/summary-update-form"
 
 interface PageProps {
    params: Params;
@@ -24,9 +19,9 @@ export default async function SummarySingleRoute({ params }: PageProps) {
    const videoId = extractYouTubeID(summary.videoId);
 
    return (
-      <div className="">
-         <div className="h-full flex flex-col gap-8  p-4">
-            <div className=" h-full">
+      <div className="h-fit w-full flex justify-center">
+         <div className="h-fit w-full flex flex-col gap-8 max-w-2xl">
+            <div className="h-full">
                <SummaryUpdateForm summary={summary}/>
             </div>
             <div className="h-fit">

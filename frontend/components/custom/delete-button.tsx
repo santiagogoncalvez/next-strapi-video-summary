@@ -26,6 +26,7 @@ export function DeleteButton({ className }: Readonly<DeleteButtonProps>) {
          disabled={status.pending}
          className={cn(className)}
          size="lg"
+         variant="outline"
       >
          {status.pending ? <Loader /> : <TrashIcon className="w-4 h-4" />}
       </Button>

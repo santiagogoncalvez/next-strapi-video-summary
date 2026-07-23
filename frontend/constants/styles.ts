@@ -130,8 +130,7 @@ export const LOADING_STYLES = {
 
 export const PROFILE_FORM_STYLES = {
    form: "w-full",
-   container:
-      "w-full max-w-2xl flex flex-col gap-4 justify-center items-start",
+   container: "w-full max-w-2xl flex flex-col gap-4 justify-center items-start",
 
    title: "text-xl font-bold text-start",
 
@@ -169,4 +168,22 @@ export const SUMMARY_FORM_STYLES = {
    button: "w-full",
    prompt: "mt-0 text-center text-sm flex gap-2",
    link: "ml-2",
+};
+
+export const SUMMARY_UPDATE_FORM_STYLES = {
+   container:
+      "w-full max-w-2xl flex justify-center items-center",
+   content: "space-y-4",
+   header: "space-y-1",
+   title: "text-2xl font-bold text-start",
+
+   fieldGroup: "space-y-2",
+
+   editor: "h-100",
+
+   footer: "flex items-center justify-between gap-4",
+
+   submitButton: "w-full sm:w-auto",
+
+   deleteButton: "shrink-0",
 };

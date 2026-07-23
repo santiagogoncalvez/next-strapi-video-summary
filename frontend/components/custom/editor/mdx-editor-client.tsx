@@ -44,89 +44,84 @@ export default function MDXEditorClient({
    const { resolvedTheme } = useTheme();
    const theme = [basicLight];
    return (
-      <div
-         className={cn(
-            "min-h-[350px] rounded-xl border background-light500_dark200 text-light-700_dark300 light-border-2 w-full dark-editor markdown-editor",
-            props.className,
-         )}
-      >
-         <MDXEditor
-            key={resolvedTheme}
-            plugins={[
-               headingsPlugin(),
-               listsPlugin(),
-               linkPlugin(),
-               linkDialogPlugin(),
-               quotePlugin(),
-               thematicBreakPlugin(),
-               markdownShortcutPlugin(),
-               tablePlugin(),
-               imagePlugin(),
-               codeBlockPlugin({ defaultCodeBlockLanguage: "" }),
-               codeMirrorPlugin({
-                  codeBlockLanguages: {
-                     css: "css",
-                     txt: "txt",
-                     sql: "sql",
-                     html: "html",
-                     saas: "saas",
-                     scss: "scss",
-                     bash: "bash",
-                     json: "json",
-                     js: "javascript",
-                     ts: "typescript",
-                     "": "unspecified",
-                     tsx: "TypeScript (React)",
-                     jsx: "JavaScript (React)",
-                  },
-                  autoLoadLanguageSupport: true,
-                  codeMirrorExtensions: theme,
-               }),
-               diffSourcePlugin({ viewMode: "rich-text", diffMarkdown: "" }),
-               toolbarPlugin({
-                  toolbarContents: () => (
-                     <ConditionalContents
-                        options={[
-                           {
-                              when: (editor) =>
-                                 editor?.editorType === "codeblock",
-                              contents: () => <ChangeCodeMirrorLanguage />,
-                           },
-                           {
-                              fallback: () => (
-                                 <>
-                                    <UndoRedo />
+      <div className="rounded-2xl border border-sidebar-border/50 overflow-hidden">
+         <div
+            className={cn(
+               "min-h-[350px]  background-light500_dark200 text-light-700_dark300 light-border-2 w-full dark-editor markdown-editor overflow-y-auto",
+               props.className,
+            )}
+         >
+            <MDXEditor
+               key={resolvedTheme}
+               plugins={[
+                  headingsPlugin(),
+                  listsPlugin(),
+                  linkPlugin(),
+                  linkDialogPlugin(),
+                  quotePlugin(),
+                  thematicBreakPlugin(),
+                  markdownShortcutPlugin(),
+                  tablePlugin(),
+                  imagePlugin(),
+                  codeBlockPlugin({
+                     defaultCodeBlockLanguage: "txt",
+                  }),
 
-                                    <Separator />
-                                    <BoldItalicUnderlineToggles />
-                                    <CodeToggle />
+                  codeMirrorPlugin({
+                     codeBlockLanguages: {
+                        js: "JavaScript",
+                        ts: "TypeScript",
+                        html: "HTML",
+                     },
+                     autoLoadLanguageSupport: true,
+                     codeMirrorExtensions: theme,
+                  }),
+                  diffSourcePlugin({ viewMode: "rich-text", diffMarkdown: "" }),
+                  toolbarPlugin({
+                     toolbarContents: () => (
+                        <ConditionalContents
+                           options={[
+                              {
+                                 when: (editor) =>
+                                    editor?.editorType === "codeblock",
+                                 contents: () => <ChangeCodeMirrorLanguage />,
+                              },
+                              {
+                                 fallback: () => (
+                                    <>
+                                       <UndoRedo />
 
-                                    <Separator />
-                                    <BlockTypeSelect />
+                                       <Separator />
+                                       <BoldItalicUnderlineToggles />
+                                       <CodeToggle />
 
-                                    <Separator />
-                                    <CreateLink />
+                                       <Separator />
+                                       <BlockTypeSelect />
 
-                                    <Separator />
-                                    <ListsToggle />
+                                       <Separator />
+                                       <CreateLink />
 
-                                    <Separator />
-                                    <InsertTable />
-                                    <InsertThematicBreak />
+                                       <Separator />
+                                       <ListsToggle />
 
-                                    <Separator />
-                                    <InsertCodeBlock />
-                                 </>
-                              ),
-                           },
-                        ]}
-                     />
-                  ),
-               }),
-            ]}
-            {...props}
-            ref={editorRef}
-         />
+                                       <Separator />
+                                       <InsertTable />
+                                       <InsertThematicBreak />
+
+                                       <Separator />
+                                       <InsertCodeBlock />
+                                    </>
+                                 ),
+                              },
+                           ]}
+                        />
+                     ),
+                  }),
+               ]}
+               {...props}
+               ref={editorRef}
+            />
+         </div>
       </div>
    );
 }

@@ -1,66 +1,95 @@
 "use client";
-import { useState } from "react";
-import { EditorWrapper } from "@/components/custom/editor/editor-wrapper";
 
+import { useState } from "react";
+
+import { EditorWrapper } from "@/components/custom/editor/editor-wrapper";
+import { DeleteButton } from "@/components/custom/delete-button";
+
+import {
+   Card,
+   CardContent,
+   CardDescription,
+   CardFooter,
+   CardHeader,
+   CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
 import { SubmitButton } from "@/components/form/submit-button";
-import { DeleteButton } from "../delete-button";
+import { FormError } from "@/components/form/form-error";
+
 import { Summary } from "@/types/strapi";
+import { SUMMARY_UPDATE_FORM_STYLES } from "@/constants/styles";
 
 interface SummaryUpdateFormProps {
    summary: Summary;
 }
 
-const styles = {
-   container: "flex flex-col relative overflow-hidden",
-   titleInput: "mb-3",
-   editor: "h-200 overflow-y-auto",
-   buttonContainer: "mt-3",
-   updateButton: "inline-block",
-   deleteFormContainer: "absolute bottom-0 right-2",
-   deleteButton: "",
-};
-
-export function SummaryUpdateForm({ summary }: SummaryUpdateFormProps) {
+export function SummaryUpdateForm({
+   summary,
+}: Readonly<SummaryUpdateFormProps>) {
    const [content, setContent] = useState(summary.content);
 
    return (
-      <div className={styles.container}>
-         <form>
-            <Input
-               id="title"
-               name="title"
-               type="text"
-               placeholder={"Title"}
-               defaultValue={summary.title || ""}
-               className={styles.titleInput}
-            />
+      <div className={SUMMARY_UPDATE_FORM_STYLES.container}>
+         <form className="w-full">
+            <Card>
+               <CardHeader className={SUMMARY_UPDATE_FORM_STYLES.header}>
+                  <CardTitle className={SUMMARY_UPDATE_FORM_STYLES.title}>
+                     Editar resumen
+                  </CardTitle>
 
-            <input type="hidden" name="content" value={content} />
+                  <CardDescription>
+                     Modifica el título o el contenido de tu resumen antes de
+                     guardarlo.
+                  </CardDescription>
+               </CardHeader>
 
-            <div>
-               <EditorWrapper
-                  markdown={summary.content}
-                  onChange={setContent}
-                  className={styles.editor}
-               />
-            </div>
+               <CardContent className={SUMMARY_UPDATE_FORM_STYLES.content}>
+                  <div className={SUMMARY_UPDATE_FORM_STYLES.fieldGroup}>
+                     <Label htmlFor="title">Título</Label>
 
-            <div className={styles.buttonContainer}>
-               <div className={styles.updateButton}>
-                  <SubmitButton
-                     text="Actualizar resumen"
-                     loadingText="Actualizando resumen"
+                     <Input
+                        id="title"
+                        name="title"
+                        placeholder="Título del resumen"
+                        defaultValue={summary.title}
+                     />
+
+                     {/* Más adelante */}
+                     <FormError error={undefined} />
+                  </div>
+
+                  <div className={SUMMARY_UPDATE_FORM_STYLES.fieldGroup}>
+                     <Label>Contenido</Label>
+
+                     <input type="hidden" name="content" value={content} />
+
+                     <EditorWrapper
+                        markdown={summary.content}
+                        onChange={setContent}
+                        className={SUMMARY_UPDATE_FORM_STYLES.editor}
+                     />
+
+                     {/* Más adelante */}
+                     <FormError error={undefined} />
+                  </div>
+               </CardContent>
+
+               <CardFooter className={SUMMARY_UPDATE_FORM_STYLES.footer}>
+                  <DeleteButton
+                     className={SUMMARY_UPDATE_FORM_STYLES.deleteButton}
                   />
-               </div>
-            </div>
-         </form>
 
-         <div className={styles.deleteFormContainer}>
-            <form onSubmit={() => console.log("DELETE FORM SUBMITTED")}>
-               <DeleteButton className={styles.deleteButton} />
-            </form>
-         </div>
+                  <SubmitButton
+                     className={SUMMARY_UPDATE_FORM_STYLES.submitButton}
+                     text="Guardar cambios"
+                     loadingText="Guardando cambios"
+                  />
+               </CardFooter>
+            </Card>
+         </form>
       </div>
    );
 }

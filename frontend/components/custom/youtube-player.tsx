@@ -8,7 +8,7 @@ interface YouTubePlayerProps {
 }
 
 const styles = {
-   container: "relative w-full h-[315px] rounded-xl overflow-hidden",
+   container: "relative w-full h-[315px] rounded-2xl overflow-hidden",
    skeletonWrapper: "absolute inset-0 w-full h-full",
    skeleton: "w-full h-full animate-pulse",
    iconContainer: "absolute inset-0 flex items-center justify-center",
