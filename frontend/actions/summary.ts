@@ -1,7 +1,7 @@
 "use server";
 
 import { FormState } from "@/types/definitions";
-import { getValidationErrorState, handleActionError } from "./helpers";
+import { getSuccessFormState, getValidationErrorState, handleActionError } from "./helpers";
 import { SummarySchema } from "@/validations/summary";
 import { services } from "@/services";
 import { redirect } from "next/navigation";
@@ -60,7 +60,17 @@ export async function createSummaryAction(
       const saveResponse = await services.summary.saveSummaryService(payload);
 
       // Redirect to the summary details page
-      redirect("/dashboard/summaries/" + saveResponse.data.documentId);
+      // redirect("/dashboard/summaries/" + saveResponse.data.documentId);
+
+      const extendedFields = {
+         ...fields,
+         documentId: saveResponse.data.documentId,
+      };
+
+      return getSuccessFormState(
+         "Summary created successfully",
+         extendedFields,
+      );
    } catch (error) {
       if (isRedirectError(error)) {
          throw error;

@@ -2,8 +2,8 @@ import { ZodErrors } from "@/validations/auth";
 import { SessionPayload, StrapiErrors } from "./strapi";
 
 export interface NavBarLinks {
-    link: { href: string; label: string };
-    secondaryLink: { href: string; label: string };
+   link: { href: string; label: string };
+   secondaryLink: { href: string; label: string };
 }
 
 export type Credentials = {
@@ -19,25 +19,26 @@ export type Credentials = {
    firstName?: string;
    lastName?: string;
    bio?: string;
-    image?: File;
-    videoId?: string;
+   image?: File;
+   videoId?: string;
+   documentId?: string;
 };
 
 export type VerifySessionResult =
-    | {
+   | {
         isAuth: true;
         session: SessionPayload;
-    }
-    | {
+     }
+   | {
         isAuth: false;
         session: null;
-    };
+     };
 
 export type FormState = {
-    success?: boolean;
-    message?: string;
-    data?: Credentials;
-    strapiErrors?: StrapiErrors;
-    zodErrors?: ZodErrors,
-    timestamp?: number,
+   success?: boolean;
+   message?: string;
+   data?: Credentials;
+   strapiErrors?: StrapiErrors;
+   zodErrors?: ZodErrors;
+   timestamp?: number;
 };

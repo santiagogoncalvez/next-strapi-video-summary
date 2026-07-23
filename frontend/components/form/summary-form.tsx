@@ -17,6 +17,7 @@ import { Label } from "../ui/label";
 import { SUMMARY_FORM_STYLES } from "@/constants/styles";
 import { FormState } from "@/types/definitions";
 import { actions } from "@/actions";
+import { useRouter } from "next/navigation";
 
 const INITIAL_STATE: FormState = {
    success: false,
@@ -26,6 +27,8 @@ const INITIAL_STATE: FormState = {
 };
 
 export function SummaryForm({ username }: { username: string }) {
+   const router = useRouter();
+
    const [formState, formAction, isPending] = useActionState(
       actions.summarize.createSummaryAction,
       INITIAL_STATE,
@@ -52,6 +55,10 @@ export function SummaryForm({ username }: { username: string }) {
          toast.success(formState.message, {
             position: "top-center",
          });
+
+         router.push(
+            `/dashboard/summaries/${formState.data?.documentId ?? ""}`,
+         );
          return;
       }
 

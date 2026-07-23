@@ -132,7 +132,7 @@ export const PROFILE_FORM_STYLES = {
    form: "w-full",
    container: "w-full max-w-2xl flex flex-col gap-4 justify-center items-start",
 
-   title: "text-xl font-bold text-start",
+   title: "text-2xl font-bold",
 
    content: "space-y-4",
 

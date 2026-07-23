@@ -143,7 +143,7 @@ export async function resetPasswordAction(
    } catch (error) {
       return handleActionError(error, fields);
    }
-   return getSuccessFormState("Password reset successfully", fields);
+   return getSuccessFormState("Summary successfully created", fields);
 }
 
 export async function changePasswordAction(
