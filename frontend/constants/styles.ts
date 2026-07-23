@@ -172,7 +172,7 @@ export const SUMMARY_FORM_STYLES = {
 
 export const SUMMARY_UPDATE_FORM_STYLES = {
    container:
-      "w-full max-w-2xl flex justify-center items-center",
+      "w-full max-w-2xl flex flex-col gap-4 justify-center items-center",
    content: "space-y-4",
    header: "space-y-1",
    title: "text-2xl font-bold text-start",
@@ -181,9 +181,9 @@ export const SUMMARY_UPDATE_FORM_STYLES = {
 
    editor: "h-100",
 
-   footer: "flex items-center justify-between gap-4",
+   footer: "flex flex-col justify-center items-center  gap-4",
 
-   submitButton: "w-full sm:w-auto",
+   submitButton: "w-full",
 
-   deleteButton: "shrink-0",
+   deleteButton: "w-full",
 };

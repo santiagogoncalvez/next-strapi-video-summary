@@ -67,7 +67,7 @@ export function SummaryForm({ username }: { username: string }) {
             position: "top-center",
          });
       }
-   }, [formState]);
+   }, [formState, router]);
 
    return (
       <div className={SUMMARY_FORM_STYLES.container}>

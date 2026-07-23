@@ -22,3 +22,24 @@ export const SummarySchema = z.object({
 });
 
 export type SummaryFormValues = z.infer<typeof SummarySchema>;
+
+
+export const SummaryUpdateFormSchema = z.object({
+   title: z
+      .string()
+      .min(1, "Title is required")
+      .max(200, "Title must be less than 200 characters"),
+   content: z
+      .string()
+      .min(10, "Content must be at least 10 characters")
+      .max(50000, "Content must be less than 50,000 characters"),
+   documentId: z.string().min(1, "Document ID is required"),
+});
+
+export type SummaryUpdateFormValues = z.infer<typeof SummaryUpdateFormSchema>;
+
+export const SummaryDeleteFormSchema = z.object({
+   documentId: z.string().min(1, "Document ID is required"),
+});
+
+export type SummaryDeleteFormValues = z.infer<typeof SummaryDeleteFormSchema>;

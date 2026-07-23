@@ -109,9 +109,6 @@ export default function ConfirmEmail({ email }: { email: string }) {
                   {!formState.success && formState.message && (
                      <FormError error={[formState.message]} />
                   )}
-                  {formState.strapiErrors && (
-                     <FormError error={[formState.strapiErrors.message]} />
-                  )}
                </CardFooter>
             </Card>
          </form>

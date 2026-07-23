@@ -15,20 +15,30 @@ function Loader() {
 
 interface DeleteButtonProps {
    className?: string;
+   loading?: boolean;
+   disabled?: boolean;
 }
 
-export function DeleteButton({ className }: Readonly<DeleteButtonProps>) {
+export function DeleteButton({
+   className,
+   loading,
+   disabled,
+}: Readonly<DeleteButtonProps>) {
    const status = useFormStatus();
    return (
       <Button
          type="submit"
-         aria-disabled={status.pending}
-         disabled={status.pending}
-         className={cn(className)}
+         aria-disabled={status.pending || loading}
+         disabled={status.pending || loading || disabled}
          size="lg"
          variant="outline"
+         className={cn(className)}
       >
-         {status.pending ? <Loader /> : <TrashIcon className="w-4 h-4" />}
+         {status.pending || loading ? (
+            <Loader />
+         ) : (
+            <TrashIcon className="w-4 h-4" />
+         )}
       </Button>
    );
 }

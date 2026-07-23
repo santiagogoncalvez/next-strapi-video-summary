@@ -22,6 +22,8 @@ export type Credentials = {
    image?: File;
    videoId?: string;
    documentId?: string;
+   title?: string;
+   content?: string;
 };
 
 export type VerifySessionResult =
