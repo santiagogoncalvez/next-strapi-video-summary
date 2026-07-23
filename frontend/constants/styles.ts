@@ -99,9 +99,9 @@ export const NOT_FOUND_STYLES = {
    content: "w-full max-w-2xl  text-center space-y-8",
    textSection: "space-y-4",
    heading404:
-      "text-black text-4xl font-bold md:text-5xl lg:text-6xl select-none",
+      "text-black text-2xl font-bold md:text-3xl lg:text-4xl select-none",
    headingContainer: "relative flex flex-col items-center justify-center",
-   pageTitle: "text-4xl font-bold text-gray-800 mb-4",
+   pageTitle: "text-2xl font-normal text-gray-800 mb-4",
    description: "text-lg text-gray-600 max-w-md  leading-relaxed",
    illustrationContainer: "flex justify-center",
    illustration: "relative animate-pulse",
