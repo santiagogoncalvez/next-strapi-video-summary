@@ -76,7 +76,10 @@ async function getMetaData(): Promise<StrapiResponse<MetaData>> {
    return api.get<StrapiResponse<MetaData>>(url.href);
 }
 
-async function getSummaries(queryString: string): Promise<StrapiResponse<Summary[]>> {
+async function getSummaries(
+   queryString: string,
+   page: number = 1,
+): Promise<StrapiResponse<Summary[]>> {
    const { jwt } = await requireSession();
 
    const query = stringify({
@@ -89,6 +92,10 @@ async function getSummaries(queryString: string): Promise<StrapiResponse<Summary
             ],
          },
       }),
+      pagination: {
+         page: page,
+         pageSize: process.env.PAGE_SIZE || 8,
+      },
    });
 
    const url = new URL("/api/summaries", baseUrl);
