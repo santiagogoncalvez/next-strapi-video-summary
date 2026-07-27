@@ -1,0 +1,1 @@
+import{n as s,o as n,r as o}from"./strapi-DBLEJUct.js";function g(t){const e=s().getMonitor(),[a,r]=n(e,t);return o.useEffect(()=>e.subscribeToOffsetChange(r)),o.useEffect(()=>e.subscribeToStateChange(r)),a}export{g as u};
