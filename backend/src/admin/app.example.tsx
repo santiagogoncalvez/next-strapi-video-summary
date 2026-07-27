@@ -31,6 +31,7 @@ export default {
       // 'zh',
     ],
     // tutorials: false,
+    
   },
   bootstrap(app: StrapiApp) {
     console.log(app);
