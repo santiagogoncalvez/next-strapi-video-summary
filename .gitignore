@@ -12,17 +12,19 @@ node_modules/
 .next/
 **/.next/
 out/
-# build/
+build/
 
 # ==========================================
 # Strapi (Backend)
 # ==========================================
-# .cache/
-# **/.cache/
-# build/
-# **/build/
+.cache/
+**/.cache/
+build/
+**/build/
 .tmp/
 **/.tmp/
+.strapi/
+**/.strapi/
 
 # Base de datos local de Strapi (SQLite)
 *.db
