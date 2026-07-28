@@ -23,6 +23,9 @@ build/
 **/build/
 .tmp/
 **/.tmp/
+backend/dist
+backend/.strapi
+backend/public/uploads
 
 # Base de datos local de Strapi (SQLite)
 *.db
