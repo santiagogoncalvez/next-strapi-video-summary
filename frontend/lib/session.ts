@@ -52,8 +52,9 @@ export async function createSession(payload: AuthResponse) {
 
    // Establece la cookie con el token de sesión.
    cookieStore.set("session", session, {
+      maxAge: 60 * 60 * 24 * 7,
       httpOnly: true, // Impide que JavaScript del lado del cliente acceda a la cookie.
-      secure: false,
+      secure: process.env.NODE_ENV === "production",
       expires: expiresAt,
       sameSite: "lax",
       path: "/",
