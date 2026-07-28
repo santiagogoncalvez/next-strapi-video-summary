@@ -30,8 +30,6 @@ export default {
       // 'zh-Hans',
       // 'zh',
     ],
-    // tutorials: false,
-    
   },
   bootstrap(app: StrapiApp) {
     console.log(app);

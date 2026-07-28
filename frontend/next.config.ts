@@ -11,10 +11,6 @@ const nextConfig: NextConfig = {
             port: "1337",
             pathname: "/uploads/**",
          },
-           {
-    protocol: "https",
-    hostname: "next-strapi-video-summary.onrender.com",
-  }
       ],
       dangerouslyAllowLocalIP: true,
    },

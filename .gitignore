@@ -23,8 +23,6 @@ build/
 **/build/
 .tmp/
 **/.tmp/
-.strapi/
-**/.strapi/
 
 # Base de datos local de Strapi (SQLite)
 *.db
