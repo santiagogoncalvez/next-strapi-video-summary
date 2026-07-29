@@ -2,7 +2,11 @@ import DashboardHeader from "@/components/custom/dashboard-header";
 import { DashboardSidebar } from "@/components/custom/dashboard-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({
+   children,
+}: {
+   children: React.ReactNode;
+}) {
    return (
       <div className="flex h-screen w-full overflow-hidden">
          <SidebarProvider>
