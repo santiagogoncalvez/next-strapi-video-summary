@@ -10,6 +10,7 @@ import { api } from "@/data/data-api";
 import { getStrapiURL } from "@/lib/utils";
 import { stringify } from "qs";
 import { requireSession } from "@/lib/dal";
+import { apiFetch } from "./data-fetch";
 
 const baseUrl = getStrapiURL();
 
@@ -73,7 +74,11 @@ async function getMetaData(): Promise<StrapiResponse<MetaData>> {
 
    const url = new URL("/api/global", baseUrl);
    url.search = query;
-   return api.get<StrapiResponse<MetaData>>(url.href);
+   return apiFetch.get<StrapiResponse<MetaData>>(url.href, {
+      next: {
+         revalidate: 3600,
+      },
+   });
 }
 
 async function getSummaries(
