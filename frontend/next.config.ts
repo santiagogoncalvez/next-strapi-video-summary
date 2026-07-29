@@ -12,9 +12,9 @@ const nextConfig: NextConfig = {
             pathname: "/uploads/**",
          },
          {
-    protocol: "https",
-    hostname: "next-strapi-video-summary.onrender.com",
-  }
+            protocol: "https",
+            hostname: "res.cloudinary.com",
+         },
       ],
       dangerouslyAllowLocalIP: true,
    },

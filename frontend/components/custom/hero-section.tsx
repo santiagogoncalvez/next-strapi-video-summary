@@ -2,7 +2,7 @@
 import { HERO_SECTION_STYLES } from "@/constants/styles";
 import NavBar from "./nav-bar";
 import { HeroSectionProps } from "@/types/strapi";
-import { StrapiImage } from "./strapi-image";
+import { MediaImage } from "./media-image";
 
 export function HeroSection({ data }: { readonly data: HeroSectionProps }) {
    if (!data) return null;
@@ -12,7 +12,7 @@ export function HeroSection({ data }: { readonly data: HeroSectionProps }) {
 
    return (
       <header className={HERO_SECTION_STYLES.header}>
-         <StrapiImage
+         <MediaImage
             alt={image.alternativeText ?? "no alternative text"}
             className="absolute inset-0 object-cover w-full h-full aspect/16:9"
             src={image.url}

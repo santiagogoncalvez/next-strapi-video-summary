@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef, Fragment } from "react";
-import { StrapiImage } from "./strapi-image";
+import { MediaImage } from "./media-image";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -23,7 +23,7 @@ function generateDataUrl(file: File, callback: (imageUrl: string) => void) {
 
 function ImagePreview({ dataUrl }: { readonly dataUrl: string }) {
    return (
-      <StrapiImage
+      <MediaImage
          src={dataUrl}
          alt="preview"
          height={200}
