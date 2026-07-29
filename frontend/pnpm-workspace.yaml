@@ -5,5 +5,7 @@ allowBuilds:
 ignoredBuiltDependencies:
   - sharp
   - unrs-resolver
+minimumReleaseAgeExclude:
+  - '@santiagogoncalvez1/youtube-transcript-plus@1.0.1'
 overrides:
   youtube-transcript-plus: link:../../../Proyectos/youtube-transcript-plus

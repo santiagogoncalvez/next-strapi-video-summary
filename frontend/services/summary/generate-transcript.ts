@@ -1,4 +1,7 @@
-import { getYoutubeData, TranscriptData } from "youtube-transcript-plus";
+import {
+   getYoutubeData,
+   TranscriptData,
+} from "@santiagogoncalvez1/youtube-transcript-plus";
 
 function validateIdentifier(identifier: string): void {
    if (!identifier || typeof identifier !== "string") {

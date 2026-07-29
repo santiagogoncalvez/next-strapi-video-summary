@@ -7,13 +7,11 @@ import { SubmitButton } from "./submit-button";
 import {
    Card,
    CardContent,
-   CardDescription,
    CardFooter,
    CardHeader,
    CardTitle,
 } from "../ui/card";
 import { FormError } from "./form-error";
-import { Label } from "../ui/label";
 import { SUMMARY_FORM_STYLES } from "@/constants/styles";
 import { FormState } from "@/types/definitions";
 import { actions } from "@/actions";
@@ -26,7 +24,7 @@ const INITIAL_STATE: FormState = {
    zodErrors: null,
 };
 
-export function SummaryForm({ username }: { username: string }) {
+export function SummaryForm() {
    const router = useRouter();
 
    const [formState, formAction, isPending] = useActionState(

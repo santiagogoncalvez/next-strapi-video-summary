@@ -3,7 +3,7 @@
 import type { MDXEditorMethods, MDXEditorProps } from "@mdxeditor/editor";
 import { AlertCircle } from "lucide-react";
 import dynamic from "next/dynamic";
-import { useEffect, useState, forwardRef } from "react";
+import { useState, forwardRef } from "react";
 
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -42,12 +42,6 @@ export function EditorWrapper({
 }: EditorWrapperProps) {
    const [hasError, setHasError] = useState(false);
 
-   useEffect(() => {
-      if (typeof window !== "undefined") {
-         setHasError(false);
-      }
-   }, []);
-
    if (hasError) {
       return (
          <Alert
@@ -67,6 +61,7 @@ export function EditorWrapper({
          markdown={markdown}
          onChange={onChange}
          className={className}
+         onError={() => setHasError(true)}
       />
    );
 }
