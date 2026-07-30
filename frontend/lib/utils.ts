@@ -62,3 +62,41 @@ export function formatDate(date: string | Date, locale = "es-AR"): string {
       year: "numeric",
    }).format(new Date(date));
 }
+
+export interface ExtractTranscriptOptions {
+   includeTimestamps?: boolean;
+}
+
+export function extractTranscript(
+   text: string,
+   options: ExtractTranscriptOptions = {},
+): string {
+   const { includeTimestamps = false } = options;
+
+   const transcriptHeader = /^## Transcript\s*$/m;
+   const firstTimestamp = /^\[\d{1,2}:\d{2}(?::\d{2})?\]/m;
+
+   let start = text.search(transcriptHeader);
+
+   if (start !== -1) {
+      start += text.match(transcriptHeader)![0].length;
+   } else {
+      start = text.search(firstTimestamp);
+   }
+
+   if (start === -1) {
+      return "";
+   }
+
+   let transcript = text
+      .slice(start)
+      .replace(/^---[\s\S]*$/m, "")
+      .replace(/\n{2,}/g, "\n")
+      .trim();
+
+   if (!includeTimestamps) {
+      transcript = transcript.replace(/^\[\d{1,2}:\d{2}(?::\d{2})?\]\s*/gm, "");
+   }
+
+   return transcript;
+}
