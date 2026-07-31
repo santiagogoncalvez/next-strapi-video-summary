@@ -19,6 +19,11 @@ export interface TranscriptData {
    transcriptWithTimeCodes?: TranscriptSegment[];
 }
 
+export interface TranscriptResult {
+   text: string;
+   segments: TranscriptSegment[];
+}
+
 // Add proper types
 export interface SummaryData {
    fullTranscript: string;

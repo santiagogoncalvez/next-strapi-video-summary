@@ -1,9 +1,13 @@
+import { parseTranscript } from "@/lib/parsers";
 import { extractTranscript } from "@/lib/utils";
+import { TranscriptResult } from "@/types/summary";
 import axios from "axios";
 
 const BASE_URL = "https://youtube-transcript.ai/transcript";
 
-export async function getTranscript(videoId: string): Promise<string> {
+export async function getTranscript(
+   videoId: string,
+): Promise<TranscriptResult> {
    if (!videoId?.trim()) {
       throw new Error("Video ID is required.");
    }
@@ -20,13 +24,22 @@ export async function getTranscript(videoId: string): Promise<string> {
          },
       );
 
-      const transcript = extractTranscript(data);
+      const transcriptWithTimestamps = extractTranscript(data, {
+         includeTimestamps: true,
+      });
 
-      if (!transcript) {
+      if (!transcriptWithTimestamps) {
          throw new Error("Transcript is empty.");
       }
 
-      return transcript;
+      const segments = parseTranscript(transcriptWithTimestamps);
+
+      const text = segments.map((segment) => segment.text).join(" ");
+
+      return {
+         text,
+         segments,
+      };
    } catch (error) {
       if (axios.isAxiosError(error)) {
          if (error.code === "ECONNABORTED") {
