@@ -1,5 +1,5 @@
 "use client";
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { toast } from "sonner";
 
 import { Input } from "@/components/ui/input";
@@ -32,6 +32,8 @@ export function SummaryForm() {
       INITIAL_STATE,
    );
 
+   const lastTimestamp = useRef<number | null>(null);
+
    useEffect(() => {
       let toastId: string | number | undefined;
 
@@ -49,6 +51,12 @@ export function SummaryForm() {
    }, [isPending]);
 
    useEffect(() => {
+      if (!formState.timestamp) return;
+
+      if (formState.timestamp === lastTimestamp.current) return;
+
+      lastTimestamp.current = formState.timestamp;
+
       if (formState.success) {
          toast.success(formState.message, {
             position: "top-center",
@@ -57,6 +65,7 @@ export function SummaryForm() {
          router.push(
             `/dashboard/summaries/${formState.data?.documentId ?? ""}`,
          );
+
          return;
       }
 
