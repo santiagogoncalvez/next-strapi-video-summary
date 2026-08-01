@@ -1,5 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { parseTranscript } from "./parsers";
+import { TranscriptSegment } from "@/types/summary";
 
 export function cn(...inputs: ClassValue[]) {
    return twMerge(clsx(inputs));
@@ -63,16 +65,7 @@ export function formatDate(date: string | Date, locale = "es-AR"): string {
    }).format(new Date(date));
 }
 
-export interface ExtractTranscriptOptions {
-   includeTimestamps?: boolean;
-}
-
-export function extractTranscript(
-   text: string,
-   options: ExtractTranscriptOptions = {},
-): string {
-   const { includeTimestamps = false } = options;
-
+export function extractTranscript(text: string): TranscriptSegment[] {
    const transcriptHeader = /^## Transcript\s*$/m;
    const firstTimestamp = /^\[\d{1,2}:\d{2}(?::\d{2})?\]/m;
 
@@ -85,18 +78,16 @@ export function extractTranscript(
    }
 
    if (start === -1) {
-      return "";
+      return [];
    }
 
-   let transcript = text
+   const transcript = text
       .slice(start)
       .replace(/^---[\s\S]*$/m, "")
       .replace(/\n{2,}/g, "\n")
       .trim();
 
-   if (!includeTimestamps) {
-      transcript = transcript.replace(/^\[\d{1,2}:\d{2}(?::\d{2})?\]\s*/gm, "");
-   }
+   const segments = parseTranscript(transcript);
 
-   return transcript;
+   return segments;
 }

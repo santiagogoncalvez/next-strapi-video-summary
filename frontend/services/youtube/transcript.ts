@@ -1,4 +1,6 @@
-import { parseTranscript } from "@/lib/parsers";
+import {
+   removeRepeatedTranscriptSegments,
+} from "@/lib/parsers";
 import { extractTranscript } from "@/lib/utils";
 import { TranscriptResult } from "@/types/summary";
 import axios from "axios";
@@ -24,21 +26,19 @@ export async function getTranscript(
          },
       );
 
-      const transcriptWithTimestamps = extractTranscript(data, {
-         includeTimestamps: true,
-      });
+      const segments = extractTranscript(data);
 
-      if (!transcriptWithTimestamps) {
+      if (!segments.length) {
          throw new Error("Transcript is empty.");
       }
 
-      const segments = parseTranscript(transcriptWithTimestamps);
+      const cleanedSegments = removeRepeatedTranscriptSegments(segments);
 
-      const text = segments.map((segment) => segment.text).join(" ");
+      const text = cleanedSegments.map((segment) => segment.text).join(" ");
 
       return {
          text,
-         segments,
+         segments: cleanedSegments,
       };
    } catch (error) {
       if (axios.isAxiosError(error)) {
