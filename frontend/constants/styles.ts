@@ -154,7 +154,7 @@ export const PROFILE_FORM_STYLES = {
 
 export const IMAGE_FORM_STYLES = {
    container: "w-full max-w-2xl flex flex-col gap-4 justify-start items-center",
-   fieldGroup: "space-y-2 w-full flex justify-center",
+   fieldGroup: "space-y-2 w-full flex flex-col justify-center items-center",
 };
 
 export const SUMMARY_FORM_STYLES = {

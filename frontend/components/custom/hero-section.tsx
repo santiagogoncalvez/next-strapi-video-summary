@@ -1,4 +1,3 @@
-// import { STRAPI_BASE_URL } from "@/lib/strapi";
 import { HERO_SECTION_STYLES } from "@/constants/styles";
 import NavBar from "./nav-bar";
 import { HeroSectionProps } from "@/types/strapi";

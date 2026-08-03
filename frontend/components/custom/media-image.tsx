@@ -7,12 +7,17 @@ import Image from "next/image";
 export function getMediaUrl(url: string | null) {
    if (!url) return null;
 
-   // Cloudinary, URLs externas, etc.
-   if (url.startsWith("http") || url.startsWith("//")) {
+   // URLs absolutas
+   if (
+      url.startsWith("http://") ||
+      url.startsWith("https://") ||
+      url.startsWith("//") ||
+      url.startsWith("blob:") ||
+      url.startsWith("data:")
+   ) {
       return url;
    }
 
-   // Desarrollo con uploads locales de Strapi
    return `${getStrapiURL()}${url}`;
 }
 
