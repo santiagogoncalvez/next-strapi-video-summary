@@ -173,7 +173,7 @@ export const SUMMARY_FORM_STYLES = {
 export const SUMMARY_UPDATE_FORM_STYLES = {
    container:
       "w-full max-w-2xl flex flex-col gap-4 justify-center items-center",
-   content: "space-y-4",
+   content: "flex flex-col gap-y-4",
    header: "space-y-1",
    title: "text-2xl font-bold text-start",
 

@@ -123,7 +123,7 @@ export function SummaryForm() {
                      loading={isPending}
                   />
 
-                  {formState.success === false && formState.message && (
+                  { !formState.zodErrors && formState.success === false && formState.message && (
                      <FormError error={[formState.message]} />
                   )}
                </CardFooter>
