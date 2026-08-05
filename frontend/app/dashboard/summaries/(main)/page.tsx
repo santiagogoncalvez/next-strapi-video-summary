@@ -1,3 +1,4 @@
+import { EmptySummaries } from "@/components/custom/empty-state-card";
 import { PaginationComponent } from "@/components/custom/pagination-component";
 import { Search } from "@/components/custom/search";
 import { SummariesGrid } from "@/components/custom/summaries-grid";
@@ -21,10 +22,28 @@ export default async function SummariesRoute({
    const pageCount = meta?.pagination?.pageCount || 1;
 
    return (
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-1 flex-col gap-8">
          <Search className="w-full" />
-         <SummariesGrid summaries={summaries} className="" />
-         <PaginationComponent pageCount={pageCount} />
+
+         {summaries.length > 0 ? (
+            <>
+               <SummariesGrid summaries={summaries} />
+               <PaginationComponent pageCount={pageCount} />
+            </>
+         ) : (
+            <EmptySummaries
+               title={
+                  query
+                     ? "No encontramos resúmenes"
+                     : "No tienes resúmenes todavía"
+               }
+               description={
+                  query
+                     ? `No hay resultados para "${query}". Prueba con otra búsqueda.`
+                     : "Crea tu primer resumen pegando un enlace de YouTube y deja que la IA transforme el contenido por ti."
+               }
+            />
+         )}
       </div>
    );
 }
