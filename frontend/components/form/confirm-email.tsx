@@ -49,7 +49,10 @@ export default function ConfirmEmail({ email }: { email: string }) {
    // 2. Este efecto reacciona ÚNICAMENTE cuando el servidor responde con éxito
    useEffect(() => {
       if (formState.success) {
-         toast.success(formState.message, { position: "top-center" });
+         toast.success(formState.message, {
+            position: "top-center",
+            duration: 3000,
+         });
          startCountdown();
       }
    }, [

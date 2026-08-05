@@ -9,7 +9,14 @@ import {
    getValidationErrorState,
    handleActionError,
 } from "./helpers";
-import { changePassworSchema, resendConfirmEmailFormSchema, resetPasswordSchema, SigninFormSchema, SignupFormSchema } from "@/validations/auth";
+import {
+   changePassworSchema,
+   resendConfirmEmailFormSchema,
+   resetPasswordSchema,
+   SigninFormSchema,
+   SignupFormSchema,
+} from "@/validations/auth";
+import { AUTH_MESSAGES } from "@/constants/messages/auth";
 
 export async function registerUserAction(
    _prevState: FormState,
@@ -56,7 +63,9 @@ export async function loginUserAction(
    }
 
    try {
-      const response = await services.auth.loginUserService(validatedFields.data);
+      const response = await services.auth.loginUserService(
+         validatedFields.data,
+      );
       // console.log("loginUserAction:", response);
 
       await createSession(response);
@@ -93,7 +102,10 @@ export async function resendConfirmEmailAction(
       return handleActionError(error, fields);
    }
 
-   return getSuccessFormState("Confirmation email sent", fields);
+   return getSuccessFormState(
+      AUTH_MESSAGES.SUCCESS.EMAIL_CONFIRMATION_SENT,
+      fields,
+   );
 }
 
 export async function forgotPasswordAction(
@@ -117,7 +129,7 @@ export async function forgotPasswordAction(
    }
 
    return getSuccessFormState(
-      "An email has been sent to reset your password",
+      AUTH_MESSAGES.SUCCESS.PASSWORD_RESET_EMAIL_SENT,
       fields,
    );
 }
@@ -143,7 +155,8 @@ export async function resetPasswordAction(
    } catch (error) {
       return handleActionError(error, fields);
    }
-   return getSuccessFormState("Summary successfully created", fields);
+
+   return getSuccessFormState(AUTH_MESSAGES.SUCCESS.PASSWORD_RESET, fields);
 }
 
 export async function changePasswordAction(
@@ -168,5 +181,5 @@ export async function changePasswordAction(
       return handleActionError(error, fields);
    }
 
-   return getSuccessFormState("Password changed successfully", fields);
+   return getSuccessFormState(AUTH_MESSAGES.SUCCESS.PASSWORD_CHANGED, fields);
 }

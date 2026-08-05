@@ -8,6 +8,7 @@ import {
    handleActionError,
 } from "./helpers";
 import {services} from "@/services"
+import { PROFILE_MESSAGES } from "@/constants/messages/profile";
 
 export async function updateProfileAction(
    _prevState: FormState,
@@ -33,7 +34,7 @@ export async function updateProfileAction(
       return handleActionError(error, fields);
    }
 
-   return getSuccessFormState("Profile updated successfully", fields);
+   return getSuccessFormState(PROFILE_MESSAGES.SUCCESS.PROFILE_UPDATED, fields);
 }
 
 
@@ -57,5 +58,8 @@ export async function updateProfileImageAction(
       return handleActionError(error, fields);
    }
 
-   return getSuccessFormState("Profile image updated successfully", fields);
+   return getSuccessFormState(
+      PROFILE_MESSAGES.SUCCESS.PROFILE_IMAGE_UPDATED,
+      fields,
+   );
 }

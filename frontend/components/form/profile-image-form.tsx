@@ -49,6 +49,7 @@ export function ProfileImageForm({ image, className }: ProfileImageFormProps) {
       if (formState.success) {
          toast.success(formState.message, {
             position: "top-center",
+            duration: 3000,
          });
       }
    }, [formState.success, formState.message, formState.timestamp]);

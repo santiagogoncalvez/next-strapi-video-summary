@@ -15,7 +15,7 @@ import { services } from "@/services";
 import { getUserMeService } from "@/services/auth";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { SUMMARY_MESSAGES } from "@/constants/messages/summary";
 
 export async function createSummaryAction(
    _prevState: FormState,
@@ -37,7 +37,7 @@ export async function createSummaryAction(
       const user = await getUserMeService();
 
       if ((user.credits || 0) < 1) {
-         throw new Error("Insufficient credits");
+         throw new Error(SUMMARY_MESSAGES.ERROR.INSUFFICIENT_CREDITS);
       }
 
       const transcriptData = await services.summary.generateTranscript(videoId);
@@ -45,7 +45,7 @@ export async function createSummaryAction(
       const fullTranscript = transcriptData.fullTranscript;
 
       if (!fullTranscript) {
-         throw new Error("No transcript data found");
+         throw new Error(SUMMARY_MESSAGES.ERROR.TRANSCRIPT_NOT_FOUND);
       }
 
       // console.log("TRANSCRIPT:\n", fullTranscript);
@@ -53,7 +53,7 @@ export async function createSummaryAction(
       const summary = await services.summary.generateSummary(fullTranscript);
 
       if (!summary) {
-         throw new Error("No summary generated");
+         throw new Error(SUMMARY_MESSAGES.ERROR.SUMMARY_NOT_GENERATED);
       }
 
       // console.log("SUMMARY:\n", summary);
@@ -72,7 +72,7 @@ export async function createSummaryAction(
       };
 
       return getSuccessFormState(
-         "Summary created successfully",
+         SUMMARY_MESSAGES.SUCCESS.CREATED,
          extendedFields,
       );
    } catch (error) {
@@ -110,7 +110,7 @@ export async function updateSummaryAction(
       revalidatePath("/dashboard/summaries");
 
       return getSuccessFormState(
-         "Summary updated successfully",
+         SUMMARY_MESSAGES.SUCCESS.UPDATED,
          validatedFields.data,
       );
    } catch (error) {
@@ -142,7 +142,6 @@ export async function deleteSummaryAction(
       );
 
       // If we get here, deletion was successful
-      revalidatePath("/dashboard/summaries");
    } catch (error) {
       if (isRedirectError(error)) {
          throw error;
@@ -152,5 +151,8 @@ export async function deleteSummaryAction(
    }
 
    // Redirect after successful deletion (outside try/catch)
-   redirect("/dashboard/summaries");
+   return getSuccessFormState(
+      SUMMARY_MESSAGES.SUCCESS.DELETED,
+      validatedFields.data,
+   );
 }

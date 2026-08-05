@@ -1,4 +1,4 @@
-import { SummaryUpdateForm } from "@/components/custom/editor";
+import { SummaryUpdateForm } from "@/components/form/update-summary";
 import { YouTubePlayer } from "@/components/custom/youtube-player";
 import { loaders } from "@/data/loaders";
 import { extractYouTubeID } from "@/lib/utils";

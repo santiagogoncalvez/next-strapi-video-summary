@@ -3,7 +3,6 @@
 import { useActionState, useEffect, useState } from "react";
 
 import { EditorWrapper } from "@/components/custom/editor/editor-wrapper";
-import { DeleteButton } from "@/components/custom/delete-button";
 
 import {
    Card,
@@ -24,6 +23,7 @@ import { SUMMARY_UPDATE_FORM_STYLES } from "@/constants/styles";
 import { actions } from "@/actions";
 import { FormState } from "@/types/definitions";
 import { toast } from "sonner";
+import { SummaryDeleteForm } from "./delete-summary";
 
 interface SummaryUpdateFormProps {
    summary: Summary;
@@ -43,10 +43,6 @@ export function SummaryUpdateForm({
       actions.summarize.updateSummaryAction,
       INITIAL_STATE,
    );
-   const [deleteFormState, deleteFormAction, deleteIsPending] = useActionState(
-      actions.summarize.deleteSummaryAction,
-      INITIAL_STATE,
-   );
    const [content, setContent] = useState(
       updateFormState.data?.content ?? summary.content,
    );
@@ -55,24 +51,13 @@ export function SummaryUpdateForm({
       if (updateFormState.success) {
          toast.success(updateFormState.message, {
             position: "top-center",
+            duration: 3000,
          });
       }
    }, [
       updateFormState.success,
       updateFormState.message,
       updateFormState.timestamp,
-   ]);
-
-   useEffect(() => {
-      if (deleteFormState.success) {
-         toast.success(deleteFormState.message, {
-            position: "top-center",
-         });
-      }
-   }, [
-      deleteFormState.success,
-      deleteFormState.message,
-      deleteFormState.timestamp,
    ]);
 
    return (
@@ -150,18 +135,7 @@ export function SummaryUpdateForm({
             </Card>
          </form>
 
-         <form action={deleteFormAction} className="min-w-full">
-            <input type="hidden" name="documentId" value={summary.documentId} />
-
-            <DeleteButton
-               className={SUMMARY_UPDATE_FORM_STYLES.deleteButton}
-               loading={deleteIsPending}
-            />
-
-            {!deleteFormState.success && deleteFormState.message && (
-               <FormError error={[deleteFormState.message]} />
-            )}
-         </form>
+         <SummaryDeleteForm summaryId={summary.documentId} />
       </div>
    );
 }

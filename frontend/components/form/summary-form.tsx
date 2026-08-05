@@ -16,6 +16,7 @@ import { SUMMARY_FORM_STYLES } from "@/constants/styles";
 import { FormState } from "@/types/definitions";
 import { actions } from "@/actions";
 import { useRouter } from "next/navigation";
+import { SUMMARY_MESSAGES } from "@/constants/messages/summary";
 
 const INITIAL_STATE: FormState = {
    success: false,
@@ -38,8 +39,9 @@ export function SummaryForm() {
       let toastId: string | number | undefined;
 
       if (isPending) {
-         toastId = toast.loading("Creating summary...", {
+         toastId = toast.loading(SUMMARY_MESSAGES.loading.CREATING, {
             position: "top-center",
+            duration: 3000,
          });
       }
 
@@ -60,6 +62,7 @@ export function SummaryForm() {
       if (formState.success) {
          toast.success(formState.message, {
             position: "top-center",
+            duration: 3000,
          });
 
          router.push(
@@ -72,6 +75,7 @@ export function SummaryForm() {
       if (formState.message) {
          toast.error(formState.message, {
             position: "top-center",
+            duration: 3000,
          });
       }
    }, [formState, router]);
