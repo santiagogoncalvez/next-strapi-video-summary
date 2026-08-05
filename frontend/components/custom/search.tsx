@@ -30,7 +30,7 @@ export function Search({ className }: SearchProps) {
    return (
       <Input
          type="text"
-         placeholder="Search"
+         placeholder="Buscar resumen"
          onChange={(e) => handleSearch(e.target.value)}
          defaultValue={searchParams.get("query")?.toString()}
          className={cn("", className)}

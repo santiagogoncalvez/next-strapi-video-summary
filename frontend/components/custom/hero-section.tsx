@@ -12,7 +12,7 @@ export function HeroSection({ data }: { readonly data: HeroSectionProps }) {
    return (
       <header className={HERO_SECTION_STYLES.header}>
          <MediaImage
-            alt={image.alternativeText ?? "no alternative text"}
+            alt={image.alternativeText ?? "Sin texto alternativo"}
             className="absolute inset-0 object-cover w-full h-full aspect/16:9"
             src={image.url}
             height={1080}

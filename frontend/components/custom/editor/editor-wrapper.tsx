@@ -50,7 +50,7 @@ export function EditorWrapper({
          >
             <AlertCircle className="h-4 w-4" />
             <AlertDescription>
-               Failed to load the editor. Please refresh the page to try again.
+               No se pudo cargar el editor. Por favor, actualice la página para intentarlo de nuevo.
             </AlertDescription>
          </Alert>
       );
