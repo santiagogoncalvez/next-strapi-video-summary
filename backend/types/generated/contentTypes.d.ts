@@ -999,7 +999,7 @@ export interface PluginUsersPermissionsUser
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    credits: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    credits: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<10>;
     email: Schema.Attribute.Email &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
