@@ -14,5 +14,6 @@ export const SUMMARY_MESSAGES = {
          "No tienes créditos suficientes para generar un resumen.",
       TRANSCRIPT_NOT_FOUND: "No se pudo obtener la transcripción del video.",
       SUMMARY_NOT_GENERATED: "No se pudo generar el resumen del video.",
+      GENERATION_FAILED: "No se pudo generar el resumen.",
    },
 } as const;

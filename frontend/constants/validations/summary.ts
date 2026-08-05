@@ -2,6 +2,7 @@ export const SUMMARY_VALIDATION_MESSAGES = {
    VIDEO: {
       REQUIRED: "Debes ingresar un video de YouTube.",
       INVALID: "Ingresa una URL o ID de YouTube válido.",
+      INVALID_IDENTIFIER: "El identificador del video de YouTube no es válido.",
    },
 
    TITLE: {

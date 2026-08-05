@@ -1,5 +1,7 @@
 // data/data-fetch.ts
 
+import { COMMON_MESSAGES } from "@/constants/messages/common";
+
 const DEFAULT_TIMEOUT = 8000;
 
 type FetchConfig = RequestInit & {
@@ -43,8 +45,7 @@ export async function request<T>(
                status: response.status,
                name: "ApiError",
                message:
-                  data?.error?.message ??
-                  "Something went wrong with the request.",
+                  data?.error?.message ?? COMMON_MESSAGES.ERROR.REQUEST_FAILED,
                data,
             },
          } satisfies ApiError;
@@ -68,7 +69,7 @@ export async function request<T>(
             error: {
                status: 408,
                name: "TimeoutError",
-               message: "The request timed out. Please try again.",
+               message: COMMON_MESSAGES.ERROR.TIMEOUT,
             },
          } satisfies ApiError;
       }

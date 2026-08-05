@@ -1,3 +1,4 @@
+import { COMMON_MESSAGES } from "@/constants/messages/common";
 import axios, { AxiosRequestConfig } from "axios";
 
 const DEFAULT_TIMEOUT = 8000;
@@ -29,7 +30,7 @@ export async function request<T>(config: AxiosRequestConfig): Promise<T> {
                error: {
                   status: 408,
                   name: "TimeoutError",
-                  message: "The request timed out. Please try again.",
+                  message: COMMON_MESSAGES.ERROR.TIMEOUT,
                },
             };
          }

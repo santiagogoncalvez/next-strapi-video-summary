@@ -1,9 +1,10 @@
 import { TranscriptData } from "@/types/summary";
 import { getYoutubeData } from "../youtube";
+import { SUMMARY_VALIDATION_MESSAGES } from "@/constants/validations/summary";
 
 function validateIdentifier(identifier: string): void {
    if (!identifier || typeof identifier !== "string") {
-      throw new Error("Invalid YouTube video identifier");
+      throw new Error(SUMMARY_VALIDATION_MESSAGES.VIDEO.INVALID_IDENTIFIER);
    }
 }
 
@@ -24,8 +25,7 @@ export async function generateTranscript(
       };
    } catch (error) {
       console.error("Error fetching transcript:", error);
-      throw new Error(
-         error instanceof Error ? error.message : "Failed to fetch transcript",
-      );
+
+      throw error;
    }
 }

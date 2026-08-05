@@ -1,3 +1,4 @@
+import { COMMON_MESSAGES } from "@/constants/messages/common";
 import { notFound } from "next/navigation";
 
 type ApiError = {
@@ -18,7 +19,7 @@ export function handleApiError(
    }
 
    throw new Error(
-      apiError?.error?.message ?? `Failed to load ${resourceName}`,
+      apiError?.error?.message ??  COMMON_MESSAGES.ERROR.LOAD_RESOURCE(resourceName),
    );
 }
 
@@ -30,7 +31,7 @@ export async function validateApiResponse<T>(
       const data = await promise;
 
       if (data == null) {
-         throw new Error(`Failed to load ${resourceName}`);
+         throw new Error( COMMON_MESSAGES.ERROR.LOAD_RESOURCE(resourceName));
       }
 
       return data;

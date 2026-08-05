@@ -1,3 +1,4 @@
+import { TRANSCRIPT_MESSAGES } from "@/constants/messages/transcript";
 import {
    removeRepeatedTranscriptSegments,
 } from "@/lib/parsers";
@@ -11,7 +12,7 @@ export async function getTranscript(
    videoId: string,
 ): Promise<TranscriptResult> {
    if (!videoId?.trim()) {
-      throw new Error("Video ID is required.");
+      throw new Error(TRANSCRIPT_MESSAGES.ERROR.VIDEO_ID_REQUIRED);
    }
 
    try {
@@ -29,7 +30,7 @@ export async function getTranscript(
       const segments = extractTranscript(data);
 
       if (!segments.length) {
-         throw new Error("Transcript is empty.");
+         throw new Error(TRANSCRIPT_MESSAGES.ERROR.EMPTY);
       }
 
       const cleanedSegments = removeRepeatedTranscriptSegments(segments);
@@ -43,29 +44,23 @@ export async function getTranscript(
    } catch (error) {
       if (axios.isAxiosError(error)) {
          if (error.code === "ECONNABORTED") {
-            throw new Error("Transcript request timed out.");
+            throw new Error(TRANSCRIPT_MESSAGES.ERROR.TIMEOUT);
          }
 
          switch (error.response?.status) {
             case 400:
-               throw new Error("Invalid YouTube video ID.");
+               throw new Error(TRANSCRIPT_MESSAGES.ERROR.INVALID_VIDEO_ID);
             case 404:
-               throw new Error("Transcript not found.");
+               throw new Error(TRANSCRIPT_MESSAGES.ERROR.NOT_FOUND);
             case 429:
-               throw new Error("Transcript service rate limit exceeded.");
+               throw new Error(TRANSCRIPT_MESSAGES.ERROR.RATE_LIMIT);
             case 500:
             case 502:
             case 503:
             case 504:
-               throw new Error(
-                  "Transcript service is temporarily unavailable.",
-               );
+               throw new Error(TRANSCRIPT_MESSAGES.ERROR.SERVICE_UNAVAILABLE);
             default:
-               throw new Error(
-                  error.response?.data
-                     ? `Failed to fetch transcript: ${String(error.response.data)}`
-                     : "Failed to fetch transcript.",
-               );
+               throw new Error(TRANSCRIPT_MESSAGES.ERROR.FETCH_FAILED);
          }
       }
 
@@ -73,6 +68,6 @@ export async function getTranscript(
          throw error;
       }
 
-      throw new Error("Unknown error while fetching transcript.");
+      throw new Error(TRANSCRIPT_MESSAGES.ERROR.UNKNOWN);
    }
 }

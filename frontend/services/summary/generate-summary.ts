@@ -1,5 +1,6 @@
 // generate-summary.ts
 
+import { SUMMARY_MESSAGES } from "@/constants/messages/summary";
 import { SYSTEM_PROMPT } from "@/constants/prompts";
 import { groq } from "@ai-sdk/groq";
 import { generateText } from "ai";
@@ -25,9 +26,9 @@ export async function generateSummary(content: string, template?: string) {
       console.error("Error generating summary:", error);
 
       if (error instanceof Error) {
-         throw new Error(`Failed to generate summary: ${error.message}`);
+         throw new Error(error.message);
       }
 
-      throw new Error("Failed to generate summary");
+      throw new Error(SUMMARY_MESSAGES.ERROR.GENERATION_FAILED);
    }
 }
