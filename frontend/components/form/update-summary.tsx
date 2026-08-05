@@ -128,8 +128,11 @@ export function SummaryUpdateForm({
                      loading={updateIsPending}
                   />
 
-                  {!updateFormState.success && updateFormState.message && (
+                  {/* {!updateFormState.success && updateFormState.message && (
                      <FormError error={[updateFormState.message]} />
+                  )} */}
+                  {updateFormState.strapiErrors && (
+                     <FormError error={[updateFormState.strapiErrors.message]} />
                   )}
                </CardFooter>
             </Card>

@@ -1,3 +1,4 @@
+import { COMMON_MESSAGES } from "@/constants/messages/common";
 import { FormState } from "@/types/definitions";
 import { isStrapiError } from "@/types/strapi";
 import z from "zod";
@@ -30,7 +31,7 @@ export function handleActionError(
 
    return {
       success: false,
-      message: "Ops! Something went wrong. Please try again.",
+      message: COMMON_MESSAGES.ERROR.UNKNOWN,
       strapiErrors: null,
       zodErrors: null,
       data,
@@ -43,7 +44,7 @@ export function getValidationErrorState(
 ): FormState {
    return {
       success: false,
-      message: "Validation error",
+      message: COMMON_MESSAGES.ERROR.VALIDATION,
       strapiErrors: null,
       zodErrors: z.flattenError(error).fieldErrors,
       data,
