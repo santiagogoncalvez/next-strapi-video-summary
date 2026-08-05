@@ -74,28 +74,29 @@ export function ProfileForm({ user, className }: Readonly<ProfileFormProps>) {
                </CardHeader>
 
                <CardContent className={PROFILE_FORM_STYLES.content}>
-                  <div className={PROFILE_FORM_STYLES.fieldGroup}>
-                     <Label htmlFor="username">Nombre de usuario</Label>
+                  <div className={PROFILE_FORM_STYLES.nameRow}>
+                     <div className={PROFILE_FORM_STYLES.fieldGroup}>
+                        <Label htmlFor="username">Nombre de usuario</Label>
 
-                     <Input
-                        id="username"
-                        name="username"
-                        placeholder="pablo"
-                        defaultValue={user.username ?? ""}
-                        disabled
-                     />
-                  </div>
+                        <Input
+                           id="username"
+                           name="username"
+                           placeholder="pablo"
+                           defaultValue={user.username ?? ""}
+                           disabled
+                        />
+                     </div>
+                     <div className={PROFILE_FORM_STYLES.fieldGroup}>
+                        <Label htmlFor="email">Correo electrónico</Label>
 
-                  <div className={PROFILE_FORM_STYLES.fieldGroup}>
-                     <Label htmlFor="email">Correo electrónico</Label>
-
-                     <Input
-                        id="email"
-                        name="email"
-                        placeholder="pablo@gmail.com"
-                        defaultValue={user.email ?? ""}
-                        disabled
-                     />
+                        <Input
+                           id="email"
+                           name="email"
+                           placeholder="pablo@gmail.com"
+                           defaultValue={user.email ?? ""}
+                           disabled
+                        />
+                     </div>
                   </div>
 
                   <div className={PROFILE_FORM_STYLES.fieldGroup}>
@@ -103,7 +104,6 @@ export function ProfileForm({ user, className }: Readonly<ProfileFormProps>) {
 
                      <CountBox text={user.credits ?? 0} />
                   </div>
-
                   <div className={PROFILE_FORM_STYLES.nameRow}>
                      <div className={PROFILE_FORM_STYLES.fieldGroup}>
                         <Label htmlFor="firstName">Nombre</Label>
@@ -174,7 +174,7 @@ function CountBox({ text }: { text: number }) {
       <div className={PROFILE_FORM_STYLES.countBox}>
          Tú tienes
          <span className={PROFILE_FORM_STYLES.creditText}>{text}</span>
-         crédito(s)
+         crédito{text === 1 ? "" : "(s)"}
       </div>
    );
 }
