@@ -7,16 +7,18 @@ import {
 } from "@/components/ui/card";
 
 import { SIGN_IN_FORM_STYLES } from "@/constants/styles";
-import { AppLink } from "./custom-link";
+import { ReactNode } from "react";
 
 interface EmptyStateCardProps {
    title: string;
    description: string;
+   action?: ReactNode;
 }
 
 export function EmptySummaries({
    title,
    description,
+   action,
 }: Readonly<EmptyStateCardProps>) {
    return (
       <Card>
@@ -27,11 +29,11 @@ export function EmptySummaries({
                {description}
             </CardDescription>
          </CardHeader>
-         <CardFooter className={`${SIGN_IN_FORM_STYLES.footer}`}>
-            <AppLink href="/dashboard" variant="outline">
-               Crear nuevo resumen
-            </AppLink>
-         </CardFooter>
+         {action && (
+            <CardFooter className={SIGN_IN_FORM_STYLES.footer}>
+               {action}
+            </CardFooter>
+         )}
       </Card>
    );
 }

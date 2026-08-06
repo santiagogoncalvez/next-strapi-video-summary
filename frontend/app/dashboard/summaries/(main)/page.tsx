@@ -1,3 +1,5 @@
+import { ClearSearchButton } from "@/components/custom/clear-search-button";
+import { AppLink } from "@/components/custom/custom-link";
 import { EmptySummaries } from "@/components/custom/empty-state-card";
 import { PaginationComponent } from "@/components/custom/pagination-component";
 import { Search } from "@/components/custom/search";
@@ -41,6 +43,15 @@ export default async function SummariesRoute({
                   query
                      ? `No hay resultados para "${query}". Prueba con otra búsqueda.`
                      : "Crea tu primer resumen pegando un enlace de YouTube y deja que la IA transforme el contenido por ti."
+               }
+               action={
+                  query ? (
+                     <ClearSearchButton />
+                  ) : (
+                     <AppLink href="/dashboard" variant="outline">
+                        Crear nuevo resumen
+                     </AppLink>
+                  )
                }
             />
          )}
