@@ -179,7 +179,7 @@ export const SUMMARY_UPDATE_FORM_STYLES = {
 
    fieldGroup: "space-y-2",
 
-   editor: "h-100",
+   editor: "h-[350px] max-h-[350px] ",
 
    footer: "flex flex-col justify-center items-center  gap-4",
 

@@ -11,7 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 const MDXEditorClient = dynamic(() => import("./mdx-editor-client"), {
    ssr: false,
    loading: () => (
-      <div className="min-h-[200px] rounded-2xl border border-sidebar-border/50 text-light-700_dark300 p-4 overflow-hidden">
+      <div className="h-[350px] max-h-[350px]  rounded-2xl border border-sidebar-border/50 text-light-700_dark300 p-4 overflow-hidden">
          <div className="space-y-3">
             <Skeleton className="h-8 w-full" />
             <Skeleton className="h-4 w-3/4" />
@@ -22,6 +22,9 @@ const MDXEditorClient = dynamic(() => import("./mdx-editor-client"), {
                <Skeleton className="h-4 w-full" />
                <Skeleton className="h-4 w-2/3" />
             </div>
+            <Skeleton className="h-8 w-full" />
+            <Skeleton className="h-4 w-3/4" />
+            <Skeleton className="h-4 w-1/2" />
          </div>
       </div>
    ),
@@ -46,11 +49,12 @@ export function EditorWrapper({
       return (
          <Alert
             variant="destructive"
-            className="min-h-[350px] flex items-center justify-center"
+            className="h-[350px] max-h-[350px]  flex items-center justify-center"
          >
             <AlertCircle className="h-4 w-4" />
             <AlertDescription>
-               No se pudo cargar el editor. Por favor, actualice la página para intentarlo de nuevo.
+               No se pudo cargar el editor. Por favor, actualice la página para
+               intentarlo de nuevo.
             </AlertDescription>
          </Alert>
       );

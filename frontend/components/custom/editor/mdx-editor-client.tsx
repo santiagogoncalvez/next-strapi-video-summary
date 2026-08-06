@@ -44,10 +44,10 @@ export default function MDXEditorClient({
    const { resolvedTheme } = useTheme();
    const theme = [basicLight];
    return (
-      <div className="rounded-2xl border border-sidebar-border/50 overflow-hidden">
+      <div className="rounded-2xl border border-sidebar-border/50 overflow-hidden h-[350px] max-h-[350px] ">
          <div
             className={cn(
-               "min-h-[350px]  background-light500_dark200 text-light-700_dark300 light-border-2 w-full dark-editor markdown-editor overflow-y-auto",
+               "h-[350px] max-h-[350px]   background-light500_dark200 text-light-700_dark300 light-border-2 w-full dark-editor markdown-editor overflow-y-auto",
                props.className,
             )}
          >
