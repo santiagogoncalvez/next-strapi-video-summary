@@ -16,7 +16,7 @@ export default async function AuthLayout({
 
    return (
       <div className="flex flex-col items-center justify-center min-h-screen ">
-         <div className="flex flex-col gap-4 justify-center items-center w-full">
+         <div className="flex flex-col gap-4 justify-center items-center w-full md:px-0 px-4">
             <Logo showText={false} logoText={header.logoText} />
 
             {children}

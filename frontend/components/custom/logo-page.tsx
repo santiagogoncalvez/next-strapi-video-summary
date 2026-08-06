@@ -26,7 +26,7 @@ export default function Logo({
       >
          <LogoIcon className={`${showText ? "size-10" : "size-8"}`} />
          {showText && (
-            <span className={`${dark ? "text-white" : ""}`}>
+            <span className={`${dark ? "text-white" : ""} md:flex hidden`}>
                {" "}
                {logoText.label}
             </span>

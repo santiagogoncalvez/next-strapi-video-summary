@@ -9,11 +9,15 @@ interface Props extends NavBarLinks {
 export default function NavBar({ link, secondaryLink, isHero = false }: Props) {
    return (
       <nav
-         className={cn("flex gap-2", {
+         className={cn("flex gap-2 items-center justify-center", {
             "flex-row-reverse": isHero,
          })}
       >
-         <AppLink href={secondaryLink.href} isHero={isHero} variant="outline">
+         <AppLink
+            href={secondaryLink.href}
+            isHero={isHero}
+            variant="outline"
+         >
             {secondaryLink.label}
          </AppLink>
          <AppLink href={link.href} isHero={isHero}>

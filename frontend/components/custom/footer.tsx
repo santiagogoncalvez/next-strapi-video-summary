@@ -26,7 +26,7 @@ export function Footer({ data }: FooterProps) {
    return (
       <footer className={FOOTER_STYLES.footer}>
          <div className={FOOTER_STYLES.container}>
-            <div className="w-40 flex justify-start">
+            <div className="md:w-40 w-fit flex justify-start">
                <Logo logoText={logoText} />
             </div>
             <p className={FOOTER_STYLES.text}>{text}</p>

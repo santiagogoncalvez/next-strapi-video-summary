@@ -46,7 +46,7 @@ export const SIGN_UP_FORM_STYLES = {
    fieldGroup: "space-y-2",
    footer: "flex flex-col space-y-4",
    button: "w-full",
-   prompt: "mt-0 text-center text-sm flex gap-2",
+   prompt: "mt-0 text-center text-sm flex flex-wrap justify-center items-center gap-2",
    link: "ml-2",
 };
 
@@ -58,7 +58,7 @@ export const SIGN_IN_FORM_STYLES = {
    fieldGroup: "space-y-2",
    footer: "flex flex-col space-y-4",
    button: "w-full",
-   prompt: "mt-0 text-center text-sm flex gap-2",
+   prompt: "mt-0 text-center text-sm flex flex-wrap justify-center items-center gap-2",
    link: "ml-2",
 };
 
@@ -66,7 +66,7 @@ export const HERO_SECTION_STYLES = {
    header: "relative h-[500px] rounded-2xl overflow-hidden rounded-4xl",
    backgroundImage: "absolute inset-0 object-cover w-full h-full ",
    overlay:
-      "relative flex flex-col items-center justify-center h-full text-center bg-white/0",
+      "relative flex flex-col items-center justify-center h-full text-center bg-white/0 md:p-8 p-4",
    heading: "text-black text-4xl font-bold md:text-5xl lg:text-6xl",
    subheading: "mt-8 text-black text-lg md:text-xl lg:text-2xl",
    button: "mt-8 ",
@@ -85,9 +85,9 @@ export const FEATURES_SECTION_STYLES = {
 export const FOOTER_STYLES = {
    footer: "w-full border-t border-t-foreground/10 py-4 text-black",
    container:
-      "w-full px-8 flex flex-col md:flex-row items-center justify-between",
-   text: "mt-4 md:mt-0 text-sm text-gray-800",
-   socialContainer: "w-40 flex justify-end gap-4",
+      "w-full md:px-8 px-4 flex flex-col md:flex-row items-center md:justify-between justify-center md:gap-0 gap-2",
+   text: "text-sm text-gray-800",
+   socialContainer: "md:w-40 w-fit flex justify-end gap-4",
    socialLink: "transition-all hover:text-gray-800",
    icon: "h-6 w-6",
    srOnly: "sr-only",
@@ -166,7 +166,7 @@ export const SUMMARY_FORM_STYLES = {
    fieldGroup: "space-y-2",
    footer: "flex flex-col space-y-4",
    button: "w-full",
-   prompt: "mt-0 text-center text-sm flex gap-2",
+   prompt: "mt-0 text-center text-sm flex flex-wrap justify-center items-center gap-2",
    link: "ml-2",
 };
 

@@ -6,7 +6,7 @@ export default function DashboardHeader({ title }: { title?: string }) {
    const pathname = usePathname();
 
    const pageTitle =
-      title ??
+      title === "" &&
       (pathname === "/dashboard"
          ? "Nuevo resumen"
          : pathname === "/dashboard/account"
@@ -16,7 +16,7 @@ export default function DashboardHeader({ title }: { title?: string }) {
              : "");
 
    return (
-      <header className="max-w-full w-full p-4 rounded-2xl shadow-none border border-sidebar-border/50 rounded-b-none rounded-l-none border-l-0 flex justify-between items-center">
+      <header className="max-w-full w-full p-4 shadow-none border-b border-sidebar-border/50 flex justify-between items-center">
          <h1 className="text-normal text-black font-medium">{pageTitle}</h1>
 
          <div className="flex size-8 opacity-0"></div>

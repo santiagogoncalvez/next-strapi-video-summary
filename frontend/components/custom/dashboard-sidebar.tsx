@@ -59,7 +59,7 @@ export function DashboardSidebar() {
    const pathname = usePathname();
 
    return (
-      <Sidebar collapsible="icon" variant="floating" className="group">
+      <Sidebar collapsible="icon" variant="sidebar" className="group">
          {/* HEADER: Branding o Logo de la App */}
          <SidebarHeader
             className={`relative flex flex-row  items-center border-b bg-white justify-between`}
@@ -84,9 +84,12 @@ export function DashboardSidebar() {
          </SidebarHeader>
 
          {/* CONTENT: Navegación principal (scrolleable) */}
-         <SidebarContent className="bg-white">
+         <SidebarContent className={`bg-white`}>
             {principalSidebarGroups.map((group) => (
-               <SidebarGroup key={group.label}>
+               <SidebarGroup
+                  key={group.label}
+                  className={`${open ? "" : "pb-0"}`}
+               >
                   <SidebarGroupContent>
                      <SidebarMenu>
                         {group.items.map((item) => (
@@ -107,7 +110,10 @@ export function DashboardSidebar() {
                </SidebarGroup>
             ))}
             {sidebarGroups.map((group) => (
-               <SidebarGroup key={group.label}>
+               <SidebarGroup
+                  key={group.label}
+                  className={`${open ? "" : "py-0"}`}
+               >
                   <SidebarGroupLabel
                      className={`${open ? "" : "select-none pointer-events-none"}`}
                   >
@@ -136,10 +142,10 @@ export function DashboardSidebar() {
          </SidebarContent>
 
          {/* FOOTER: Botón de ayuda o usuario */}
-         <SidebarFooter className="border-t bg-white">
+         <SidebarFooter className={`border-t bg-white`}>
             <SidebarMenu>
                <SidebarMenuItem>
-                  <LogoutFormSideBar variant={"none"} size={"none"} />
+                  <LogoutFormSideBar />
                </SidebarMenuItem>
             </SidebarMenu>
          </SidebarFooter>

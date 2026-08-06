@@ -22,7 +22,7 @@ export default async function RootLayout({
       <div>
          <Header data={header} />
 
-         <main className="px-8">{children}</main>
+         <main className="md:px-8 px-4">{children}</main>
 
          <Footer data={footer} />
       </div>
