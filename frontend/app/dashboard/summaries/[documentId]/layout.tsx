@@ -1,4 +1,4 @@
-import LayoutDashboard from "@/components/custom/layout-dashboard";
+import DashboardContent from "@/components/custom/dachboard-content";
 import { loaders } from "@/data/loaders";
 import { Params } from "@/types/strapi";
 import { notFound } from "next/navigation";
@@ -18,5 +18,5 @@ export default async function Layout({
    const { data: summary } = await loaders.getSummaryByDocumentId(documentId);
    const { title } = summary;
 
-   return <LayoutDashboard headerTitle={title}>{children}</LayoutDashboard>;
+   return <DashboardContent headerTitle={title}>{children}</DashboardContent>;
 }

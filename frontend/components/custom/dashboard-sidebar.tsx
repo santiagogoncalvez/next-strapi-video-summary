@@ -21,6 +21,7 @@ import { LogoutFormSideBar } from "../form/log-out-form-slidebar";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 
 // Menú de navegación ficticio
 const principalSidebarGroups = [
@@ -54,104 +55,118 @@ const sidebarGroups = [
    },
 ];
 
-export function DashboardSidebar() {
-   const { open } = useSidebar();
+interface Props {
+   variant?: "sidebar" | "floating" | "inset";
+   className?: string;
+}
+
+export function DashboardSidebar({ variant = "sidebar", className }: Props) {
+   const { open, isMobile, setOpenMobile } = useSidebar();
    const pathname = usePathname();
 
+   // Cierra el sidebar mobile cada vez que cambia la ruta
+   useEffect(() => {
+      if (isMobile) {
+         setOpenMobile(false);
+      }
+   }, [pathname, isMobile, setOpenMobile]);
+
    return (
-      <Sidebar collapsible="icon" variant="sidebar" className="group">
-         {/* HEADER: Branding o Logo de la App */}
-         <SidebarHeader
-            className={`relative flex flex-row  items-center border-b bg-white justify-between`}
-         >
-            <Logo
-               logoText={{
-                  id: 0,
-                  href: "/",
-                  label: "RESU",
-               }}
-               showText={false}
-               className={`transition-opacity ${!open ? "group-hover:opacity-0" : ""}`}
-            />
-            <SidebarTrigger
-               className={cn(
-                  "transition-all duration-200 size-8",
-                  open
-                     ? "opacity-100"
-                     : "absolute left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100",
-               )}
-            />
-         </SidebarHeader>
+      <div className={cn("group", className)}>
+         <Sidebar collapsible="icon" variant={variant}>
+            {/* HEADER: Branding o Logo de la App */}
+            <SidebarHeader
+               className={`relative flex flex-row  items-center border-b bg-white justify-between`}
+            >
+               <Logo
+                  logoText={{
+                     id: 0,
+                     href: "/",
+                     label: "RESU",
+                  }}
+                  showText={false}
+                  className={`transition-opacity ${!open ? "group-hover:opacity-0" : ""}`}
+               />
+               <SidebarTrigger
+                  className={cn(
+                     "transition-all duration-200 size-8",
+                     open
+                        ? "opacity-100"
+                        : "absolute left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100",
+                  )}
+               />
+            </SidebarHeader>
 
-         {/* CONTENT: Navegación principal (scrolleable) */}
-         <SidebarContent className={`bg-white`}>
-            {principalSidebarGroups.map((group) => (
-               <SidebarGroup
-                  key={group.label}
-                  className={`${open ? "" : "pb-0"}`}
-               >
-                  <SidebarGroupContent>
-                     <SidebarMenu>
-                        {group.items.map((item) => (
-                           <SidebarMenuItem key={item.name}>
-                              <SidebarMenuButton
-                                 asChild
-                                 isActive={item.url === pathname}
-                              >
-                                 <Link href={item.url}>
-                                    <item.icon />
-                                    <span>{item.name}</span>
-                                 </Link>
-                              </SidebarMenuButton>
-                           </SidebarMenuItem>
-                        ))}
-                     </SidebarMenu>
-                  </SidebarGroupContent>
-               </SidebarGroup>
-            ))}
-            {sidebarGroups.map((group) => (
-               <SidebarGroup
-                  key={group.label}
-                  className={`${open ? "" : "py-0"}`}
-               >
-                  <SidebarGroupLabel
-                     className={`${open ? "" : "select-none pointer-events-none"}`}
+            {/* CONTENT: Navegación principal (scrolleable) */}
+            <SidebarContent className={`bg-white`}>
+               {principalSidebarGroups.map((group) => (
+                  <SidebarGroup
+                     key={group.label}
+                     className={`${open ? "" : "pb-0"}`}
                   >
-                     {group.label}
-                  </SidebarGroupLabel>
+                     <SidebarGroupContent>
+                        <SidebarMenu>
+                           {group.items.map((item) => (
+                              <SidebarMenuItem key={item.name}>
+                                 <SidebarMenuButton
+                                    asChild
+                                    isActive={item.url === pathname}
+                                 >
+                                    <Link href={item.url}>
+                                       <item.icon />
+                                       <span>{item.name}</span>
+                                    </Link>
+                                 </SidebarMenuButton>
+                              </SidebarMenuItem>
+                           ))}
+                        </SidebarMenu>
+                     </SidebarGroupContent>
+                  </SidebarGroup>
+               ))}
+               {sidebarGroups.map((group) => (
+                  <SidebarGroup
+                     key={group.label}
+                     className={`${open ? "" : "py-0"}`}
+                  >
+                     <SidebarGroupLabel
+                        className={`${open ? "" : "select-none pointer-events-none"}`}
+                     >
+                        {group.label}
+                     </SidebarGroupLabel>
 
-                  <SidebarGroupContent>
-                     <SidebarMenu>
-                        {group.items.map((item) => (
-                           <SidebarMenuItem key={item.name}>
-                              <SidebarMenuButton
-                                 asChild
-                                 isActive={item.url === pathname}
-                              >
-                                 <Link href={item.url}>
-                                    <item.icon />
-                                    <span>{item.name}</span>
-                                 </Link>
-                              </SidebarMenuButton>
-                           </SidebarMenuItem>
-                        ))}
-                     </SidebarMenu>
-                  </SidebarGroupContent>
-               </SidebarGroup>
-            ))}
-         </SidebarContent>
+                     <SidebarGroupContent>
+                        <SidebarMenu>
+                           {group.items.map((item) => (
+                              <SidebarMenuItem key={item.name}>
+                                 <SidebarMenuButton
+                                    asChild
+                                    isActive={item.url === pathname}
+                                 >
+                                    <Link href={item.url}>
+                                       <item.icon />
+                                       <span>{item.name}</span>
+                                    </Link>
+                                 </SidebarMenuButton>
+                              </SidebarMenuItem>
+                           ))}
+                        </SidebarMenu>
+                     </SidebarGroupContent>
+                  </SidebarGroup>
+               ))}
+            </SidebarContent>
 
-         {/* FOOTER: Botón de ayuda o usuario */}
-         <SidebarFooter className={`border-t bg-white`}>
-            <SidebarMenu>
-               <SidebarMenuItem>
-                  <LogoutFormSideBar />
-               </SidebarMenuItem>
-            </SidebarMenu>
-         </SidebarFooter>
+            {/* FOOTER: Botón de ayuda o usuario */}
+            <SidebarFooter className={`border-t bg-white`}>
+               <SidebarMenu>
+                  <SidebarMenuItem>
+                     <LogoutFormSideBar />
+                  </SidebarMenuItem>
+               </SidebarMenu>
+            </SidebarFooter>
 
-         {/* RAIL: Permite hacer click/arrastrar en el borde para colapsar en desktop */}
-         <SidebarRail />
-      </Sidebar>
+            {/* RAIL: Permite hacer click/arrastrar en el borde para colapsar en desktop */}
+            <SidebarRail />
+         </Sidebar>
+      </div>
    );
 }
