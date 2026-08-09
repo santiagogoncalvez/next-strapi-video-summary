@@ -1,0 +1,15 @@
+{
+   "version": "0.2.0",
+   "configurations": [
+      {
+         "type": "node",
+         "request": "launch",
+         "name": "Debug YouTube Script (Frontend)",
+         "program": "${workspaceFolder}/frontend/scripts/test-youtube-data.ts",
+         "cwd": "${workspaceFolder}/frontend",
+         "runtimeArgs": ["--import", "tsx"],
+         "console": "internalConsole",
+         "skipFiles": ["<node_internals>/**"]
+      }
+   ]
+}
