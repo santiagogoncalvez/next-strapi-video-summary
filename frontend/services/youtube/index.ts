@@ -4,6 +4,6 @@ import { getYoutubeData as getYoutubeDataLocal } from "@santiagogoncalvez1/youtu
 import { getYoutubeData as getYoutubeDataProduction } from "./data";
 
 export const getYoutubeData =
-   process.env.NODE_ENV === "production"
+   process.env.APP_RUNTIME === "production"
       ? getYoutubeDataProduction
       : getYoutubeDataLocal;
