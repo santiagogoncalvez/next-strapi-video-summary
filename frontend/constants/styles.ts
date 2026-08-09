@@ -68,13 +68,13 @@ export const HERO_SECTION_STYLES = {
    overlay:
       "relative flex flex-col items-center justify-center h-full text-center bg-white/0 md:p-8 p-4",
    heading: "text-black text-4xl font-bold md:text-5xl lg:text-6xl",
-   subheading: "mt-8 text-black text-lg md:text-xl lg:text-2xl",
+   subheading: "mt-8 text-black text-lg md:text-xl lg:text-2xl text-pretty",
    button: "mt-8 ",
 };
 
 export const FEATURES_SECTION_STYLES = {
    container: "flex-1",
-   section: "container px-4 py-6 md:px-6 lg:py-24",
+   section: "container px-4 py-12 md:px-6 lg:py-24",
    grid: "grid gap-8 md:grid-cols-3",
    featureCard: "flex flex-col items-center text-center",
    icon: "w-12 h-12 mb-4 text-gray-900",
@@ -83,7 +83,8 @@ export const FEATURES_SECTION_STYLES = {
 };
 
 export const FOOTER_STYLES = {
-   footer: "w-full border-t border-t-foreground/10 py-4 text-black",
+   footer:
+      "w-full border-t border-t-foreground/10  text-black flex justify-center",
    container:
       "w-full md:px-8 px-4 flex flex-col md:flex-row items-center md:justify-between justify-center md:gap-0 gap-2",
    text: "text-sm text-gray-800",

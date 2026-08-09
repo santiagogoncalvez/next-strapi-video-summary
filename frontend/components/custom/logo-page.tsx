@@ -13,7 +13,6 @@ interface Props {
 export default function Logo({
    showText = true,
    logoText,
-   dark,
    className,
 }: Props) {
    return (
@@ -25,12 +24,6 @@ export default function Logo({
          href={logoText.href}
       >
          <LogoIcon className={`${showText ? "size-10" : "size-8"}`} />
-         {showText && (
-            <span className={`${dark ? "text-white" : ""} md:flex hidden`}>
-               {" "}
-               {logoText.label}
-            </span>
-         )}
       </Link>
    );
 }

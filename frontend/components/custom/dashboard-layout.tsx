@@ -4,10 +4,8 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 
 export default function LayoutDashboard({
    children,
-   headerTitle = "",
 }: {
    children: React.ReactNode;
-   headerTitle?: string;
 }) {
    return (
       /* 1. h-screen fija el tamaño total de la pantalla. El p-2 se descuenta internamente */
