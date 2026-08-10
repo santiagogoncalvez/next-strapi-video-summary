@@ -18,7 +18,7 @@ export default function DashboardHeader({ title }: { title?: string }) {
              : "");
 
    return (
-      <header className="max-w-full w-full p-4 shadow-none border-b border-sidebar-border/50 flex justify-between items-center">
+      <header className="max-w-full w-full p-4 shadow-none border-b-0 border-sidebar-border/50 flex justify-between items-center">
          <div className="flex gap-4 items-center min-w-0 flex-1">
             <SidebarTrigger className={cn("size-8 md:hidden flex")} />
             <h1 className="text-normal text-black font-medium whitespace-nowrap overflow-x-auto [scrollbar-none] [&::-webkit-scrollbar]:hidden">

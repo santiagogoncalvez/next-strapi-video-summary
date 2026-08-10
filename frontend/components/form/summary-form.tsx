@@ -17,6 +17,7 @@ import { FormState } from "@/types/definitions";
 import { actions } from "@/actions";
 import { useRouter } from "next/navigation";
 import { SUMMARY_MESSAGES } from "@/constants/messages/summary";
+import { SubmitButtonSummary } from "./submit-button-summary";
 
 const INITIAL_STATE: FormState = {
    success: false,
@@ -97,7 +98,7 @@ export function SummaryForm() {
                </CardHeader>
 
                <CardContent className={SUMMARY_FORM_STYLES.content}>
-                  <div className={SUMMARY_FORM_STYLES.fieldGroup}>
+                  <div className={"relative"}>
                      {/* <Label htmlFor="videoId">
                         URL o ID del video de YouTube
                      </Label> */}
@@ -109,23 +110,24 @@ export function SummaryForm() {
                         placeholder="https://youtu.be/dQw4w9WgXcQ o dQw4w9WgXcQ"
                         defaultValue={formState.data?.videoId ?? ""}
                         required
+                        className="h-14 pl-4 pr-14"
                      />
 
-                     <FormError error={formState.zodErrors?.videoId} />
+                     <SubmitButtonSummary
+                        className={SUMMARY_FORM_STYLES.button}
+                        loading={isPending}
+                     />
                   </div>
                </CardContent>
 
                <CardFooter className={SUMMARY_FORM_STYLES.footer}>
-                  <SubmitButton
-                     className={SUMMARY_FORM_STYLES.button}
-                     text="Crear resumen"
-                     loadingText="Creando resumen"
-                     loading={isPending}
-                  />
+                  <FormError error={formState.zodErrors?.videoId} />
 
-                  { !formState.zodErrors && formState.success === false && formState.message && (
-                     <FormError error={[formState.message]} />
-                  )}
+                  {!formState.zodErrors &&
+                     formState.success === false &&
+                     formState.message && (
+                        <FormError error={[formState.message]} />
+                     )}
                </CardFooter>
             </Card>
          </form>

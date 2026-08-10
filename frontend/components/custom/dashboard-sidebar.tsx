@@ -1,13 +1,13 @@
 "use client";
 
-import { User, SquarePen, FileText } from "lucide-react";
+import { User, SquarePen, FileText, LucideIcon } from "lucide-react";
 import {
    Sidebar,
    SidebarContent,
    SidebarFooter,
    SidebarGroup,
    SidebarGroupContent,
-   SidebarGroupLabel,
+   // SidebarGroupLabel,
    SidebarHeader,
    SidebarMenu,
    SidebarMenuButton,
@@ -23,8 +23,19 @@ import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
+interface SidebarItem {
+   name: string;
+   url: string;
+   icon: LucideIcon;
+}
+
+interface SidebarGroup {
+   label: string;
+   items: SidebarItem[];
+}
+
 // Menú de navegación ficticio
-const principalSidebarGroups = [
+const principalSidebarGroups: SidebarGroup[] = [
    {
       label: "General",
       items: [
@@ -33,14 +44,6 @@ const principalSidebarGroups = [
             url: "/dashboard",
             icon: SquarePen,
          },
-      ],
-   },
-];
-
-const sidebarGroups = [
-   {
-      label: "General",
-      items: [
          {
             name: "Resúmenes",
             url: "/dashboard/summaries",
@@ -54,6 +57,13 @@ const sidebarGroups = [
       ],
    },
 ];
+
+// const sidebarGroups: SidebarGroup[] = [
+//    {
+//       label: "General",
+//       items: [],
+//    },
+// ];
 
 interface Props {
    variant?: "sidebar" | "floating" | "inset";
@@ -76,7 +86,7 @@ export function DashboardSidebar({ variant = "sidebar", className }: Props) {
          <Sidebar collapsible="icon" variant={variant}>
             {/* HEADER: Branding o Logo de la App */}
             <SidebarHeader
-               className={`relative flex flex-row  items-center border-b bg-white justify-between`}
+               className={`relative flex flex-row  items-center border-b-0 bg-white justify-between`}
             >
                <Logo
                   logoText={{
@@ -123,7 +133,7 @@ export function DashboardSidebar({ variant = "sidebar", className }: Props) {
                      </SidebarGroupContent>
                   </SidebarGroup>
                ))}
-               {sidebarGroups.map((group) => (
+               {/* {sidebarGroups.map((group) => (
                   <SidebarGroup
                      key={group.label}
                      className={`${open ? "" : "py-0"}`}
@@ -152,11 +162,11 @@ export function DashboardSidebar({ variant = "sidebar", className }: Props) {
                         </SidebarMenu>
                      </SidebarGroupContent>
                   </SidebarGroup>
-               ))}
+               ))} */}
             </SidebarContent>
 
             {/* FOOTER: Botón de ayuda o usuario */}
-            <SidebarFooter className={`border-t bg-white`}>
+            <SidebarFooter className={`border-t-0 bg-white`}>
                <SidebarMenu>
                   <SidebarMenuItem>
                      <LogoutFormSideBar />

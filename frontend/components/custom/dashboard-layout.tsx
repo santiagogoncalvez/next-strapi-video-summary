@@ -1,4 +1,3 @@
-import DashboardHeader from "@/components/custom/dashboard-header";
 import { DashboardSidebar } from "@/components/custom/dashboard-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 
