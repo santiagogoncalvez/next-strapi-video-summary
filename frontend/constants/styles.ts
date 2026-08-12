@@ -41,7 +41,7 @@ export const BUTTON_VARIANTS = cva(
 export const SIGN_UP_FORM_STYLES = {
    container: "w-full max-w-sm flex flex-col gap-4 justify-center items-center",
    header: "space-y-1",
-   title: "text-2xl font-bold text-center",
+   title: "text-2xl font-semibold text-center",
    content: "space-y-4",
    fieldGroup: "space-y-2",
    footer: "flex flex-col space-y-4",
@@ -53,7 +53,7 @@ export const SIGN_UP_FORM_STYLES = {
 export const SIGN_IN_FORM_STYLES = {
    container: "w-full max-w-sm flex flex-col gap-4 justify-center items-center",
    header: "space-y-1",
-   title: "text-2xl font-bold text-center",
+   title: "text-2xl font-semibold text-center",
    content: "space-y-4",
    fieldGroup: "space-y-2",
    footer: "flex flex-col space-y-4",
@@ -67,7 +67,7 @@ export const HERO_SECTION_STYLES = {
    backgroundImage: "absolute inset-0 object-cover w-full h-full ",
    overlay:
       "relative flex flex-col items-center justify-center h-full text-center bg-white/0 md:p-8 p-4",
-   heading: "text-black text-4xl font-bold md:text-5xl lg:text-6xl",
+   heading: "text-black text-4xl font-semibold md:text-5xl lg:text-6xl",
    subheading: "mt-8 text-black text-lg md:text-xl lg:text-2xl text-pretty",
    button: "mt-8 ",
 };
@@ -100,7 +100,7 @@ export const NOT_FOUND_STYLES = {
    content: "w-full max-w-2xl  text-center space-y-8",
    textSection: "space-y-4",
    heading404:
-      "text-black text-2xl font-bold md:text-3xl lg:text-4xl select-none",
+      "text-black text-2xl font-semibold md:text-3xl lg:text-4xl select-none",
    headingContainer: "relative flex flex-col items-center justify-center",
    pageTitle: "text-2xl font-normal text-gray-800 mb-4",
    description: "text-lg text-gray-600 max-w-md  leading-relaxed",
@@ -111,7 +111,7 @@ export const NOT_FOUND_STYLES = {
    searchIcon: "w-8 h-8 text-gray-400",
    errorBadge:
       "absolute -top-2 -right-2 w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center animate-bounce",
-   errorSymbol: "text-gray-500 text-xs font-bold",
+   errorSymbol: "text-gray-500 text-xs font-semibold",
    buttonContainer:
       "flex flex-col sm:flex-row gap-4 justify-center items-center",
    button: "min-w-[160px]",
@@ -133,7 +133,7 @@ export const PROFILE_FORM_STYLES = {
    form: "w-full",
    container: "w-full max-w-2xl flex flex-col gap-4 justify-center items-start",
 
-   title: "text-2xl font-bold",
+   title: "text-2xl font-semibold",
 
    content: "space-y-4",
 
@@ -148,7 +148,7 @@ export const PROFILE_FORM_STYLES = {
    countBox:
       "flex items-center justify-center h-10 w-full rounded-lg border border-input/80 bg-transparent px-3 py-1 text-sm transition-colors",
 
-   creditText: "font-bold text-md mx-1",
+   creditText: "font-semibold text-md mx-1",
 
    button: "w-full",
 };
@@ -162,7 +162,7 @@ export const SUMMARY_FORM_STYLES = {
    container:
       "w-full max-w-2xl flex flex-col gap-4 justify-center items-center",
    header: "space-y-1",
-   title: "text-2xl font-bold text-center text-pretty",
+   title: "text-2xl font-semibold text-center text-pretty",
    content: "space-y-4",
    fieldGroup: "space-y-2",
    footer: "flex flex-col space-y-4",
@@ -177,7 +177,7 @@ export const SUMMARY_UPDATE_FORM_STYLES = {
       "w-full max-w-2xl flex flex-col gap-4 justify-center items-center",
    content: "flex flex-col gap-y-4",
    header: "space-y-1",
-   title: "text-2xl font-bold text-start",
+   title: "text-2xl font-semibold text-start",
 
    fieldGroup: "space-y-2",
 
