@@ -1,9 +1,10 @@
-import { SummaryUpdateForm } from "@/components/form/update-summary";
+// import { SummaryUpdateForm } from "@/components/form/update-summary";
 import { YouTubePlayer } from "@/components/custom/youtube-player";
 import { loaders } from "@/data/loaders";
 import { extractYouTubeID } from "@/lib/utils";
 import { Params } from "@/types/strapi";
 import { notFound } from "next/navigation";
+import { MarkdownViewer } from "@/components/custom/markdown-viewer";
 
 interface PageProps {
    params: Params;
@@ -22,16 +23,18 @@ export default async function SummarySingleRoute({ params }: PageProps) {
       <div className="h-fit w-full flex justify-center">
          <div className="h-fit w-full flex flex-col gap-8 max-w-2xl">
             <div className="h-full">
-               <SummaryUpdateForm summary={summary}/>
+               {/* <SummaryUpdateForm summary={summary}/>
+                */}
+               <MarkdownViewer content={summary.content} />
             </div>
             <div className="h-fit">
                <div>
                   {videoId ? (
                      <YouTubePlayer videoId={videoId} />
                   ) : (
-                     <p>Invalid video URL</p>
+                     <p>URL de vídeo no válida</p>
                   )}
-                  <h1 className="text-2xl font-bold mt-4">{summary.title}</h1>
+                  {/* <h1 className="text-base font-medium mt-4">{summary.title}</h1> */}
                </div>
             </div>
          </div>
