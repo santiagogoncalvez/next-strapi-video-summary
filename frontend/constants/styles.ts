@@ -87,7 +87,7 @@ export const FOOTER_STYLES = {
       "w-full border-t border-t-foreground/10  text-black flex justify-center",
    container:
       "w-full md:px-8 px-4 flex flex-col md:flex-row items-center md:justify-between justify-center md:gap-0 gap-2",
-   text: "text-sm text-gray-800",
+   text: "text-sm text-gray-800 text-center",
    socialContainer: "md:w-40 w-fit flex justify-end gap-4",
    socialLink: "transition-all hover:text-gray-800",
    icon: "h-6 w-6",

@@ -1,14 +1,16 @@
 import { actions } from "@/actions";
 import { LogOut } from "lucide-react";
-import { SidebarMenuButton } from "../ui/sidebar";
+import { DropdownMenuItem } from "../ui/dropdown-menu";
 
-export function LogoutFormSideBar() {
+export function LogoutFormNavUser() {
    return (
       <form action={actions.auth.logoutUserAction}>
-         <SidebarMenuButton>
-            <LogOut />
-            <span>Cerrar sesión</span>
-         </SidebarMenuButton>
+         <DropdownMenuItem asChild>
+            <button className="w-full hover:cursor-pointer">
+               <LogOut />
+               <span>Cerrar sesión</span>
+            </button>
+         </DropdownMenuItem>
       </form>
    );
 }

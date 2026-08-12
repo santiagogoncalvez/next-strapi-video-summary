@@ -1,13 +1,12 @@
 "use client";
 
-import { User, SquarePen, FileText, LucideIcon } from "lucide-react";
+import { SquarePen, FileText, LucideIcon, ArrowRight } from "lucide-react";
 import {
    Sidebar,
    SidebarContent,
-   SidebarFooter,
    SidebarGroup,
    SidebarGroupContent,
-   // SidebarGroupLabel,
+   SidebarGroupLabel,
    SidebarHeader,
    SidebarMenu,
    SidebarMenuButton,
@@ -17,11 +16,12 @@ import {
    useSidebar,
 } from "@/components/ui/sidebar";
 import Logo from "@/components/custom/logo-page";
-import { LogoutFormSideBar } from "../form/log-out-form-slidebar";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
+import { Summary, User } from "@/types/strapi";
+import { NavUser } from "./dashboard-sidebar-nav-user";
 
 interface SidebarItem {
    name: string;
@@ -49,28 +49,22 @@ const principalSidebarGroups: SidebarGroup[] = [
             url: "/dashboard/summaries",
             icon: FileText,
          },
-         {
-            name: "Cuenta",
-            url: "/dashboard/account",
-            icon: User,
-         },
       ],
    },
 ];
-
-// const sidebarGroups: SidebarGroup[] = [
-//    {
-//       label: "General",
-//       items: [],
-//    },
-// ];
-
 interface Props {
    variant?: "sidebar" | "floating" | "inset";
+   recentSummaries: Summary[];
+   user: User;
    className?: string;
 }
 
-export function DashboardSidebar({ variant = "sidebar", className }: Props) {
+export function DashboardSidebar({
+   variant = "sidebar",
+   recentSummaries,
+   user,
+   className,
+}: Props) {
    const { open, isMobile, setOpenMobile } = useSidebar();
    const pathname = usePathname();
 
@@ -133,46 +127,51 @@ export function DashboardSidebar({ variant = "sidebar", className }: Props) {
                      </SidebarGroupContent>
                   </SidebarGroup>
                ))}
-               {/* {sidebarGroups.map((group) => (
-                  <SidebarGroup
-                     key={group.label}
-                     className={`${open ? "" : "py-0"}`}
-                  >
-                     <SidebarGroupLabel
-                        className={`${open ? "" : "select-none pointer-events-none"}`}
-                     >
-                        {group.label}
-                     </SidebarGroupLabel>
 
-                     <SidebarGroupContent>
-                        <SidebarMenu>
-                           {group.items.map((item) => (
-                              <SidebarMenuItem key={item.name}>
+               <SidebarGroup className={`${open ? "" : "py-0"}`}>
+                  <SidebarGroupLabel
+                     className={`${open ? "" : "select-none pointer-events-none"}`}
+                  >
+                     Recientes
+                  </SidebarGroupLabel>
+
+                  <SidebarGroupContent className={`${open ? "" : "hidden"}`}>
+                     <SidebarMenu>
+                        {recentSummaries.map((summary) => {
+                           const href = `/dashboard/summaries/${summary.documentId}`;
+                           return (
+                              <SidebarMenuItem key={summary.documentId}>
                                  <SidebarMenuButton
                                     asChild
-                                    isActive={item.url === pathname}
+                                    isActive={href === pathname}
                                  >
-                                    <Link href={item.url}>
-                                       <item.icon />
-                                       <span>{item.name}</span>
+                                    <Link href={href}>
+                                       <span>{summary.title}</span>
                                     </Link>
                                  </SidebarMenuButton>
                               </SidebarMenuItem>
-                           ))}
-                        </SidebarMenu>
-                     </SidebarGroupContent>
-                  </SidebarGroup>
-               ))} */}
+                           );
+                        })}
+
+                        <SidebarMenuItem>
+                           <SidebarMenuButton asChild>
+                              <Link href="/dashboard/summaries">
+                                 <span>Ver todos</span>
+                                 <ArrowRight strokeWidth={1.25} />
+                              </Link>
+                           </SidebarMenuButton>
+                        </SidebarMenuItem>
+                     </SidebarMenu>
+                  </SidebarGroupContent>
+               </SidebarGroup>
             </SidebarContent>
 
             {/* FOOTER: Botón de ayuda o usuario */}
-            <SidebarFooter className={`border-t-0 bg-white`}>
-               <SidebarMenu>
-                  <SidebarMenuItem>
-                     <LogoutFormSideBar />
-                  </SidebarMenuItem>
-               </SidebarMenu>
-            </SidebarFooter>
+            <NavUser
+               user={user}
+               isSidebarOpen={open}
+               isSidebarMobile={isMobile}
+            />
 
             {/* RAIL: Permite hacer click/arrastrar en el borde para colapsar en desktop */}
             <SidebarRail />

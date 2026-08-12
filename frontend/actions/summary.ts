@@ -71,6 +71,9 @@ export async function createSummaryAction(
          documentId: saveResponse.data.documentId,
       };
 
+      revalidatePath("/dashboard");
+      revalidatePath("/dashboard/summaries");
+
       return getSuccessFormState(
          SUMMARY_MESSAGES.SUCCESS.CREATED,
          extendedFields,
