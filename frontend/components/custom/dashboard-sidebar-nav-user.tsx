@@ -26,7 +26,11 @@ interface NavUserProps {
    isSidebarMobile: boolean;
 }
 
-export function NavUser({ user, isSidebarOpen, isSidebarMobile }: NavUserProps) {
+export function NavUser({
+   user,
+   isSidebarOpen,
+   isSidebarMobile,
+}: NavUserProps) {
    const profileImageSrc = getMediaUrl(user.image?.url ?? "");
 
    return (
@@ -67,7 +71,7 @@ export function NavUser({ user, isSidebarOpen, isSidebarMobile }: NavUserProps) 
                   {/* POPUP / DROPDOWN */}
                   <DropdownMenuContent
                      side={isSidebarMobile ? "bottom" : "right"}
-                     align="end"
+                     align={isSidebarMobile ? "start" : "end"}
                      sideOffset={4}
                      className="w-[--radix-dropdown-menu-trigger-width] min-w-56"
                   >
@@ -97,7 +101,7 @@ export function NavUser({ user, isSidebarOpen, isSidebarMobile }: NavUserProps) 
                         </div>
                      </DropdownMenuLabel>
 
-                     <DropdownMenuSeparator className="bg-transparent"/>
+                     <DropdownMenuSeparator className="bg-transparent" />
 
                      {/* CONTENIDO DEL POPUP */}
                      <DropdownMenuGroup>
@@ -112,7 +116,7 @@ export function NavUser({ user, isSidebarOpen, isSidebarMobile }: NavUserProps) 
                         </DropdownMenuItem>
                      </DropdownMenuGroup>
 
-                     <DropdownMenuSeparator className="bg-transparent"/>
+                     <DropdownMenuSeparator className="bg-transparent" />
 
                      {/* FOOTER DEL POPUP (CERRAR SESIÓN) */}
                      <LogoutFormNavUser />
