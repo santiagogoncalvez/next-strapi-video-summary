@@ -64,36 +64,8 @@ export function SummaryUpdateForm({
       <div className={SUMMARY_UPDATE_FORM_STYLES.container}>
          <form action={updateFormAction} className="w-full">
             <Card>
-               <CardHeader className={SUMMARY_UPDATE_FORM_STYLES.header}>
-                  <CardTitle className={SUMMARY_UPDATE_FORM_STYLES.title}>
-                     Editar resumen
-                  </CardTitle>
-
-                  <CardDescription>
-                     Modifica el título o el contenido de tu resumen antes de
-                     guardarlo.
-                  </CardDescription>
-               </CardHeader>
-
                <CardContent className={SUMMARY_UPDATE_FORM_STYLES.content}>
                   <div className={SUMMARY_UPDATE_FORM_STYLES.fieldGroup}>
-                     <Label htmlFor="title">Título</Label>
-
-                     <Input
-                        id="title"
-                        name="title"
-                        defaultValue={
-                           updateFormState.data?.title ?? summary.title
-                        }
-                        placeholder="Título del resumen"
-                     />
-
-                     <FormError error={updateFormState.zodErrors?.title} />
-                  </div>
-
-                  <div className={SUMMARY_UPDATE_FORM_STYLES.fieldGroup}>
-                     <Label>Contenido</Label>
-
                      <input
                         type="hidden"
                         name="content"
@@ -132,7 +104,9 @@ export function SummaryUpdateForm({
                      <FormError error={[updateFormState.message]} />
                   )} */}
                   {updateFormState.strapiErrors && (
-                     <FormError error={[updateFormState.strapiErrors.message]} />
+                     <FormError
+                        error={[updateFormState.strapiErrors.message]}
+                     />
                   )}
                </CardFooter>
             </Card>
