@@ -12,7 +12,8 @@
       "start": "strapi start",
       "strapi": "strapi",
       "upgrade": "npx @strapi/upgrade latest",
-      "upgrade:dry": "npx @strapi/upgrade latest --dry"
+      "upgrade:dry": "npx @strapi/upgrade latest --dry",
+      "seed:summaries": "tsx scripts/seed-summaries.ts"
    },
    "dependencies": {
       "@strapi/plugin-cloud": "5.46.1",
@@ -31,6 +32,7 @@
       "@types/node": "^20",
       "@types/react": "^18",
       "@types/react-dom": "^18",
+      "tsx": "^4.23.12",
       "typescript": "^5"
    },
    "engines": {

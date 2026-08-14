@@ -1,6 +1,5 @@
 import DashboardContent from "@/components/custom/dashboard-content";
 import { loaders } from "@/data/loaders";
-import { getUserMeService } from "@/services/auth";
 import { Params } from "@/types/strapi";
 import { notFound } from "next/navigation";
 
@@ -17,16 +16,14 @@ export default async function Layout({
    if (!documentId) notFound();
 
    const { data: summary } = await loaders.getSummaryByDocumentId(documentId);
-   const user = await getUserMeService();
 
-   const userImage = user?.image;
-   const { title } = summary;
+   const { title, thumbnailUrl } = summary;
 
    return (
       <DashboardContent
          headerTitle={title}
          documentId={documentId}
-         summaryImage={userImage}
+         thumbnailUrl={thumbnailUrl}
       >
          {children}
       </DashboardContent>

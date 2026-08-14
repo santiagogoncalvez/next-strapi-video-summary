@@ -5,6 +5,7 @@ import { Play } from "lucide-react";
 
 interface YouTubePlayerProps {
    videoId: string;
+   thumbnailUrl: string;
 }
 
 const styles = {
@@ -16,11 +17,18 @@ const styles = {
    iframe: "rounded-2xl",
 };
 
-export function YouTubePlayer({ videoId }: YouTubePlayerProps) {
+export function YouTubePlayer({ videoId, thumbnailUrl }: YouTubePlayerProps) {
    const [isLoaded, setIsLoaded] = useState(false);
 
    return (
-      <div className={styles.container}>
+      <div
+         className={styles.container}
+         style={{
+            backgroundImage: !isLoaded ? `url(${thumbnailUrl})` : undefined,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+         }}
+      >
          {!isLoaded && (
             <div className={styles.skeletonWrapper}>
                <Skeleton className={styles.skeleton} />

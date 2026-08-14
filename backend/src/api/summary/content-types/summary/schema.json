@@ -22,6 +22,9 @@
     },
     "userId": {
       "type": "string"
+    },
+    "thumbnailUrl": {
+      "type": "string"
     }
   }
 }

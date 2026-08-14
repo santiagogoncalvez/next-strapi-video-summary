@@ -18,6 +18,7 @@ export default async function SummarySingleRoute({ params }: PageProps) {
 
    const { data: summary } = await loaders.getSummaryByDocumentId(documentId);
    const videoId = extractYouTubeID(summary.videoId);
+   const { thumbnailUrl } = summary;
 
    return (
       <div className="h-fit w-full flex justify-center">
@@ -30,7 +31,7 @@ export default async function SummarySingleRoute({ params }: PageProps) {
             <div className="h-fit">
                <div>
                   {videoId ? (
-                     <YouTubePlayer videoId={videoId} />
+                     <YouTubePlayer videoId={videoId} thumbnailUrl={thumbnailUrl} />
                   ) : (
                      <p>URL de vídeo no válida</p>
                   )}

@@ -9,8 +9,8 @@ import {
    CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-import Image from "next/image";
 import { SUMMARY_GRID_STYLES } from "@/constants/styles";
+import { ThumbnailAvatar } from "./thumbnail-avatar";
 
 export function getSummaryPreview(content: string, maxLength = 180): string {
    return content
@@ -48,13 +48,13 @@ function SummaryCard({ summary }: SummaryCardProps) {
             </CardContent>
 
             <CardFooter className={SUMMARY_GRID_STYLES.footer}>
-               <Image
-                  src="/mock-thumbnail.avif"
-                  alt={"Imagen thumbnail"}
-                  width={1280}
-                  height={720}
-                  className=" aspect-video rounded-sm h-4 w-auto"
-               />
+               {summary.thumbnailUrl !== "" && (
+                  <ThumbnailAvatar
+                     src={summary.thumbnailUrl}
+                     alt={summary.title}
+                     size="xs"
+                  />
+               )}
                <p className="text-xs text-muted-foreground/80">
                   {formatDate(summary.createdAt)}
                </p>

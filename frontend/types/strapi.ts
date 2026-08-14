@@ -91,7 +91,7 @@ export type Summary = {
    createdAt: string;
    updatedAt: string;
    publishedAt: string;
-   thumbnail: SummaryImage;
+   thumbnailUrl: string;
 };
 
 export type AuthUser = {

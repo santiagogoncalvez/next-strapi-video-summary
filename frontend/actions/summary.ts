@@ -62,6 +62,7 @@ export async function createSummaryAction(
          title: transcriptData.title || `Resumen para ${videoId}`,
          content: summary,
          videoId: videoId,
+         thumbnailUrl: transcriptData.thumbnailUrl,
       };
 
       const saveResponse = await services.summary.saveSummaryService(payload);

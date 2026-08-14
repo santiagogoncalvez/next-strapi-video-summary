@@ -8,8 +8,7 @@ import { Check, Eye, Pencil } from "lucide-react";
 import { SummaryDeleteForm } from "../form/delete-summary";
 import { SubmitButton } from "../form/submit-button";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { getMediaUrl } from "./media-image";
-import { UserImage } from "@/types/strapi";
+import { ThumbnailAvatar } from "./thumbnail-avatar";
 
 function getSummaryRoute(pathname: string) {
    if (!/^\/dashboard\/summaries\/[^/]+(?:\/edit)?$/.test(pathname)) {
@@ -23,12 +22,12 @@ export default function DashboardHeader({
    title,
    documentId,
    updateIsPending = false,
-   summaryImage,
+   thumbnailUrl,
 }: {
    title?: string;
    documentId?: string;
    updateIsPending?: boolean;
-   summaryImage?: UserImage;
+   thumbnailUrl?: string;
 }) {
    const pathname = usePathname();
 
@@ -55,27 +54,14 @@ export default function DashboardHeader({
         }
       : null;
 
-   const summaryImageSrc = getMediaUrl(summaryImage?.url ?? "");
-
    return (
       <header className="max-w-full w-full p-4 shadow-none border-b-0 border-sidebar-border/50 flex justify-between items-center gap-4">
          <div className="flex gap-4 items-center min-w-0 flex-1">
             <SidebarTrigger className={cn("size-8 md:hidden flex")} />
 
-            <div className="flex gap-2 items-center justify-center">
-               {summaryRoute && (
-                  <Avatar className="rounded-full" size="sm">
-                     {summaryImage && summaryImageSrc ? (
-                        <AvatarImage
-                           src={summaryImageSrc}
-                           alt={summaryImage.alternativeText || ""}
-                        />
-                     ) : (
-                        <AvatarFallback className="rounded-full">
-                           {title?.slice(0, 2).toUpperCase()}
-                        </AvatarFallback>
-                     )}
-                  </Avatar>
+            <div className="flex gap-2 items-center justify-start min-w-0 flex-1">
+               {summaryRoute && thumbnailUrl && title && (
+                  <ThumbnailAvatar src={thumbnailUrl} alt={title} size="xs" />
                )}
 
                <h1 className="text-normal text-black font-medium whitespace-nowrap overflow-x-auto [scrollbar-none] [&::-webkit-scrollbar]:hidden">
