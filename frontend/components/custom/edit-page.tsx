@@ -27,8 +27,9 @@ export default function EditPage({
          documentId={documentId}
          updateIsPending={isSubmitting}
          thumbnailUrl={thumbnailUrl}
+         className="md:pt-0 pt-0"
       >
-         <div className="h-fit w-full flex justify-center">
+         <div className="h-fit w-full flex justify-center  md:pt-8 pt-4">
             <div className="h-fit w-full flex flex-col gap-8 max-w-2xl">
                <div className="h-full">
                   <SummaryUpdateForm

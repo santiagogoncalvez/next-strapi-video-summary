@@ -11,7 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 const MDXEditorClient = dynamic(() => import("./mdx-editor-client"), {
    ssr: false,
    loading: () => (
-      <div className="h-[350px] max-h-[350px]  rounded-2xl border border-sidebar-border/50 text-light-700_dark300 p-4 overflow-hidden">
+      <div className="h-[350px] max-h-[350px]  rounded-2xl border-0 border-sidebar-border/50 text-light-700_dark300 p-0 ">
          <div className="space-y-3">
             <Skeleton className="h-8 w-full" />
             <Skeleton className="h-4 w-3/4" />

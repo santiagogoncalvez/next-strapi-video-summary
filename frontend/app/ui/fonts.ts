@@ -3,7 +3,7 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 export const inter = Inter({ subsets: ['latin'] });
 
 export const geistSans = Geist({
-    // variable: "--font-geist-sans",
+    variable: "--font-geist-sans",
     subsets: ["latin"],
 });
 

@@ -44,15 +44,16 @@ export default function MDXEditorClient({
    const { resolvedTheme } = useTheme();
    const theme = [basicLight];
    return (
-      <div className="rounded-2xl border border-sidebar-border/50 overflow-hidden h-[350px] max-h-[350px] ">
+      <div className="rounded-2xl border-0 border-sidebar-border/50">
          <div
             className={cn(
-               "h-[350px] max-h-[350px]   background-light500_dark200 text-light-700_dark300 light-border-2 w-full dark-editor markdown-editor overflow-y-auto",
+               "w-full markdown-editor relative",
                props.className,
             )}
          >
             <MDXEditor
                key={resolvedTheme}
+               contentEditableClassName="prose prose-neutral max-w-none relative px-0! py-4!"
                plugins={[
                   headingsPlugin(),
                   listsPlugin(),

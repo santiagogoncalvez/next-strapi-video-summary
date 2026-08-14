@@ -129,3 +129,7 @@
     @apply font-sans;
   }
 }
+
+@theme {
+   --font-geist: var(--font-geist-sans);
+}
