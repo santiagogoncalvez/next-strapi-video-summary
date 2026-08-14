@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 
 import { EditorWrapper } from "@/components/custom/editor/editor-wrapper";
 
@@ -37,6 +37,7 @@ export function SummaryUpdateForm({
    const [content, setContent] = useState(
       updateFormState.data?.content ?? summary.content,
    );
+   const lastTimestamp = useRef<number | null>(null);
 
    useEffect(() => {
       onPendingChange(updateIsPending);
@@ -44,6 +45,10 @@ export function SummaryUpdateForm({
 
    useEffect(() => {
       if (!updateFormState.timestamp) return;
+
+      if (updateFormState.timestamp === lastTimestamp.current) return;
+
+      lastTimestamp.current = updateFormState.timestamp;
 
       if (updateFormState.success) {
          toast.success(updateFormState.message, {
