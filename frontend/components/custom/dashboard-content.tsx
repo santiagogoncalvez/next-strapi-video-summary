@@ -1,6 +1,7 @@
 import DashboardHeader from "@/components/custom/dashboard-header";
 import { cn } from "@/lib/utils";
 import { SidebarTrigger } from "../ui/sidebar";
+import { UserImage } from "@/types/strapi";
 
 interface DashboardContentProps {
    children: React.ReactNode;
@@ -8,6 +9,7 @@ interface DashboardContentProps {
    showHeader?: boolean;
    documentId?: string;
    updateIsPending?: boolean;
+   summaryImage?: UserImage;
 }
 
 export default function DashboardContent({
@@ -15,7 +17,8 @@ export default function DashboardContent({
    headerTitle = "",
    documentId = "",
    showHeader = true,
-   updateIsPending = false
+   updateIsPending = false,
+   summaryImage,
 }: DashboardContentProps) {
    return (
       <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden">
@@ -24,6 +27,7 @@ export default function DashboardContent({
                title={headerTitle}
                documentId={documentId}
                updateIsPending={updateIsPending}
+               summaryImage={summaryImage}
             />
          ) : (
             <SidebarTrigger

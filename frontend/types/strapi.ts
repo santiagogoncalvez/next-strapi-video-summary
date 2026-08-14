@@ -91,6 +91,7 @@ export type Summary = {
    createdAt: string;
    updatedAt: string;
    publishedAt: string;
+   thumbnail: SummaryImage;
 };
 
 export type AuthUser = {
@@ -286,6 +287,9 @@ export type ImageFormat = {
    url: string;
 };
 
+export type UserImage = Image | null;
+export type SummaryImage = Image | null;
+
 export interface User extends AuthUser {
-   image?: Image | null;
+   image?: UserImage;
 }

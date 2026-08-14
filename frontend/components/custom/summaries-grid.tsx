@@ -9,6 +9,8 @@ import {
    CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
+import Image from "next/image";
+import { SUMMARY_GRID_STYLES } from "@/constants/styles";
 
 export function getSummaryPreview(content: string, maxLength = 180): string {
    return content
@@ -21,40 +23,6 @@ export function getSummaryPreview(content: string, maxLength = 180): string {
       .slice(0, maxLength)
       .concat("...");
 }
-
-const SUMMARY_GRID_STYLES = {
-   grid: "grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
-
-   card: cn(
-      "group flex h-full flex-col p-4 border border-border/50",
-      "transition-all duration-200 hover:-translate-y-1 hover:shadow-xs",
-   ),
-
-   header: "",
-
-   title: cn(
-      "line-clamp-2",
-      "text-lg leading-tight",
-      "group-hover:text-primary transition-colors",
-   ),
-
-   content: "flex-1",
-
-   markdown: cn(
-      "prose prose-sm max-w-none",
-      "prose-headings:hidden",
-      "prose-p:text-muted-foreground",
-      "prose-p:leading-relaxed",
-      "prose-p:mb-2",
-      "prose-ul:text-muted-foreground",
-      "prose-ol:text-muted-foreground",
-      "prose-li:mb-1",
-      "[&>*:nth-child(n+3)]:hidden",
-   ),
-
-   footer:
-      "pt-0 pb-4 text-sm font-normal text-primary",
-};
 
 interface SummaryCardProps {
    summary: Summary;
@@ -80,6 +48,13 @@ function SummaryCard({ summary }: SummaryCardProps) {
             </CardContent>
 
             <CardFooter className={SUMMARY_GRID_STYLES.footer}>
+               <Image
+                  src="/mock-thumbnail.avif"
+                  alt={"Imagen thumbnail"}
+                  width={1280}
+                  height={720}
+                  className=" aspect-video rounded-sm h-4 w-auto"
+               />
                <p className="text-xs text-muted-foreground/80">
                   {formatDate(summary.createdAt)}
                </p>

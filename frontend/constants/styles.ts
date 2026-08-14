@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { cva } from "class-variance-authority";
 
 export const BUTTON_VARIANTS = cva(
@@ -188,4 +189,38 @@ export const SUMMARY_UPDATE_FORM_STYLES = {
    submitButton: "w-full",
 
    deleteButton: "",
+};
+
+export const SUMMARY_GRID_STYLES = {
+   grid: "grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
+
+   card: cn(
+      "group flex h-full flex-col p-4 border border-border/50",
+      "transition-all duration-200 hover:-translate-y-1 hover:shadow-xs",
+   ),
+
+   header: "flex flex-row gap-2 items-center",
+
+   title: cn(
+      "line-clamp-2",
+      "text-base leading-tight",
+      "group-hover:text-primary transition-colors",
+   ),
+
+   content: "flex-1",
+
+   markdown: cn(
+      "prose prose-sm max-w-none",
+      "prose-headings:hidden",
+      "prose-p:text-muted-foreground",
+      "prose-p:leading-relaxed",
+      "prose-p:mb-2",
+      "prose-ul:text-muted-foreground",
+      "prose-ol:text-muted-foreground",
+      "prose-li:mb-1",
+      "[&>*:nth-child(n+3)]:hidden",
+   ),
+
+   footer:
+      "pt-0 pb-4 text-sm font-normal text-primary flex flex-row justify-start items-center gap-2",
 };

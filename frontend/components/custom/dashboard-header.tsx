@@ -7,6 +7,9 @@ import { AppLink } from "./custom-link";
 import { Check, Eye, Pencil } from "lucide-react";
 import { SummaryDeleteForm } from "../form/delete-summary";
 import { SubmitButton } from "../form/submit-button";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { getMediaUrl } from "./media-image";
+import { UserImage } from "@/types/strapi";
 
 function getSummaryRoute(pathname: string) {
    if (!/^\/dashboard\/summaries\/[^/]+(?:\/edit)?$/.test(pathname)) {
@@ -20,10 +23,12 @@ export default function DashboardHeader({
    title,
    documentId,
    updateIsPending = false,
+   summaryImage,
 }: {
    title?: string;
    documentId?: string;
    updateIsPending?: boolean;
+   summaryImage?: UserImage;
 }) {
    const pathname = usePathname();
 
@@ -50,13 +55,33 @@ export default function DashboardHeader({
         }
       : null;
 
+   const summaryImageSrc = getMediaUrl(summaryImage?.url ?? "");
+
    return (
       <header className="max-w-full w-full p-4 shadow-none border-b-0 border-sidebar-border/50 flex justify-between items-center gap-4">
          <div className="flex gap-4 items-center min-w-0 flex-1">
             <SidebarTrigger className={cn("size-8 md:hidden flex")} />
-            <h1 className="text-normal text-black font-medium whitespace-nowrap overflow-x-auto [scrollbar-none] [&::-webkit-scrollbar]:hidden">
-               {pageTitle}
-            </h1>
+
+            <div className="flex gap-2 items-center justify-center">
+               {summaryRoute && (
+                  <Avatar className="rounded-full" size="sm">
+                     {summaryImage && summaryImageSrc ? (
+                        <AvatarImage
+                           src={summaryImageSrc}
+                           alt={summaryImage.alternativeText || ""}
+                        />
+                     ) : (
+                        <AvatarFallback className="rounded-full">
+                           {title?.slice(0, 2).toUpperCase()}
+                        </AvatarFallback>
+                     )}
+                  </Avatar>
+               )}
+
+               <h1 className="text-normal text-black font-medium whitespace-nowrap overflow-x-auto [scrollbar-none] [&::-webkit-scrollbar]:hidden">
+                  {pageTitle}
+               </h1>
+            </div>
          </div>
 
          <div className="flex items-center gap-2">
