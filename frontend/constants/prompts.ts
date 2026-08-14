@@ -15,7 +15,7 @@ Before generating the summary, silently clean obvious transcription artifacts wi
 
 Generate the summary using this exact structure:
 
-## Resumen General
+# Resumen General
 
 Write a concise 2–3 sentence explanation of what the video is about and its main purpose.
 
