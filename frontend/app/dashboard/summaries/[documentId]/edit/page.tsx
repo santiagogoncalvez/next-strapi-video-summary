@@ -1,7 +1,7 @@
 import { loaders } from "@/data/loaders";
 import { Params } from "@/types/strapi";
 import { notFound } from "next/navigation";
-import { SummaryUpdateForm } from "@/components/form/update-summary";
+import EditPage from "@/components/custom/edit-page";
 
 interface PageProps {
    params: Params;
@@ -15,13 +15,9 @@ export default async function SummarySingleEditRoute({ params }: PageProps) {
 
    const { data: summary } = await loaders.getSummaryByDocumentId(documentId);
 
+   const { title } = summary;
+
    return (
-      <div className="h-fit w-full flex justify-center">
-         <div className="h-fit w-full flex flex-col gap-8 max-w-2xl">
-            <div className="h-full">
-               <SummaryUpdateForm summary={summary} />
-            </div>
-         </div>
-      </div>
+      <EditPage headerTitle={title} documentId={documentId} summary={summary} />
    );
 }

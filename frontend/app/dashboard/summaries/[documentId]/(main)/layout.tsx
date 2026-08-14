@@ -1,4 +1,4 @@
-import DashboardContent from "@/components/custom/dachboard-content";
+import DashboardContent from "@/components/custom/dashboard-content";
 import { loaders } from "@/data/loaders";
 import { Params } from "@/types/strapi";
 import { notFound } from "next/navigation";

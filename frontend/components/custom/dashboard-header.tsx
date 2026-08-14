@@ -4,8 +4,9 @@ import { usePathname } from "next/navigation";
 import { SidebarTrigger } from "../ui/sidebar";
 import { cn } from "@/lib/utils";
 import { AppLink } from "./custom-link";
-import { Eye, Pencil } from "lucide-react";
+import { Check, Eye, Pencil } from "lucide-react";
 import { SummaryDeleteForm } from "../form/delete-summary";
+import { SubmitButton } from "../form/submit-button";
 
 function getSummaryRoute(pathname: string) {
    if (!/^\/dashboard\/summaries\/[^/]+(?:\/edit)?$/.test(pathname)) {
@@ -18,9 +19,11 @@ function getSummaryRoute(pathname: string) {
 export default function DashboardHeader({
    title,
    documentId,
+   updateIsPending = false,
 }: {
    title?: string;
    documentId?: string;
+   updateIsPending?: boolean;
 }) {
    const pathname = usePathname();
 
@@ -75,12 +78,33 @@ export default function DashboardHeader({
                      href={summaryAction.href}
                      variant="outline"
                      size="icon"
-                     className="md:hidden flex "
+                     className="md:hidden flex"
                   >
                      <summaryAction.icon />
                   </AppLink>
 
-                  
+                  {summaryRoute === "edit" && (
+                     <>
+                        <SubmitButton
+                           form="summary-update-form"
+                           text="Guardar"
+                           loadingText="Guardando"
+                           loading={updateIsPending}
+                           size="default"
+                           className="md:flex hidden"
+                           icon={<Check />}
+                        />
+                        <SubmitButton
+                           form="summary-update-form"
+                           text=""
+                           loadingText=""
+                           loading={updateIsPending}
+                           size="icon"
+                           className="md:hidden flex"
+                           icon={<Check />}
+                        />
+                     </>
+                  )}
                </>
             )}
             {!summaryAction && <div className="size-8 opacity-0" />}

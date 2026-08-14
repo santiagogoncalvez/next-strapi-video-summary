@@ -1,45 +1,49 @@
 "use client";
+
 import { useFormStatus } from "react-dom";
 import { cn } from "@/lib/utils";
 import { Button, BUTTON_VARIANTS } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { VariantProps } from "class-variance-authority";
-
-function Loader({ text }: { readonly text: string }) {
-   return (
-      <div className="flex items-center justify-center gap-2">
-         <Loader2 className="size-4 animate-spin" />
-         <p>{text}</p>
-      </div>
-   );
-}
+import { ReactNode } from "react";
 
 interface ButtonProps {
    text: string;
    loadingText: string;
+   icon?: ReactNode;
    className?: string;
    loading?: boolean;
    disabled?: boolean;
+   form?: string;
 }
 
 export function SubmitButton({
    text,
    loadingText,
+   icon,
    loading,
    className,
    disabled,
-   size = "lg"
+   size = "lg",
+   form,
 }: ButtonProps & VariantProps<typeof BUTTON_VARIANTS>) {
    const status = useFormStatus();
+   const isPending = status.pending || loading;
+
    return (
       <Button
+         form={form || undefined}
          type="submit"
-         aria-disabled={status.pending || loading}
-         disabled={status.pending || loading || disabled}
+         aria-disabled={isPending}
+         disabled={isPending || disabled}
          size={size}
          className={cn(className)}
       >
-         {status.pending || loading ? <Loader text={loadingText} /> : text}
+         <span className="flex items-center justify-center gap-2">
+            {isPending ? <Loader2 className="size-4 animate-spin" /> : icon}
+
+            {isPending ? loadingText : text}
+         </span>
       </Button>
    );
 }

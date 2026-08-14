@@ -1,4 +1,4 @@
-import DashboardContent from "@/components/custom/dachboard-content";
+import DashboardContent from "@/components/custom/dashboard-content";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
    return <DashboardContent showHeader={false}>{children}</DashboardContent>;

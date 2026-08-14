@@ -26,10 +26,10 @@ export type SummaryFormValues = z.infer<typeof SummarySchema>;
 
 
 export const SummaryUpdateFormSchema = z.object({
-   title: z
-      .string()
-      .min(1, SUMMARY_VALIDATION_MESSAGES.TITLE.REQUIRED)
-      .max(200, SUMMARY_VALIDATION_MESSAGES.TITLE.MAX(200)),
+   // title: z
+   //    .string()
+   //    .min(1, SUMMARY_VALIDATION_MESSAGES.TITLE.REQUIRED)
+   //    .max(200, SUMMARY_VALIDATION_MESSAGES.TITLE.MAX(200)),
    content: z
       .string()
       .min(10, SUMMARY_VALIDATION_MESSAGES.CONTENT.MIN(10))

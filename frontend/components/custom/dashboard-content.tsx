@@ -7,6 +7,7 @@ interface DashboardContentProps {
    headerTitle?: string;
    showHeader?: boolean;
    documentId?: string;
+   updateIsPending?: boolean;
 }
 
 export default function DashboardContent({
@@ -14,11 +15,16 @@ export default function DashboardContent({
    headerTitle = "",
    documentId = "",
    showHeader = true,
+   updateIsPending = false
 }: DashboardContentProps) {
    return (
       <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden">
          {showHeader ? (
-            <DashboardHeader title={headerTitle} documentId={documentId} />
+            <DashboardHeader
+               title={headerTitle}
+               documentId={documentId}
+               updateIsPending={updateIsPending}
+            />
          ) : (
             <SidebarTrigger
                className={cn("md:hidden flex size-8 absolute left-4 top-4")}

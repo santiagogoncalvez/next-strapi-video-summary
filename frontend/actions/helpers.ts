@@ -50,6 +50,7 @@ export function getValidationErrorState(
       message: COMMON_MESSAGES.ERROR.VALIDATION,
       strapiErrors: null,
       zodErrors: z.flattenError(error).fieldErrors,
+      timestamp: Date.now(),
       data,
    };
 }

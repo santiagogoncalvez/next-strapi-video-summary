@@ -4,11 +4,7 @@ import { useActionState, useEffect, useState } from "react";
 
 import { EditorWrapper } from "@/components/custom/editor/editor-wrapper";
 
-import {
-   Card,
-   CardContent,
-   CardFooter,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 import { FormError } from "@/components/form/form-error";
 
@@ -17,10 +13,10 @@ import { SUMMARY_UPDATE_FORM_STYLES } from "@/constants/styles";
 import { actions } from "@/actions";
 import { FormState } from "@/types/definitions";
 import { toast } from "sonner";
-import { SummaryDeleteForm } from "./delete-summary";
 
 interface SummaryUpdateFormProps {
    summary: Summary;
+   onPendingChange: (pending: boolean) => void;
 }
 
 const INITIAL_STATE: FormState = {
@@ -32,8 +28,9 @@ const INITIAL_STATE: FormState = {
 
 export function SummaryUpdateForm({
    summary,
+   onPendingChange,
 }: Readonly<SummaryUpdateFormProps>) {
-   const [updateFormState, updateFormAction] = useActionState(
+   const [updateFormState, updateFormAction, updateIsPending] = useActionState(
       actions.summarize.updateSummaryAction,
       INITIAL_STATE,
    );
@@ -42,8 +39,23 @@ export function SummaryUpdateForm({
    );
 
    useEffect(() => {
+      onPendingChange(updateIsPending);
+   }, [updateIsPending, onPendingChange]);
+
+   useEffect(() => {
+      if (!updateFormState.timestamp) return;
+
       if (updateFormState.success) {
          toast.success(updateFormState.message, {
+            position: "top-center",
+            duration: 3000,
+         });
+
+         return;
+      }
+
+      if (updateFormState.message) {
+         toast.error(updateFormState.message, {
             position: "top-center",
             duration: 3000,
          });
@@ -89,14 +101,6 @@ export function SummaryUpdateForm({
                      value={summary.documentId}
                   />
                </CardContent>
-
-               <CardFooter className={SUMMARY_UPDATE_FORM_STYLES.footer}>
-                  {updateFormState.strapiErrors && (
-                     <FormError
-                        error={[updateFormState.strapiErrors.message]}
-                     />
-                  )}
-               </CardFooter>
             </Card>
          </form>
       </div>

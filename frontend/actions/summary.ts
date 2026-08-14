@@ -92,7 +92,7 @@ export async function updateSummaryAction(
    formData: FormData,
 ): Promise<FormState> {
    const fields = {
-      title: formData.get("title") as string,
+      // title: formData.get("title") as string,
       content: formData.get("content") as string,
       documentId: formData.get("documentId") as string,
    };
