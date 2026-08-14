@@ -143,7 +143,7 @@ export function DashboardSidebar({
                               <SidebarMenuItem key={summary.documentId}>
                                  <SidebarMenuButton
                                     asChild
-                                    isActive={href === pathname}
+                                    isActive={pathname.includes(href)}
                                  >
                                     <Link href={href}>
                                        <span>{summary.title}</span>

@@ -18,5 +18,9 @@ export default async function Layout({
    const { data: summary } = await loaders.getSummaryByDocumentId(documentId);
    const { title } = summary;
 
-   return <DashboardContent headerTitle={title}>{children}</DashboardContent>;
+   return (
+      <DashboardContent headerTitle={title} documentId={documentId}>
+         {children}
+      </DashboardContent>
+   );
 }

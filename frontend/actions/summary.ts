@@ -145,6 +145,12 @@ export async function deleteSummaryAction(
       );
 
       // If we get here, deletion was successful
+
+      // Redirect after successful deletion (outside try/catch)
+      return getSuccessFormState(
+         SUMMARY_MESSAGES.SUCCESS.DELETED,
+         validatedFields.data,
+      );
    } catch (error) {
       if (isRedirectError(error)) {
          throw error;
@@ -152,10 +158,4 @@ export async function deleteSummaryAction(
 
       return handleActionError(error, fields);
    }
-
-   // Redirect after successful deletion (outside try/catch)
-   return getSuccessFormState(
-      SUMMARY_MESSAGES.SUCCESS.DELETED,
-      validatedFields.data,
-   );
 }

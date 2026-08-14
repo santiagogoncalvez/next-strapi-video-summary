@@ -7,15 +7,9 @@ import { EditorWrapper } from "@/components/custom/editor/editor-wrapper";
 import {
    Card,
    CardContent,
-   CardDescription,
    CardFooter,
-   CardHeader,
-   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
-import { SubmitButton } from "@/components/form/submit-button";
 import { FormError } from "@/components/form/form-error";
 
 import { Summary } from "@/types/strapi";
@@ -39,7 +33,7 @@ const INITIAL_STATE: FormState = {
 export function SummaryUpdateForm({
    summary,
 }: Readonly<SummaryUpdateFormProps>) {
-   const [updateFormState, updateFormAction, updateIsPending] = useActionState(
+   const [updateFormState, updateFormAction] = useActionState(
       actions.summarize.updateSummaryAction,
       INITIAL_STATE,
    );
@@ -62,7 +56,11 @@ export function SummaryUpdateForm({
 
    return (
       <div className={SUMMARY_UPDATE_FORM_STYLES.container}>
-         <form action={updateFormAction} className="w-full">
+         <form
+            id="summary-update-form"
+            action={updateFormAction}
+            className="w-full"
+         >
             <Card>
                <CardContent className={SUMMARY_UPDATE_FORM_STYLES.content}>
                   <div className={SUMMARY_UPDATE_FORM_STYLES.fieldGroup}>
@@ -93,16 +91,6 @@ export function SummaryUpdateForm({
                </CardContent>
 
                <CardFooter className={SUMMARY_UPDATE_FORM_STYLES.footer}>
-                  <SubmitButton
-                     className={SUMMARY_UPDATE_FORM_STYLES.submitButton}
-                     text="Guardar cambios"
-                     loadingText="Guardando cambios"
-                     loading={updateIsPending}
-                  />
-
-                  {/* {!updateFormState.success && updateFormState.message && (
-                     <FormError error={[updateFormState.message]} />
-                  )} */}
                   {updateFormState.strapiErrors && (
                      <FormError
                         error={[updateFormState.strapiErrors.message]}
@@ -111,8 +99,6 @@ export function SummaryUpdateForm({
                </CardFooter>
             </Card>
          </form>
-
-         <SummaryDeleteForm summaryId={summary.documentId} />
       </div>
    );
 }

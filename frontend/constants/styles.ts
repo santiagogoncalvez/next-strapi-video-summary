@@ -187,5 +187,5 @@ export const SUMMARY_UPDATE_FORM_STYLES = {
 
    submitButton: "w-full",
 
-   deleteButton: "w-full",
+   deleteButton: "",
 };

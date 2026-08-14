@@ -4,7 +4,7 @@ import { useActionState, useEffect } from "react";
 
 import { DeleteButton } from "@/components/custom/delete-button";
 
-import { FormError } from "@/components/form/form-error";
+// import { FormError } from "@/components/form/form-error";
 
 import { SUMMARY_UPDATE_FORM_STYLES } from "@/constants/styles";
 import { actions } from "@/actions";
@@ -34,6 +34,8 @@ export function SummaryDeleteForm({
    );
 
    useEffect(() => {
+      if (!deleteFormState.timestamp) return;
+
       if (deleteFormState.success) {
          toast.success(deleteFormState.message, {
             position: "top-center",
@@ -41,27 +43,28 @@ export function SummaryDeleteForm({
          });
 
          router.push("/dashboard/summaries");
+         router.refresh();
+
+         return;
       }
-   }, [
-      deleteFormState.success,
-      deleteFormState.message,
-      deleteFormState.timestamp,
-      router,
-   ]);
+
+      if (deleteFormState.message) {
+         toast.error(deleteFormState.message, {
+            position: "top-center",
+            duration: 3000,
+         });
+      }
+   }, [deleteFormState, router]);
 
    return (
-      <div className={SUMMARY_UPDATE_FORM_STYLES.container}>
-         <form action={deleteFormAction} className="min-w-full">
+      <div>
+         <form action={deleteFormAction} className="">
             <input type="hidden" name="documentId" value={summaryId} />
 
             <DeleteButton
                className={SUMMARY_UPDATE_FORM_STYLES.deleteButton}
                loading={deleteIsPending}
             />
-
-            {!deleteFormState.success && deleteFormState.message && (
-               <FormError error={[deleteFormState.message]} />
-            )}
          </form>
       </div>
    );

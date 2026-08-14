@@ -15,6 +15,7 @@ export function handleActionError(
          message: error.error?.message,
          strapiErrors: error.error,
          zodErrors: null,
+         timestamp: Date.now(),
          data,
       };
    }
@@ -25,6 +26,7 @@ export function handleActionError(
          message: error.message,
          strapiErrors: null,
          zodErrors: null,
+         timestamp: Date.now(),
          data,
       };
    }
@@ -34,6 +36,7 @@ export function handleActionError(
       message: COMMON_MESSAGES.ERROR.UNKNOWN,
       strapiErrors: null,
       zodErrors: null,
+      timestamp: Date.now(),
       data,
    };
 }
