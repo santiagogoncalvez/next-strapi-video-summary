@@ -60,23 +60,27 @@ export default function DashboardHeader({
             {summaryAction && documentId && (
                <>
                   <SummaryDeleteForm summaryId={documentId} />
+
                   <AppLink
                      href={summaryAction.href}
                      variant="outline"
                      size="default"
+                     className="md:flex hidden"
                   >
                      <summaryAction.icon />
+
                      {summaryAction.label}
                   </AppLink>
-                  {/* {summaryRoute === "edit" && (
-                     <AppLink
-                        href={summaryAction.href}
-                        variant="default"
-                        size="default"
-                     >
-                        Guardar
-                     </AppLink>
-                  )} */}
+                  <AppLink
+                     href={summaryAction.href}
+                     variant="outline"
+                     size="icon"
+                     className="md:hidden flex "
+                  >
+                     <summaryAction.icon />
+                  </AppLink>
+
+                  
                </>
             )}
             {!summaryAction && <div className="size-8 opacity-0" />}
