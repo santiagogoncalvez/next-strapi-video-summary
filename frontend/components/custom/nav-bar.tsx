@@ -15,12 +15,12 @@ export default function NavBar({ link, secondaryLink, isHero = false }: Props) {
       >
          <AppLink
             href={secondaryLink.href}
-            isHero={isHero}
             variant="outline"
+            className={isHero ? "text-base px-4 py-6" : ""}
          >
             {secondaryLink.label}
          </AppLink>
-         <AppLink href={link.href} isHero={isHero}>
+         <AppLink href={link.href} className={isHero ? "text-base px-4 py-6" : ""}>
             {link.label}
          </AppLink>
       </nav>
