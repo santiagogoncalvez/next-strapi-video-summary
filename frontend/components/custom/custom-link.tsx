@@ -4,13 +4,12 @@ import { BUTTON_VARIANTS } from "@/constants/styles";
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 
-const baseStyles = "text-sm font-medium";
-const heroStyles = "text-base font-medium px-4 py-6";
+// const baseStyles = "text-sm font-medium";
+// const heroStyles = "text-base font-medium px-4 py-6";
 
 type CustomLinkProps = {
    href: string;
    children?: ReactNode;
-   isHero?: boolean;
    className?: string;
 } & VariantProps<typeof BUTTON_VARIANTS>;
 
@@ -19,21 +18,18 @@ export function AppLink({
    children,
    variant = "default",
    size = "lg",
-   isHero = false,
    className,
+   ...props
 }: CustomLinkProps) {
    return (
       <Link
          href={href}
-         className={cn(
-            BUTTON_VARIANTS({
-               variant,
-               size,
-               className: cn(isHero ? heroStyles : baseStyles, className),
-            }),
-         )}
+         data-variant={variant}
+         data-size={size}
+         className={cn(BUTTON_VARIANTS({ variant, size, className }))}
+         {...props}
       >
-         <div className="flex items-center gap-2">{children}</div>
+         {children}
       </Link>
    );
 }

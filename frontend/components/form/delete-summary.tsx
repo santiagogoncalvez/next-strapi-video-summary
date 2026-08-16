@@ -2,18 +2,18 @@
 
 import { useActionState, useEffect } from "react";
 
-import { DeleteButton } from "@/components/custom/delete-button";
-
-// import { FormError } from "@/components/form/form-error";
-
 import { SUMMARY_UPDATE_FORM_STYLES } from "@/constants/styles";
 import { actions } from "@/actions";
 import { FormState } from "@/types/definitions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { SubmitButton } from "./submit-button";
+import { Trash } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface SummaryDeleteFormProps {
    summaryId: string;
+   className?: string;
 }
 
 const INITIAL_STATE: FormState = {
@@ -25,6 +25,7 @@ const INITIAL_STATE: FormState = {
 
 export function SummaryDeleteForm({
    summaryId,
+   className,
 }: Readonly<SummaryDeleteFormProps>) {
    const router = useRouter();
 
@@ -57,15 +58,18 @@ export function SummaryDeleteForm({
    }, [deleteFormState, router]);
 
    return (
-      <div>
-         <form action={deleteFormAction} className="">
-            <input type="hidden" name="documentId" value={summaryId} />
+      <form action={deleteFormAction}>
+         <input type="hidden" name="documentId" value={summaryId} />
 
-            <DeleteButton
-               className={SUMMARY_UPDATE_FORM_STYLES.deleteButton}
-               loading={deleteIsPending}
-            />
-         </form>
-      </div>
+         <SubmitButton
+            className={cn(SUMMARY_UPDATE_FORM_STYLES.deleteButton, className)}
+            text="Eliminar"
+            loadingText="Eliminando"
+            loading={deleteIsPending}
+            size="default"
+            variant="ghost"
+            icon={<Trash />}
+         ></SubmitButton>
+      </form>
    );
 }

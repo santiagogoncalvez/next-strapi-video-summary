@@ -9,6 +9,7 @@ import {
 import {
    SummaryDeleteFormSchema,
    SummarySchema,
+   SummaryTitleUpdateFormSchema,
    SummaryUpdateFormSchema,
 } from "@/validations/summary";
 import { services } from "@/services";
@@ -115,6 +116,43 @@ export async function updateSummaryAction(
 
       return getSuccessFormState(
          SUMMARY_MESSAGES.SUCCESS.UPDATED,
+         validatedFields.data,
+      );
+   } catch (error) {
+      if (isRedirectError(error)) {
+         throw error;
+      }
+
+      return handleActionError(error, fields);
+   }
+}
+
+export async function updateSummaryTitleAction(
+   _prevState: FormState,
+   formData: FormData,
+): Promise<FormState> {
+   const fields = {
+      title: formData.get("title") as string,
+      documentId: formData.get("documentId") as string,
+   };
+
+   const validatedFields = SummaryTitleUpdateFormSchema.safeParse(fields);
+
+   if (!validatedFields.success) {
+      return getValidationErrorState(validatedFields.error, fields);
+   }
+
+   const { documentId, ...updateData } = validatedFields.data;
+
+   try {
+      await services.summary.updateSummaryService(documentId, updateData);
+
+      // Revalidate the current page and summaries list to show updated data
+      revalidatePath(`/dashboard/summaries/${documentId}`);
+      revalidatePath("/dashboard/summaries");
+
+      return getSuccessFormState(
+         SUMMARY_MESSAGES.SUCCESS.UPDATED_TITLE,
          validatedFields.data,
       );
    } catch (error) {

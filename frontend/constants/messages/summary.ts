@@ -3,6 +3,7 @@ export const SUMMARY_MESSAGES = {
       CREATED: "Resumen generado correctamente.",
       UPDATED: "Resumen actualizado correctamente.",
       DELETED: "Resumen eliminado correctamente.",
+      UPDATED_TITLE: "Título actualizado correctamente.",
    },
 
    loading: {

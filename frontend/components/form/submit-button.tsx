@@ -26,7 +26,9 @@ export function SubmitButton({
    disabled,
    size = "lg",
    form,
-}: ButtonProps & VariantProps<typeof BUTTON_VARIANTS>) {
+   variant = "default",
+   ...props
+}: ButtonProps & React.ComponentProps<"button"> & VariantProps<typeof BUTTON_VARIANTS>) {
    const status = useFormStatus();
    const isPending = status.pending || loading;
 
@@ -38,12 +40,12 @@ export function SubmitButton({
          disabled={isPending || disabled}
          size={size}
          className={cn(className)}
+         variant={variant}
+         {...props}
       >
-         <span className="flex items-center justify-center gap-2">
-            {isPending ? <Loader2 className="size-4 animate-spin" /> : icon}
+         {isPending ? <Loader2 className="size-4 animate-spin" /> : icon}
 
-            {isPending ? loadingText : text}
-         </span>
+         {isPending ? loadingText : text}
       </Button>
    );
 }

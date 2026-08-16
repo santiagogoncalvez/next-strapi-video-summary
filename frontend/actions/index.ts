@@ -12,6 +12,7 @@ import {
    createSummaryAction,
    deleteSummaryAction,
    updateSummaryAction,
+   updateSummaryTitleAction,
 } from "./summary";
 
 export const actions = {
@@ -32,5 +33,6 @@ export const actions = {
       createSummaryAction,
       updateSummaryAction,
       deleteSummaryAction,
+      updateSummaryTitleAction,
    },
 };

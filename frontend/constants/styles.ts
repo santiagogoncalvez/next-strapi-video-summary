@@ -188,7 +188,7 @@ export const SUMMARY_UPDATE_FORM_STYLES = {
 
    submitButton: "w-full",
 
-   deleteButton: "",
+   deleteButton: "font-normal w-full justify-start",
 };
 
 export const SUMMARY_GRID_STYLES = {

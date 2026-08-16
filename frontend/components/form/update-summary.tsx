@@ -88,6 +88,8 @@ export function SummaryUpdateForm({
                         readOnly
                      />
 
+                     <FormError error={updateFormState.zodErrors?.content} />
+
                      <EditorWrapper
                         key={summary.documentId}
                         markdown={
@@ -96,8 +98,6 @@ export function SummaryUpdateForm({
                         onChange={setContent}
                         className={SUMMARY_UPDATE_FORM_STYLES.editor}
                      />
-
-                     <FormError error={updateFormState.zodErrors?.content} />
                   </div>
 
                   <input

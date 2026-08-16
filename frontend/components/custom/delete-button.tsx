@@ -30,14 +30,14 @@ export function DeleteButton({
          type="submit"
          aria-disabled={status.pending || loading}
          disabled={status.pending || loading || disabled}
-         size="icon"
          variant="ghost"
+         size="default"
          className={cn(className)}
       >
          {status.pending || loading ? (
             <Loader />
          ) : (
-            <TrashIcon className="w-4 h-4" />
+            <TrashIcon />
          )}
       </Button>
    );
