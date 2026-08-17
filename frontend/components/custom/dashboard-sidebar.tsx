@@ -1,6 +1,6 @@
 "use client";
 
-import { SquarePen, FileText, LucideIcon, ArrowRight } from "lucide-react";
+import { SquarePen, FileText, LucideIcon } from "lucide-react";
 import {
    Sidebar,
    SidebarContent,
