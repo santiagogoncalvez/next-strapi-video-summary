@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { Input } from "../ui/input";
 import { SubmitButton } from "./submit-button";
 import { cn } from "@/lib/utils";
+import { getFormErrorMessage } from "@/actions/helpers";
 
 interface SummaryTitleFormProps {
    title?: string;
@@ -45,28 +46,26 @@ export function SummaryTitleForm({
       lastTimestamp.current = updateTitleFormState.timestamp;
 
       if (updateTitleFormState.success) {
-         toast.success(updateTitleFormState.message, {
-            position: "top-center",
-            duration: 3000,
-         });
-
-         onFinishEditing();
+         if (updateTitleFormState.message) {
+            toast.success(updateTitleFormState.message, {
+               position: "top-center",
+               duration: 3000,
+            });
+            onFinishEditing();
+         }
 
          return;
       }
 
-      if (updateTitleFormState.message) {
-         toast.error(updateTitleFormState.message, {
+      const errorMessage = getFormErrorMessage(updateTitleFormState);
+
+      if (errorMessage) {
+         toast.error(errorMessage, {
             position: "top-center",
             duration: 3000,
          });
       }
-   }, [
-      updateTitleFormState.success,
-      updateTitleFormState.message,
-      updateTitleFormState.timestamp,
-      onFinishEditing,
-   ]);
+   }, [updateTitleFormState, onFinishEditing]);
 
    function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
       if (event.key === "Escape") {
