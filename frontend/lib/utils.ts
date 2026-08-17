@@ -95,3 +95,32 @@ export function extractTranscript(text: string): TranscriptSegment[] {
 export function throwError(message = "An unexpected error occurred"): never {
    throw new Error(message);
 }
+
+export function getTranslation(
+   translations: Record<string, unknown>,
+   key: string,
+   defaultValue?: string,
+   interpolations?: Record<string, unknown>,
+): string {
+   const value = key
+      .split(".")
+      .reduce<unknown>(
+         (current, part) =>
+            typeof current === "object" && current !== null && part in current
+               ? (current as Record<string, unknown>)[part]
+               : undefined,
+         translations,
+      );
+
+   if (typeof value !== "string") {
+      return defaultValue ?? key;
+   }
+
+   if (!interpolations) {
+      return value;
+   }
+
+   return value.replace(/\{\{(\w+)\}\}/g, (_, name) =>
+      String(interpolations[name] ?? `{{${name}}}`),
+   );
+}

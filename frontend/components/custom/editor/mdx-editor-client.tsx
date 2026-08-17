@@ -2,7 +2,7 @@
 // Note: this is build based on this library: https://mdxeditor.dev/editor/demo
 import "@mdxeditor/editor/style.css";
 import "./editor.css";
-import { cn } from "@/lib/utils";
+import { cn, getTranslation } from "@/lib/utils";
 
 import {
    headingsPlugin,
@@ -37,6 +37,8 @@ import {
 import { basicLight } from "cm6-theme-basic-light";
 import { useTheme } from "next-themes";
 import type { ForwardedRef } from "react";
+import esES from "./translations/es-es.json";
+
 export default function MDXEditorClient({
    editorRef,
    ...props
@@ -46,14 +48,14 @@ export default function MDXEditorClient({
    return (
       <div className="rounded-2xl border-0 border-sidebar-border/50">
          <div
-            className={cn(
-               "w-full markdown-editor relative",
-               props.className,
-            )}
+            className={cn("w-full markdown-editor relative", props.className)}
          >
             <MDXEditor
                key={resolvedTheme}
                contentEditableClassName="prose prose-neutral max-w-none relative px-0! py-4!"
+               translation={(key, defaultValue, interpolations) =>
+                  getTranslation(esES, key, defaultValue, interpolations)
+               }
                plugins={[
                   headingsPlugin(),
                   listsPlugin(),
