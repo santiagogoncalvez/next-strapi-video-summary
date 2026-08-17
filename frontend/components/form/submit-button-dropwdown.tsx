@@ -34,7 +34,12 @@ export function SubmitButtonDropdown({
    const isPending = status.pending || loading;
 
    return (
-      <DropdownMenuItem asChild>
+      <DropdownMenuItem
+         onSelect={(event) => {
+            event.preventDefault();
+         }}
+         asChild
+      >
          <button
             form={form || undefined}
             type="submit"
