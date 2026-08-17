@@ -3,7 +3,14 @@
 import { usePathname } from "next/navigation";
 import { SidebarTrigger } from "../ui/sidebar";
 import { cn } from "@/lib/utils";
-import { Check, Eye, MoreHorizontal, Pencil, PencilLine } from "lucide-react";
+import {
+   Check,
+   Copy,
+   Eye,
+   MoreHorizontal,
+   Pencil,
+   PencilLine,
+} from "lucide-react";
 import { SubmitButton } from "../form/submit-button";
 import { ThumbnailAvatar } from "./thumbnail-avatar";
 import {
@@ -18,6 +25,7 @@ import { SummaryDeleteForm } from "../form/delete-summary";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { SummaryTitleForm } from "../form/edit-summary-title";
+import { toast } from "sonner";
 
 function getSummaryRoute(pathname: string) {
    if (!/^\/dashboard\/summaries\/[^/]+(?:\/edit)?$/.test(pathname)) {
@@ -30,11 +38,13 @@ function getSummaryRoute(pathname: string) {
 export default function DashboardHeader({
    title,
    documentId,
+   summaryContent,
    updateIsPending = false,
    thumbnailUrl,
 }: {
    title?: string;
    documentId?: string;
+   summaryContent?: string;
    updateIsPending?: boolean;
    thumbnailUrl?: string;
 }) {
@@ -69,6 +79,26 @@ export default function DashboardHeader({
 
    const titleInputRef = useRef<HTMLInputElement>(null);
    const shouldFocusTitleInput = useRef(false);
+
+   async function handleCopySummary() {
+      const content =
+         summaryRoute === "edit"
+            ? (
+                 document.getElementById(
+                    "summary-content",
+                 ) as HTMLInputElement | null
+              )?.value
+            : summaryContent;
+
+      if (!content) return;
+
+      await navigator.clipboard.writeText(content);
+
+      toast.success("Resumen copiado", {
+         position: "top-center",
+         duration: 3000,
+      });
+   }
 
    useEffect(() => {
       if (isEditingTitle) {
@@ -166,6 +196,16 @@ export default function DashboardHeader({
                               </Link>
                            </DropdownMenuItem>
                         )}
+
+                        <DropdownMenuItem
+                           onSelect={() => {
+                              void handleCopySummary();
+                           }}
+                           className="hover:cursor-pointer"
+                        >
+                           <Copy />
+                           Copiar resumen
+                        </DropdownMenuItem>
 
                         <DropdownMenuItem
                            onSelect={() => {

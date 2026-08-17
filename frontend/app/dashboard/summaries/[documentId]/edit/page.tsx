@@ -15,12 +15,13 @@ export default async function SummarySingleEditRoute({ params }: PageProps) {
 
    const { data: summary } = await loaders.getSummaryByDocumentId(documentId);
    
-   const { title, thumbnailUrl } = summary;
+   const { title, thumbnailUrl, content } = summary;
 
    return (
       <EditPage
          headerTitle={title}
          documentId={documentId}
+         summaryContent={content}
          summary={summary}
          thumbnailUrl={thumbnailUrl}
       />

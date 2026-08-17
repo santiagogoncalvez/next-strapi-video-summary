@@ -83,6 +83,7 @@ export function SummaryUpdateForm({
                <CardContent className={SUMMARY_UPDATE_FORM_STYLES.content}>
                   <div className={SUMMARY_UPDATE_FORM_STYLES.fieldGroup}>
                      <input
+                        id="summary-content"
                         type="hidden"
                         name="content"
                         value={content}

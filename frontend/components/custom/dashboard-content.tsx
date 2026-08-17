@@ -7,6 +7,7 @@ interface DashboardContentProps {
    headerTitle?: string;
    showHeader?: boolean;
    documentId?: string;
+   summaryContent?: string;
    updateIsPending?: boolean;
    thumbnailUrl?: string;
    className?: string;
@@ -16,10 +17,11 @@ export default function DashboardContent({
    children,
    headerTitle = "",
    documentId = "",
+   summaryContent = "",
    showHeader = true,
    updateIsPending = false,
    thumbnailUrl,
-   className
+   className,
 }: DashboardContentProps) {
    return (
       <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden">
@@ -27,6 +29,7 @@ export default function DashboardContent({
             <DashboardHeader
                title={headerTitle}
                documentId={documentId}
+               summaryContent={summaryContent}
                updateIsPending={updateIsPending}
                thumbnailUrl={thumbnailUrl}
             />
@@ -36,7 +39,12 @@ export default function DashboardContent({
             />
          )}
 
-         <main className={cn("flex-1 overflow-y-auto px-4 md:py-8 py-4 md:px-4", className)}>
+         <main
+            className={cn(
+               "flex-1 overflow-y-auto px-4 md:py-8 py-4 md:px-4",
+               className,
+            )}
+         >
             {children}
          </main>
       </div>

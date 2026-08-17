@@ -17,13 +17,14 @@ export default async function Layout({
 
    const { data: summary } = await loaders.getSummaryByDocumentId(documentId);
 
-   const { title, thumbnailUrl } = summary;
+   const { title, thumbnailUrl, content } = summary;
 
    return (
       <DashboardContent
          headerTitle={title}
          documentId={documentId}
          thumbnailUrl={thumbnailUrl}
+         summaryContent={content}
       >
          {children}
       </DashboardContent>

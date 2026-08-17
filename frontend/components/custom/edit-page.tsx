@@ -8,6 +8,7 @@ import { useState } from "react";
 interface PageProps {
    headerTitle?: string;
    documentId?: string;
+   summaryContent?: string;
    summary: Summary;
    thumbnailUrl?: string;
 }
@@ -15,6 +16,7 @@ interface PageProps {
 export default function EditPage({
    headerTitle = "",
    documentId = "",
+   summaryContent = "",
    summary,
    thumbnailUrl,
 }: PageProps) {
@@ -25,6 +27,7 @@ export default function EditPage({
       <DashboardContent
          headerTitle={headerTitle}
          documentId={documentId}
+         summaryContent={summaryContent}
          updateIsPending={isSubmitting}
          thumbnailUrl={thumbnailUrl}
          className="md:pt-0 pt-0"
