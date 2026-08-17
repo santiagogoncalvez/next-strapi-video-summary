@@ -128,42 +128,35 @@ export function DashboardSidebar({
                   </SidebarGroup>
                ))}
 
-               <SidebarGroup className={`${open ? "" : "py-0"}`}>
-                  <SidebarGroupLabel
-                     className={`${open ? "" : "select-none pointer-events-none"}`}
-                  >
-                     Recientes
-                  </SidebarGroupLabel>
+               {recentSummaries.length > 0 && (
+                  <SidebarGroup className={`${open ? "" : "py-0"}`}>
+                     <SidebarGroupLabel
+                        className={`${open ? "" : "select-none pointer-events-none"}`}
+                     >
+                        Recientes
+                     </SidebarGroupLabel>
 
-                  <SidebarGroupContent className={`${open ? "" : "hidden"}`}>
-                     <SidebarMenu>
-                        {recentSummaries.map((summary) => {
-                           const href = `/dashboard/summaries/${summary.documentId}`;
-                           return (
-                              <SidebarMenuItem key={summary.documentId}>
-                                 <SidebarMenuButton
-                                    asChild
-                                    isActive={pathname.includes(href)}
-                                 >
-                                    <Link href={href}>
-                                       <span>{summary.title}</span>
-                                    </Link>
-                                 </SidebarMenuButton>
-                              </SidebarMenuItem>
-                           );
-                        })}
-
-                        <SidebarMenuItem>
-                           <SidebarMenuButton asChild>
-                              <Link href="/dashboard/summaries">
-                                 <span>Ver todos</span>
-                                 <ArrowRight strokeWidth={1.25} />
-                              </Link>
-                           </SidebarMenuButton>
-                        </SidebarMenuItem>
-                     </SidebarMenu>
-                  </SidebarGroupContent>
-               </SidebarGroup>
+                     <SidebarGroupContent className={`${open ? "" : "hidden"}`}>
+                        <SidebarMenu>
+                           {recentSummaries.map((summary) => {
+                              const href = `/dashboard/summaries/${summary.documentId}`;
+                              return (
+                                 <SidebarMenuItem key={summary.documentId}>
+                                    <SidebarMenuButton
+                                       asChild
+                                       isActive={pathname.includes(href)}
+                                    >
+                                       <Link href={href}>
+                                          <span>{summary.title}</span>
+                                       </Link>
+                                    </SidebarMenuButton>
+                                 </SidebarMenuItem>
+                              );
+                           })}
+                        </SidebarMenu>
+                     </SidebarGroupContent>
+                  </SidebarGroup>
+               )}
             </SidebarContent>
 
             {/* FOOTER: Botón de ayuda o usuario */}
