@@ -180,9 +180,7 @@ export default function DashboardHeader({
 
                         <DropdownMenuSeparator className="bg-transparent" />
 
-                        <DropdownMenuItem asChild>
-                           <SummaryDeleteForm summaryId={documentId} />
-                        </DropdownMenuItem>
+                        <SummaryDeleteForm summaryId={documentId} />
                      </DropdownMenuContent>
                   </DropdownMenu>
                </>

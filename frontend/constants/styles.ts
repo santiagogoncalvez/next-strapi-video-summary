@@ -188,7 +188,7 @@ export const SUMMARY_UPDATE_FORM_STYLES = {
 
    submitButton: "w-full",
 
-   deleteButton: "font-normal w-full justify-start",
+   deleteButton: "font-normal w-full justify-start hover:cursor-pointer",
 };
 
 export const SUMMARY_GRID_STYLES = {

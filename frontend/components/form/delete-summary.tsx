@@ -10,6 +10,7 @@ import { SubmitButton } from "./submit-button";
 import { Trash } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getFormErrorMessage } from "@/actions/helpers";
+import { SubmitButtonDropdown } from "./submit-button-dropwdown";
 
 interface SummaryDeleteFormProps {
    summaryId: string;
@@ -65,15 +66,13 @@ export function SummaryDeleteForm({
       <form action={deleteFormAction}>
          <input type="hidden" name="documentId" value={summaryId} />
 
-         <SubmitButton
+         <SubmitButtonDropdown
             className={cn(SUMMARY_UPDATE_FORM_STYLES.deleteButton, className)}
             text="Eliminar"
             loadingText="Eliminando"
             loading={deleteIsPending}
-            size="default"
-            variant="ghost"
             icon={<Trash />}
-         ></SubmitButton>
+         ></SubmitButtonDropdown>
       </form>
    );
 }
