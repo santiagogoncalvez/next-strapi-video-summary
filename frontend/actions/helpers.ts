@@ -68,3 +68,44 @@ export function getSuccessFormState(
       timestamp: Date.now(),
    };
 }
+
+export function getFormErrorMessage(state: FormState): string | null {
+   const errors = new Set<string>();
+
+   // 1. Mensaje general
+   if (state.message) {
+      errors.add(state.message);
+   }
+
+   // 2. Errores de Zod
+   if (state.zodErrors) {
+      Object.values(state.zodErrors).forEach((fieldErrors) => {
+         if (!fieldErrors) return;
+
+         fieldErrors.forEach((error: string) => {
+            if (error) {
+               errors.add(error);
+            }
+         });
+      });
+   }
+
+   // 3. Errores de Strapi
+   if (state.strapiErrors) {
+      if (state.strapiErrors.message) {
+         errors.add(state.strapiErrors.message);
+      }
+
+      if (state.strapiErrors.details) {
+         Object.values(state.strapiErrors.details).forEach((fieldErrors) => {
+            fieldErrors.forEach((error) => {
+               if (error) {
+                  errors.add(error);
+               }
+            });
+         });
+      }
+   }
+
+   return errors.size > 0 ? [...errors].join(" ") : null;
+}

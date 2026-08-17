@@ -13,6 +13,7 @@ import { SUMMARY_UPDATE_FORM_STYLES } from "@/constants/styles";
 import { actions } from "@/actions";
 import { FormState } from "@/types/definitions";
 import { toast } from "sonner";
+import { getFormErrorMessage } from "@/actions/helpers";
 
 interface SummaryUpdateFormProps {
    summary: Summary;
@@ -51,25 +52,25 @@ export function SummaryUpdateForm({
       lastTimestamp.current = updateFormState.timestamp;
 
       if (updateFormState.success) {
-         toast.success(updateFormState.message, {
-            position: "top-center",
-            duration: 3000,
-         });
+         if (updateFormState.message) {
+            toast.success(updateFormState.message, {
+               position: "top-center",
+               duration: 3000,
+            });
+         }
 
          return;
       }
 
-      if (updateFormState.message) {
-         toast.error(updateFormState.message, {
+      const errorMessage = getFormErrorMessage(updateFormState);
+
+      if (errorMessage) {
+         toast.error(errorMessage, {
             position: "top-center",
             duration: 3000,
          });
       }
-   }, [
-      updateFormState.success,
-      updateFormState.message,
-      updateFormState.timestamp,
-   ]);
+   }, [updateFormState]);
 
    return (
       <div className={SUMMARY_UPDATE_FORM_STYLES.container}>
