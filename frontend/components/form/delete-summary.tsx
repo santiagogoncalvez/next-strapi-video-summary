@@ -1,7 +1,6 @@
 "use client";
 
 import { useActionState, useEffect } from "react";
-
 import { SUMMARY_UPDATE_FORM_STYLES } from "@/constants/styles";
 import { actions } from "@/actions";
 import { FormState } from "@/types/definitions";
@@ -10,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { SubmitButton } from "./submit-button";
 import { Trash } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getFormErrorMessage } from "@/actions/helpers";
 
 interface SummaryDeleteFormProps {
    summaryId: string;
@@ -38,19 +38,23 @@ export function SummaryDeleteForm({
       if (!deleteFormState.timestamp) return;
 
       if (deleteFormState.success) {
-         toast.success(deleteFormState.message, {
-            position: "top-center",
-            duration: 3000,
-         });
+         if (deleteFormState.message) {
+            toast.success(deleteFormState.message, {
+               position: "top-center",
+               duration: 3000,
+            });
 
-         router.push("/dashboard/summaries");
-         router.refresh();
+            router.push("/dashboard/summaries");
+            router.refresh();
+         }
 
          return;
       }
 
-      if (deleteFormState.message) {
-         toast.error(deleteFormState.message, {
+      const errorMessage = getFormErrorMessage(deleteFormState);
+
+      if (errorMessage) {
+         toast.error(errorMessage, {
             position: "top-center",
             duration: 3000,
          });

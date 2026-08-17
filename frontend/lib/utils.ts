@@ -91,3 +91,7 @@ export function extractTranscript(text: string): TranscriptSegment[] {
 
    return segments;
 }
+
+export function throwError(message = "An unexpected error occurred"): never {
+   throw new Error(message);
+}
