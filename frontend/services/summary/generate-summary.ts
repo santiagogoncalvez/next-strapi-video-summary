@@ -1,6 +1,5 @@
 // generate-summary.ts
 
-import { SUMMARY_MESSAGES } from "@/constants/messages/summary";
 import { SYSTEM_PROMPT } from "@/constants/prompts";
 import { groq } from "@ai-sdk/groq";
 import { generateText } from "ai";

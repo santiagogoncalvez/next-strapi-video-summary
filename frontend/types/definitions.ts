@@ -45,21 +45,13 @@ export type FormState = {
    timestamp?: number;
 };
 
-export interface GroqError {
-   statusCode?: number;
-   data?: {
-      error?: {
-         message?: string;
-         type?: string;
-         code?: string;
-      };
+interface GroqErrorData {
+   error?: {
+      type?: string;
+      code?: string;
    };
 }
 
-export function isGroqError(value: unknown): value is GroqError {
-   return (
-      typeof value === "object" &&
-      value !== null &&
-      ("statusCode" in value || "data" in value)
-   );
+export function isGroqErrorData(value: unknown): value is GroqErrorData {
+   return typeof value === "object" && value !== null;
 }
