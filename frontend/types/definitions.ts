@@ -44,3 +44,22 @@ export type FormState = {
    zodErrors?: ZodErrors;
    timestamp?: number;
 };
+
+export interface GroqError {
+   statusCode?: number;
+   data?: {
+      error?: {
+         message?: string;
+         type?: string;
+         code?: string;
+      };
+   };
+}
+
+export function isGroqError(value: unknown): value is GroqError {
+   return (
+      typeof value === "object" &&
+      value !== null &&
+      ("statusCode" in value || "data" in value)
+   );
+}

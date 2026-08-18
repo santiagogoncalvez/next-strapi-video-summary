@@ -120,12 +120,18 @@ export function SummaryForm() {
                </CardContent>
 
                <CardFooter className={SUMMARY_FORM_STYLES.footer}>
-                  <FormError error={formState.zodErrors?.videoId} />
+                  <FormError
+                     error={formState.zodErrors?.videoId}
+                     className="text-center"
+                  />
 
                   {!formState.zodErrors &&
                      formState.success === false &&
                      formState.message && (
-                        <FormError error={[formState.message]} />
+                        <FormError
+                           error={[formState.message]}
+                           className="text-center"
+                        />
                      )}
                </CardFooter>
             </Card>

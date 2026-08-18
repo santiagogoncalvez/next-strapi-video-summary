@@ -4,6 +4,7 @@ import { SUMMARY_MESSAGES } from "@/constants/messages/summary";
 import { SYSTEM_PROMPT } from "@/constants/prompts";
 import { groq } from "@ai-sdk/groq";
 import { generateText } from "ai";
+import { handleGroqError } from "../error-handler";
 
 export async function generateSummary(content: string, template?: string) {
    const systemPrompt = template || SYSTEM_PROMPT;
@@ -23,12 +24,6 @@ export async function generateSummary(content: string, template?: string) {
 
       return text;
    } catch (error) {
-      console.error("Error generating summary:", error);
-
-      if (error instanceof Error) {
-         throw new Error(error.message);
-      }
-
-      throw new Error(SUMMARY_MESSAGES.ERROR.GENERATION_FAILED);
+      handleGroqError(error);
    }
 }

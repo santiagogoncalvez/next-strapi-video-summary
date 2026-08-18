@@ -1,5 +1,5 @@
 import { COMMON_MESSAGES } from "@/constants/messages/common";
-import { getAuthErrorMessage } from "@/services/error-handler";
+import { getStrapiErrorMessage } from "@/services/error-handler";
 import { FormState } from "@/types/definitions";
 import { isStrapiError } from "@/types/strapi";
 import z from "zod";
@@ -118,7 +118,7 @@ export function handleStrapiError(error: unknown): never {
 
    console.error("Strapi Error:", error);
 
-   const message = getAuthErrorMessage(error.error?.message ?? "");
+   const message = getStrapiErrorMessage(error.error?.message ?? "");
 
    throw {
       ...error,

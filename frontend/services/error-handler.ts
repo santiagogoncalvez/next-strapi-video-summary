@@ -1,6 +1,11 @@
 import { STRAPI_ERROR_MESSAGES } from "@/constants/messages/strapi-errors";
 import { COMMON_MESSAGES } from "@/constants/messages/common";
 import { notFound } from "next/navigation";
+import {
+   GROQ_DEFAULT_ERROR_MESSAGE,
+   GROQ_ERROR_MESSAGES,
+} from "@/constants/messages/groq-errors";
+import { APICallError } from "ai";
 
 type ApiError = {
    error?: {
@@ -52,9 +57,27 @@ export function handleServiceError(error: unknown, serviceName: string): never {
    throw error;
 }
 
-export function getAuthErrorMessage(message: string): string {
+export function getStrapiErrorMessage(message: string): string {
    return (
       STRAPI_ERROR_MESSAGES[message as keyof typeof STRAPI_ERROR_MESSAGES] ??
       "No se pudo completar la operación. Intentá nuevamente."
    );
+}
+
+export function handleGroqError(error: unknown): never {
+   console.error("Groq Error:", error);
+
+   if (!APICallError.isInstance(error)) {
+      throw new Error(GROQ_DEFAULT_ERROR_MESSAGE);
+   }
+
+   const statusCode = error.statusCode;
+
+   if (statusCode && statusCode in GROQ_ERROR_MESSAGES) {
+      throw new Error(
+         GROQ_ERROR_MESSAGES[statusCode as keyof typeof GROQ_ERROR_MESSAGES],
+      );
+   }
+
+   throw new Error(GROQ_DEFAULT_ERROR_MESSAGE);
 }
