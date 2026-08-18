@@ -15,6 +15,7 @@ import {
 } from "@/types/strapi";
 import { api } from "@/data/data-api";
 import { stringify } from "qs";
+import { handleStrapiError } from "@/actions/helpers";
 
 export const STRAPI_BASE_URL = getStrapiURL();
 
@@ -23,7 +24,11 @@ export async function registerUserService(
 ): Promise<AuthServiceResponse> {
    const url = `${STRAPI_BASE_URL}/api/auth/local/register`;
 
-   return api.post<AuthServiceResponse, RegisterUser>(url, userData);
+   try {
+      return api.post<AuthServiceResponse, RegisterUser>(url, userData);
+   } catch (error) {
+      handleStrapiError(error);
+   }
 }
 
 export async function loginUserService(
@@ -31,7 +36,11 @@ export async function loginUserService(
 ): Promise<AuthResponse> {
    const url = `${STRAPI_BASE_URL}/api/auth/local`;
 
-   return api.post<AuthResponse, LoginUser>(url, userData);
+   try {
+      return api.post<AuthResponse, LoginUser>(url, userData);
+   } catch (error) {
+      handleStrapiError(error);
+   }
 }
 
 export async function confirmEmailService(
@@ -39,9 +48,13 @@ export async function confirmEmailService(
 ): Promise<AuthServiceResponse> {
    const url = `${STRAPI_BASE_URL}/api/auth/send-email-confirmation`;
 
-   return api.post<AuthServiceResponse, ConfirmEmail>(url, {
-      email,
-   });
+   try {
+      return api.post<AuthServiceResponse, ConfirmEmail>(url, {
+         email,
+      });
+   } catch (error) {
+      handleStrapiError(error);
+   }
 }
 
 export async function forgotPasswordService(
@@ -49,9 +62,13 @@ export async function forgotPasswordService(
 ): Promise<AuthServiceResponse> {
    const url = `${STRAPI_BASE_URL}/api/auth/forgot-password`;
 
-   return api.post<AuthServiceResponse, ForgotPassword>(url, {
-      email,
-   });
+   try {
+      return api.post<AuthServiceResponse, ForgotPassword>(url, {
+         email,
+      });
+   } catch (error) {
+      handleStrapiError(error);
+   }
 }
 
 export async function resetPasswordService(
@@ -65,7 +82,14 @@ export async function resetPasswordService(
       passwordConfirmation: userData?.confirmPassword,
    };
 
-   return api.post<AuthServiceResponse, ResetPasswordUserStrapi>(url, payload);
+   try {
+      return api.post<AuthServiceResponse, ResetPasswordUserStrapi>(
+         url,
+         payload,
+      );
+   } catch (error) {
+      handleStrapiError(error);
+   }
 }
 
 export async function changePasswordService(
@@ -81,15 +105,19 @@ export async function changePasswordService(
 
    const { jwt } = await requireSession();
 
-   return api.post<AuthServiceResponse, ChangePasswordUserStrapi>(
-      url,
-      payload,
-      {
-         headers: {
-            Authorization: `Bearer ${jwt}`,
+   try {
+      return api.post<AuthServiceResponse, ChangePasswordUserStrapi>(
+         url,
+         payload,
+         {
+            headers: {
+               Authorization: `Bearer ${jwt}`,
+            },
          },
-      },
-   );
+      );
+   } catch (error) {
+      handleStrapiError(error);
+   }
 }
 
 export async function getUserMeService(): Promise<User> {
@@ -106,9 +134,13 @@ export async function getUserMeService(): Promise<User> {
    const url = new URL("/api/users/me", STRAPI_BASE_URL);
    url.search = query;
 
-   return api.get<User>(url.href, {
-      headers: {
-         Authorization: `Bearer ${jwt}`,
-      },
-   });
+   try {
+      return api.get<User>(url.href, {
+         headers: {
+            Authorization: `Bearer ${jwt}`,
+         },
+      });
+   } catch (error) {
+      handleStrapiError(error);
+   }
 }
