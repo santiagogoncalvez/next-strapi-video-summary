@@ -11,6 +11,7 @@ import { getStrapiURL } from "@/lib/utils";
 import { stringify } from "qs";
 import { requireSession } from "@/lib/dal";
 import { apiFetch } from "./data-fetch";
+import { handleStrapiError } from "@/actions/helpers";
 
 const baseUrl = getStrapiURL();
 
@@ -48,7 +49,12 @@ async function getHomePageData(): Promise<StrapiResponse<HomePage>> {
 
    const url = new URL("/api/home-page", baseUrl);
    url.search = query;
-   return api.get<StrapiResponse<HomePage>>(url.href);
+
+   try {
+      return await api.get<StrapiResponse<HomePage>>(url.href);
+   } catch (error) {
+      handleStrapiError(error);
+   }
 }
 
 async function getGlobalData(): Promise<StrapiResponse<Global>> {
@@ -64,7 +70,12 @@ async function getGlobalData(): Promise<StrapiResponse<Global>> {
 
    const url = new URL("/api/global", baseUrl);
    url.search = query;
-   return api.get<StrapiResponse<Global>>(url.href);
+
+   try {
+      return await api.get<StrapiResponse<Global>>(url.href);
+   } catch (error) {
+      handleStrapiError(error);
+   }
 }
 
 async function getMetaData(): Promise<StrapiResponse<MetaData>> {
@@ -74,11 +85,16 @@ async function getMetaData(): Promise<StrapiResponse<MetaData>> {
 
    const url = new URL("/api/global", baseUrl);
    url.search = query;
-   return apiFetch.get<StrapiResponse<MetaData>>(url.href, {
-      next: {
-         revalidate: 3600,
-      },
-   });
+
+   try {
+      return await apiFetch.get<StrapiResponse<MetaData>>(url.href, {
+         next: {
+            revalidate: 3600,
+         },
+      });
+   } catch (error) {
+      handleStrapiError(error);
+   }
 }
 
 async function getSummaries(
@@ -106,11 +122,15 @@ async function getSummaries(
    const url = new URL("/api/summaries", baseUrl);
    url.search = query;
 
-   return api.get<StrapiResponse<Summary[]>>(url.href, {
-      headers: {
-         Authorization: `Bearer ${jwt}`,
-      },
-   });
+   try {
+      return await api.get<StrapiResponse<Summary[]>>(url.href, {
+         headers: {
+            Authorization: `Bearer ${jwt}`,
+         },
+      });
+   } catch (error) {
+      handleStrapiError(error);
+   }
 }
 
 async function getSummaryByDocumentId(
@@ -121,11 +141,15 @@ async function getSummaryByDocumentId(
    const path = `/api/summaries/${documentId}`;
    const url = new URL(path, baseUrl);
 
-   return api.get<StrapiResponse<Summary>>(url.href, {
-      headers: {
-         Authorization: `Bearer ${jwt}`,
-      },
-   });
+   try {
+      return await api.get<StrapiResponse<Summary>>(url.href, {
+         headers: {
+            Authorization: `Bearer ${jwt}`,
+         },
+      });
+   } catch (error) {
+      handleStrapiError(error);
+   }
 }
 
 export const loaders = {

@@ -3,6 +3,7 @@ import { api } from "@/data/data-api";
 import { StrapiResponse, Summary } from "@/types/strapi";
 import { stringify } from "qs";
 import { requireSession } from "@/lib/dal";
+import { handleStrapiError } from "@/actions/helpers";
 
 const STRAPI_BASE_URL = getStrapiURL();
 
@@ -21,9 +22,17 @@ export async function updateSummaryService(
 
    const payload = { data: summaryData };
 
-   return api.put<StrapiResponse<Summary>, typeof payload>(url.href, payload, {
-      headers: {
-         Authorization: `Bearer ${jwt}`,
-      },
-   });
+   try {
+      return await api.put<StrapiResponse<Summary>, typeof payload>(
+         url.href,
+         payload,
+         {
+            headers: {
+               Authorization: `Bearer ${jwt}`,
+            },
+         },
+      );
+   } catch (error) {
+      handleStrapiError(error);
+   }
 }

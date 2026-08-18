@@ -1,6 +1,4 @@
-import { STRAPI_ERROR_MESSAGES } from "@/constants/messages/strapi-errors";
 import { COMMON_MESSAGES } from "@/constants/messages/common";
-import { throwError } from "@/lib/utils";
 import { getAuthErrorMessage } from "@/services/error-handler";
 import { FormState } from "@/types/definitions";
 import { isStrapiError } from "@/types/strapi";
@@ -118,9 +116,15 @@ export function handleStrapiError(error: unknown): never {
       throw error;
    }
 
-   const message = getAuthErrorMessage(
-      error.error?.message as keyof typeof STRAPI_ERROR_MESSAGES,
-   );
+   console.error("Strapi Error:", error);
 
-   throwError(message);
+   const message = getAuthErrorMessage(error.error?.message ?? "");
+
+   throw {
+      ...error,
+      error: {
+         ...error.error,
+         message,
+      },
+   };
 }

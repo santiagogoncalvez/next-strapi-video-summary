@@ -25,7 +25,7 @@ export async function registerUserService(
    const url = `${STRAPI_BASE_URL}/api/auth/local/register`;
 
    try {
-      return api.post<AuthServiceResponse, RegisterUser>(url, userData);
+      return await api.post<AuthServiceResponse, RegisterUser>(url, userData);
    } catch (error) {
       handleStrapiError(error);
    }
@@ -37,7 +37,7 @@ export async function loginUserService(
    const url = `${STRAPI_BASE_URL}/api/auth/local`;
 
    try {
-      return api.post<AuthResponse, LoginUser>(url, userData);
+      return await api.post<AuthResponse, LoginUser>(url, userData);
    } catch (error) {
       handleStrapiError(error);
    }
@@ -49,7 +49,7 @@ export async function confirmEmailService(
    const url = `${STRAPI_BASE_URL}/api/auth/send-email-confirmation`;
 
    try {
-      return api.post<AuthServiceResponse, ConfirmEmail>(url, {
+      return await api.post<AuthServiceResponse, ConfirmEmail>(url, {
          email,
       });
    } catch (error) {
@@ -63,7 +63,7 @@ export async function forgotPasswordService(
    const url = `${STRAPI_BASE_URL}/api/auth/forgot-password`;
 
    try {
-      return api.post<AuthServiceResponse, ForgotPassword>(url, {
+      return await api.post<AuthServiceResponse, ForgotPassword>(url, {
          email,
       });
    } catch (error) {
@@ -83,7 +83,7 @@ export async function resetPasswordService(
    };
 
    try {
-      return api.post<AuthServiceResponse, ResetPasswordUserStrapi>(
+      return await api.post<AuthServiceResponse, ResetPasswordUserStrapi>(
          url,
          payload,
       );
@@ -106,7 +106,7 @@ export async function changePasswordService(
    const { jwt } = await requireSession();
 
    try {
-      return api.post<AuthServiceResponse, ChangePasswordUserStrapi>(
+      return await api.post<AuthServiceResponse, ChangePasswordUserStrapi>(
          url,
          payload,
          {
@@ -135,7 +135,7 @@ export async function getUserMeService(): Promise<User> {
    url.search = query;
 
    try {
-      return api.get<User>(url.href, {
+      return await api.get<User>(url.href, {
          headers: {
             Authorization: `Bearer ${jwt}`,
          },

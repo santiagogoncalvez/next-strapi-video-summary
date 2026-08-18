@@ -4,6 +4,7 @@ import { getStrapiURL } from "@/lib/utils";
 import { AuthUser, UpdateProfileUser, User } from "@/types/strapi";
 import { fileDeleteService, fileUploadService } from "./file";
 import { getUserMeService } from "./auth";
+import { handleStrapiError } from "@/actions/helpers";
 
 export const STRAPI_BASE_URL = getStrapiURL();
 
@@ -20,11 +21,15 @@ export async function updateProfileService(
 
    const url = `${STRAPI_BASE_URL}/api/users/${id}`;
 
-   return api.put<User, UpdateProfileUser>(url, profileData, {
-      headers: {
-         Authorization: `Bearer ${jwt}`,
-      },
-   });
+   try {
+      return await api.put<User, UpdateProfileUser>(url, profileData, {
+         headers: {
+            Authorization: `Bearer ${jwt}`,
+         },
+      });
+   } catch (error) {
+      handleStrapiError(error);
+   }
 }
 
 export async function updateProfileImageService(file: File): Promise<AuthUser> {

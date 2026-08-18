@@ -1,3 +1,4 @@
+import { handleStrapiError } from "@/actions/helpers";
 import { api } from "@/data/data-api";
 import { requireSession } from "@/lib/dal";
 import { getStrapiURL } from "@/lib/utils";
@@ -15,11 +16,15 @@ export async function fileUploadService(
 
    const url = `${STRAPI_BASE_URL}/api/upload`;
 
-   return api.post<FileUploadResponse[], FormData>(url, formData, {
-      headers: {
-         Authorization: `Bearer ${jwt}`,
-      },
-   });
+   try {
+      return await api.post<FileUploadResponse[], FormData>(url, formData, {
+         headers: {
+            Authorization: `Bearer ${jwt}`,
+         },
+      });
+   } catch (error) {
+      handleStrapiError(error);
+   }
 }
 
 export async function fileDeleteService(fileId: number): Promise<void> {
@@ -27,9 +32,13 @@ export async function fileDeleteService(fileId: number): Promise<void> {
 
    const url = `${STRAPI_BASE_URL}/api/upload/files/${fileId}`;
 
-   return api.delete<void>(url, {
-      headers: {
-         Authorization: `Bearer ${jwt}`,
-      },
-   });
+   try {
+      return await api.delete<void>(url, {
+         headers: {
+            Authorization: `Bearer ${jwt}`,
+         },
+      });
+   } catch (error) {
+      handleStrapiError(error);
+   }
 }

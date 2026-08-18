@@ -19,4 +19,17 @@ export const STRAPI_ERROR_MESSAGES = {
    "Invalid token": "El enlace de confirmación no es válido o expiró.",
    "Already confirmed": "Tu correo electrónico ya está confirmado.",
    "User blocked": "Tu cuenta está bloqueada.",
+
+   // Strapi genéricos
+   ApplicationError: "Ocurrió un error al procesar la solicitud.",
+   ValidationError: "Los datos enviados no son válidos.",
+   YupValidationError: "Los datos enviados no son válidos.",
+   PaginationError: "Los parámetros de paginación no son válidos.",
+   NotFoundError: "No se encontró el recurso solicitado.",
+   ForbiddenError: "No tenés permisos para realizar esta acción.",
+   UnauthorizedError: "Tu sesión no es válida o ya expiró.",
+   RateLimitError: "Demasiadas solicitudes. Intentá nuevamente más tarde.",
+   PayloadTooLargeError: "El archivo o contenido es demasiado grande.",
+   PolicyError: "No tenés permisos para realizar esta acción.",
+   NotImplementedError: "Esta funcionalidad todavía no está disponible.",
 } as const;
