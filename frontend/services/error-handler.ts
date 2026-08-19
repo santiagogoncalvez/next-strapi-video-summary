@@ -159,7 +159,7 @@ export function handleYouTubeError(error: unknown): never {
       if (error.code === "VIDEO_NOT_FOUND")
          throw new Error(TRANSCRIPT_MESSAGES.ERROR.NOT_FOUND);
       if (error.code === "VIDEO_PRIVATE")
-         throw new Error(TRANSCRIPT_MESSAGES.ERROR.INVALID_VIDEO_ID);
+         throw new Error(TRANSCRIPT_MESSAGES.ERROR.PRIVATE_VIDEO);
    }
 
    if (error instanceof YouTubeTranscriptError) {

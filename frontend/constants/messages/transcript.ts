@@ -4,7 +4,8 @@ export const TRANSCRIPT_MESSAGES = {
       EMPTY: "No se encontró una transcripción para este video.",
       TIMEOUT:
          "La solicitud de la transcripción tardó demasiado. Inténtalo nuevamente.",
-
+      PRIVATE_VIDEO:
+         "Este video es privado y no se puede acceder a su contenido.",
       INVALID_VIDEO_ID: "El identificador del video de YouTube no es válido.",
       NOT_FOUND: "No se encontró una transcripción para este video.",
       RATE_LIMIT:
