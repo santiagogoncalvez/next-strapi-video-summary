@@ -1,7 +1,6 @@
 import { TRANSCRIPT_MESSAGES } from "@/constants/messages/transcript";
-import {
-   removeRepeatedTranscriptSegments,
-} from "@/lib/parsers";
+import { YouTubeServiceError } from "@/errors/youtube-service-error";
+import { removeRepeatedTranscriptSegments } from "@/lib/parsers";
 import { extractTranscript } from "@/lib/utils";
 import { TranscriptResult } from "@/types/summary";
 import axios from "axios";
@@ -27,10 +26,22 @@ export async function getTranscript(
          },
       );
 
+      if (data.includes("# No captions available")) {
+         throw new YouTubeServiceError(
+            "NO_TRANSCRIPT",
+            "No captions available for this video",
+            400,
+         );
+      }
+
       const segments = extractTranscript(data);
 
       if (!segments.length) {
-         throw new Error(TRANSCRIPT_MESSAGES.ERROR.EMPTY);
+         throw new YouTubeServiceError(
+            "EMPTY_TRANSCRIPT",
+            "Transcript segments are empty",
+            400,
+         );
       }
 
       const cleanedSegments = removeRepeatedTranscriptSegments(segments);
@@ -42,32 +53,45 @@ export async function getTranscript(
          segments: cleanedSegments,
       };
    } catch (error) {
+      if (error instanceof YouTubeServiceError) throw error;
+
       if (axios.isAxiosError(error)) {
          if (error.code === "ECONNABORTED") {
-            throw new Error(TRANSCRIPT_MESSAGES.ERROR.TIMEOUT);
+            throw new YouTubeServiceError("TIMEOUT", "Request timed out", 408);
          }
 
          switch (error.response?.status) {
             case 400:
-               throw new Error(TRANSCRIPT_MESSAGES.ERROR.INVALID_VIDEO_ID);
+               throw new YouTubeServiceError(
+                  "INVALID_VIDEO_ID",
+                  "Invalid video ID",
+                  400,
+               );
             case 404:
-               throw new Error(TRANSCRIPT_MESSAGES.ERROR.NOT_FOUND);
+               throw new YouTubeServiceError(
+                  "NOT_FOUND",
+                  "Video or transcript not found",
+                  404,
+               );
             case 429:
-               throw new Error(TRANSCRIPT_MESSAGES.ERROR.RATE_LIMIT);
-            case 500:
-            case 502:
-            case 503:
-            case 504:
-               throw new Error(TRANSCRIPT_MESSAGES.ERROR.SERVICE_UNAVAILABLE);
+               throw new YouTubeServiceError(
+                  "RATE_LIMIT",
+                  "Rate limit exceeded",
+                  429,
+               );
             default:
-               throw new Error(TRANSCRIPT_MESSAGES.ERROR.FETCH_FAILED);
+               throw new YouTubeServiceError(
+                  "SERVICE_UNAVAILABLE",
+                  "External service unavailable",
+                  503,
+               );
          }
       }
 
-      if (error instanceof Error) {
-         throw error;
-      }
-
-      throw new Error(TRANSCRIPT_MESSAGES.ERROR.UNKNOWN);
+      throw new YouTubeServiceError(
+         "UNKNOWN_ERROR",
+         "An unexpected error occurred",
+         500,
+      );
    }
 }

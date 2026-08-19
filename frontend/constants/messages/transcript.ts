@@ -13,5 +13,7 @@ export const TRANSCRIPT_MESSAGES = {
          "El servicio de transcripciones no está disponible temporalmente.",
       FETCH_FAILED: "No se pudo obtener la transcripción.",
       UNKNOWN: "Ocurrió un error al obtener la transcripción.",
+      NO_TRANSCRIPT:
+         "Este video no tiene subtítulos o una transcripción disponible.",
    },
 } as const;

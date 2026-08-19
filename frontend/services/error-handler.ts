@@ -3,6 +3,12 @@ import { COMMON_MESSAGES } from "@/constants/messages/common";
 import { notFound } from "next/navigation";
 import { GROQ_ERROR_MESSAGES } from "@/constants/messages/groq-errors";
 import { APICallError, RetryError } from "ai";
+import {
+   YouTubeMetadataError,
+   YouTubeTranscriptError,
+} from "@santiagogoncalvez1/youtube-transcript-plus";
+import { TRANSCRIPT_MESSAGES } from "@/constants/messages/transcript";
+import { YouTubeServiceError } from "@/errors/youtube-service-error";
 
 type ApiError = {
    error?: {
@@ -125,4 +131,43 @@ export function handleGroqError(error: unknown): never {
    }
 
    throw new Error(GROQ_ERROR_MESSAGES.DEFAULT);
+}
+
+export function handleYouTubeError(error: unknown): never {
+   console.error("YouTube Error Handler:", error);
+
+   // 1. Error del Servicio de Producción (Axios)
+   if (error instanceof YouTubeServiceError) {
+      const messageMap: Record<string, string> = {
+         VIDEO_ID_REQUIRED: TRANSCRIPT_MESSAGES.ERROR.VIDEO_ID_REQUIRED,
+         INVALID_VIDEO_ID: TRANSCRIPT_MESSAGES.ERROR.INVALID_VIDEO_ID,
+         NOT_FOUND: TRANSCRIPT_MESSAGES.ERROR.NOT_FOUND,
+         NO_TRANSCRIPT: TRANSCRIPT_MESSAGES.ERROR.NO_TRANSCRIPT,
+         EMPTY_TRANSCRIPT: TRANSCRIPT_MESSAGES.ERROR.EMPTY,
+         RATE_LIMIT: TRANSCRIPT_MESSAGES.ERROR.RATE_LIMIT,
+         TIMEOUT: TRANSCRIPT_MESSAGES.ERROR.TIMEOUT,
+         SERVICE_UNAVAILABLE: TRANSCRIPT_MESSAGES.ERROR.SERVICE_UNAVAILABLE,
+      };
+
+      throw new Error(
+         messageMap[error.code] ?? TRANSCRIPT_MESSAGES.ERROR.UNKNOWN,
+      );
+   }
+
+   // 2. Errores del Módulo NPM (Local / SDK)
+   if (error instanceof YouTubeMetadataError) {
+      if (error.code === "VIDEO_NOT_FOUND")
+         throw new Error(TRANSCRIPT_MESSAGES.ERROR.NOT_FOUND);
+      if (error.code === "VIDEO_PRIVATE")
+         throw new Error(TRANSCRIPT_MESSAGES.ERROR.INVALID_VIDEO_ID);
+   }
+
+   if (error instanceof YouTubeTranscriptError) {
+      if (error.code === "TRANSCRIPT_DISABLED")
+         throw new Error(TRANSCRIPT_MESSAGES.ERROR.NO_TRANSCRIPT);
+      if (error.code === "TOO_MANY_REQUESTS")
+         throw new Error(TRANSCRIPT_MESSAGES.ERROR.RATE_LIMIT);
+   }
+
+   throw new Error(TRANSCRIPT_MESSAGES.ERROR.UNKNOWN);
 }

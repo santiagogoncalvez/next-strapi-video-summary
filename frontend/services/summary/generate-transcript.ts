@@ -1,6 +1,7 @@
 import { TranscriptData } from "@/types/summary";
 import { getYoutubeData } from "../youtube";
 import { SUMMARY_VALIDATION_MESSAGES } from "@/constants/validations/summary";
+import { handleYouTubeError } from "../error-handler";
 
 function validateIdentifier(identifier: string): void {
    if (!identifier || typeof identifier !== "string") {
@@ -24,8 +25,6 @@ export async function generateTranscript(
          transcriptWithTimeCodes: youtubeData.transcriptWithTimeCodes,
       };
    } catch (error) {
-      console.error("Error fetching transcript:", error);
-
-      throw error;
+      handleYouTubeError(error);
    }
 }

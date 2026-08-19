@@ -8,5 +8,6 @@ ignoredBuiltDependencies:
   - unrs-resolver
 minimumReleaseAgeExclude:
   - '@santiagogoncalvez1/youtube-transcript-plus@1.0.1'
+  - '@santiagogoncalvez1/youtube-transcript-plus@1.2.0'
 overrides:
   youtube-transcript-plus: link:../../../Proyectos/youtube-transcript-plus
