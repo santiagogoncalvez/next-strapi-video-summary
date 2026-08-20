@@ -94,6 +94,11 @@ export type Summary = {
    thumbnailUrl: string;
 };
 
+export interface SummaryWithFavorite extends Summary {
+   isFavorite: boolean;
+   favoriteDocumentId?: string;
+};
+
 export type AuthUser = {
    id: number;
    documentId: string;

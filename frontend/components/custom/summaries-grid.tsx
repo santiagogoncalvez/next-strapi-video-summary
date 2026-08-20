@@ -1,5 +1,5 @@
 import { cn, formatDate } from "@/lib/utils";
-import { Summary } from "@/types/strapi";
+import { SummaryWithFavorite } from "@/types/strapi";
 
 import {
    Card,
@@ -11,6 +11,7 @@ import {
 import Link from "next/link";
 import { SUMMARY_GRID_STYLES } from "@/constants/styles";
 import { ThumbnailAvatar } from "./thumbnail-avatar";
+import { SummaryFavoriteForm } from "../form/favorite-summary";
 
 export function getSummaryPreview(content: string, maxLength = 180): string {
    return content
@@ -25,16 +26,16 @@ export function getSummaryPreview(content: string, maxLength = 180): string {
 }
 
 interface SummaryCardProps {
-   summary: Summary;
+   summary: SummaryWithFavorite;
 }
 
 function SummaryCard({ summary }: SummaryCardProps) {
    return (
-      <Link
-         href={`/dashboard/summaries/${summary.documentId}`}
-         className="block h-full"
-      >
-         <Card className={SUMMARY_GRID_STYLES.card}>
+      <Card className={SUMMARY_GRID_STYLES.card}>
+         <Link
+            href={`/dashboard/summaries/${summary.documentId}`}
+            className="block h-full"
+         >
             <CardHeader className={SUMMARY_GRID_STYLES.header}>
                <CardTitle className={SUMMARY_GRID_STYLES.title}>
                   {summary.title || "Resumen sin título"}
@@ -59,13 +60,21 @@ function SummaryCard({ summary }: SummaryCardProps) {
                   {formatDate(summary.createdAt)}
                </p>
             </CardFooter>
-         </Card>
-      </Link>
+         </Link>
+
+         <div className="absolute right-3 top-3 z-10">
+            <SummaryFavoriteForm
+               summaryId={summary.documentId}
+               favoriteId={summary.favoriteDocumentId}
+               isFavorite={summary.isFavorite}
+            />
+         </div>
+      </Card>
    );
 }
 
 interface SummariesGridProps {
-   summaries: Summary[];
+   summaries: SummaryWithFavorite[];
    className?: string;
 }
 

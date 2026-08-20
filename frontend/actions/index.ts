@@ -7,6 +7,7 @@ import {
    resendConfirmEmailAction,
    resetPasswordAction,
 } from "./auth";
+import { toggleFavoriteSummaryAction } from "./favorite";
 import { updateProfileAction, updateProfileImageAction } from "./profile";
 import {
    createSummaryAction,
@@ -35,4 +36,7 @@ export const actions = {
       deleteSummaryAction,
       updateSummaryTitleAction,
    },
+   favorite: {
+      toggleFavoriteSummaryAction
+   }
 };

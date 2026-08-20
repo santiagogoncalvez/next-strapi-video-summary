@@ -6,6 +6,8 @@ import {
    registerUserService,
    resetPasswordService,
 } from "./auth";
+import { addFavoriteSummaryService } from "./favorite/add-favorite-summary";
+import { deleteFavoriteSummaryService } from "./favorite/delete-favorite-summary";
 import { fileDeleteService, fileUploadService } from "./file";
 import { updateProfileImageService, updateProfileService } from "./profile";
 import {
@@ -40,4 +42,8 @@ export const services = {
       updateSummaryService,
       deleteSummaryService,
    },
+   favorite:{
+deleteFavoriteSummaryService,
+addFavoriteSummaryService
+   }
 };

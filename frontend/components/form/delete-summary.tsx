@@ -71,7 +71,7 @@ export function SummaryDeleteForm({
             loadingText="Eliminando"
             loading={deleteIsPending}
             icon={<Trash />}
-         ></SubmitButtonDropdown>
+         />
       </form>
    );
 }
