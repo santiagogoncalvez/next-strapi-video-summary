@@ -1,3 +1,4 @@
+import { Favorite, Summary, SummaryWithFavorite } from "@/types/strapi";
 import { TranscriptSegment } from "@/types/summary";
 
 export function parseTranscript(transcript: string): TranscriptSegment[] {
@@ -138,4 +139,24 @@ export function removeRepeatedTranscriptSegments(
    }));
 
    return removeSegmentOverlaps(cleaned);
+}
+
+
+export function mapSummariesWithFavorites(
+   summaries: Summary[],
+   favorites: Favorite[],
+): SummaryWithFavorite[] {
+   const favoritesBySummaryId = new Map(
+      favorites.map((favorite) => [favorite.summaryId, favorite.documentId]),
+   );
+
+   return summaries.map((summary) => {
+      const favoriteDocumentId = favoritesBySummaryId.get(summary.documentId);
+
+      return {
+         ...summary,
+         isFavorite: Boolean(favoriteDocumentId),
+         favoriteDocumentId,
+      };
+   });
 }

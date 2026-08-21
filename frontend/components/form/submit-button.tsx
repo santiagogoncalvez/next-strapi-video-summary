@@ -28,9 +28,12 @@ export function SubmitButton({
    form,
    variant = "default",
    ...props
-}: ButtonProps & React.ComponentProps<"button"> & VariantProps<typeof BUTTON_VARIANTS>) {
-   const status = useFormStatus();
-   const isPending = status.pending || loading;
+}: ButtonProps &
+   React.ComponentProps<"button"> &
+   VariantProps<typeof BUTTON_VARIANTS>) {
+   // const status = useFormStatus();
+   // const isPending = status.pending || loading;
+   const isPending = loading;
 
    return (
       <Button

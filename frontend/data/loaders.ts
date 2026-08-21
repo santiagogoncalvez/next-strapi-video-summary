@@ -4,6 +4,8 @@ import type {
    Global,
    MetaData,
    Summary,
+   Favorite,
+   SummaryWithFavorite,
 } from "@/types/strapi";
 
 import { api } from "@/data/data-api";
@@ -12,6 +14,7 @@ import { stringify } from "qs";
 import { requireSession } from "@/lib/dal";
 import { apiFetch } from "./data-fetch";
 import { handleStrapiError } from "@/actions/helpers";
+import { mapSummariesWithFavorites } from "@/lib/parsers";
 
 const baseUrl = getStrapiURL();
 
@@ -97,7 +100,7 @@ async function getMetaData(): Promise<StrapiResponse<MetaData>> {
    }
 }
 
-async function getSummaries(
+async function getSummariesFromStrapi(
    queryString: string,
    page: number = 1,
 ): Promise<StrapiResponse<Summary[]>> {
@@ -133,6 +136,25 @@ async function getSummaries(
    }
 }
 
+async function getSummaries(
+   queryString: string,
+   page: number = 1,
+): Promise<StrapiResponse<SummaryWithFavorite[]>> {
+   const summariesResponse = await getSummariesFromStrapi(queryString, page);
+
+   const favoritesResponse = await getFavorites();
+
+   const summaries = mapSummariesWithFavorites(
+      summariesResponse.data,
+      favoritesResponse.data,
+   );
+
+   return {
+      ...summariesResponse,
+      data: summaries,
+   };
+}
+
 async function getSummaryByDocumentId(
    documentId: string,
 ): Promise<StrapiResponse<Summary>> {
@@ -152,10 +174,27 @@ async function getSummaryByDocumentId(
    }
 }
 
+async function getFavorites(): Promise<StrapiResponse<Favorite[]>> {
+   const { jwt } = await requireSession();
+
+   const url = new URL("/api/favorites", baseUrl);
+
+   try {
+      return await api.get<StrapiResponse<Favorite[]>>(url.href, {
+         headers: {
+            Authorization: `Bearer ${jwt}`,
+         },
+      });
+   } catch (error) {
+      handleStrapiError(error);
+   }
+}
+
 export const loaders = {
    getHomePageData,
    getGlobalData,
    getMetaData,
    getSummaries,
    getSummaryByDocumentId,
+   getFavorites,
 };

@@ -94,6 +94,15 @@ export type Summary = {
    thumbnailUrl: string;
 };
 
+export interface Favorite {
+   documentId: string;
+   createdAt: string;
+   updatedAt: string;
+   publishedAt: string;
+   userId: string;
+   summaryId: string;
+}
+
 export interface SummaryWithFavorite extends Summary {
    isFavorite: boolean;
    favoriteDocumentId?: string;

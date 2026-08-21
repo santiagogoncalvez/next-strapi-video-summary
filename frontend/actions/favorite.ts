@@ -1,8 +1,15 @@
+"use server";
+
 import { FormState } from "@/types/definitions";
 import { ToggleFavoriteSummaryFormSchema } from "@/validations/favorite";
-import { getSuccessFormState, getValidationErrorState, handleActionError } from "./helpers";
+import {
+   getSuccessFormState,
+   getValidationErrorState,
+   handleActionError,
+} from "./helpers";
 import { services } from "@/services";
 import { FAVORITE_MESSAGES } from "@/constants/messages/favorite";
+import { revalidatePath } from "next/cache";
 
 export async function toggleFavoriteSummaryAction(
    _prevState: FormState,
@@ -36,6 +43,9 @@ export async function toggleFavoriteSummaryAction(
       } else {
          await services.favorite.addFavoriteSummaryService(summaryDocumentId);
       }
+
+      revalidatePath("/dashboard");
+      revalidatePath("/dashboard/summaries");
 
       return getSuccessFormState(
          isFavorite

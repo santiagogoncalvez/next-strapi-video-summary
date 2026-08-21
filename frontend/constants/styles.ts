@@ -10,7 +10,7 @@ export const BUTTON_VARIANTS = cva(
             outline:
                "border-foreground/10 bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
             secondary:
-               "bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
+               "bg-secondary text-secondary-foreground hover:bg-secondary/90 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
             ghost: "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
             destructive:
                "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
@@ -47,7 +47,8 @@ export const SIGN_UP_FORM_STYLES = {
    fieldGroup: "space-y-2",
    footer: "flex flex-col space-y-4",
    button: "w-full",
-   prompt: "mt-0 text-center text-sm flex flex-wrap justify-center items-center gap-2",
+   prompt:
+      "mt-0 text-center text-sm flex flex-wrap justify-center items-center gap-2",
    link: "ml-2",
 };
 
@@ -59,7 +60,8 @@ export const SIGN_IN_FORM_STYLES = {
    fieldGroup: "space-y-2",
    footer: "flex flex-col space-y-4",
    button: "w-full",
-   prompt: "mt-0 text-center text-sm flex flex-wrap justify-center items-center gap-2",
+   prompt:
+      "mt-0 text-center text-sm flex flex-wrap justify-center items-center gap-2",
    link: "ml-2",
 };
 
@@ -194,12 +196,9 @@ export const SUMMARY_UPDATE_FORM_STYLES = {
 export const SUMMARY_GRID_STYLES = {
    grid: "grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
 
-   card: cn(
-      "group flex h-full flex-col p-4 border border-border/50",
-      "transition-all duration-200 hover:-translate-y-1 hover:shadow-xs",
-   ),
+   card: cn(" relative flex h-full flex-col", ""),
 
-   header: "flex flex-row gap-2 items-center",
+   header: "flex flex-row gap-2 items-start justify-between",
 
    title: cn(
       "line-clamp-2",
@@ -222,5 +221,5 @@ export const SUMMARY_GRID_STYLES = {
    ),
 
    footer:
-      "pt-0 pb-4 text-sm font-normal text-primary flex flex-row justify-start items-center gap-2",
+      "py-0 text-sm font-normal text-primary flex flex-row justify-start items-center gap-2",
 };

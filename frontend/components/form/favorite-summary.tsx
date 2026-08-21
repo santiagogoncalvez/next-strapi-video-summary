@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useOptimistic } from "react";
+import { useActionState, useEffect } from "react";
 
 import { actions } from "@/actions";
 import { FormState } from "@/types/definitions";
@@ -9,7 +9,6 @@ import { getFormErrorMessage } from "@/actions/helpers";
 import { Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SubmitButton } from "./submit-button";
-import { useRouter } from "next/navigation";
 
 interface SummaryFavoriteFormProps {
    summaryId: string;
@@ -31,22 +30,11 @@ export function SummaryFavoriteForm({
    isFavorite,
    className,
 }: Readonly<SummaryFavoriteFormProps>) {
-   const router = useRouter();
-
-   const [optimisticIsFavorite, setOptimisticIsFavorite] =
-      useOptimistic(isFavorite);
-
    const [favoriteFormState, favoriteFormAction, favoriteIsPending] =
       useActionState(
          actions.favorite.toggleFavoriteSummaryAction,
          INITIAL_STATE,
       );
-
-   const optimisticFavoriteAction = async (formData: FormData) => {
-      setOptimisticIsFavorite(!optimisticIsFavorite);
-
-      await favoriteFormAction(formData);
-   };
 
    useEffect(() => {
       if (!favoriteFormState.timestamp) return;
@@ -59,8 +47,6 @@ export function SummaryFavoriteForm({
             });
          }
 
-         router.refresh();
-
          return;
       }
 
@@ -72,10 +58,14 @@ export function SummaryFavoriteForm({
             duration: 3000,
          });
       }
-   }, [favoriteFormState, router]);
+   }, [favoriteFormState]);
 
    return (
-      <form action={optimisticFavoriteAction} className={className}>
+      <form
+         action={favoriteFormAction}
+         className={className}
+         id="summary-favorite-form"
+      >
          <input type="hidden" name="summaryDocumentId" value={summaryId} />
 
          <input
@@ -88,20 +78,23 @@ export function SummaryFavoriteForm({
 
          <SubmitButton
             disabled={favoriteIsPending}
+            loading={favoriteIsPending}
             text=""
             loadingText=""
             icon={
-               <Heart className={cn(optimisticIsFavorite && "fill-current")} />
+               <Heart
+                  className={cn(isFavorite && "fill-current", " size-4")}
+                  
+               />
             }
             aria-label={
-               optimisticIsFavorite
-                  ? "Eliminar de favoritos"
-                  : "Añadir a favoritos"
+               isFavorite ? "Eliminar de favoritos" : "Añadir a favoritos"
             }
-            className={cn(
-               "transition-opacity",
-               favoriteIsPending && "opacity-50",
-            )}
+            variant="none"
+            size="none"
+            onClick={(event) => {
+               event.stopPropagation();
+            }}
          />
       </form>
    );

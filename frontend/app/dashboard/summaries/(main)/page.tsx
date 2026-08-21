@@ -23,6 +23,8 @@ export default async function SummariesRoute({
    );
    const pageCount = meta?.pagination?.pageCount || 1;
 
+   // console.log("summaries:", summaries);
+
    return (
       <div className="flex flex-1 flex-col gap-8">
          <Search className="w-full" />
