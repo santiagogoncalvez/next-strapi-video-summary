@@ -7,7 +7,7 @@ import { factories } from "@strapi/strapi";
 export default factories.createCoreRouter("api::favorite.favorite", {
    config: {
       create: {
-         middlewares: ["global::is-favorite-owner"],
+         middlewares: ["api::favorite.on-favorite-create"],
       },
       find: {
          middlewares: ["global::is-favorite-owner"],
