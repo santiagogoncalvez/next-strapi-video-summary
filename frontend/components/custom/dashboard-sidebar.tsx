@@ -1,6 +1,6 @@
 "use client";
 
-import { SquarePen, FileText, LucideIcon } from "lucide-react";
+import { SquarePen, FileText, LucideIcon, Heart } from "lucide-react";
 import {
    Sidebar,
    SidebarContent,
@@ -48,6 +48,12 @@ const principalSidebarGroups: SidebarGroup[] = [
             name: "Resúmenes",
             url: "/dashboard/summaries",
             icon: FileText,
+         },
+
+         {
+            name: "Favoritos",
+            url: "/dashboard/favorites",
+            icon: Heart,
          },
       ],
    },

@@ -23,6 +23,7 @@ export type Credentials = {
    videoId?: string;
    documentId?: string;
    title?: string;
+   content?: string;
    summaryDocumentId?: string;
    favoriteDocumentId?: string;
    isFavorite?: boolean;

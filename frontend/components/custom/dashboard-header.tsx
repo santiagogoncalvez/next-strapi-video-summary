@@ -62,7 +62,9 @@ export default function DashboardHeader({
            ? "Cuenta"
            : pathname === "/dashboard/summaries"
              ? "Resúmenes"
-             : "");
+             : pathname === "/dashboard/favorites"
+               ? "Favoritos"
+               : "");
 
    const summaryAction = summaryRoute
       ? {
