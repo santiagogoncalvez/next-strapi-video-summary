@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useRef } from "react";
 
 import { actions } from "@/actions";
 import { FormState } from "@/types/definitions";
@@ -35,9 +35,14 @@ export function SummaryFavoriteForm({
          actions.favorite.toggleFavoriteSummaryAction,
          INITIAL_STATE,
       );
+   const lastTimestamp = useRef<number | null>(null);
 
    useEffect(() => {
       if (!favoriteFormState.timestamp) return;
+
+      if (favoriteFormState.timestamp === lastTimestamp.current) return;
+
+      lastTimestamp.current = favoriteFormState.timestamp;
 
       if (favoriteFormState.success) {
          if (favoriteFormState.message) {
@@ -82,10 +87,7 @@ export function SummaryFavoriteForm({
             text=""
             loadingText=""
             icon={
-               <Heart
-                  className={cn(isFavorite && "fill-current", " size-4")}
-                  
-               />
+               <Heart className={cn(isFavorite && "fill-current", " size-4")} />
             }
             aria-label={
                isFavorite ? "Eliminar de favoritos" : "Añadir a favoritos"
