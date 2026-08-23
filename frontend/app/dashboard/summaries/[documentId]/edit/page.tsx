@@ -13,17 +13,8 @@ export default async function SummarySingleEditRoute({ params }: PageProps) {
 
    if (!documentId) notFound();
 
-   const { data: summary } = await loaders.getSummaryByDocumentId(documentId);
-   
-   const { title, thumbnailUrl, content } = summary;
+   const { data: summary } =
+      await loaders.getSummaryWithFavoriteByDocumentId(documentId);
 
-   return (
-      <EditPage
-         headerTitle={title}
-         documentId={documentId}
-         summaryContent={content}
-         summary={summary}
-         thumbnailUrl={thumbnailUrl}
-      />
-   );
+   return <EditPage headerTitle={summary.title} summary={summary} />;
 }

@@ -15,17 +15,11 @@ export default async function Layout({
 
    if (!documentId) notFound();
 
-   const { data: summary } = await loaders.getSummaryByDocumentId(documentId);
-
-   const { title, thumbnailUrl, content } = summary;
+   const { data: summary } =
+      await loaders.getSummaryWithFavoriteByDocumentId(documentId);
 
    return (
-      <DashboardContent
-         headerTitle={title}
-         documentId={documentId}
-         thumbnailUrl={thumbnailUrl}
-         summaryContent={content}
-      >
+      <DashboardContent headerTitle={summary.title} summary={summary}>
          {children}
       </DashboardContent>
    );

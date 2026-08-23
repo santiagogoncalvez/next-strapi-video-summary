@@ -26,6 +26,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { SummaryTitleForm } from "../form/edit-summary-title";
 import { toast } from "sonner";
+import { SummaryFavoriteForm } from "../form/favorite-summary";
+import { SummaryWithFavorite } from "@/types/strapi";
 
 function getSummaryRoute(pathname: string) {
    if (!/^\/dashboard\/summaries\/[^/]+(?:\/edit)?$/.test(pathname)) {
@@ -37,18 +39,16 @@ function getSummaryRoute(pathname: string) {
 
 export default function DashboardHeader({
    title,
-   documentId,
-   summaryContent,
+   summary,
    updateIsPending = false,
-   thumbnailUrl,
 }: {
    title?: string;
-   documentId?: string;
-   summaryContent?: string;
+   summary?: SummaryWithFavorite;
    updateIsPending?: boolean;
-   thumbnailUrl?: string;
 }) {
    const [isEditingTitle, setIsEditingTitle] = useState(false);
+   const titleInputRef = useRef<HTMLInputElement>(null);
+   const shouldFocusTitleInput = useRef(false);
 
    const pathname = usePathname();
 
@@ -77,11 +77,6 @@ export default function DashboardHeader({
         }
       : null;
 
-   const isSummaryPage = summaryRoute && documentId;
-
-   const titleInputRef = useRef<HTMLInputElement>(null);
-   const shouldFocusTitleInput = useRef(false);
-
    async function handleCopySummary() {
       const content =
          summaryRoute === "edit"
@@ -90,7 +85,7 @@ export default function DashboardHeader({
                     "summary-content",
                  ) as HTMLInputElement | null
               )?.value
-            : summaryContent;
+            : summary?.content;
 
       if (!content) return;
 
@@ -109,19 +104,25 @@ export default function DashboardHeader({
       }
    }, [isEditingTitle]);
 
+   const isSummaryPage = summaryRoute && summary?.documentId;
+
    return (
       <header className="max-w-full w-full p-4 shadow-none border-b-0 border-sidebar-border/50 flex justify-between items-center gap-4">
          <div className="flex gap-4 items-center min-w-0 flex-1">
             <SidebarTrigger className={cn("size-8 md:hidden flex")} />
 
             <div className="flex gap-2 items-center justify-start min-w-0 flex-1">
-               {summaryRoute && thumbnailUrl && title && (
-                  <ThumbnailAvatar src={thumbnailUrl} alt={title} size="xs" />
+               {summaryRoute && summary?.thumbnailUrl && title && (
+                  <ThumbnailAvatar
+                     src={summary.thumbnailUrl}
+                     alt={title}
+                     size="xs"
+                  />
                )}
 
                <SummaryTitleForm
                   title={title}
-                  documentId={documentId}
+                  documentId={summary?.documentId}
                   onFinishEditing={() => {
                      shouldFocusTitleInput.current = false;
                      setIsEditingTitle(false);
@@ -178,7 +179,7 @@ export default function DashboardHeader({
                      <DropdownMenuContent
                         align="end"
                         sideOffset={4}
-                        className="w-48"
+                        className="w-56"
                         onCloseAutoFocus={(event) => {
                            if (shouldFocusTitleInput.current) {
                               event.preventDefault();
@@ -198,6 +199,13 @@ export default function DashboardHeader({
                               </Link>
                            </DropdownMenuItem>
                         )}
+
+                        <SummaryFavoriteForm
+                           isFavorite={summary.isFavorite}
+                           summaryId={summary.documentId}
+                           favoriteId={summary.favoriteDocumentId}
+                           variant="dropdown"
+                        />
 
                         <DropdownMenuItem
                            onSelect={() => {
@@ -222,7 +230,7 @@ export default function DashboardHeader({
 
                         <DropdownMenuSeparator className="bg-transparent" />
 
-                        <SummaryDeleteForm summaryId={documentId} />
+                        <SummaryDeleteForm summaryId={summary.documentId} />
                      </DropdownMenuContent>
                   </DropdownMenu>
                </>

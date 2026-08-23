@@ -9,12 +9,14 @@ import { getFormErrorMessage } from "@/actions/helpers";
 import { Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SubmitButton } from "./submit-button";
+import { SubmitButtonDropdown } from "./submit-button-dropwdown";
 
 interface SummaryFavoriteFormProps {
    summaryId: string;
    favoriteId?: string;
    isFavorite: boolean;
    className?: string;
+   variant?: "card" | "dropdown";
 }
 
 const INITIAL_STATE: FormState = {
@@ -29,6 +31,7 @@ export function SummaryFavoriteForm({
    favoriteId,
    isFavorite,
    className,
+   variant = "card",
 }: Readonly<SummaryFavoriteFormProps>) {
    const [favoriteFormState, favoriteFormAction, favoriteIsPending] =
       useActionState(
@@ -81,23 +84,52 @@ export function SummaryFavoriteForm({
 
          <input type="hidden" name="isFavorite" value={String(isFavorite)} />
 
-         <SubmitButton
-            disabled={favoriteIsPending}
-            loading={favoriteIsPending}
-            text=""
-            loadingText=""
-            icon={
-               <Heart className={cn(isFavorite && "fill-current", " size-4")} />
-            }
-            aria-label={
-               isFavorite ? "Eliminar de favoritos" : "Añadir a favoritos"
-            }
-            variant="none"
-            size="none"
-            onClick={(event) => {
-               event.stopPropagation();
-            }}
-         />
+         {variant === "card" && (
+            <SubmitButton
+               disabled={favoriteIsPending}
+               loading={favoriteIsPending}
+               text=""
+               loadingText=""
+               icon={
+                  <Heart
+                     className={cn(isFavorite && "fill-current", " size-4")}
+                  />
+               }
+               aria-label={
+                  isFavorite ? "Eliminar de favoritos" : "Añadir a favoritos"
+               }
+               variant="none"
+               size="none"
+               onClick={(event) => {
+                  event.stopPropagation();
+               }}
+            />
+         )}
+
+         {variant === "dropdown" && (
+            <SubmitButtonDropdown
+               loading={favoriteIsPending}
+               text={
+                  isFavorite ? "Eliminar de favoritos" : "Agregar a favoritos"
+               }
+               loadingText={
+                  isFavorite
+                     ? "Eliminando de favoritos"
+                     : "Agregando a favoritos"
+               }
+               icon={
+                  <Heart
+                     className={cn(isFavorite && "fill-current", "size-4")}
+                  />
+               }
+               variant="none"
+               size="none"
+               onClick={(event) => {
+                  event.stopPropagation();
+               }}
+               className="hover:cursor-pointer w-full"
+            />
+         )}
       </form>
    );
 }

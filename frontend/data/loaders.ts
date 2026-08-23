@@ -269,6 +269,49 @@ async function getFavoriteSummaries(
    };
 }
 
+async function getFavoriteBySummaryId(
+   summaryId: string,
+): Promise<StrapiResponse<Favorite[]>> {
+   const { jwt } = await requireSession();
+
+   const query = stringify({
+      filters: {
+         summaryId: {
+            $eq: summaryId,
+         },
+      },
+   });
+
+   const url = new URL("/api/favorites", baseUrl);
+   url.search = query;
+
+   try {
+      return await api.get<StrapiResponse<Favorite[]>>(url.href, {
+         headers: {
+            Authorization: `Bearer ${jwt}`,
+         },
+      });
+   } catch (error) {
+      handleStrapiError(error);
+   }
+}
+
+async function getSummaryWithFavoriteByDocumentId(
+   documentId: string,
+): Promise<StrapiResponse<SummaryWithFavorite>> {
+   const summaryResponse = await getSummaryByDocumentId(documentId);
+   const favoriteResponse = await getFavoriteBySummaryId(documentId);
+
+   return {
+      ...summaryResponse,
+      data: {
+         ...summaryResponse.data,
+         isFavorite: favoriteResponse.data.length > 0,
+         favoriteDocumentId: favoriteResponse.data[0]?.documentId,
+      },
+   };
+}
+
 export const loaders = {
    getHomePageData,
    getGlobalData,
@@ -276,5 +319,6 @@ export const loaders = {
    getSummaries,
    getFavoriteSummaries,
    getSummaryByDocumentId,
+   getSummaryWithFavoriteByDocumentId,
    getFavorites,
 };

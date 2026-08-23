@@ -1,26 +1,23 @@
 import DashboardHeader from "@/components/custom/dashboard-header";
 import { cn } from "@/lib/utils";
 import { SidebarTrigger } from "../ui/sidebar";
+import { SummaryWithFavorite } from "@/types/strapi";
 
 interface DashboardContentProps {
    children: React.ReactNode;
    headerTitle?: string;
+   summary?: SummaryWithFavorite;
    showHeader?: boolean;
-   documentId?: string;
-   summaryContent?: string;
    updateIsPending?: boolean;
-   thumbnailUrl?: string;
    className?: string;
 }
 
 export default function DashboardContent({
    children,
    headerTitle = "",
-   documentId = "",
-   summaryContent = "",
+   summary,
    showHeader = true,
    updateIsPending = false,
-   thumbnailUrl,
    className,
 }: DashboardContentProps) {
    return (
@@ -28,10 +25,8 @@ export default function DashboardContent({
          {showHeader ? (
             <DashboardHeader
                title={headerTitle}
-               documentId={documentId}
-               summaryContent={summaryContent}
+               summary={summary}
                updateIsPending={updateIsPending}
-               thumbnailUrl={thumbnailUrl}
             />
          ) : (
             <SidebarTrigger
