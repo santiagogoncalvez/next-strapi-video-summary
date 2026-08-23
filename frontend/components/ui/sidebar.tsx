@@ -9,13 +9,6 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import {
-   Sheet,
-   SheetContent,
-   SheetDescription,
-   SheetHeader,
-   SheetTitle,
-} from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
    Tooltip,
@@ -23,6 +16,14 @@ import {
    TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { PanelLeftIcon } from "lucide-react";
+import {
+   Drawer,
+   DrawerContent,
+   DrawerDescription,
+   DrawerHeader,
+   DrawerTitle,
+} from "./drawer";
+import { SidebarMobileHandle } from "../custom/dashboard-sidebar-mobile-handle";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -164,7 +165,7 @@ function Sidebar({
    collapsible = "offcanvas",
    className,
    children,
-   dir,
+   // dir,
    ...props
 }: React.ComponentProps<"div"> & {
    side?: "left" | "right";
@@ -190,29 +191,36 @@ function Sidebar({
 
    if (isMobile) {
       return (
-         <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
-            <SheetContent
-               dir={dir}
-               data-sidebar="sidebar"
-               data-slot="sidebar"
-               data-mobile="true"
-               className="w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden border-r-sidebar-border/80 rounded-r-2xl overflow-hidden"
-               style={
-                  {
-                     "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
-                  } as React.CSSProperties
-               }
-               side={side}
+         <div>
+            <Drawer
+               open={openMobile}
+               onOpenChange={setOpenMobile}
+               direction={side}
+               dismissible
             >
-               <SheetHeader className="sr-only">
-                  <SheetTitle>Sidebar</SheetTitle>
-                  <SheetDescription>
-                     Displays the mobile sidebar.
-                  </SheetDescription>
-               </SheetHeader>
-               <div className="flex h-full w-full flex-col">{children}</div>
-            </SheetContent>
-         </Sheet>
+               <DrawerContent
+                  className="w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground border-r! border-r-sidebar-border/80! rounded-r-2xl! overflow-hidden"
+                  style={
+                     {
+                        "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
+                     } as React.CSSProperties
+                  }
+               >
+                  <DrawerHeader className="sr-only">
+                     <DrawerTitle>Sidebar</DrawerTitle>
+                     <DrawerDescription>
+                        Displays the mobile sidebar.
+                     </DrawerDescription>
+                  </DrawerHeader>
+
+                  <div className="flex h-full w-full flex-col">{children}</div>
+               </DrawerContent>
+            </Drawer>
+
+            <SidebarMobileHandle
+               onOpen={() => setOpenMobile(true)}
+            />
+         </div>
       );
    }
 
@@ -401,10 +409,7 @@ function SidebarGroup({ className, ...props }: React.ComponentProps<"div">) {
       <div
          data-slot="sidebar-group"
          data-sidebar="group"
-         className={cn(
-            "relative flex w-full flex-col p-4 gap-2",
-            className,
-         )}
+         className={cn("relative flex w-full flex-col p-4 gap-2", className)}
          {...props}
       />
    );
@@ -618,10 +623,7 @@ function SidebarMenuSkeleton({
       <div
          data-slot="sidebar-menu-skeleton"
          data-sidebar="menu-skeleton"
-         className={cn(
-            "flex h-8 items-center gap-2 p-4 rounded-md",
-            className,
-         )}
+         className={cn("flex h-8 items-center gap-2 p-4 rounded-md", className)}
          {...props}
       >
          {showIcon && (

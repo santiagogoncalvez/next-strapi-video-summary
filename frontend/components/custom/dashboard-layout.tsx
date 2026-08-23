@@ -7,7 +7,7 @@ export default async function LayoutDashboard({
    children,
 }: {
    children: React.ReactNode;
-   }) {
+}) {
    const user = await getUserMeService();
    const { data: summaries } = await loaders.getSummaries("", 1);
 
@@ -20,13 +20,7 @@ export default async function LayoutDashboard({
             <SidebarProvider className="relative flex h-full w-full">
                <DashboardSidebar
                   variant="sidebar"
-                  className="md:flex hidden"
-                  recentSummaries={summaries}
-                  user={user}
-               />
-               <DashboardSidebar
-                  variant="floating"
-                  className="md:hidden flex"
+                  className="flex"
                   recentSummaries={summaries}
                   user={user}
                />
