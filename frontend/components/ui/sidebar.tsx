@@ -15,7 +15,7 @@ import {
    TooltipContent,
    TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { PanelLeftIcon } from "lucide-react";
+import { Menu, PanelLeftIcon, X } from "lucide-react";
 import {
    Drawer,
    DrawerContent,
@@ -23,7 +23,6 @@ import {
    DrawerHeader,
    DrawerTitle,
 } from "./drawer";
-import { SidebarMobileHandle } from "../custom/dashboard-sidebar-mobile-handle";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -196,7 +195,6 @@ function Sidebar({
                open={openMobile}
                onOpenChange={setOpenMobile}
                direction={side}
-               dismissible
             >
                <DrawerContent
                   className="w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground border-r! border-r-sidebar-border/80! rounded-r-2xl! overflow-hidden"
@@ -216,10 +214,6 @@ function Sidebar({
                   <div className="flex h-full w-full flex-col">{children}</div>
                </DrawerContent>
             </Drawer>
-
-            <SidebarMobileHandle
-               onOpen={() => setOpenMobile(true)}
-            />
          </div>
       );
    }
@@ -275,7 +269,9 @@ function SidebarTrigger({
    onClick,
    ...props
 }: React.ComponentProps<typeof Button>) {
-   const { toggleSidebar } = useSidebar();
+   const { toggleSidebar, open, openMobile, isMobile } = useSidebar();
+
+   const isOpen = isMobile ? openMobile : open;
 
    return (
       <Button
@@ -290,8 +286,13 @@ function SidebarTrigger({
          }}
          {...props}
       >
-         <PanelLeftIcon />
-         <span className="sr-only">Toggle Sidebar</span>
+         <PanelLeftIcon className="hidden md:flex" />
+
+         <Menu className={`flex md:hidden ${!isOpen ? "flex" : "hidden"}`} />
+
+         <X className={`flex md:hidden ${isOpen ? "flex" : "hidden"}`} />
+         
+         <span className="sr-only">Alternar barra lateral</span>
       </Button>
    );
 }
