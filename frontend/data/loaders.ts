@@ -15,6 +15,7 @@ import { requireSession } from "@/lib/dal";
 import { apiFetch } from "./data-fetch";
 import { handleStrapiError } from "@/actions/helpers";
 import { mapSummariesWithFavorites } from "@/lib/parsers";
+import { cache } from "react";
 
 const baseUrl = getStrapiURL();
 
@@ -296,21 +297,28 @@ async function getFavoriteBySummaryId(
    }
 }
 
-async function getSummaryWithFavoriteByDocumentId(
-   documentId: string,
-): Promise<StrapiResponse<SummaryWithFavorite>> {
-   const summaryResponse = await getSummaryByDocumentId(documentId);
-   const favoriteResponse = await getFavoriteBySummaryId(documentId);
+export const getSummaryWithFavoriteByDocumentId = cache(
+   async (documentId: string): Promise<StrapiResponse<SummaryWithFavorite>> => {
+      // Peticiones en paralelo en lugar de secuenciales
+      const [summaryResponse, favoriteResponse] = await Promise.all([
+         getSummaryByDocumentId(documentId),
+         getFavoriteBySummaryId(documentId),
+      ]);
 
-   return {
-      ...summaryResponse,
-      data: {
-         ...summaryResponse.data,
-         isFavorite: favoriteResponse.data.length > 0,
-         favoriteDocumentId: favoriteResponse.data[0]?.documentId,
-      },
-   };
-}
+      if (!summaryResponse?.data) {
+         return summaryResponse as unknown as StrapiResponse<SummaryWithFavorite>;
+      }
+
+      return {
+         ...summaryResponse,
+         data: {
+            ...summaryResponse.data,
+            isFavorite: (favoriteResponse?.data?.length ?? 0) > 0,
+            favoriteDocumentId: favoriteResponse?.data?.[0]?.documentId,
+         },
+      };
+   },
+);
 
 export const loaders = {
    getHomePageData,

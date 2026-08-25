@@ -112,6 +112,7 @@ export async function updateSummaryAction(
 
       // Revalidate the current page and summaries list to show updated data
       revalidatePath(`/dashboard/summaries/${documentId}`);
+      revalidatePath(`/dashboard/summaries/${documentId}/edit`);
       revalidatePath("/dashboard/summaries");
 
       return getSuccessFormState(
