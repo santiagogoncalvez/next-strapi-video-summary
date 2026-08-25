@@ -49,6 +49,7 @@ export default function DashboardHeader({
    updateIsDirty?: boolean;
 }) {
    const [isEditingTitle, setIsEditingTitle] = useState(false);
+   const [titleEditKey, setTitleEditKey] = useState(0);
    const titleInputRef = useRef<HTMLInputElement>(null);
    const shouldFocusTitleInput = useRef(false);
 
@@ -123,6 +124,7 @@ export default function DashboardHeader({
                )}
 
                <SummaryTitleForm
+                  key={titleEditKey}
                   title={title}
                   documentId={summary?.documentId}
                   onFinishEditing={() => {
@@ -134,7 +136,10 @@ export default function DashboardHeader({
                />
                <h1
                   className={`text-normal text-black font-medium whitespace-nowrap overflow-x-auto [scrollbar-none] [&::-webkit-scrollbar]:hidden ${isEditingTitle ? "hidden" : ""}`}
-                  onClick={() => setIsEditingTitle(true)}
+                  onClick={() => {
+                     setTitleEditKey((key) => key + 1);
+                     setIsEditingTitle(true);
+                  }}
                >
                   {pageTitle}
                </h1>
@@ -224,6 +229,7 @@ export default function DashboardHeader({
                         <DropdownMenuItem
                            onSelect={() => {
                               shouldFocusTitleInput.current = true;
+                              setTitleEditKey((key) => key + 1);
                               setIsEditingTitle(true);
                            }}
                            className="hover:cursor-pointer"

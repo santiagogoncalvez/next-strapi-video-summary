@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useRef } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { Check } from "lucide-react";
 import { actions } from "@/actions";
 import { FormState } from "@/types/definitions";
@@ -35,6 +35,10 @@ export function SummaryTitleForm({
 }: Readonly<SummaryTitleFormProps>) {
    const [updateTitleFormState, updateTitleFormAction, updateTitleIsPending] =
       useActionState(actions.summarize.updateSummaryTitleAction, INITIAL_STATE);
+   
+   const [currentTitle, setCurrentTitle] = useState(title ?? "");
+
+   const isDirty = currentTitle !== (title ?? "");
 
    const lastTimestamp = useRef<number | null>(null);
 
@@ -65,6 +69,7 @@ export function SummaryTitleForm({
             duration: 3000,
          });
       }
+
    }, [updateTitleFormState, onFinishEditing]);
 
    function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -96,8 +101,8 @@ export function SummaryTitleForm({
             name="title"
             type="text"
             placeholder="Ingresar título de resumen"
-            defaultValue={title}
-            disabled={updateTitleIsPending}
+            value={currentTitle}
+            onChange={(event) => setCurrentTitle(event.target.value)}
             onKeyDown={handleKeyDown}
             onBlur={handleBlur}
             inputSize="sm"
@@ -108,6 +113,7 @@ export function SummaryTitleForm({
          <SubmitButton
             text=""
             loadingText=""
+            disabled={!isDirty}
             loading={updateTitleIsPending}
             variant="ghost"
             size="icon"
