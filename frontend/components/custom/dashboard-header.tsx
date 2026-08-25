@@ -41,10 +41,12 @@ export default function DashboardHeader({
    title,
    summary,
    updateIsPending = false,
+   updateIsDirty = false,
 }: {
    title?: string;
    summary?: SummaryWithFavorite;
    updateIsPending?: boolean;
+   updateIsDirty?: boolean;
 }) {
    const [isEditingTitle, setIsEditingTitle] = useState(false);
    const titleInputRef = useRef<HTMLInputElement>(null);
@@ -148,6 +150,7 @@ export default function DashboardHeader({
                            form="summary-update-form"
                            text="Guardar"
                            loadingText="Guardando"
+                           disabled={!updateIsDirty}
                            loading={updateIsPending}
                            size="default"
                            className="md:flex hidden"
@@ -157,6 +160,7 @@ export default function DashboardHeader({
                            form="summary-update-form"
                            text=""
                            loadingText=""
+                           disabled={!updateIsDirty}
                            loading={updateIsPending}
                            size="icon"
                            className="md:hidden flex"

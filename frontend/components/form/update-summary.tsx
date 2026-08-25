@@ -1,23 +1,22 @@
 "use client";
 
-import { useActionState, useEffect, useRef, useState } from "react";
+import { useActionState, useEffect, useRef } from "react";
 
 import { EditorWrapper } from "@/components/custom/editor/editor-wrapper";
-
 import { Card, CardContent } from "@/components/ui/card";
-
 import { FormError } from "@/components/form/form-error";
-
 import { Summary } from "@/types/strapi";
 import { SUMMARY_UPDATE_FORM_STYLES } from "@/constants/styles";
 import { actions } from "@/actions";
 import { FormState } from "@/types/definitions";
 import { toast } from "sonner";
 import { getFormErrorMessage } from "@/actions/helpers";
+import { useRouter } from "next/navigation";
 
 interface SummaryUpdateFormProps {
    summary: Summary;
    onPendingChange: (pending: boolean) => void;
+   onDirtyChange: (dirty: boolean) => void;
 }
 
 const INITIAL_STATE: FormState = {
@@ -27,17 +26,23 @@ const INITIAL_STATE: FormState = {
    zodErrors: null,
 };
 
+function normalizeContent(content: string) {
+   return content.replace(/\r\n/g, "\n").trim();
+}
+
 export function SummaryUpdateForm({
    summary,
    onPendingChange,
+   onDirtyChange,
 }: Readonly<SummaryUpdateFormProps>) {
+   const router = useRouter();
    const [updateFormState, updateFormAction, updateIsPending] = useActionState(
       actions.summarize.updateSummaryAction,
       INITIAL_STATE,
    );
-   const [content, setContent] = useState(
-      updateFormState.data?.content ?? summary.content,
-   );
+
+   const contentRef = useRef(summary.content);
+   const isDirtyRef = useRef(false);
    const lastTimestamp = useRef<number | null>(null);
 
    useEffect(() => {
@@ -46,7 +51,6 @@ export function SummaryUpdateForm({
 
    useEffect(() => {
       if (!updateFormState.timestamp) return;
-
       if (updateFormState.timestamp === lastTimestamp.current) return;
 
       lastTimestamp.current = updateFormState.timestamp;
@@ -59,6 +63,15 @@ export function SummaryUpdateForm({
             });
          }
 
+         if (updateFormState.data?.content) {
+            contentRef.current = updateFormState.data.content;
+         }
+
+         isDirtyRef.current = false;
+         onDirtyChange(false);
+
+         router.refresh();
+
          return;
       }
 
@@ -70,7 +83,41 @@ export function SummaryUpdateForm({
             duration: 3000,
          });
       }
-   }, [updateFormState]);
+   }, [updateFormState, onDirtyChange, router]);
+
+   const handleContentChange = (newContent: string) => {
+      contentRef.current = newContent;
+
+      const dirty =
+         normalizeContent(newContent) !== normalizeContent(summary.content);
+
+      if (dirty !== isDirtyRef.current) {
+         isDirtyRef.current = dirty;
+         onDirtyChange(dirty);
+      }
+
+      const input = document.getElementById(
+         "summary-content",
+      ) as HTMLInputElement | null;
+
+      if (input) {
+         input.value = newContent;
+      }
+   };
+
+   useEffect(() => {
+      contentRef.current = summary.content;
+      isDirtyRef.current = false;
+      onDirtyChange(false);
+
+      const input = document.getElementById(
+         "summary-content",
+      ) as HTMLInputElement | null;
+
+      if (input) {
+         input.value = summary.content;
+      }
+   }, [summary.content, onDirtyChange]);
 
    return (
       <div className={SUMMARY_UPDATE_FORM_STYLES.container}>
@@ -86,7 +133,7 @@ export function SummaryUpdateForm({
                         id="summary-content"
                         type="hidden"
                         name="content"
-                        value={content}
+                        defaultValue={summary.content}
                         readOnly
                      />
 
@@ -94,10 +141,8 @@ export function SummaryUpdateForm({
 
                      <EditorWrapper
                         key={summary.documentId}
-                        markdown={
-                           updateFormState.data?.content ?? summary.content
-                        }
-                        onChange={setContent}
+                        markdown={summary.content}
+                        onChange={handleContentChange}
                         className={SUMMARY_UPDATE_FORM_STYLES.editor}
                      />
                   </div>
@@ -106,6 +151,7 @@ export function SummaryUpdateForm({
                      type="hidden"
                      name="documentId"
                      value={summary.documentId}
+                     readOnly
                   />
                </CardContent>
             </Card>
