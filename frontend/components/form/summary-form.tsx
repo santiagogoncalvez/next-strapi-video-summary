@@ -1,5 +1,5 @@
 "use client";
-import { useActionState, useEffect, useRef } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 import { Input } from "@/components/ui/input";
@@ -32,6 +32,8 @@ export function SummaryForm() {
       actions.summarize.createSummaryAction,
       INITIAL_STATE,
    );
+
+   const [videoId, setVideoId] = useState(formState.data?.videoId ?? "");
 
    const lastTimestamp = useRef<number | null>(null);
 
@@ -107,13 +109,15 @@ export function SummaryForm() {
                         name="videoId"
                         type="text"
                         placeholder="https://youtu.be/dQw4w9WgXcQ o dQw4w9WgXcQ"
-                        defaultValue={formState.data?.videoId ?? ""}
+                        value={videoId}
+                        onChange={(event) => setVideoId(event.target.value)}
                         required
                         className="h-14 pl-4 pr-14"
                      />
 
                      <SubmitButtonSummary
                         className={SUMMARY_FORM_STYLES.button}
+                        disabled={!videoId.trim()}
                         loading={isPending}
                      />
                   </div>
