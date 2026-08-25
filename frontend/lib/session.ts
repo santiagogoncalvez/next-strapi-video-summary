@@ -5,6 +5,7 @@ import "server-only";
 import { JWTVerifyResult, SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { AuthResponse, SessionPayload } from "@/types/strapi";
+import { cache } from "react";
 
 // Recuperar el secreto de sesión de las variables de entorno y codificarlo.
 const secretKey = process.env.SESSION_SECRET;
@@ -20,7 +21,7 @@ export async function encrypt(payload: SessionPayload) {
 }
 
 // Verifica y decodifica el token de sesión JWT
-export async function decrypt(session: string | undefined = "") {
+export const decrypt = cache(async (session: string | undefined = "") => {
    // Si la cookie viene vacía o no existe, salimos inmediatamente sin romper
    // SI NO HAY COOKIE, CORRE QUE NO INTENTE VALIDAR NADA
    if (!session || session.trim() === "") return null;
@@ -33,7 +34,7 @@ export async function decrypt(session: string | undefined = "") {
    } catch (error) {
       console.error(error as JWTVerifyResult);
    }
-}
+});
 
 // Crea una nueva sesión cifrando la carga útil y almacenándola en una cookie segura.
 export async function createSession(payload: AuthResponse) {

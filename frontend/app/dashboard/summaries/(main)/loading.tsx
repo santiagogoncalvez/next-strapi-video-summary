@@ -54,7 +54,7 @@ function SummaryCardSkeleton() {
    );
 }
 
-export default function SummariesLoading() {
+export default function Loading() {
    return (
       <div className="flex flex-col gap-8">
          <Skeleton className="w-full h-10" />
