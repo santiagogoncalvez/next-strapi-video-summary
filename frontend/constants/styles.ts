@@ -223,3 +223,18 @@ export const SUMMARY_GRID_STYLES = {
    footer:
       "py-0 text-sm font-normal text-primary flex flex-row justify-start items-center gap-2",
 };
+
+export const THUMBNAIL_AVATAR_VARIANTS = cva("aspect-video rounded-sm object-cover", {
+   variants: {
+      size: {
+         xs: "h-4 w-auto",
+         sm: "h-6 w-auto",
+         default: "h-8 w-auto",
+         md: "h-10 w-auto",
+         lg: "h-12 w-auto",
+      },
+   },
+   defaultVariants: {
+      size: "default",
+   },
+});

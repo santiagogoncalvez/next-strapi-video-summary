@@ -2,6 +2,8 @@
 import DashboardHeader from "@/components/custom/dashboard-header";
 import { loaders } from "@/data/loaders";
 import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
+import { THUMBNAIL_AVATAR_VARIANTS } from "@/constants/styles";
 
 export async function DashboardHeaderAsync({
    documentId,
@@ -23,7 +25,9 @@ export default function DashboardHeaderSkeleton() {
             <Skeleton className="size-8 md:hidden flex rounded-md shrink-0" />
 
             <div className="flex gap-2 items-center justify-start min-w-0 flex-1">
-               <Skeleton className="size-6 rounded-full shrink-0" />
+               <Skeleton
+                  className={cn(THUMBNAIL_AVATAR_VARIANTS({ size: "xs" }))}
+               />
                <Skeleton className="h-5 w-36 sm:w-52 rounded-md" />
             </div>
          </div>

@@ -70,10 +70,10 @@ export function NavUser({
 
                   {/* POPUP / DROPDOWN */}
                   <DropdownMenuContent
-                     side={isSidebarMobile ? "bottom" : "right"}
-                     align={isSidebarMobile ? "start" : "end"}
+                     side="bottom"
+                     align="start"
                      sideOffset={4}
-                     className="w-[--radix-dropdown-menu-trigger-width] min-w-56"
+                     className="w-[calc(17rem-2rem)] min-w-56"
                   >
                      {/* HEADER DEL POPUP */}
                      <DropdownMenuLabel className="p-0 font-normal">

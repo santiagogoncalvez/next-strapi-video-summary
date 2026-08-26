@@ -57,7 +57,7 @@ function SummaryCardSkeleton() {
 export default function Loading() {
    return (
       <div className="flex flex-col gap-8">
-         <Skeleton className="w-full h-10" />
+         {/* <Skeleton className="w-full h-10" /> */}
          <div className={styles.grid}>
             {Array.from({ length: 8 }).map((_, index) => (
                <SummaryCardSkeleton key={index} />
