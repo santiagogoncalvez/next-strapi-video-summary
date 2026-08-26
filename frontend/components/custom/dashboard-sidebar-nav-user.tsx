@@ -9,6 +9,8 @@ import {
    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
+   SIDEBAR_WIDTH,
+   SIDEBAR_WIDTH_MOBILE,
    SidebarFooter,
    SidebarMenu,
    SidebarMenuButton,
@@ -23,13 +25,11 @@ import { getMediaUrl } from "./media-image";
 interface NavUserProps {
    user: User;
    isSidebarOpen: boolean;
-   isSidebarMobile: boolean;
 }
 
 export function NavUser({
    user,
    isSidebarOpen,
-   isSidebarMobile,
 }: NavUserProps) {
    const profileImageSrc = getMediaUrl(user.image?.url ?? "");
 
@@ -71,9 +71,15 @@ export function NavUser({
                   {/* POPUP / DROPDOWN */}
                   <DropdownMenuContent
                      side="bottom"
-                     align="start"
+                     align="center"
                      sideOffset={4}
-                     className="w-[calc(17rem-2rem)] min-w-56"
+                     className="md:max-w-[calc(var(--sidebar-width)-2rem)] max-w-[calc(var(--sidebar-width-mobile)-2rem)]"
+                     style={
+                        {
+                           "--sidebar-width": SIDEBAR_WIDTH,
+                           "--sidebar-width-mobile": SIDEBAR_WIDTH_MOBILE,
+                        } as React.CSSProperties
+                     }
                   >
                      {/* HEADER DEL POPUP */}
                      <DropdownMenuLabel className="p-0 font-normal">

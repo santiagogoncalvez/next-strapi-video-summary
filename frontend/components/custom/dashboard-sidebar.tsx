@@ -169,7 +169,6 @@ export function DashboardSidebar({
             <NavUser
                user={user}
                isSidebarOpen={open}
-               isSidebarMobile={isMobile}
             />
 
             {/* RAIL: Permite hacer click/arrastrar en el borde para colapsar en desktop */}

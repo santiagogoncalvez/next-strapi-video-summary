@@ -42,7 +42,7 @@ function ImageCard({
 }) {
    return (
       <div className={cn("w-full relative", className)}>
-         <div className="flex items-center justify-center space-x-4 rounded-2xl border border-input/80 p-2 w-xs aspect-square">
+         <div className="flex items-center justify-center space-x-4 rounded-2xl border border-input/80 p-0 w-full aspect-square">
             {error ? (
                <FormError error={[error]} className="text-center" />
             ) : dataUrl ? (
