@@ -157,4 +157,3 @@ export function SummaryUpdateForm({
       </div>
    );
 }
-git commit -am "refactor(dashboard): optimizar componentes async, fix de estado dirty en editor y ajustes de UI"
