@@ -95,7 +95,7 @@ export function DashboardSidebar({
                      label: "RESU",
                   }}
                   showText={false}
-                  className={`transition-opacity ${!open ? "group-hover:opacity-0" : ""}`}
+                  className={`transition-opacity ${!open ? "group-hover:opacity-0" : "pl-2"}`}
                />
                <SidebarTrigger
                   className={cn(

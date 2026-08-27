@@ -198,7 +198,7 @@ function Sidebar({
                direction={side}
             >
                <DrawerContent
-                  className="w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground border-r! border-r-sidebar-border/80! rounded-r-2xl! overflow-hidden"
+                  className="w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground border-r-0! border-r-sidebar-border/80! rounded-r-2xl! overflow-hidden"
                   style={
                      {
                         "--sidebar-width": SIDEBAR_WIDTH_MOBILE,

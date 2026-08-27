@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import {
    Check,
    Copy,
+   Download,
    Eye,
    MoreHorizontal,
    Pencil,
@@ -28,6 +29,9 @@ import { SummaryTitleForm } from "../form/edit-summary-title";
 import { toast } from "sonner";
 import { SummaryFavoriteForm } from "../form/favorite-summary";
 import { SummaryWithFavorite } from "@/types/strapi";
+import removeMarkdown from "remove-markdown";
+import MarkdownPDFDocument from "@/utils/pdfRenderer";
+import { pdf } from "@react-pdf/renderer";
 
 function getSummaryRoute(pathname: string) {
    if (!/^\/dashboard\/summaries\/[^/]+(?:\/edit)?$/.test(pathname)) {
@@ -35,6 +39,37 @@ function getSummaryRoute(pathname: string) {
    }
 
    return pathname.endsWith("/edit") ? "edit" : "view";
+}
+
+function getSummaryMarkdown(
+   summaryRoute: string | null,
+   summaryContent: string | undefined,
+) {
+   const contentMarkdown =
+      summaryRoute === "edit"
+         ? (
+              document.getElementById(
+                 "summary-content",
+              ) as HTMLInputElement | null
+           )?.value
+         : summaryContent;
+
+   return contentMarkdown;
+}
+
+function downloadFile(content: string, filename: string, type: string) {
+   const blob = new Blob([content], { type });
+   const url = URL.createObjectURL(blob);
+
+   const link = document.createElement("a");
+   link.href = url;
+   link.download = filename;
+
+   document.body.appendChild(link);
+   link.click();
+   link.remove();
+
+   URL.revokeObjectURL(url);
 }
 
 export default function DashboardHeader({
@@ -81,24 +116,85 @@ export default function DashboardHeader({
       : null;
 
    async function handleCopySummary() {
-      const content =
-         summaryRoute === "edit"
-            ? (
-                 document.getElementById(
-                    "summary-content",
-                 ) as HTMLInputElement | null
-              )?.value
-            : summary?.content;
+      const contentMarkdown = getSummaryMarkdown(
+         summaryRoute,
+         summary?.content,
+      );
 
-      if (!content) return;
+      if (!contentMarkdown) return;
 
-      await navigator.clipboard.writeText(content);
+      const plainText = removeMarkdown(contentMarkdown);
 
-      toast.success("Resumen copiado", {
+      await navigator.clipboard.writeText(plainText);
+
+      toast.success("Resumen copiado.", {
          position: "top-center",
          duration: 3000,
       });
    }
+
+   function handleDownloadMarkdown() {
+      const contentMarkdown = getSummaryMarkdown(
+         summaryRoute,
+         summary?.content,
+      );
+
+      if (!contentMarkdown) return;
+
+      downloadFile(contentMarkdown, "resumen.md", "text/markdown");
+
+      toast.success("Markdown descargado.", {
+         position: "top-center",
+         duration: 3000,
+      });
+   }
+
+   const handleDownloadPdf = async () => {
+      const markdown = getSummaryMarkdown(summaryRoute, summary?.content);
+
+      if (!markdown || markdown.trim() === "") {
+         toast.error(
+            "No hay nada que exportar. Por favor, escriba primero algún contenido.",
+            {
+               position: "top-center",
+               duration: 3000,
+            },
+         );
+         return;
+      }
+
+      // setIsGenerating(true);
+
+      try {
+         // Generate PDF using @react-pdf/renderer
+         const blob = await pdf(
+            <MarkdownPDFDocument markdown={markdown} />,
+         ).toBlob();
+
+         // Create download link
+         const url = URL.createObjectURL(blob);
+         const link = document.createElement("a");
+         link.href = url;
+         link.download = `markdown-document-${Date.now()}.pdf`;
+         document.body.appendChild(link);
+         link.click();
+         document.body.removeChild(link);
+         URL.revokeObjectURL(url);
+
+         toast.success("PDF descargado.", {
+            position: "top-center",
+            duration: 3000,
+         });
+      } catch (error) {
+         console.error("Error generating PDF:", error);
+         toast.error(`Error al generar el PDF.`, {
+            position: "top-center",
+            duration: 3000,
+         });
+      } finally {
+         // setIsGenerating(false);
+      }
+   };
 
    useEffect(() => {
       if (isEditingTitle) {
@@ -218,6 +314,20 @@ export default function DashboardHeader({
 
                         <DropdownMenuItem
                            onSelect={() => {
+                              shouldFocusTitleInput.current = true;
+                              setTitleEditKey((key) => key + 1);
+                              setIsEditingTitle(true);
+                           }}
+                           className="hover:cursor-pointer"
+                        >
+                           <PencilLine />
+                           Cambiar nombre
+                        </DropdownMenuItem>
+
+                        <DropdownMenuSeparator className="bg-transparent" />
+
+                        <DropdownMenuItem
+                           onSelect={() => {
                               void handleCopySummary();
                            }}
                            className="hover:cursor-pointer"
@@ -228,14 +338,22 @@ export default function DashboardHeader({
 
                         <DropdownMenuItem
                            onSelect={() => {
-                              shouldFocusTitleInput.current = true;
-                              setTitleEditKey((key) => key + 1);
-                              setIsEditingTitle(true);
+                              void handleDownloadMarkdown();
                            }}
                            className="hover:cursor-pointer"
                         >
-                           <PencilLine />
-                           Cambiar nombre
+                           <Download />
+                           Descargar Markdown
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem
+                           onSelect={() => {
+                              void handleDownloadPdf();
+                           }}
+                           className="hover:cursor-pointer"
+                        >
+                           <Download />
+                           Descargar PDF
                         </DropdownMenuItem>
 
                         <DropdownMenuSeparator className="bg-transparent" />
