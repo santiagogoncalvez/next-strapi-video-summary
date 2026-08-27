@@ -4,7 +4,8 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { SearchIcon } from "lucide-react";
 
 interface SearchProps {
    className?: string;
@@ -17,16 +18,19 @@ export function Search({ className }: SearchProps) {
 
    const queryParam = searchParams.get("query") ?? "";
 
-   // Guardamos el valor actual y la última versión conocida del parámetro de la URL
-   const [prevQuery, setPrevQuery] = useState(queryParam);
    const [value, setValue] = useState(queryParam);
 
-   // PATRÓN OFICIAL DE REACT: Sincronización durante el renderizado
-   // Se ejecuta SÓLO si la URL cambió externamente (ej: al presionar ClearSearchButton)
-   if (prevQuery !== queryParam) {
-      setPrevQuery(queryParam);
-      setValue(queryParam);
-   }
+   // Último valor que este componente mandó a la URL
+   const lastSearchRef = useRef(queryParam);
+
+   useEffect(() => {
+      // Si la URL cambió por algo externo al Search,
+      // sincronizamos el input.
+      if (queryParam !== lastSearchRef.current) {
+         setValue(queryParam);
+         lastSearchRef.current = queryParam;
+      }
+   }, [queryParam]);
 
    const handleSearch = useDebouncedCallback((term: string) => {
       const params = new URLSearchParams(searchParams);
@@ -39,6 +43,8 @@ export function Search({ className }: SearchProps) {
          params.delete("query");
       }
 
+      lastSearchRef.current = term;
+
       replace(`${pathname}?${params.toString()}`);
    }, 300);
 
@@ -48,12 +54,16 @@ export function Search({ className }: SearchProps) {
    }
 
    return (
-      <Input
-         type="text"
-         placeholder="Buscar resumen"
-         value={value}
-         onChange={(e) => handleChange(e.target.value)}
-         className={cn("", className)}
-      />
+      <div className={cn("relative", className)}>
+         <SearchIcon className="absolute left-2 top-1/2 size-4 -translate-y-1/2 pointer-events-none text-muted-foreground" />
+
+         <Input
+            type="text"
+            placeholder="Buscar resumen..."
+            value={value}
+            onChange={(e) => handleChange(e.target.value)}
+            className="w-full pl-8"
+         />
+      </div>
    );
 }

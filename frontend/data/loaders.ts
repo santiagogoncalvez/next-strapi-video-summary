@@ -101,14 +101,24 @@ async function getMetaData(): Promise<StrapiResponse<MetaData>> {
    }
 }
 
+export type SummarySort = "newest" | "oldest" | "title-asc" | "title-desc";
+
+const SORT_OPTIONS: Record<SummarySort, string> = {
+   newest: "createdAt:desc",
+   oldest: "createdAt:asc",
+   "title-asc": "title:asc",
+   "title-desc": "title:desc",
+};
+
 async function getSummariesFromStrapi(
    queryString: string,
    page: number = 1,
+   sort: SummarySort = "newest",
 ): Promise<StrapiResponse<Summary[]>> {
    const { jwt } = await requireSession();
 
    const query = stringify({
-      sort: ["createdAt:desc"],
+      sort: [SORT_OPTIONS[sort] ?? SORT_OPTIONS.newest],
       ...(queryString && {
          filters: {
             $or: [
@@ -140,8 +150,13 @@ async function getSummariesFromStrapi(
 async function getSummaries(
    queryString: string,
    page: number = 1,
+   sort: SummarySort = "newest",
 ): Promise<StrapiResponse<SummaryWithFavorite[]>> {
-   const summariesResponse = await getSummariesFromStrapi(queryString, page);
+   const summariesResponse = await getSummariesFromStrapi(
+      queryString,
+      page,
+      sort,
+   );
 
    const favoritesResponse = await getFavorites();
 
@@ -194,6 +209,7 @@ async function getFavorites(): Promise<StrapiResponse<Favorite[]>> {
 async function getFavoriteSummariesFromStrapi(
    queryString: string,
    page: number = 1,
+   sort: SummarySort = "newest",
    favorites: Favorite[],
 ): Promise<StrapiResponse<Summary[]>> {
    const { jwt } = await requireSession();
@@ -215,7 +231,7 @@ async function getFavoriteSummariesFromStrapi(
    }
 
    const query = stringify({
-      sort: ["createdAt:desc"],
+      sort: [SORT_OPTIONS[sort] ?? SORT_OPTIONS.newest],
       filters: {
          documentId: {
             $in: summaryIds,
@@ -250,12 +266,14 @@ async function getFavoriteSummariesFromStrapi(
 async function getFavoriteSummaries(
    queryString: string,
    page: number = 1,
+   sort: SummarySort = "newest",
 ): Promise<StrapiResponse<SummaryWithFavorite[]>> {
    const favoritesResponse = await getFavorites();
 
    const summariesResponse = await getFavoriteSummariesFromStrapi(
       queryString,
       page,
+      sort,
       favoritesResponse.data,
    );
 
