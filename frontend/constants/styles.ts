@@ -42,7 +42,7 @@ export const BUTTON_VARIANTS = cva(
 export const SIGN_UP_FORM_STYLES = {
    container: "w-full max-w-sm flex flex-col gap-4 justify-center items-center",
    header: "space-y-1",
-   title: "text-2xl font-semibold text-center",
+   title: "text-2xl font-medium text-center",
    content: "space-y-4",
    fieldGroup: "space-y-2",
    footer: "flex flex-col space-y-4",
@@ -55,7 +55,7 @@ export const SIGN_UP_FORM_STYLES = {
 export const SIGN_IN_FORM_STYLES = {
    container: "w-full max-w-sm flex flex-col gap-4 justify-center items-center",
    header: "space-y-1",
-   title: "text-2xl font-semibold text-center",
+   title: "text-2xl font-medium text-center",
    content: "space-y-4",
    fieldGroup: "space-y-2",
    footer: "flex flex-col space-y-4",
@@ -70,7 +70,7 @@ export const HERO_SECTION_STYLES = {
    backgroundImage: "absolute inset-0 object-cover w-full h-full ",
    overlay:
       "relative flex flex-col items-center justify-center h-full text-center bg-white/0 md:p-8 p-4",
-   heading: "text-black text-4xl font-semibold md:text-5xl lg:text-6xl",
+   heading: "text-black text-4xl font-medium md:text-5xl lg:text-6xl",
    subheading: "mt-8 text-black text-lg md:text-xl lg:text-2xl text-pretty",
    button: "mt-8 ",
 };
@@ -103,7 +103,7 @@ export const NOT_FOUND_STYLES = {
    content: "w-full max-w-2xl  text-center space-y-8",
    textSection: "space-y-4",
    heading404:
-      "text-black text-2xl font-semibold md:text-3xl lg:text-4xl select-none",
+      "text-black text-2xl font-medium md:text-3xl lg:text-4xl select-none",
    headingContainer: "relative flex flex-col items-center justify-center",
    pageTitle: "text-2xl font-normal text-gray-800 mb-4",
    description: "text-lg text-gray-600 max-w-md  leading-relaxed",
@@ -114,7 +114,7 @@ export const NOT_FOUND_STYLES = {
    searchIcon: "w-8 h-8 text-gray-400",
    errorBadge:
       "absolute -top-2 -right-2 w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center animate-bounce",
-   errorSymbol: "text-gray-500 text-xs font-semibold",
+   errorSymbol: "text-gray-500 text-xs font-medium",
    buttonContainer:
       "flex flex-col sm:flex-row gap-4 justify-center items-center",
    button: "min-w-[160px]",
@@ -123,7 +123,7 @@ export const NOT_FOUND_STYLES = {
    outlineButton: "min-w-[160px] bg-transparent",
    errorDetails:
       "mt-8 p-4 bg-red-50 border border-red-200 rounded-lg text-left text-sm text-red-800",
-   errorTitle: "font-semibold mb-2",
+   errorTitle: "font-medium mb-2",
 };
 
 export const LOADING_STYLES = {
@@ -136,7 +136,7 @@ export const PROFILE_FORM_STYLES = {
    form: "w-full",
    container: "w-full max-w-2xl flex flex-col gap-4 justify-center items-start",
 
-   title: "text-2xl font-semibold",
+   title: "text-2xl font-medium",
 
    content: "space-y-4",
 
@@ -151,7 +151,7 @@ export const PROFILE_FORM_STYLES = {
    countBox:
       "flex items-center justify-center h-10 w-full rounded-lg border border-input/80 bg-transparent px-3 py-1 text-sm transition-colors",
 
-   creditText: "font-semibold text-md mx-1",
+   creditText: "font-medium text-md mx-1",
 
    button: "w-full",
 };
@@ -165,7 +165,7 @@ export const SUMMARY_FORM_STYLES = {
    container:
       "w-full max-w-2xl flex flex-col gap-4 justify-center items-center",
    header: "space-y-1",
-   title: "text-2xl font-semibold text-center text-pretty",
+   title: "text-2xl font-medium text-center text-pretty",
    content: "space-y-4",
    fieldGroup: "space-y-2",
    footer: "flex flex-col space-y-4",
@@ -180,7 +180,7 @@ export const SUMMARY_UPDATE_FORM_STYLES = {
       "w-full max-w-2xl flex flex-col gap-4 justify-center items-center",
    content: "flex flex-col gap-y-4",
    header: "space-y-1",
-   title: "text-2xl font-semibold text-start",
+   title: "text-2xl font-medium text-start",
 
    fieldGroup: "space-y-2",
 
@@ -194,19 +194,19 @@ export const SUMMARY_UPDATE_FORM_STYLES = {
 };
 
 export const SUMMARY_GRID_STYLES = {
-   grid: "grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
+   grid: "grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
 
-   card: cn(" relative flex h-full flex-col", ""),
+   card: cn(" relative flex h-full flex-col bg-transparent", ""),
 
    header: "flex flex-row gap-2 items-start justify-between",
 
    title: cn(
       "line-clamp-2",
-      "text-base leading-tight",
+      "text-base leading-snug",
       "group-hover:text-primary transition-colors",
    ),
 
-   content: "flex-1",
+   content: "flex-1 relative overflow-hidden",
 
    markdown: cn(
       "prose prose-sm max-w-none",
@@ -221,20 +221,23 @@ export const SUMMARY_GRID_STYLES = {
    ),
 
    footer:
-      "py-0 text-sm font-normal text-primary flex flex-row justify-start items-center gap-2",
+      "py-0 text-sm text-muted-foreground/80 flex flex-row justify-start items-center gap-2",
 };
 
-export const THUMBNAIL_AVATAR_VARIANTS = cva("aspect-video rounded-sm object-cover", {
-   variants: {
-      size: {
-         xs: "h-4 w-auto",
-         sm: "h-6 w-auto",
-         default: "h-8 w-auto",
-         md: "h-10 w-auto",
-         lg: "h-12 w-auto",
+export const THUMBNAIL_AVATAR_VARIANTS = cva(
+   "aspect-video rounded-sm object-cover",
+   {
+      variants: {
+         size: {
+            xs: "h-4 w-auto",
+            sm: "h-6 w-auto",
+            default: "h-8 w-auto",
+            md: "h-10 w-auto",
+            lg: "h-12 w-auto",
+         },
+      },
+      defaultVariants: {
+         size: "default",
       },
    },
-   defaultVariants: {
-      size: "default",
-   },
-});
+);

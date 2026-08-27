@@ -246,7 +246,7 @@ function Sidebar({
                   // Adjust the padding for floating and inset variants.
                   variant === "floating" || variant === "inset"
                      ? "fixed inset-y-0 z-10 p-0 pr-0 group-data-[collapsible=icon]:w-(--sidebar-width-icon)"
-                     : "relative group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=left]:border-sidebar-border/80 group-data-[side=right]:border-l",
+                     : "relative group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r-0 group-data-[side=left]:border-sidebar-border/80 group-data-[side=right]:border-l",
                   className,
                )}
                {...props}
@@ -269,7 +269,7 @@ function SidebarTrigger({
    onClick,
    ...props
 }: React.ComponentProps<typeof Button>) {
-   const { toggleSidebar, open, openMobile } = useSidebar();
+   const { toggleSidebar, openMobile } = useSidebar();
 
    return (
       <Button

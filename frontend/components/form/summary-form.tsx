@@ -108,11 +108,11 @@ export function SummaryForm() {
                         id="videoId"
                         name="videoId"
                         type="text"
-                        placeholder="https://youtu.be/dQw4w9WgXcQ o dQw4w9WgXcQ"
+                        placeholder="https://youtu.be/dQw4w9WgXcQ"
                         value={videoId}
                         onChange={(event) => setVideoId(event.target.value)}
                         required
-                        className="h-14 pl-4 pr-14"
+                        className="h-14 pl-4 pr-14 shadow-[0_1px_4px_rgba(0,0,0,0.06)]"
                      />
 
                      <SubmitButtonSummary

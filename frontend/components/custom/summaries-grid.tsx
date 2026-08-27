@@ -14,7 +14,7 @@ import { ThumbnailAvatar } from "./thumbnail-avatar";
 import { SummaryFavoriteForm } from "../form/favorite-summary";
 // import { SummaryFavoriteForm } from "../form/favorite-summary";
 
-export function getSummaryPreview(content: string, maxLength = 180): string {
+export function getSummaryPreview(content: string, maxLength = 1000): string {
    return content
       .replace(/#{1,6}\s/g, "")
       .replace(/\*\*/g, "")
@@ -32,54 +32,48 @@ interface SummaryCardProps {
 
 function SummaryCard({ summary }: SummaryCardProps) {
    return (
-      <div className="relative block h-full transition-all duration-200 hover:-translate-y-1 hover:shadow-xs rounded-2xl  border border-border/50  p-4 group">
-         <Link
-            href={`/dashboard/summaries/${summary.documentId}`}
-            className="block h-full"
-         >
-            <Card className={SUMMARY_GRID_STYLES.card}>
-               <CardHeader className={SUMMARY_GRID_STYLES.header}>
-                  <CardTitle className={SUMMARY_GRID_STYLES.title}>
-                     {summary.title || "Resumen sin título"}
-                  </CardTitle>
+      <Link
+         href={`/dashboard/summaries/${summary.documentId}`}
+         className="relative block h-full transition-all duration-200 hover:-translate-y-1 hover:shadow-xs rounded-2xl  border-0 border-border/50  p-4 group bg-card-surface"
+      >
+         <Card className={SUMMARY_GRID_STYLES.card}>
+            <CardHeader className={SUMMARY_GRID_STYLES.header}>
+               <CardTitle className={SUMMARY_GRID_STYLES.title}>
+                  {summary.title || "Resumen sin título"}
+               </CardTitle>
 
-                  <SummaryFavoriteForm
-                     summaryId={summary.documentId}
-                     favoriteId={summary.favoriteDocumentId}
-                     isFavorite={summary.isFavorite}
-                     className="flex h-fit text-muted-foreground"
-                  />
-               </CardHeader>
+               <SummaryFavoriteForm
+                  summaryId={summary.documentId}
+                  favoriteId={summary.favoriteDocumentId}
+                  isFavorite={summary.isFavorite}
+                  className="flex h-fit text-muted-foreground"
+               />
+            </CardHeader>
 
-               <CardContent className={SUMMARY_GRID_STYLES.content}>
-                  <p className="line-clamp-4 text-sm text-muted-foreground">
+            <CardContent className={SUMMARY_GRID_STYLES.content}>
+               <div className="relative h-full">
+                  <p className="text-sm leading-relaxed text-muted-foreground">
                      {getSummaryPreview(summary.content)}
                   </p>
-               </CardContent>
 
-               <CardFooter className={SUMMARY_GRID_STYLES.footer}>
-                  {summary.thumbnailUrl !== "" && (
-                     <ThumbnailAvatar
-                        src={summary.thumbnailUrl}
-                        alt={summary.title}
-                        size="xs"
-                     />
-                  )}
-                  <p className="text-xs text-muted-foreground/80">
-                     {formatDate(summary.createdAt)}
-                  </p>
-               </CardFooter>
-            </Card>
-         </Link>
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[80%] bg-gradient-to-t from-card-surface to-transparent" />
+               </div>
+            </CardContent>
 
-         {/* <div className="absolute right-3 top-3 z-10 group-hover:opacity-100 opacity-0 transition-all">
-            <SummaryFavoriteForm
-               summaryId={summary.documentId}
-               favoriteId={summary.favoriteDocumentId}
-               isFavorite={summary.isFavorite}
-            />
-         </div> */}
-      </div>
+            <CardFooter className={SUMMARY_GRID_STYLES.footer}>
+               {summary.thumbnailUrl !== "" && (
+                  <ThumbnailAvatar
+                     src={summary.thumbnailUrl}
+                     alt={summary.title}
+                     size="xs"
+                  />
+               )}
+               <p className="text-sm text-muted-foreground/80">
+                  {formatDate(summary.createdAt)}
+               </p>
+            </CardFooter>
+         </Card>
+      </Link>
    );
 }
 

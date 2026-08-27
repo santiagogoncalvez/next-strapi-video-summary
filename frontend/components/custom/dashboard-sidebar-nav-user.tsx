@@ -27,10 +27,7 @@ interface NavUserProps {
    isSidebarOpen: boolean;
 }
 
-export function NavUser({
-   user,
-   isSidebarOpen,
-}: NavUserProps) {
+export function NavUser({ user, isSidebarOpen }: NavUserProps) {
    const profileImageSrc = getMediaUrl(user.image?.url ?? "");
 
    return (
@@ -57,7 +54,7 @@ export function NavUser({
                            )}
                         </Avatar>
                         <div className="grid flex-1 text-left text-sm leading-tight">
-                           <span className="truncate font-semibold">
+                           <span className="truncate font-medium">
                               {user.username}
                            </span>
                            <span className="truncate text-xs text-muted-foreground">
@@ -97,7 +94,7 @@ export function NavUser({
                               )}
                            </Avatar>
                            <div className="grid flex-1 text-left text-sm leading-tight">
-                              <span className="truncate font-semibold">
+                              <span className="truncate font-medium">
                                  {user.username}
                               </span>
                               <span className="truncate text-xs text-muted-foreground">
