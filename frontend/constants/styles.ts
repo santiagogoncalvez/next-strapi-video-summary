@@ -196,7 +196,7 @@ export const SUMMARY_UPDATE_FORM_STYLES = {
 export const SUMMARY_GRID_STYLES = {
    grid: "grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
 
-   card: cn(" relative flex h-full flex-col bg-transparent", ""),
+   card: cn(" relative flex h-full flex-col bg-card-surface!", "p-4!"),
 
    header: "flex flex-row gap-2 items-start justify-between",
 

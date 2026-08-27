@@ -34,7 +34,7 @@ function SummaryCard({ summary }: SummaryCardProps) {
    return (
       <Link
          href={`/dashboard/summaries/${summary.documentId}`}
-         className="relative block h-full transition-all duration-200 hover:-translate-y-1 hover:shadow-xs rounded-2xl  border-0 border-border/50  p-4 group bg-card-surface"
+         className="relative block h-full transition-all duration-200 hover:-translate-y-1 hover:shadow-xs rounded-2xl  border-0 border-border/50 group"
       >
          <Card className={SUMMARY_GRID_STYLES.card}>
             <CardHeader className={SUMMARY_GRID_STYLES.header}>
