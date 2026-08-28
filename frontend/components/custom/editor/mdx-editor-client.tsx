@@ -4,6 +4,23 @@ import "@mdxeditor/editor/style.css";
 import "./editor.css";
 import { cn, getTranslation } from "@/lib/utils";
 
+import { defaultSvgIcons, type IconKey } from "@mdxeditor/editor";
+
+import {
+   Bold,
+   Code2,
+   Italic,
+   Link,
+   List,
+   ListChecks,
+   ListOrdered,
+   Minus,
+   Redo2,
+   SquareCode,
+   Table,
+   Underline,
+   Undo2,
+} from "lucide-react";
 import {
    headingsPlugin,
    listsPlugin,
@@ -39,6 +56,22 @@ import { useTheme } from "next-themes";
 import type { ForwardedRef } from "react";
 import esES from "./translations/es-es.json";
 
+const lucideIcons: Partial<Record<IconKey, React.ReactElement>> = {
+   undo: <Undo2 />,
+   redo: <Redo2 />,
+   format_bold: <Bold />,
+   format_italic: <Italic />,
+   format_underlined: <Underline />,
+   format_list_checked: <ListChecks />,
+   code: <Code2 />,
+   link: <Link />,
+   format_list_bulleted: <List />,
+   format_list_numbered: <ListOrdered />,
+   table: <Table />,
+   horizontal_rule: <Minus />,
+   frame_source: <SquareCode />,
+};
+
 export default function MDXEditorClient({
    editorRef,
    ...props
@@ -56,6 +89,10 @@ export default function MDXEditorClient({
                translation={(key, defaultValue, interpolations) =>
                   getTranslation(esES, key, defaultValue, interpolations)
                }
+               iconComponentFor={(name) => {
+                  console.log("iconComponentFor:", name);
+                  return lucideIcons[name] ?? defaultSvgIcons[name];
+               }}
                plugins={[
                   headingsPlugin(),
                   listsPlugin(),
