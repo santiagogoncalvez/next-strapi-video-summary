@@ -3,35 +3,18 @@
 import { usePathname } from "next/navigation";
 import { SidebarTrigger } from "../ui/sidebar";
 import { cn } from "@/lib/utils";
-import {
-   Check,
-   Copy,
-   Download,
-   Eye,
-   MoreHorizontal,
-   Pencil,
-   PencilLine,
-} from "lucide-react";
+import { Check, Eye, Pencil } from "lucide-react";
 import { SubmitButton } from "../form/submit-button";
 import { ThumbnailAvatar } from "./thumbnail-avatar";
-import {
-   DropdownMenu,
-   DropdownMenuContent,
-   DropdownMenuItem,
-   DropdownMenuSeparator,
-   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { Button } from "../ui/button";
-import { SummaryDeleteForm } from "../form/delete-summary";
-import Link from "next/link";
+
 import { useEffect, useRef, useState } from "react";
 import { SummaryTitleForm } from "../form/edit-summary-title";
 import { toast } from "sonner";
-import { SummaryFavoriteForm } from "../form/favorite-summary";
 import { SummaryWithFavorite } from "@/types/strapi";
 import removeMarkdown from "remove-markdown";
 import MarkdownPDFDocument from "@/utils/pdfRenderer";
 import { pdf } from "@react-pdf/renderer";
+import { SummaryOptions } from "./summary-options";
 
 function getSummaryRoute(pathname: string) {
    if (!/^\/dashboard\/summaries\/[^/]+(?:\/edit)?$/.test(pathname)) {
@@ -141,7 +124,11 @@ export default function DashboardHeader({
 
       if (!contentMarkdown) return;
 
-      downloadFile(contentMarkdown, "resumen.md", "text/markdown");
+      const fileName = summary?.title
+         ? `Resumen de video ${summary.title}.md`
+         : "Resumen de video.md";
+
+      downloadFile(contentMarkdown, fileName, "text/markdown");
 
       toast.success("Markdown descargado.", {
          position: "top-center",
@@ -175,7 +162,9 @@ export default function DashboardHeader({
          const url = URL.createObjectURL(blob);
          const link = document.createElement("a");
          link.href = url;
-         link.download = `markdown-document-${Date.now()}.pdf`;
+         link.download = summary?.title
+            ? `Resumen de video ${summary.title}.pdf`
+            : "Resumen de video.pdf";
          document.body.appendChild(link);
          link.click();
          document.body.removeChild(link);
@@ -242,7 +231,7 @@ export default function DashboardHeader({
             </div>
          </div>
 
-         <div className="flex items-center gap-2">
+         <div className="relative flex items-center gap-2">
             {isSummaryPage ? (
                <>
                   {summaryRoute === "edit" && (
@@ -270,97 +259,20 @@ export default function DashboardHeader({
                      </>
                   )}
 
-                  <DropdownMenu>
-                     <DropdownMenuTrigger asChild>
-                        <Button
-                           aria-label="Opciones del documento"
-                           variant="ghost"
-                           size="icon"
-                        >
-                           <MoreHorizontal strokeWidth={1.5} />
-                        </Button>
-                     </DropdownMenuTrigger>
-
-                     <DropdownMenuContent
-                        align="end"
-                        sideOffset={4}
-                        className="w-56"
-                        onCloseAutoFocus={(event) => {
-                           if (shouldFocusTitleInput.current) {
-                              event.preventDefault();
-                              shouldFocusTitleInput.current = true;
-                              titleInputRef.current?.focus();
-                           }
-                        }}
-                     >
-                        {summaryAction && (
-                           <DropdownMenuItem asChild>
-                              <Link
-                                 href={summaryAction!.href}
-                                 className="hover:cursor-pointer"
-                              >
-                                 <summaryAction.icon strokeWidth={1.5} />
-                                 {summaryAction.label}
-                              </Link>
-                           </DropdownMenuItem>
-                        )}
-
-                        <SummaryFavoriteForm
-                           isFavorite={summary.isFavorite}
-                           summaryId={summary.documentId}
-                           favoriteId={summary.favoriteDocumentId}
-                           variant="dropdown"
-                        />
-
-                        <DropdownMenuItem
-                           onSelect={() => {
-                              shouldFocusTitleInput.current = true;
-                              setTitleEditKey((key) => key + 1);
-                              setIsEditingTitle(true);
-                           }}
-                           className="hover:cursor-pointer"
-                        >
-                           <PencilLine strokeWidth={1.5} />
-                           Cambiar nombre
-                        </DropdownMenuItem>
-
-                        <DropdownMenuSeparator className="bg-transparent" />
-
-                        <DropdownMenuItem
-                           onSelect={() => {
-                              void handleCopySummary();
-                           }}
-                           className="hover:cursor-pointer"
-                        >
-                           <Copy strokeWidth={1.5} />
-                           Copiar resumen
-                        </DropdownMenuItem>
-
-                        <DropdownMenuItem
-                           onSelect={() => {
-                              void handleDownloadMarkdown();
-                           }}
-                           className="hover:cursor-pointer"
-                        >
-                           <Download strokeWidth={1.5} />
-                           Descargar Markdown
-                        </DropdownMenuItem>
-
-                        <DropdownMenuItem
-                           onSelect={() => {
-                              void handleDownloadPdf();
-                           }}
-                           className="hover:cursor-pointer"
-                        >
-                           <Download strokeWidth={1.5} />
-                           Descargar PDF
-                        </DropdownMenuItem>
-
-                        <DropdownMenuSeparator className="bg-transparent" />
-
-                        <SummaryDeleteForm summaryId={summary.documentId} />
-                     </DropdownMenuContent>
-                  </DropdownMenu>
+                  <SummaryOptions
+                     summary={summary}
+                     summaryAction={summaryAction}
+                     onCopy={handleCopySummary}
+                     onDownloadMarkdown={handleDownloadMarkdown}
+                     onDownloadPdf={handleDownloadPdf}
+                     onEditTitle={() => {
+                        shouldFocusTitleInput.current = true;
+                        setTitleEditKey((key) => key + 1);
+                        setIsEditingTitle(true);
+                     }}
+                     titleInputRef={titleInputRef}
+                     shouldFocusTitleInput={shouldFocusTitleInput}
+                  />
                </>
             ) : (
                <div className="size-8 opacity-0" />

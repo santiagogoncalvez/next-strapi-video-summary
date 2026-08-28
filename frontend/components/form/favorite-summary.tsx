@@ -16,7 +16,7 @@ interface SummaryFavoriteFormProps {
    favoriteId?: string;
    isFavorite: boolean;
    className?: string;
-   variant?: "card" | "dropdown";
+   variant?: "card" | "dropdown" | "drawer";
 }
 
 const INITIAL_STATE: FormState = {
@@ -130,6 +130,32 @@ export function SummaryFavoriteForm({
                   event.stopPropagation();
                }}
                className="hover:cursor-pointer w-full"
+            />
+         )}
+
+         {variant === "drawer" && (
+            <SubmitButton
+               loading={favoriteIsPending}
+               text={
+                  isFavorite ? "Eliminar de favoritos" : "Agregar a favoritos"
+               }
+               loadingText={
+                  isFavorite
+                     ? "Eliminando de favoritos"
+                     : "Agregando a favoritos"
+               }
+               icon={
+                  <Heart
+                     className={cn(isFavorite && "fill-current", "size-4")}
+                     strokeWidth={1.5}
+                  />
+               }
+               variant="ghost"
+               size="default"
+               onClick={(event) => {
+                  event.stopPropagation();
+               }}
+               className="hover:cursor-pointer w-full justify-start"
             />
          )}
       </form>

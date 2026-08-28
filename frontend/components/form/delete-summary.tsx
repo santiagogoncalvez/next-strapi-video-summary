@@ -10,10 +10,12 @@ import { Trash } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getFormErrorMessage } from "@/actions/helpers";
 import { SubmitButtonDropdown } from "./submit-button-dropwdown";
+import { SubmitButton } from "./submit-button";
 
 interface SummaryDeleteFormProps {
    summaryId: string;
    className?: string;
+   variant?: "dropdown" | "drawer";
 }
 
 const INITIAL_STATE: FormState = {
@@ -26,6 +28,7 @@ const INITIAL_STATE: FormState = {
 export function SummaryDeleteForm({
    summaryId,
    className,
+   variant = "dropdown",
 }: Readonly<SummaryDeleteFormProps>) {
    const router = useRouter();
 
@@ -65,13 +68,34 @@ export function SummaryDeleteForm({
       <form action={deleteFormAction}>
          <input type="hidden" name="documentId" value={summaryId} />
 
-         <SubmitButtonDropdown
-            className={cn(SUMMARY_UPDATE_FORM_STYLES.deleteButton, className)}
-            text="Eliminar"
-            loadingText="Eliminando"
-            loading={deleteIsPending}
-            icon={<Trash strokeWidth={1.5} />}
-         />
+         {variant === "dropdown" && (
+            <SubmitButtonDropdown
+               className={cn(
+                  SUMMARY_UPDATE_FORM_STYLES.deleteButton,
+                  className,
+               )}
+               text="Eliminar"
+               loadingText="Eliminando"
+               loading={deleteIsPending}
+               icon={<Trash strokeWidth={1.5} />}
+            />
+         )}
+
+         {variant === "drawer" && (
+            <SubmitButton
+               className={cn(
+                  SUMMARY_UPDATE_FORM_STYLES.deleteButton,
+                  "justify-start",
+                  className,
+               )}
+               text="Eliminar"
+               loadingText="Eliminando"
+               loading={deleteIsPending}
+               icon={<Trash strokeWidth={1.5} />}
+               variant="ghost"
+               size="default"
+            />
+         )}
       </form>
    );
 }
