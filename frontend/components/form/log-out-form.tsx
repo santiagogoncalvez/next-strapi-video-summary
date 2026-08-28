@@ -14,7 +14,7 @@ export function LogoutForm({
       <form action={actions.auth.logoutUserAction}>
          <Button variant={variant} size={size} className="w-full">
             <div className="w-full flex gap-2 items-center justify-start">
-               <LogOut />
+               <LogOut strokeWidth={1.5} />
                <span>Cerrar sesión</span>
             </div>
          </Button>

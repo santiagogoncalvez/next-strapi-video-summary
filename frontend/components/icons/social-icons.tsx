@@ -7,7 +7,7 @@ export function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
          viewBox="0 0 24 24"
          fill="none"
          stroke="currentColor"
-         strokeWidth="1"
+         strokeWidth="1.5"
          strokeLinecap="round"
          strokeLinejoin="round"
          {...props}
@@ -27,7 +27,7 @@ export function TwitterIcon(props: React.SVGProps<SVGSVGElement>) {
          viewBox="0 0 24 24"
          fill="none"
          stroke="currentColor"
-         strokeWidth="1"
+         strokeWidth="1.5"
          strokeLinecap="round"
          strokeLinejoin="round"
          {...props}
@@ -46,7 +46,7 @@ export function YoutubeIcon(props: React.SVGProps<SVGSVGElement>) {
          viewBox="0 0 24 24"
          fill="none"
          stroke="currentColor"
-         strokeWidth="1"
+         strokeWidth="1.5"
          strokeLinecap="round"
          strokeLinejoin="round"
          {...props}

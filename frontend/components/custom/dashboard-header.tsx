@@ -277,7 +277,7 @@ export default function DashboardHeader({
                            variant="ghost"
                            size="icon"
                         >
-                           <MoreHorizontal />
+                           <MoreHorizontal strokeWidth={1.5} />
                         </Button>
                      </DropdownMenuTrigger>
 
@@ -299,7 +299,7 @@ export default function DashboardHeader({
                                  href={summaryAction!.href}
                                  className="hover:cursor-pointer"
                               >
-                                 <summaryAction.icon />
+                                 <summaryAction.icon strokeWidth={1.5} />
                                  {summaryAction.label}
                               </Link>
                            </DropdownMenuItem>
@@ -320,7 +320,7 @@ export default function DashboardHeader({
                            }}
                            className="hover:cursor-pointer"
                         >
-                           <PencilLine />
+                           <PencilLine strokeWidth={1.5} />
                            Cambiar nombre
                         </DropdownMenuItem>
 
@@ -332,7 +332,7 @@ export default function DashboardHeader({
                            }}
                            className="hover:cursor-pointer"
                         >
-                           <Copy />
+                           <Copy strokeWidth={1.5} />
                            Copiar resumen
                         </DropdownMenuItem>
 
@@ -342,7 +342,7 @@ export default function DashboardHeader({
                            }}
                            className="hover:cursor-pointer"
                         >
-                           <Download />
+                           <Download strokeWidth={1.5} />
                            Descargar Markdown
                         </DropdownMenuItem>
 
@@ -352,7 +352,7 @@ export default function DashboardHeader({
                            }}
                            className="hover:cursor-pointer"
                         >
-                           <Download />
+                           <Download strokeWidth={1.5} />
                            Descargar PDF
                         </DropdownMenuItem>
 

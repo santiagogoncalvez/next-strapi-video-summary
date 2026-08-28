@@ -70,7 +70,7 @@ export function SummaryDeleteForm({
             text="Eliminar"
             loadingText="Eliminando"
             loading={deleteIsPending}
-            icon={<Trash />}
+            icon={<Trash strokeWidth={1.5} />}
          />
       </form>
    );

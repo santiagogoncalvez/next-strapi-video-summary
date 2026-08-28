@@ -8,7 +8,7 @@ import { Loader2 } from "lucide-react";
 function Loader() {
    return (
       <div className="flex items-center">
-         <Loader2 className="h-4 w-4 animate-spin" />
+         <Loader2 className="h-4 w-4 animate-spin" strokeWidth={1.5} />
       </div>
    );
 }

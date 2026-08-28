@@ -7,7 +7,7 @@ export function LogoutFormNavUser() {
       <form action={actions.auth.logoutUserAction}>
          <DropdownMenuItem asChild>
             <button className="w-full hover:cursor-pointer">
-               <LogOut />
+               <LogOut strokeWidth={1.5} />
                <span>Cerrar sesión</span>
             </button>
          </DropdownMenuItem>

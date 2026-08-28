@@ -93,6 +93,7 @@ export function SummaryFavoriteForm({
                icon={
                   <Heart
                      className={cn(isFavorite && "fill-current", " size-4")}
+                     strokeWidth={1.5}
                   />
                }
                aria-label={
@@ -120,6 +121,7 @@ export function SummaryFavoriteForm({
                icon={
                   <Heart
                      className={cn(isFavorite && "fill-current", "size-4")}
+                     strokeWidth={1.5}
                   />
                }
                variant="none"

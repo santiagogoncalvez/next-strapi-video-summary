@@ -8,6 +8,7 @@ import { defaultSvgIcons, type IconKey } from "@mdxeditor/editor";
 
 import {
    Bold,
+   ChevronDownIcon,
    Code2,
    Italic,
    Link,
@@ -57,19 +58,20 @@ import type { ForwardedRef } from "react";
 import esES from "./translations/es-es.json";
 
 const lucideIcons: Partial<Record<IconKey, React.ReactElement>> = {
-   undo: <Undo2 />,
-   redo: <Redo2 />,
-   format_bold: <Bold />,
-   format_italic: <Italic />,
-   format_underlined: <Underline />,
-   format_list_checked: <ListChecks />,
-   code: <Code2 />,
-   link: <Link />,
-   format_list_bulleted: <List />,
-   format_list_numbered: <ListOrdered />,
-   table: <Table />,
-   horizontal_rule: <Minus />,
-   frame_source: <SquareCode />,
+   undo: <Undo2 strokeWidth={1.5} />,
+   redo: <Redo2 strokeWidth={1.5} />,
+   format_bold: <Bold strokeWidth={1.5} />,
+   format_italic: <Italic strokeWidth={1.5} />,
+   format_underlined: <Underline strokeWidth={1.5} />,
+   format_list_checked: <ListChecks strokeWidth={1.5} />,
+   code: <Code2 strokeWidth={1.5} />,
+   arrow_drop_down: <ChevronDownIcon strokeWidth={1.5} />,
+   link: <Link strokeWidth={1.5} />,
+   format_list_bulleted: <List strokeWidth={1.5} />,
+   format_list_numbered: <ListOrdered strokeWidth={1.5} />,
+   table: <Table strokeWidth={1.5} />,
+   horizontal_rule: <Minus strokeWidth={1.5} />,
+   frame_source: <SquareCode strokeWidth={1.5} />,
 };
 
 export default function MDXEditorClient({

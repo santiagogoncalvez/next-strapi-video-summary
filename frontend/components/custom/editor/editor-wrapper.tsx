@@ -51,7 +51,7 @@ export function EditorWrapper({
             variant="destructive"
             className="h-[350px] max-h-[350px]  flex items-center justify-center"
          >
-            <AlertCircle className="h-4 w-4" />
+            <AlertCircle className="h-4 w-4" strokeWidth={1.5} />
             <AlertDescription>
                No se pudo cargar el editor. Por favor, actualice la página para
                intentarlo de nuevo.

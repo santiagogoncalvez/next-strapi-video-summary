@@ -35,7 +35,11 @@ export function YouTubePlayer({ videoId, thumbnailUrl }: YouTubePlayerProps) {
                <Skeleton className={styles.skeleton} />
 
                <div className={styles.iconContainer}>
-                  <Play className={styles.playIcon} fill="currentColor" />
+                  <Play
+                     className={styles.playIcon}
+                     fill="currentColor"
+                     strokeWidth={1.5}
+                  />
                </div>
             </div>
          )}

@@ -284,13 +284,17 @@ function SidebarTrigger({
          }}
          {...props}
       >
-         <PanelLeftIcon className="hidden md:flex" />
+         <PanelLeftIcon className="hidden md:flex" strokeWidth={1.5} />
 
          <Menu
             className={`flex md:hidden ${!openMobile ? "flex" : "hidden"}`}
+            strokeWidth={1.5}
          />
 
-         <X className={`flex md:hidden ${openMobile ? "flex" : "hidden"}`} />
+         <X
+            className={`flex md:hidden ${openMobile ? "flex" : "hidden"}`}
+            strokeWidth={1.5}
+         />
 
          <span className="sr-only">Alternar barra lateral</span>
       </Button>

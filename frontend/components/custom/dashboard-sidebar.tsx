@@ -123,7 +123,7 @@ export function DashboardSidebar({
                                     isActive={item.url === pathname}
                                  >
                                     <Link href={item.url}>
-                                       <item.icon />
+                                       <item.icon strokeWidth={1.5} />
                                        <span>{item.name}</span>
                                     </Link>
                                  </SidebarMenuButton>
@@ -166,10 +166,7 @@ export function DashboardSidebar({
             </SidebarContent>
 
             {/* FOOTER: Botón de ayuda o usuario */}
-            <NavUser
-               user={user}
-               isSidebarOpen={open}
-            />
+            <NavUser user={user} isSidebarOpen={open} />
 
             {/* RAIL: Permite hacer click/arrastrar en el borde para colapsar en desktop */}
             <SidebarRail />

@@ -51,7 +51,10 @@ function SelectTrigger({
      >
         {children}
         <SelectPrimitive.Icon asChild>
-           <ChevronDownIcon className="pointer-events-none size-4 text-muted-foreground" />
+           <ChevronDownIcon
+              className="pointer-events-none size-4 text-muted-foreground"
+              strokeWidth={1.5}
+           />
         </SelectPrimitive.Icon>
      </SelectPrimitive.Trigger>
   );
@@ -124,7 +127,7 @@ function SelectItem({
      >
         <span className="pointer-events-none absolute right-2 flex size-4 items-center justify-center">
            <SelectPrimitive.ItemIndicator>
-              <CheckIcon className="pointer-events-none" />
+              <CheckIcon className="pointer-events-none" strokeWidth={1.5} />
            </SelectPrimitive.ItemIndicator>
         </span>
         <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
@@ -150,18 +153,17 @@ function SelectScrollUpButton({
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.ScrollUpButton>) {
   return (
-    <SelectPrimitive.ScrollUpButton
-      data-slot="select-scroll-up-button"
-      className={cn(
-        "z-10 flex cursor-default items-center justify-center bg-popover py-1 [&_svg:not([class*='size-'])]:size-4",
-        className
-      )}
-      {...props}
-    >
-      <ChevronUpIcon
-      />
-    </SelectPrimitive.ScrollUpButton>
-  )
+     <SelectPrimitive.ScrollUpButton
+        data-slot="select-scroll-up-button"
+        className={cn(
+           "z-10 flex cursor-default items-center justify-center bg-popover py-1 [&_svg:not([class*='size-'])]:size-4",
+           className,
+        )}
+        {...props}
+     >
+        <ChevronUpIcon strokeWidth={1.5} />
+     </SelectPrimitive.ScrollUpButton>
+  );
 }
 
 function SelectScrollDownButton({

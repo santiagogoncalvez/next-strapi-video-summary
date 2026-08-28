@@ -27,7 +27,7 @@ export function SubmitButtonSummary({
          className={cn(className)}
       >
          {status.pending || loading ? (
-            <Loader2 className="size-4 animate-spin" />
+            <Loader2 className="size-4 animate-spin" strokeWidth={1.5} />
          ) : (
             <ArrowUp className="size-4" />
          )}

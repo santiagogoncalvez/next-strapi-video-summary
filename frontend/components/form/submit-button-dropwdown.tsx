@@ -48,7 +48,11 @@ export function SubmitButtonDropdown({
             className={cn(className)}
             {...props}
          >
-            {isPending ? <Loader2 className="size-4 animate-spin" /> : icon}
+            {isPending ? (
+               <Loader2 className="size-4 animate-spin" strokeWidth={1.5} />
+            ) : (
+               icon
+            )}
 
             {isPending ? loadingText : text}
          </button>

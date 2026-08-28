@@ -61,7 +61,10 @@ export function NavUser({ user, isSidebarOpen }: NavUserProps) {
                               {user.email}
                            </span>
                         </div>
-                        <ChevronsUpDown className="ml-auto size-4 text-muted-foreground" />
+                        <ChevronsUpDown
+                           className="ml-auto size-4 text-muted-foreground"
+                           strokeWidth={1.5}
+                        />
                      </SidebarMenuButton>
                   </DropdownMenuTrigger>
 
@@ -113,7 +116,7 @@ export function NavUser({ user, isSidebarOpen }: NavUserProps) {
                               href="/dashboard/account"
                               className="hover:cursor-pointer"
                            >
-                              <UserIcon />
+                              <UserIcon strokeWidth={1.5} />
                               <span>Cuenta</span>
                            </Link>
                         </DropdownMenuItem>

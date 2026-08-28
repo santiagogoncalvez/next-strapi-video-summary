@@ -55,7 +55,10 @@ export function Search({ className }: SearchProps) {
 
    return (
       <div className={cn("relative", className)}>
-         <SearchIcon className="absolute left-2 top-1/2 size-4 -translate-y-1/2 pointer-events-none text-muted-foreground" />
+         <SearchIcon
+            className="absolute left-2 top-1/2 size-4 -translate-y-1/2 pointer-events-none text-muted-foreground"
+            strokeWidth={1.5}
+         />
 
          <Input
             type="text"
