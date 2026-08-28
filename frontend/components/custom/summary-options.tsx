@@ -272,7 +272,7 @@ export function SummaryOptions({
                                  </Button>
                               </DrawerClose>
                               <DrawerTitle>Exportar resumen</DrawerTitle>
-                              <div className="size-4"></div>
+                              <div className="size-8"></div>
                            </DrawerHeader>
 
                            <div className="flex flex-col px-4 pb-6">
