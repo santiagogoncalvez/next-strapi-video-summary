@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import {
+   ChevronLeftIcon,
+   ChevronRightIcon,
    Copy,
    Download,
    Eye,
@@ -167,8 +169,14 @@ export function SummaryOptions({
          {/* Mobile */}
          <div className="md:hidden">
             <Drawer>
-               <DrawerTrigger>
-                  <MoreHorizontal strokeWidth={1.5} />
+               <DrawerTrigger asChild>
+                  <Button
+                     aria-label="Opciones del documento"
+                     variant="ghost"
+                     size="icon"
+                  >
+                     <MoreHorizontal strokeWidth={1.5} />
+                  </Button>
                </DrawerTrigger>
 
                <DrawerContent
@@ -240,14 +248,31 @@ export function SummaryOptions({
                               variant="ghost"
                               className="w-full justify-start font-normal"
                            >
-                              <Download strokeWidth={1.5} />
-                              Exportar
+                              <div className="flex items-center justify-center gap-2">
+                                 <Download strokeWidth={1.5} />
+                                 Exportar
+                              </div>
+
+                              <ChevronRightIcon
+                                 className="ml-auto"
+                                 strokeWidth={1.5}
+                              />
                            </Button>
                         </DrawerTrigger>
 
                         <DrawerContent>
-                           <DrawerHeader>
+                           <DrawerHeader className="flex flex-row justify-between items-center">
+                              <DrawerClose asChild>
+                                 <Button
+                                    aria-label="Volver hacia atrás"
+                                    variant="ghost"
+                                    size="icon"
+                                 >
+                                    <ChevronLeftIcon strokeWidth={1.5} />
+                                 </Button>
+                              </DrawerClose>
                               <DrawerTitle>Exportar resumen</DrawerTitle>
+                              <div className="size-4"></div>
                            </DrawerHeader>
 
                            <div className="flex flex-col px-4 pb-6">
