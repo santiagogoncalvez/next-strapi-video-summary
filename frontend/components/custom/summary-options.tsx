@@ -190,7 +190,7 @@ export function SummaryOptions({
                               href={summaryAction.href}
                               variant="ghost"
                               size="default"
-                              className="justify-start"
+                              className="justify-start font-normal"
                            >
                               <summaryAction.icon strokeWidth={1.5} />
                               <span>{summaryAction.label}</span>
@@ -210,7 +210,7 @@ export function SummaryOptions({
                            type="button"
                            onClick={onEditTitle}
                            variant="ghost"
-                           className="justify-start"
+                           className="justify-start font-normal"
                         >
                            <PencilLine strokeWidth={1.5} />
                            Cambiar nombre
@@ -226,7 +226,7 @@ export function SummaryOptions({
                               void onCopy();
                            }}
                            variant="ghost"
-                           className="justify-start"
+                           className="justify-start font-normal"
                         >
                            <Copy strokeWidth={1.5} />
                            Copiar resumen
@@ -238,7 +238,7 @@ export function SummaryOptions({
                            <Button
                               type="button"
                               variant="ghost"
-                              className="w-full justify-start"
+                              className="w-full justify-start font-normal"
                            >
                               <Download strokeWidth={1.5} />
                               Exportar
@@ -256,7 +256,7 @@ export function SummaryOptions({
                                     type="button"
                                     onClick={onDownloadMarkdown}
                                     variant="ghost"
-                                    className="justify-start"
+                                    className="justify-start font-normal"
                                  >
                                     <FileText strokeWidth={1.5} />
                                     Descargar Markdown
@@ -270,7 +270,7 @@ export function SummaryOptions({
                                        void onDownloadPdf();
                                     }}
                                     variant="ghost"
-                                    className="justify-start"
+                                    className="justify-start font-normal"
                                  >
                                     <FileDown strokeWidth={1.5} />
                                     Descargar PDF

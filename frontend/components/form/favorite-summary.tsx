@@ -155,7 +155,7 @@ export function SummaryFavoriteForm({
                onClick={(event) => {
                   event.stopPropagation();
                }}
-               className="hover:cursor-pointer w-full justify-start"
+               className="hover:cursor-pointer w-full justify-start font-normal"
             />
          )}
       </form>
