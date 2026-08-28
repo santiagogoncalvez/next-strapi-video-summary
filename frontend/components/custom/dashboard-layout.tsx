@@ -2,7 +2,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { ReactNode, Suspense } from "react";
 import DashboardSidebarData from "./dashboard-sidebar-data";
 import { DashboardSidebarSkeleton } from "../skeleton/dashboard-sidebar-skeleton";
-import GeneralLoading from "./genearl-loader";
+import GeneralLoading from "./general-loader";
 
 export default function LayoutDashboard({ children }: { children: ReactNode }) {
    return (

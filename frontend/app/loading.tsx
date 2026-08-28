@@ -1,4 +1,4 @@
-import GeneralLoading from "@/components/custom/genearl-loader";
+import GeneralLoading from "@/components/custom/general-loader";
 
 export default function Loading() {
    return <GeneralLoading />;

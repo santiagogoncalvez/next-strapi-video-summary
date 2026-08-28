@@ -18,7 +18,11 @@ export function ThumbnailAvatar({ src, alt, size, className }: Props) {
          alt={alt}
          width={1280}
          height={720}
-         className={cn(THUMBNAIL_AVATAR_VARIANTS({ size }), className)}
+         className={cn(
+            THUMBNAIL_AVATAR_VARIANTS({ size }),
+            "bg-muted",
+            className,
+         )}
       />
    );
 }

@@ -16,7 +16,7 @@ interface SummaryFavoriteFormProps {
    favoriteId?: string;
    isFavorite: boolean;
    className?: string;
-   variant?: "card" | "dropdown" | "drawer";
+   variant?: "card" | "dropdown" | "drawer" | "header";
 }
 
 const INITIAL_STATE: FormState = {
@@ -84,7 +84,7 @@ export function SummaryFavoriteForm({
 
          <input type="hidden" name="isFavorite" value={String(isFavorite)} />
 
-         {variant === "card" && (
+         {(variant === "card" || variant === "header") && (
             <SubmitButton
                disabled={favoriteIsPending}
                loading={favoriteIsPending}
@@ -99,8 +99,8 @@ export function SummaryFavoriteForm({
                aria-label={
                   isFavorite ? "Eliminar de favoritos" : "Añadir a favoritos"
                }
-               variant="none"
-               size="none"
+               variant={variant === "card" ? "none" : "ghost"}
+               size={variant === "card" ? "none" : "icon"}
                onClick={(event) => {
                   event.stopPropagation();
                }}

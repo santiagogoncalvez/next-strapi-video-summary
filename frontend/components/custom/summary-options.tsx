@@ -66,6 +66,14 @@ export function SummaryOptions({
 }: SummaryOptionsProps) {
    return (
       <>
+         <SummaryFavoriteForm
+            isFavorite={summary.isFavorite}
+            summaryId={summary.documentId}
+            favoriteId={summary.favoriteDocumentId}
+            variant="header"
+            className="md:flex hidden"
+         />
+
          {/* Desktop */}
          <div className="hidden md:block">
             <DropdownMenu>
@@ -101,13 +109,6 @@ export function SummaryOptions({
                         </Link>
                      </DropdownMenuItem>
                   )}
-
-                  <SummaryFavoriteForm
-                     isFavorite={summary.isFavorite}
-                     summaryId={summary.documentId}
-                     favoriteId={summary.favoriteDocumentId}
-                     variant="dropdown"
-                  />
 
                   <DropdownMenuItem
                      onSelect={onEditTitle}
