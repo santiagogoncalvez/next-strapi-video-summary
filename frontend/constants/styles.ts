@@ -105,7 +105,7 @@ export const NOT_FOUND_STYLES = {
    heading404:
       "text-black text-2xl font-medium md:text-3xl lg:text-4xl select-none",
    headingContainer: "relative flex flex-col items-center justify-center",
-   pagetitle: "sm:text-2xl text-xl  font-normal text-gray-800 mb-4",
+   pageTitle: "sm:text-2xl text-xl  font-normal text-gray-800 mb-4",
    description: "text-lg text-gray-600 max-w-md  leading-relaxed",
    illustrationContainer: "flex justify-center",
    illustration: "relative animate-pulse",
