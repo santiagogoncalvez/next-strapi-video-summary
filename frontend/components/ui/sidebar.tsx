@@ -23,6 +23,13 @@ import {
    DrawerHeader,
    DrawerTitle,
 } from "./drawer";
+import {
+   Sheet,
+   SheetContent,
+   SheetDescription,
+   SheetHeader,
+   SheetTitle,
+} from "./sheet";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -164,7 +171,7 @@ function Sidebar({
    collapsible = "offcanvas",
    className,
    children,
-   // dir,
+   dir,
    ...props
 }: React.ComponentProps<"div"> & {
    side?: "left" | "right";
@@ -192,12 +199,14 @@ function Sidebar({
       <>
          {/* Mobile */}
          <div className="md:hidden">
-            <Drawer
-               open={openMobile}
-               onOpenChange={setOpenMobile}
-               direction={side}
-            >
-               <DrawerContent
+            <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
+               <SheetContent
+                  showCloseButton={false}
+                  side={side}
+                  dir={dir}
+                  data-sidebar="sidebar"
+                  data-slot="sidebar"
+                  data-mobile="true"
                   className="w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground border-r-0! border-r-sidebar-border/80! rounded-r-2xl! overflow-hidden"
                   style={
                      {
@@ -205,16 +214,16 @@ function Sidebar({
                      } as React.CSSProperties
                   }
                >
-                  <DrawerHeader className="sr-only">
-                     <DrawerTitle>Sidebar</DrawerTitle>
-                     <DrawerDescription>
+                  <SheetHeader className="sr-only">
+                     <SheetTitle>Sidebar</SheetTitle>
+                     <SheetDescription>
                         Displays the mobile sidebar.
-                     </DrawerDescription>
-                  </DrawerHeader>
+                     </SheetDescription>
+                  </SheetHeader>
 
                   <div className="flex h-full w-full flex-col">{children}</div>
-               </DrawerContent>
-            </Drawer>
+               </SheetContent>
+            </Sheet>
          </div>
 
          {/* Desktop */}
