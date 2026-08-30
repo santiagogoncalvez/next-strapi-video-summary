@@ -121,8 +121,6 @@ export function SummaryForm() {
                         loading={isPending}
                      />
                   </div>
-
-                  <p className="text-muted-foreground/80 text-center font-light text-xs">Videos de hasta 60 minutos</p>
                </CardContent>
 
                <CardFooter className={SUMMARY_FORM_STYLES.footer}>
@@ -139,6 +137,10 @@ export function SummaryForm() {
                            className="text-center"
                         />
                      )}
+
+                  <p className="text-muted-foreground/80 text-center font-light text-xs">
+                     Videos de hasta 60 minutos
+                  </p>
                </CardFooter>
             </Card>
          </form>

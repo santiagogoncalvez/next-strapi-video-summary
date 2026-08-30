@@ -18,6 +18,7 @@ import { SIGN_IN_FORM_STYLES } from "@/constants/styles";
 import { FormState } from "@/types/definitions";
 import { SubmitButton } from "./submit-button";
 import { AppLink } from "../custom/custom-link";
+import { PasswordInput } from "../custom/password-input";
 
 const INITIAL_STATE: FormState = {
    success: false,
@@ -62,7 +63,7 @@ export function SigninForm() {
                   </div>
                   <div className={SIGN_IN_FORM_STYLES.fieldGroup}>
                      <Label htmlFor="password">Contraseña</Label>
-                     <Input
+                     <PasswordInput
                         id="password"
                         name="password"
                         type="password"

@@ -18,6 +18,7 @@ import { SIGN_UP_FORM_STYLES } from "@/constants/styles";
 import { FormState } from "@/types/definitions";
 import { SubmitButton } from "./submit-button";
 import { AppLink } from "../custom/custom-link";
+import { PasswordInput } from "../custom/password-input";
 
 const INITIAL_STATE: FormState = {
    success: false,
@@ -72,7 +73,7 @@ export function SignupForm() {
                   </div>
                   <div className={SIGN_UP_FORM_STYLES.fieldGroup}>
                      <Label htmlFor="password">Constraseña</Label>
-                     <Input
+                     <PasswordInput
                         id="password"
                         name="password"
                         type="password"
@@ -85,7 +86,7 @@ export function SignupForm() {
                      <Label htmlFor="confirmPassword">
                         Confirmar contraseña
                      </Label>
-                     <Input
+                     <PasswordInput
                         id="confirmPassword"
                         name="confirmPassword"
                         type="password"

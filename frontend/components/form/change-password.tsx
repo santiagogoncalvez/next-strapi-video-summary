@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/card";
 
 import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { actions } from "@/actions";
 import { useActionState, useEffect } from "react";
 import { FormError } from "./form-error";
@@ -19,6 +18,7 @@ import { toast } from "sonner";
 import { redirect } from "next/navigation";
 import { FormState } from "@/types/definitions";
 import { SubmitButton } from "./submit-button";
+import { PasswordInput } from "../custom/password-input";
 
 export function ChangePassword() {
    const INITIAL_STATE: FormState = {
@@ -63,7 +63,7 @@ export function ChangePassword() {
                <CardContent className={SIGN_UP_FORM_STYLES.content}>
                   <div className={SIGN_UP_FORM_STYLES.fieldGroup}>
                      <Label htmlFor="password">Constraseña</Label>
-                     <Input
+                     <PasswordInput
                         id="password"
                         name="password"
                         type="password"
@@ -74,7 +74,7 @@ export function ChangePassword() {
                   </div>
                   <div className={SIGN_UP_FORM_STYLES.fieldGroup}>
                      <Label htmlFor="newPassword">Nueva constraseña</Label>
-                     <Input
+                     <PasswordInput
                         id="newPassword"
                         name="newPassword"
                         type="password"
@@ -87,7 +87,7 @@ export function ChangePassword() {
                      <Label htmlFor="confirmPassword">
                         Confirmar contraseña
                      </Label>
-                     <Input
+                     <PasswordInput
                         id="confirmPassword"
                         name="confirmPassword"
                         type="password"
