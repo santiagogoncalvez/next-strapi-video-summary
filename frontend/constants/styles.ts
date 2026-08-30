@@ -42,7 +42,7 @@ export const BUTTON_VARIANTS = cva(
 export const SIGN_UP_FORM_STYLES = {
    container: "w-full max-w-sm flex flex-col gap-4 justify-center items-center",
    header: "space-y-1",
-   title: "text-2xl font-medium text-center",
+   title: "sm:text-2xl text-xl  font-medium text-center",
    content: "space-y-4",
    fieldGroup: "space-y-2",
    footer: "flex flex-col space-y-4",
@@ -55,7 +55,7 @@ export const SIGN_UP_FORM_STYLES = {
 export const SIGN_IN_FORM_STYLES = {
    container: "w-full max-w-sm flex flex-col gap-4 justify-center items-center",
    header: "space-y-1",
-   title: "text-2xl font-medium text-center",
+   title: "sm:text-2xl text-xl  font-medium text-center",
    content: "space-y-4",
    fieldGroup: "space-y-2",
    footer: "flex flex-col space-y-4",
@@ -105,7 +105,7 @@ export const NOT_FOUND_STYLES = {
    heading404:
       "text-black text-2xl font-medium md:text-3xl lg:text-4xl select-none",
    headingContainer: "relative flex flex-col items-center justify-center",
-   pageTitle: "text-2xl font-normal text-gray-800 mb-4",
+   pagetitle: "sm:text-2xl text-xl  font-normal text-gray-800 mb-4",
    description: "text-lg text-gray-600 max-w-md  leading-relaxed",
    illustrationContainer: "flex justify-center",
    illustration: "relative animate-pulse",
@@ -136,7 +136,7 @@ export const PROFILE_FORM_STYLES = {
    form: "w-full",
    container: "w-full max-w-2xl flex flex-col gap-4 justify-center items-start",
 
-   title: "text-2xl font-medium",
+   title: "sm:text-2xl text-xl  font-medium",
 
    content: "space-y-4",
 
@@ -165,7 +165,7 @@ export const SUMMARY_FORM_STYLES = {
    container:
       "w-full max-w-2xl flex flex-col gap-4 justify-center items-center",
    header: "space-y-1",
-   title: "text-2xl font-medium text-center text-pretty",
+   title: "sm:text-2xl text-xl  font-medium text-center text-pretty",
    content: "space-y-4",
    fieldGroup: "space-y-2",
    footer: "flex flex-col space-y-4",
@@ -180,7 +180,7 @@ export const SUMMARY_UPDATE_FORM_STYLES = {
       "w-full max-w-2xl flex flex-col gap-4 justify-center items-center",
    content: "flex flex-col gap-y-4",
    header: "space-y-1",
-   title: "text-2xl font-medium text-start",
+   title: "sm:text-2xl text-xl  font-medium text-start",
 
    fieldGroup: "space-y-2",
 
