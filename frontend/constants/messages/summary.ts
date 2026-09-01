@@ -14,6 +14,7 @@ export const SUMMARY_MESSAGES = {
       INSUFFICIENT_CREDITS:
          "No tienes créditos suficientes para generar un resumen.",
       TRANSCRIPT_NOT_FOUND: "No se pudo obtener la transcripción del video.",
+      VIDEO_TOO_LONG: "El video no puede superar los 60 minutos de duración.",
       SUMMARY_NOT_GENERATED: "No se pudo generar el resumen del video.",
       GENERATION_FAILED: "No se pudo generar el resumen.",
    },

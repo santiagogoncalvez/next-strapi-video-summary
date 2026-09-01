@@ -15,7 +15,7 @@
     "@radix-ui/colors": "^3.0.0",
     "@react-pdf/renderer": "^4.8.1",
     "@react-pdf/types": "^2.13.1",
-    "@santiagogoncalvez1/youtube-transcript-plus": "^1.2.0",
+    "@santiagogoncalvez1/youtube-transcript-plus": "^1.4.0",
     "ai": "^7.0.31",
     "axios": "^1.18.0",
     "class-variance-authority": "^0.7.1",

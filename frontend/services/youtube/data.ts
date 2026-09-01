@@ -1,6 +1,5 @@
-import { TranscriptData } from "@/types/summary";
 import { getTranscript } from "./transcript";
-import { getYouTubeMetadata } from "@santiagogoncalvez1/youtube-transcript-plus";
+import { getYouTubeMetadata, TranscriptData } from "@santiagogoncalvez1/youtube-transcript-plus";
 
 export async function getYoutubeData(videoId: string): Promise<TranscriptData> {
    console.log(`[YouTube] Production provider → ${videoId}`);
@@ -16,5 +15,6 @@ export async function getYoutubeData(videoId: string): Promise<TranscriptData> {
       thumbnailUrl: metadata.thumbnailUrl,
       fullTranscript: transcript.text,
       transcriptWithTimeCodes: transcript.segments,
+      duration: metadata.duration,
    };
 }

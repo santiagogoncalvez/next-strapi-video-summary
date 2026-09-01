@@ -18,6 +18,8 @@ import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { revalidatePath } from "next/cache";
 import { SUMMARY_MESSAGES } from "@/constants/messages/summary";
 
+const MAX_VIDEO_DURATION = 3600; // 60 minutos
+
 export async function createSummaryAction(
    _prevState: FormState,
    formData: FormData,
@@ -42,6 +44,10 @@ export async function createSummaryAction(
       }
 
       const transcriptData = await services.summary.generateTranscript(videoId);
+
+      if (transcriptData.duration > MAX_VIDEO_DURATION) {
+         throw new Error(SUMMARY_MESSAGES.ERROR.VIDEO_TOO_LONG);
+      }
 
       const fullTranscript = transcriptData.fullTranscript;
 

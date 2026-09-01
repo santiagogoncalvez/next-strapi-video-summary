@@ -17,6 +17,7 @@ export interface TranscriptData {
    thumbnailUrl: string | undefined;
    fullTranscript: string | undefined;
    transcriptWithTimeCodes?: TranscriptSegment[];
+   duration: number;
 }
 
 export interface TranscriptResult {
