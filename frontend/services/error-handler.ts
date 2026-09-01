@@ -85,15 +85,26 @@ export function getAPICallError(error: unknown): APICallError | null {
    return null;
 }
 
-
 export function handleAIError(error: unknown): never {
    console.error("AI Error:", error);
 
-   if (!APICallError.isInstance(error)) {
+   let apiError: APICallError | undefined;
+
+   if (APICallError.isInstance(error)) {
+      apiError = error;
+   } else if (RetryError.isInstance(error)) {
+      const lastError = error.lastError;
+
+      if (APICallError.isInstance(lastError)) {
+         apiError = lastError;
+      }
+   }
+
+   if (!apiError) {
       throw new Error(AI_ERROR_MESSAGES.DEFAULT);
    }
 
-   const statusCode = error.statusCode;
+   const statusCode = apiError.statusCode;
 
    if (statusCode !== undefined) {
       const statusMessage =
