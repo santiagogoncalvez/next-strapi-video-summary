@@ -92,7 +92,7 @@ export default function MDXEditorClient({
                   getTranslation(esES, key, defaultValue, interpolations)
                }
                iconComponentFor={(name) => {
-                  console.log("iconComponentFor:", name);
+                  // console.log("iconComponentFor:", name);
                   return lucideIcons[name] ?? defaultSvgIcons[name];
                }}
                plugins={[

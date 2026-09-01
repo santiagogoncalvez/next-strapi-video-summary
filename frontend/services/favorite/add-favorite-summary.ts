@@ -19,7 +19,7 @@ export async function addFavoriteSummaryService(
       },
    };
 
-   console.log("Favorite payload:", payload);
+   // console.log("Favorite payload:", payload);
 
    try {
       return await api.post<StrapiResponse<null>, typeof payload>(
