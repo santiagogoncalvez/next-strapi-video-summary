@@ -1,7 +1,7 @@
 // generate-summary.ts
 
 import { SYSTEM_PROMPT } from "@/constants/prompts";
-import { groq } from "@ai-sdk/groq";
+import { google } from "@ai-sdk/google"; // Importamos el provider de Google
 import { generateText } from "ai";
 import { handleGroqError } from "../error-handler";
 
@@ -10,7 +10,7 @@ export async function generateSummary(content: string, template?: string) {
 
    try {
       const { text } = await generateText({
-         model: groq(process.env.AI_MODEL ?? "llama-3.3-70b-versatile"),
+         model: google(process.env.AI_MODEL ?? "gemini-3.5-flash-lite"),
          system: systemPrompt,
          prompt: `Please summarize this transcript:\n\n${content}`,
          temperature: process.env.AI_TEMPERATURE
