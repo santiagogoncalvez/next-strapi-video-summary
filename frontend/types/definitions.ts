@@ -47,14 +47,3 @@ export type FormState = {
    zodErrors?: ZodErrors;
    timestamp?: number;
 };
-
-interface GroqErrorData {
-   error?: {
-      type?: string;
-      code?: string;
-   };
-}
-
-export function isGroqErrorData(value: unknown): value is GroqErrorData {
-   return typeof value === "object" && value !== null;
-}

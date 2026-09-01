@@ -1,7 +1,6 @@
 import { STRAPI_ERROR_MESSAGES } from "@/constants/messages/strapi-errors";
 import { COMMON_MESSAGES } from "@/constants/messages/common";
 import { notFound } from "next/navigation";
-import { GROQ_ERROR_MESSAGES } from "@/constants/messages/groq-errors";
 import { APICallError, RetryError } from "ai";
 import {
    YouTubeMetadataError,
@@ -9,6 +8,7 @@ import {
 } from "@santiagogoncalvez1/youtube-transcript-plus";
 import { TRANSCRIPT_MESSAGES } from "@/constants/messages/transcript";
 import { YouTubeServiceError } from "@/errors/youtube-service-error";
+import { AI_ERROR_MESSAGES } from "@/constants/messages/ai";
 
 type ApiError = {
    error?: {
@@ -67,18 +67,7 @@ export function getStrapiErrorMessage(message: string): string {
    );
 }
 
-interface GroqErrorData {
-   error?: {
-      type?: string;
-      code?: string;
-   };
-}
-
-function isGroqErrorData(value: unknown): value is GroqErrorData {
-   return typeof value === "object" && value !== null;
-}
-
-function getAPICallError(error: unknown): APICallError | null {
+export function getAPICallError(error: unknown): APICallError | null {
    if (APICallError.isInstance(error)) {
       return error;
    }
@@ -96,33 +85,20 @@ function getAPICallError(error: unknown): APICallError | null {
    return null;
 }
 
-export function handleGroqError(error: unknown): never {
-   console.error("Groq Error:", error);
 
-   const apiError = getAPICallError(error);
+export function handleAIError(error: unknown): never {
+   console.error("AI Error:", error);
 
-   if (!apiError) {
-      throw new Error(GROQ_ERROR_MESSAGES.DEFAULT);
+   if (!APICallError.isInstance(error)) {
+      throw new Error(AI_ERROR_MESSAGES.DEFAULT);
    }
 
-   const errorData = isGroqErrorData(apiError.data) ? apiError.data : undefined;
-
-   // Límite de tokens por minuto
-   if (apiError.statusCode === 429 && errorData?.error?.type === "tokens") {
-      throw new Error(GROQ_ERROR_MESSAGES.TOKEN_RATE_LIMIT);
-   }
-
-   // Request individual demasiado grande
-   if (apiError.statusCode === 413) {
-      throw new Error(GROQ_ERROR_MESSAGES.REQUEST_TOO_LARGE);
-   }
-
-   const statusCode = apiError.statusCode;
+   const statusCode = error.statusCode;
 
    if (statusCode !== undefined) {
       const statusMessage =
-         GROQ_ERROR_MESSAGES.STATUS[
-            statusCode as keyof typeof GROQ_ERROR_MESSAGES.STATUS
+         AI_ERROR_MESSAGES.STATUS[
+            statusCode as keyof typeof AI_ERROR_MESSAGES.STATUS
          ];
 
       if (statusMessage) {
@@ -130,7 +106,7 @@ export function handleGroqError(error: unknown): never {
       }
    }
 
-   throw new Error(GROQ_ERROR_MESSAGES.DEFAULT);
+   throw new Error(AI_ERROR_MESSAGES.DEFAULT);
 }
 
 export function handleYouTubeError(error: unknown): never {
