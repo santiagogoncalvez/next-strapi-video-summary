@@ -38,19 +38,42 @@ export function SummaryForm() {
    const lastTimestamp = useRef<number | null>(null);
 
    useEffect(() => {
-      let toastId: string | number | undefined;
+      if (!isPending) return;
 
-      if (isPending) {
-         toastId = toast.loading(SUMMARY_MESSAGES.loading.CREATING, {
-            position: "top-center",
-            duration: 3000,
-         });
-      }
+      const loadingMessages = [
+         SUMMARY_MESSAGES.loading.CREATING,
+         "Analizando el video...",
+         "Procesando el contenido...",
+         "Generando el resumen...",
+         "Preparando el resultado...",
+      ];
+
+      let currentMessage = 0;
+
+      const toastId = toast.loading(loadingMessages[currentMessage], {
+         position: "top-center",
+      });
+
+      const interval = setInterval(() => {
+         currentMessage = (currentMessage + 1) % loadingMessages.length;
+
+         toast.loading(
+            <div
+               key={loadingMessages[currentMessage]}
+               className="animate-in fade-in slide-in-from-bottom-1 duration-300"
+            >
+               {loadingMessages[currentMessage]}
+            </div>,
+            {
+               id: toastId,
+               position: "top-center",
+            },
+         );
+      }, 3000);
 
       return () => {
-         if (toastId) {
-            toast.dismiss(toastId);
-         }
+         clearInterval(interval);
+         toast.dismiss(toastId);
       };
    }, [isPending]);
 
