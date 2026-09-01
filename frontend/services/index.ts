@@ -16,6 +16,7 @@ import {
    saveSummaryService,
    updateSummaryService,
    deleteSummaryService,
+   countTokens,
 } from "./summary";
 
 export const services = {
@@ -41,6 +42,7 @@ export const services = {
       saveSummaryService,
       updateSummaryService,
       deleteSummaryService,
+      countTokens
    },
    favorite:{
 deleteFavoriteSummaryService,

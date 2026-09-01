@@ -17,6 +17,8 @@ import { getUserMeService } from "@/services/auth";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { revalidatePath } from "next/cache";
 import { SUMMARY_MESSAGES } from "@/constants/messages/summary";
+import { SYSTEM_PROMPT } from "@/constants/prompts";
+import { MAX_SUMMARY_INPUT_TOKENS } from "@/constants/ia";
 
 const MAX_VIDEO_DURATION = 3600; // 60 minutos
 
@@ -56,6 +58,17 @@ export async function createSummaryAction(
       }
 
       // console.log("TRANSCRIPT:\n", fullTranscript);
+
+      const tokenCount = await services.summary.countTokens(
+         fullTranscript,
+         SYSTEM_PROMPT,
+      );
+
+      console.log("Transcript tokens:", tokenCount);
+
+      if (tokenCount > MAX_SUMMARY_INPUT_TOKENS) {
+         throw new Error(SUMMARY_MESSAGES.ERROR.TOKEN_LIMIT_EXCEEDED);
+      }
 
       const summary = await services.summary.generateSummary(fullTranscript);
 

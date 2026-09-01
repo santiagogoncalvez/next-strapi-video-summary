@@ -17,5 +17,7 @@ export const SUMMARY_MESSAGES = {
       VIDEO_TOO_LONG: "El video no puede superar los 60 minutos de duración.",
       SUMMARY_NOT_GENERATED: "No se pudo generar el resumen del video.",
       GENERATION_FAILED: "No se pudo generar el resumen.",
+      TOKEN_LIMIT_EXCEEDED:
+         "El contenido del video es demasiado grande para generar el resumen.",
    },
 } as const;
