@@ -1,7 +1,6 @@
 "use client";
 
 import { actions } from "@/actions";
-import { FormError } from "@/components/form/form-error";
 import {
    Card,
    CardContent,
@@ -11,13 +10,14 @@ import {
    CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { SIGN_IN_FORM_STYLES } from "@/constants/styles";
 import { useCountdown } from "@/hooks/use-countdown";
 import { FormState } from "@/types/definitions";
 import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
 import { SubmitButton } from "./submit-button";
+import { Field, FieldError, FieldLabel } from "../ui/field";
+import { parseFieldErrors } from "@/lib/parsers";
 
 const COOLDOWN_TIME = 30;
 
@@ -81,20 +81,26 @@ export default function ConfirmEmail({ email }: { email: string }) {
                   </CardDescription>
                </CardHeader>
                <CardContent className={SIGN_IN_FORM_STYLES.content}>
-                  <div className={SIGN_IN_FORM_STYLES.fieldGroup}>
-                     <Label htmlFor="email">
+                  <Field
+                     className={SIGN_IN_FORM_STYLES.fieldGroup}
+                     data-invalid={!!formState.zodErrors?.email}
+                  >
+                     <FieldLabel htmlFor="email">
                         ¿No recibiste el correo electrónico? Revisa tu carpeta
                         de correo no deseado o intenta reenviarlo abajo.
-                     </Label>
+                     </FieldLabel>
                      <Input
                         id="email"
                         name="email"
                         type="email"
                         placeholder="pablo@gmail.com"
                         defaultValue={formState.data?.email ?? ""}
+                        aria-invalid={!!formState.zodErrors?.email}
                      />
-                     <FormError error={formState.zodErrors?.email} />
-                  </div>
+                     <FieldError
+                        errors={parseFieldErrors(formState.zodErrors?.email)}
+                     />
+                  </Field>
                </CardContent>
 
                <CardFooter className={`${SIGN_IN_FORM_STYLES.footer}`}>
@@ -109,12 +115,13 @@ export default function ConfirmEmail({ email }: { email: string }) {
                      loading={isPending}
                      disabled={isRunning}
                   />
-                  {/* {!formState.success && formState.message && (
-                     <FormError error={[formState.message]} />
-                  )} */}
 
                   {formState.strapiErrors && (
-                     <FormError error={[formState.strapiErrors.message]} />
+                     <FieldError
+                        errors={parseFieldErrors([
+                           formState.strapiErrors.message,
+                        ])}
+                     />
                   )}
                </CardFooter>
             </Card>

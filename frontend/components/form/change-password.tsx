@@ -9,16 +9,16 @@ import {
    Card,
 } from "@/components/ui/card";
 
-import { Label } from "@/components/ui/label";
 import { actions } from "@/actions";
 import { useActionState, useEffect } from "react";
-import { FormError } from "./form-error";
 import { SIGN_UP_FORM_STYLES } from "@/constants/styles";
 import { toast } from "sonner";
 import { redirect } from "next/navigation";
 import { FormState } from "@/types/definitions";
 import { SubmitButton } from "./submit-button";
 import { PasswordInput } from "../custom/password-input";
+import { Field, FieldError, FieldLabel } from "../ui/field";
+import { parseFieldErrors } from "@/lib/parsers";
 
 export function ChangePassword() {
    const INITIAL_STATE: FormState = {
@@ -61,41 +61,67 @@ export function ChangePassword() {
                   </CardDescription>
                </CardHeader>
                <CardContent className={SIGN_UP_FORM_STYLES.content}>
-                  <div className={SIGN_UP_FORM_STYLES.fieldGroup}>
-                     <Label htmlFor="password">Constraseña</Label>
+                  <Field
+                     className={SIGN_UP_FORM_STYLES.fieldGroup}
+                     data-invalid={!!formState.zodErrors?.password}
+                  >
+                     <FieldLabel htmlFor="password">Contraseña</FieldLabel>
                      <PasswordInput
                         id="password"
                         name="password"
                         type="password"
                         placeholder="Ingresar contraseña"
                         defaultValue={formState.data?.password ?? ""}
+                        aria-invalid={!!formState.zodErrors?.password}
                      />
-                     <FormError error={formState.zodErrors?.password} />
-                  </div>
-                  <div className={SIGN_UP_FORM_STYLES.fieldGroup}>
-                     <Label htmlFor="newPassword">Nueva constraseña</Label>
+                     <FieldError
+                        errors={parseFieldErrors(formState.zodErrors?.password)}
+                     />
+                  </Field>
+
+                  <Field
+                     className={SIGN_UP_FORM_STYLES.fieldGroup}
+                     data-invalid={!!formState.zodErrors?.newPassword}
+                  >
+                     <FieldLabel htmlFor="newPassword">
+                        Nueva contraseña
+                     </FieldLabel>
                      <PasswordInput
                         id="newPassword"
                         name="newPassword"
                         type="password"
                         placeholder="Ingresar nueva contraseña"
                         defaultValue={formState.data?.newPassword ?? ""}
+                        aria-invalid={!!formState.zodErrors?.newPassword}
                      />
-                     <FormError error={formState.zodErrors?.newPassword} />
-                  </div>
-                  <div className={SIGN_UP_FORM_STYLES.fieldGroup}>
-                     <Label htmlFor="confirmPassword">
+                     <FieldError
+                        errors={parseFieldErrors(
+                           formState.zodErrors?.newPassword,
+                        )}
+                     />
+                  </Field>
+
+                  <Field
+                     className={SIGN_UP_FORM_STYLES.fieldGroup}
+                     data-invalid={!!formState.zodErrors?.confirmPassword}
+                  >
+                     <FieldLabel htmlFor="confirmPassword">
                         Confirmar contraseña
-                     </Label>
+                     </FieldLabel>
                      <PasswordInput
                         id="confirmPassword"
                         name="confirmPassword"
                         type="password"
                         placeholder="Confirmar contraseña"
                         defaultValue={formState.data?.confirmPassword ?? ""}
+                        aria-invalid={!!formState.zodErrors?.confirmPassword}
                      />
-                     <FormError error={formState.zodErrors?.confirmPassword} />
-                  </div>
+                     <FieldError
+                        errors={parseFieldErrors(
+                           formState.zodErrors?.confirmPassword,
+                        )}
+                     />
+                  </Field>
                </CardContent>
                <CardFooter className={`${SIGN_UP_FORM_STYLES.footer}`}>
                   <SubmitButton
@@ -105,9 +131,12 @@ export function ChangePassword() {
                      loading={isPending}
                   />
 
-                  {formState.strapiErrors && (
-                     <FormError error={[formState.strapiErrors.message]} />
-                  )}
+                  <FieldError
+                     errors={parseFieldErrors([
+                        formState.strapiErrors?.message,
+                     ])}
+                     className="text-center"
+                  />
                </CardFooter>
             </Card>
          </form>

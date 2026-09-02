@@ -9,6 +9,7 @@ import { Input } from "../ui/input";
 import { SubmitButton } from "./submit-button";
 import { cn } from "@/lib/utils";
 import { getFormErrorMessage } from "@/actions/helpers";
+import { Field } from "../ui/field";
 
 interface SummaryTitleFormProps {
    title?: string;
@@ -35,7 +36,7 @@ export function SummaryTitleForm({
 }: Readonly<SummaryTitleFormProps>) {
    const [updateTitleFormState, updateTitleFormAction, updateTitleIsPending] =
       useActionState(actions.summarize.updateSummaryTitleAction, INITIAL_STATE);
-   
+
    const [currentTitle, setCurrentTitle] = useState(title ?? "");
 
    const isDirty = currentTitle !== (title ?? "");
@@ -69,7 +70,6 @@ export function SummaryTitleForm({
             duration: 3000,
          });
       }
-
    }, [updateTitleFormState, onFinishEditing]);
 
    function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -95,18 +95,21 @@ export function SummaryTitleForm({
          action={updateTitleFormAction}
          className={cn(`flex items-center gap-1`, className)}
       >
-         <Input
-            ref={inputRef}
-            id="title"
-            name="title"
-            type="text"
-            placeholder="Ingresar título de resumen"
-            value={currentTitle}
-            onChange={(event) => setCurrentTitle(event.target.value)}
-            onKeyDown={handleKeyDown}
-            onBlur={handleBlur}
-            inputSize="sm"
-         />
+         <Field data-invalid={!!updateTitleFormState.zodErrors?.title}>
+            <Input
+               ref={inputRef}
+               id="title"
+               name="title"
+               type="text"
+               placeholder="Ingresar título de resumen"
+               value={currentTitle}
+               onChange={(event) => setCurrentTitle(event.target.value)}
+               onKeyDown={handleKeyDown}
+               onBlur={handleBlur}
+               inputSize="sm"
+               aria-invalid={!!updateTitleFormState.zodErrors?.title}
+            />
+         </Field>
 
          <input type="hidden" name="documentId" value={documentId} />
 

@@ -22,7 +22,8 @@ import { FormState } from "@/types/definitions";
 import { PROFILE_FORM_STYLES, SIGN_IN_FORM_STYLES } from "@/constants/styles";
 
 import { SubmitButton } from "./submit-button";
-import { FormError } from "./form-error";
+import { Field, FieldError, FieldLabel } from "../ui/field";
+import { parseFieldErrors } from "@/lib/parsers";
 
 interface ProfileFormProps {
    user?: AuthUser | null;
@@ -75,9 +76,10 @@ export function ProfileForm({ user, className }: Readonly<ProfileFormProps>) {
 
                <CardContent className={PROFILE_FORM_STYLES.content}>
                   <div className={PROFILE_FORM_STYLES.nameRow}>
-                     <div className={PROFILE_FORM_STYLES.fieldGroup}>
-                        <Label htmlFor="username">Nombre de usuario</Label>
-
+                     <Field className={PROFILE_FORM_STYLES.fieldGroup}>
+                        <FieldLabel htmlFor="username">
+                           Nombre de usuario
+                        </FieldLabel>
                         <Input
                            id="username"
                            name="username"
@@ -85,10 +87,12 @@ export function ProfileForm({ user, className }: Readonly<ProfileFormProps>) {
                            defaultValue={user.username ?? ""}
                            disabled
                         />
-                     </div>
-                     <div className={PROFILE_FORM_STYLES.fieldGroup}>
-                        <Label htmlFor="email">Correo electrónico</Label>
+                     </Field>
 
+                     <Field className={PROFILE_FORM_STYLES.fieldGroup}>
+                        <FieldLabel htmlFor="email">
+                           Correo electrónico
+                        </FieldLabel>
                         <Input
                            id="email"
                            name="email"
@@ -96,18 +100,22 @@ export function ProfileForm({ user, className }: Readonly<ProfileFormProps>) {
                            defaultValue={user.email ?? ""}
                            disabled
                         />
-                     </div>
+                     </Field>
                   </div>
 
-                  <div className={PROFILE_FORM_STYLES.fieldGroup}>
+                  <div
+                     className={cn(PROFILE_FORM_STYLES.fieldGroup, "space-y-2")}
+                  >
                      <Label>Créditos</Label>
 
                      <CountBox text={user.credits ?? 0} />
                   </div>
                   <div className={PROFILE_FORM_STYLES.nameRow}>
-                     <div className={PROFILE_FORM_STYLES.fieldGroup}>
-                        <Label htmlFor="firstName">Nombre</Label>
-
+                     <Field
+                        className={PROFILE_FORM_STYLES.fieldGroup}
+                        data-invalid={!!formState.zodErrors?.firstName}
+                     >
+                        <FieldLabel htmlFor="firstName">Nombre</FieldLabel>
                         <Input
                            id="firstName"
                            name="firstName"
@@ -115,14 +123,20 @@ export function ProfileForm({ user, className }: Readonly<ProfileFormProps>) {
                            defaultValue={
                               formState.data?.firstName ?? user.firstName ?? ""
                            }
+                           aria-invalid={!!formState.zodErrors?.firstName}
                         />
+                        <FieldError
+                           errors={parseFieldErrors(
+                              formState.zodErrors?.firstName,
+                           )}
+                        />
+                     </Field>
 
-                        <FormError error={formState.zodErrors?.firstName} />
-                     </div>
-
-                     <div className={PROFILE_FORM_STYLES.fieldGroup}>
-                        <Label htmlFor="lastName">Apellido</Label>
-
+                     <Field
+                        className={PROFILE_FORM_STYLES.fieldGroup}
+                        data-invalid={!!formState.zodErrors?.lastName}
+                     >
+                        <FieldLabel htmlFor="lastName">Apellido</FieldLabel>
                         <Input
                            id="lastName"
                            name="lastName"
@@ -130,25 +144,33 @@ export function ProfileForm({ user, className }: Readonly<ProfileFormProps>) {
                            defaultValue={
                               formState.data?.lastName ?? user.lastName ?? ""
                            }
+                           aria-invalid={!!formState.zodErrors?.lastName}
                         />
-
-                        <FormError error={formState.zodErrors?.lastName} />
-                     </div>
+                        <FieldError
+                           errors={parseFieldErrors(
+                              formState.zodErrors?.lastName,
+                           )}
+                        />
+                     </Field>
                   </div>
 
-                  <div className={PROFILE_FORM_STYLES.fieldGroup}>
-                     <Label htmlFor="bio">Biografía</Label>
-
+                  <Field
+                     className={PROFILE_FORM_STYLES.fieldGroup}
+                     data-invalid={!!formState.zodErrors?.bio}
+                  >
+                     <FieldLabel htmlFor="bio">Biografía</FieldLabel>
                      <Textarea
                         id="bio"
                         name="bio"
                         placeholder="Escribe tu biografía aquí..."
                         className={PROFILE_FORM_STYLES.textarea}
                         defaultValue={formState.data?.bio ?? user.bio ?? ""}
+                        aria-invalid={!!formState.zodErrors?.bio}
                      />
-
-                     <FormError error={formState.zodErrors?.bio} />
-                  </div>
+                     <FieldError
+                        errors={parseFieldErrors(formState.zodErrors?.bio)}
+                     />
+                  </Field>
                </CardContent>
 
                <CardFooter className={PROFILE_FORM_STYLES.footer}>
@@ -160,7 +182,11 @@ export function ProfileForm({ user, className }: Readonly<ProfileFormProps>) {
                   />
 
                   {formState.strapiErrors && (
-                     <FormError error={[formState.strapiErrors.message]} />
+                     <FieldError
+                        errors={parseFieldErrors(
+                           formState.strapiErrors.message,
+                        )}
+                     />
                   )}
                </CardFooter>
             </Card>

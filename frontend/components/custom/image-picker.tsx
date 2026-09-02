@@ -6,7 +6,8 @@ import { MediaImage } from "./media-image";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import { FormError } from "../form/form-error";
+import { FieldError } from "../ui/field";
+import { parseFieldErrors } from "@/lib/parsers";
 
 interface ImagePickerProps {
    id: string;
@@ -44,7 +45,7 @@ function ImageCard({
       <div className={cn("w-full relative", className)}>
          <div className="flex items-center justify-center space-x-4 rounded-2xl border border-input/80 p-0 w-full aspect-square">
             {error ? (
-               <FormError error={[error]} className="text-center" />
+               <FieldError errors={parseFieldErrors(error)} />
             ) : dataUrl ? (
                <ImagePreview dataUrl={dataUrl} />
             ) : (

@@ -44,7 +44,7 @@ export const SIGN_UP_FORM_STYLES = {
    header: "space-y-1",
    title: "sm:text-2xl text-xl  font-medium text-center",
    content: "space-y-4",
-   fieldGroup: "space-y-2",
+   fieldGroup: "",
    footer: "flex flex-col space-y-4",
    button: "w-full",
    prompt:
@@ -57,7 +57,7 @@ export const SIGN_IN_FORM_STYLES = {
    header: "space-y-1",
    title: "sm:text-2xl text-xl  font-medium text-center",
    content: "space-y-4",
-   fieldGroup: "space-y-2",
+   fieldGroup: "",
    footer: "flex flex-col space-y-4",
    button: "w-full",
    prompt:
@@ -140,7 +140,7 @@ export const PROFILE_FORM_STYLES = {
 
    content: "space-y-4",
 
-   fieldGroup: "space-y-2 w-full",
+   fieldGroup: "w-full",
 
    nameRow: "flex flex-col gap-4 md:flex-row",
 
@@ -167,7 +167,7 @@ export const SUMMARY_FORM_STYLES = {
    header: "space-y-1",
    title: "sm:text-2xl text-xl  font-medium text-center text-pretty",
    content: "space-y-4",
-   fieldGroup: "space-y-2",
+   fieldGroup: "",
    footer: "flex flex-col space-y-4",
    button: "absolute top-1/2 -translate-y-1/2 right-3",
    prompt:
@@ -182,7 +182,7 @@ export const SUMMARY_UPDATE_FORM_STYLES = {
    header: "space-y-1",
    title: "sm:text-2xl text-xl  font-medium text-start",
 
-   fieldGroup: "space-y-2",
+   fieldGroup: "",
 
    editor: "font-geist!",
 

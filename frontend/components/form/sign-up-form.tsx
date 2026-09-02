@@ -9,16 +9,16 @@ import {
    Card,
 } from "@/components/ui/card";
 
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { actions } from "@/actions";
 import { useActionState } from "react";
-import { FormError } from "./form-error";
 import { SIGN_UP_FORM_STYLES } from "@/constants/styles";
 import { FormState } from "@/types/definitions";
 import { SubmitButton } from "./submit-button";
 import { AppLink } from "../custom/custom-link";
 import { PasswordInput } from "../custom/password-input";
+import { Field, FieldError, FieldLabel } from "../ui/field";
+import { parseFieldErrors } from "@/lib/parsers";
 
 const INITIAL_STATE: FormState = {
    success: false,
@@ -50,50 +50,100 @@ export function SignupForm() {
                </CardHeader>
                <CardContent className={SIGN_UP_FORM_STYLES.content}>
                   <div className={SIGN_UP_FORM_STYLES.fieldGroup}>
-                     <Label htmlFor="username">Nombre de usuario</Label>
-                     <Input
-                        id="username"
-                        name="username"
-                        type="text"
-                        placeholder="pablo"
-                        defaultValue={formState.data?.username ?? ""}
-                     />
-                     <FormError error={formState.zodErrors?.username} />
+                     <Field
+                        className={SIGN_UP_FORM_STYLES.fieldGroup}
+                        data-invalid={!!formState.zodErrors?.username}
+                     >
+                        <FieldLabel htmlFor="username">
+                           Nombre de usuario
+                        </FieldLabel>
+
+                        <Input
+                           id="username"
+                           name="username"
+                           type="text"
+                           placeholder="pablo"
+                           defaultValue={formState.data?.username ?? ""}
+                           aria-invalid={!!formState.zodErrors?.username}
+                        />
+
+                        <FieldError
+                           errors={parseFieldErrors(
+                              formState.zodErrors?.username,
+                           )}
+                        />
+                     </Field>
                   </div>
                   <div className={SIGN_UP_FORM_STYLES.fieldGroup}>
-                     <Label htmlFor="email">Correo electrónico</Label>
-                     <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        placeholder="pablo@gmail.com"
-                        defaultValue={formState.data?.email ?? ""}
-                     />
-                     <FormError error={formState.zodErrors?.email} />
+                     <Field
+                        className={SIGN_UP_FORM_STYLES.fieldGroup}
+                        data-invalid={!!formState.zodErrors?.email}
+                     >
+                        <FieldLabel htmlFor="email">
+                           Correo electrónico
+                        </FieldLabel>
+
+                        <Input
+                           id="email"
+                           name="email"
+                           type="email"
+                           placeholder="pablo@gmail.com"
+                           defaultValue={formState.data?.email ?? ""}
+                           aria-invalid={!!formState.zodErrors?.email}
+                        />
+
+                        <FieldError
+                           errors={parseFieldErrors(formState.zodErrors?.email)}
+                        />
+                     </Field>
                   </div>
                   <div className={SIGN_UP_FORM_STYLES.fieldGroup}>
-                     <Label htmlFor="password">Constraseña</Label>
-                     <PasswordInput
-                        id="password"
-                        name="password"
-                        type="password"
-                        placeholder="Ingresar contraseña"
-                        defaultValue={formState.data?.password ?? ""}
-                     />
-                     <FormError error={formState.zodErrors?.password} />
+                     <Field
+                        className={SIGN_UP_FORM_STYLES.fieldGroup}
+                        data-invalid={!!formState.zodErrors?.password}
+                     >
+                        <FieldLabel htmlFor="password">Contraseña</FieldLabel>
+
+                        <PasswordInput
+                           id="password"
+                           name="password"
+                           type="password"
+                           placeholder="Ingresar contraseña"
+                           defaultValue={formState.data?.password ?? ""}
+                           aria-invalid={!!formState.zodErrors?.password}
+                        />
+
+                        <FieldError
+                           errors={parseFieldErrors(
+                              formState.zodErrors?.password,
+                           )}
+                        />
+                     </Field>
                   </div>
                   <div className={SIGN_UP_FORM_STYLES.fieldGroup}>
-                     <Label htmlFor="confirmPassword">
-                        Confirmar contraseña
-                     </Label>
-                     <PasswordInput
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        type="password"
-                        placeholder="Confirmar contraseña"
-                        defaultValue={formState.data?.confirmPassword ?? ""}
-                     />
-                     <FormError error={formState.zodErrors?.confirmPassword} />
+                     <Field
+                        className={SIGN_UP_FORM_STYLES.fieldGroup}
+                        data-invalid={!!formState.zodErrors?.confirmPassword}
+                     >
+                        <FieldLabel htmlFor="confirmPassword">
+                           Confirmar contraseña
+                        </FieldLabel>
+
+                        <PasswordInput
+                           id="confirmPassword"
+                           name="confirmPassword"
+                           type="password"
+                           placeholder="Confirmar contraseña"
+                           defaultValue={formState.data?.confirmPassword ?? ""}
+                           aria-invalid={!!formState.zodErrors?.confirmPassword}
+                        />
+
+                        <FieldError
+                           errors={parseFieldErrors(
+                              formState.zodErrors?.confirmPassword,
+                           )}
+                        />
+                     </Field>
                   </div>
                </CardContent>
                <CardFooter className={`${SIGN_UP_FORM_STYLES.footer}`}>
@@ -104,7 +154,11 @@ export function SignupForm() {
                      loading={isPending}
                   />
                   {formState.strapiErrors && (
-                     <FormError error={[formState.strapiErrors.message]} />
+                     <FieldError
+                        errors={parseFieldErrors(
+                           formState.strapiErrors.message,
+                        )}
+                     />
                   )}
 
                   <div className={SIGN_UP_FORM_STYLES.prompt}>

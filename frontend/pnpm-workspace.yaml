@@ -1,17 +1,15 @@
 allowBuilds:
-  '@google/genai': set this to true or false
-  core-js: set this to true or false
-  esbuild: true
-  msw: true
-  protobufjs: set this to true or false
-  sharp: true
-  unrs-resolver: true
+   "@google/genai": set this to true or false
+   core-js: set this to true or false
+   esbuild: true
+   msw: true
+   protobufjs: set this to true or false
+   sharp: true
+   unrs-resolver: true
 ignoredBuiltDependencies:
-  - sharp
-  - unrs-resolver
+   - sharp
+   - unrs-resolver
 minimumReleaseAgeExclude:
-  - '@santiagogoncalvez1/youtube-transcript-plus@1.0.1'
-  - '@santiagogoncalvez1/youtube-transcript-plus@1.2.0'
-  - '@santiagogoncalvez1/youtube-transcript-plus@1.3.0'
-overrides:
-  youtube-transcript-plus: link:../../../Proyectos/youtube-transcript-plus
+   - "@santiagogoncalvez1/youtube-transcript-plus@1.0.1"
+   - "@santiagogoncalvez1/youtube-transcript-plus@1.2.0"
+   - "@santiagogoncalvez1/youtube-transcript-plus@1.3.0"

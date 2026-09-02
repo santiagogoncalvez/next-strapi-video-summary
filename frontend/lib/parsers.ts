@@ -141,7 +141,6 @@ export function removeRepeatedTranscriptSegments(
    return removeSegmentOverlaps(cleaned);
 }
 
-
 export function mapSummariesWithFavorites(
    summaries: Summary[],
    favorites: Favorite[],
@@ -159,4 +158,14 @@ export function mapSummariesWithFavorites(
          favoriteDocumentId,
       };
    });
+}
+
+export function parseFieldErrors(
+   errors?: string | (string | undefined)[] | null,
+): { message: string }[] {
+   const normalizedErrors = Array.isArray(errors) ? errors : [errors];
+
+   return normalizedErrors
+      .filter((message): message is string => Boolean(message))
+      .map((message) => ({ message }));
 }

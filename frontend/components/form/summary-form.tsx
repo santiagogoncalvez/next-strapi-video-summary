@@ -10,13 +10,15 @@ import {
    CardHeader,
    CardTitle,
 } from "../ui/card";
-import { FormError } from "./form-error";
 import { SUMMARY_FORM_STYLES } from "@/constants/styles";
 import { FormState } from "@/types/definitions";
 import { actions } from "@/actions";
 import { useRouter } from "next/navigation";
 import { SUMMARY_MESSAGES } from "@/constants/messages/summary";
 import { SubmitButtonSummary } from "./submit-button-summary";
+import { Field, FieldError } from "../ui/field";
+import { getFormErrorMessage } from "@/actions/helpers";
+import { parseFieldErrors } from "@/lib/parsers";
 
 const INITIAL_STATE: FormState = {
    success: false,
@@ -76,7 +78,6 @@ export function SummaryForm() {
          toast.dismiss(toastId);
       };
    }, [isPending]);
-
    useEffect(() => {
       if (!formState.timestamp) return;
 
@@ -85,10 +86,12 @@ export function SummaryForm() {
       lastTimestamp.current = formState.timestamp;
 
       if (formState.success) {
-         toast.success(formState.message, {
-            position: "top-center",
-            duration: 3000,
-         });
+         if (formState.message) {
+            toast.success(formState.message, {
+               position: "top-center",
+               duration: 3000,
+            });
+         }
 
          router.push(
             `/dashboard/summaries/${formState.data?.documentId ?? ""}`,
@@ -97,8 +100,12 @@ export function SummaryForm() {
          return;
       }
 
-      if (formState.message) {
-         toast.error(formState.message, {
+      if (formState.zodErrors) return;
+
+      const errorMessage = getFormErrorMessage(formState);
+
+      if (errorMessage) {
+         toast.error(errorMessage, {
             position: "top-center",
             duration: 3000,
          });
@@ -122,46 +129,48 @@ export function SummaryForm() {
                </CardHeader>
 
                <CardContent className={SUMMARY_FORM_STYLES.content}>
-                  <div className={"relative"}>
-                     {/* <Label htmlFor="videoId">
-                        URL o ID del video de YouTube
-                     </Label> */}
+                  <Field
+                     className="w-full"
+                     data-invalid={!!formState.zodErrors?.videoId}
+                  >
+                     <div className="relative w-full">
+                        <Input
+                           id="videoId"
+                           name="videoId"
+                           type="text"
+                           placeholder="https://youtu.be/dQw4w9WgXcQ"
+                           value={videoId}
+                           onChange={(event) => setVideoId(event.target.value)}
+                           required
+                           className="h-14 pl-4 pr-14 shadow-[0_1px_4px_rgba(0,0,0,0.06)]"
+                           aria-invalid={!!formState.zodErrors?.videoId}
+                        />
 
-                     <Input
-                        id="videoId"
-                        name="videoId"
-                        type="text"
-                        placeholder="https://youtu.be/dQw4w9WgXcQ"
-                        value={videoId}
-                        onChange={(event) => setVideoId(event.target.value)}
-                        required
-                        className="h-14 pl-4 pr-14 shadow-[0_1px_4px_rgba(0,0,0,0.06)]"
-                     />
-
-                     <SubmitButtonSummary
-                        className={SUMMARY_FORM_STYLES.button}
-                        disabled={!videoId.trim()}
-                        loading={isPending}
-                     />
-                  </div>
+                        <SubmitButtonSummary
+                           className={SUMMARY_FORM_STYLES.button}
+                           disabled={!videoId.trim()}
+                           loading={isPending}
+                        />
+                     </div>
+                  </Field>
                </CardContent>
 
                <CardFooter className={SUMMARY_FORM_STYLES.footer}>
-                  <FormError
-                     error={formState.zodErrors?.videoId}
+                  <FieldError
                      className="text-center"
+                     errors={parseFieldErrors(formState.zodErrors?.videoId)}
                   />
 
                   {!formState.zodErrors &&
                      formState.success === false &&
                      formState.message && (
-                        <FormError
-                           error={[formState.message]}
+                        <FieldError
                            className="text-center"
+                           errors={parseFieldErrors(formState.message)}
                         />
                      )}
 
-                  <p className="text-muted-foreground/90 text-center font-light text-xs">
+                  <p className="text-muted-foreground/90 text-center font-light text-sm">
                      Videos de hasta 60 minutos
                   </p>
                </CardFooter>

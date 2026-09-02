@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/card";
 
 import { SubmitButton } from "@/components/form/submit-button";
-import { FormError } from "@/components/form/form-error";
 import ImagePicker from "@/components/custom/image-picker";
 
 import { FormState } from "@/types/definitions";
@@ -26,6 +25,8 @@ import {
    SIGN_IN_FORM_STYLES,
 } from "@/constants/styles";
 import { toast } from "sonner";
+import { FieldError } from "../ui/field";
+import { parseFieldErrors } from "@/lib/parsers";
 
 interface ProfileImageFormProps {
    image?: Image | null;
@@ -83,7 +84,10 @@ export function ProfileImageForm({ image, className }: ProfileImageFormProps) {
                         defaultValue={image?.url ?? ""}
                      />
 
-                     <FormError error={formState.zodErrors?.image} />
+                     <FieldError
+                        errors={parseFieldErrors(formState.zodErrors?.image)}
+                        className="text-center"
+                     />
                   </div>
                </CardContent>
 
@@ -96,7 +100,11 @@ export function ProfileImageForm({ image, className }: ProfileImageFormProps) {
                   />
 
                   {formState.strapiErrors && (
-                     <FormError error={[formState.strapiErrors.message]} />
+                     <FieldError
+                        errors={parseFieldErrors(
+                           formState.strapiErrors.message,
+                        )}
+                     />
                   )}
                </CardFooter>
             </Card>

@@ -9,16 +9,16 @@ import {
    Card,
 } from "@/components/ui/card";
 
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { actions } from "@/actions";
 import { useActionState } from "react";
-import { FormError } from "./form-error";
 import { SIGN_IN_FORM_STYLES } from "@/constants/styles";
 import { FormState } from "@/types/definitions";
 import { SubmitButton } from "./submit-button";
 import { AppLink } from "../custom/custom-link";
 import { PasswordInput } from "../custom/password-input";
+import { Field, FieldError, FieldLabel } from "../ui/field";
+import { parseFieldErrors } from "@/lib/parsers";
 
 const INITIAL_STATE: FormState = {
    success: false,
@@ -47,40 +47,58 @@ export function SigninForm() {
                   </CardDescription>
                </CardHeader>
                <CardContent className={SIGN_IN_FORM_STYLES.content}>
-                  <div className={SIGN_IN_FORM_STYLES.fieldGroup}>
-                     <Label htmlFor="identifier">
+                  <Field
+                     className={SIGN_IN_FORM_STYLES.fieldGroup}
+                     data-invalid={!!formState.zodErrors?.identifier}
+                  >
+                     <FieldLabel htmlFor="identifier">
                         Nombre de usuario o correo electrónico
-                     </Label>
+                     </FieldLabel>
+
                      <Input
                         id="identifier"
                         name="identifier"
                         type="text"
                         placeholder="pablo o pablo@gmail.com"
                         defaultValue={formState.data?.identifier ?? ""}
+                        aria-invalid={!!formState.zodErrors?.identifier}
                      />
 
-                     <FormError error={formState.zodErrors?.identifier} />
-                  </div>
-                  <div className={SIGN_IN_FORM_STYLES.fieldGroup}>
-                     <Label htmlFor="password">Contraseña</Label>
+                     <FieldError
+                        errors={parseFieldErrors(
+                           formState.zodErrors?.identifier,
+                        )}
+                     />
+                  </Field>
+
+                  <Field
+                     className={SIGN_IN_FORM_STYLES.fieldGroup}
+                     data-invalid={!!formState.zodErrors?.password}
+                  >
+                     <FieldLabel htmlFor="password">Contraseña</FieldLabel>
+
                      <PasswordInput
                         id="password"
                         name="password"
                         type="password"
                         placeholder="Ingresar contraseña"
                         defaultValue={formState.data?.password ?? ""}
+                        aria-invalid={!!formState.zodErrors?.password}
                      />
 
-                     <FormError error={formState.zodErrors?.password} />
+                     <FieldError
+                        errors={parseFieldErrors(formState.zodErrors?.password)}
+                     />
 
                      <AppLink
                         href="/auth/forgot-password"
                         variant="link"
                         size="none"
+                        className="w-fit!"
                      >
                         ¿Olvidaste tu contraseña?
                      </AppLink>
-                  </div>
+                  </Field>
                </CardContent>
                <CardFooter className={`${SIGN_IN_FORM_STYLES.footer}`}>
                   <SubmitButton
@@ -91,7 +109,11 @@ export function SigninForm() {
                   />
 
                   {formState.strapiErrors && (
-                     <FormError error={[formState.strapiErrors.message]} />
+                     <FieldError
+                        errors={parseFieldErrors(
+                           formState.strapiErrors.message,
+                        )}
+                     />
                   )}
 
                   <div className={SIGN_IN_FORM_STYLES.prompt}>

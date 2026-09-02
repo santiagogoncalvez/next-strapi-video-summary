@@ -2,7 +2,6 @@
 import { useActionState, useEffect, useRef } from "react";
 import { EditorWrapper } from "@/components/custom/editor/editor-wrapper";
 import { Card, CardContent } from "@/components/ui/card";
-import { FormError } from "@/components/form/form-error";
 import { Summary } from "@/types/strapi";
 import { SUMMARY_UPDATE_FORM_STYLES } from "@/constants/styles";
 import { actions } from "@/actions";
@@ -10,6 +9,8 @@ import { FormState } from "@/types/definitions";
 import { toast } from "sonner";
 import { getFormErrorMessage } from "@/actions/helpers";
 import { useRouter } from "next/navigation";
+import { FieldError } from "../ui/field";
+import { parseFieldErrors } from "@/lib/parsers";
 
 interface SummaryUpdateFormProps {
    summary: Summary;
@@ -137,7 +138,11 @@ export function SummaryUpdateForm({
                         defaultValue={summary.content}
                         readOnly
                      />
-                     <FormError error={updateFormState.zodErrors?.content} />
+                     <FieldError
+                        errors={parseFieldErrors(
+                           updateFormState.strapiErrors?.message,
+                        )}
+                     />
                      <EditorWrapper
                         key={summary.documentId}
                         markdown={summary.content}

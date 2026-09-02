@@ -34,7 +34,7 @@ export function AccountSecuritySection({ className }: Readonly<Props>) {
                </CardHeader>
 
                <CardContent className={PROFILE_FORM_STYLES.content}>
-                  <div className={PROFILE_FORM_STYLES.fieldGroup}>
+                  <div className={cn(PROFILE_FORM_STYLES.fieldGroup, "space-y-2")}>
                      <Label htmlFor="username">Contraseña</Label>
 
                      <AppLink href="/auth/change-password" variant="outline">
