@@ -142,7 +142,7 @@ export function SummaryForm() {
                            value={videoId}
                            onChange={(event) => setVideoId(event.target.value)}
                            required
-                           className="h-14 pl-4 pr-14 shadow-[0_1px_4px_rgba(0,0,0,0.06)]"
+                           className="h-14 pl-4 pr-14 shadow-[0_1px_4px_rgba(0,0,0,0.06)] text-base!"
                            aria-invalid={!!formState.zodErrors?.videoId}
                         />
 

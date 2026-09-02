@@ -19,6 +19,7 @@ import { AppLink } from "../custom/custom-link";
 import { PasswordInput } from "../custom/password-input";
 import { Field, FieldError, FieldLabel } from "../ui/field";
 import { parseFieldErrors } from "@/lib/parsers";
+import { AuthProviders } from "../custom/auth-providers";
 
 const INITIAL_STATE: FormState = {
    success: false,
@@ -44,11 +45,12 @@ export function SignupForm() {
                   <CardTitle className={SIGN_UP_FORM_STYLES.title}>
                      Crear cuenta
                   </CardTitle>
-                  <CardDescription className="text-center">
+                  {/* <CardDescription className="text-center">
                      Introduce tus datos para crear una nueva cuenta.
-                  </CardDescription>
+                  </CardDescription> */}
                </CardHeader>
                <CardContent className={SIGN_UP_FORM_STYLES.content}>
+                  <AuthProviders />
                   <div className={SIGN_UP_FORM_STYLES.fieldGroup}>
                      <Field
                         className={SIGN_UP_FORM_STYLES.fieldGroup}
