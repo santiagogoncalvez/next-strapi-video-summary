@@ -221,10 +221,14 @@ export default function DashboardHeader({
                />
                <h1
                   className={`text-normal text-black font-medium whitespace-nowrap overflow-x-auto [scrollbar-none] [&::-webkit-scrollbar]:hidden ${isEditingTitle ? "hidden" : ""}`}
-                  onClick={() => {
-                     setTitleEditKey((key) => key + 1);
-                     setIsEditingTitle(true);
-                  }}
+                  onClick={
+                     summaryRoute
+                        ? () => {
+                             setTitleEditKey((key) => key + 1);
+                             setIsEditingTitle(true);
+                          }
+                        : undefined
+                  }
                >
                   {pageTitle}
                </h1>

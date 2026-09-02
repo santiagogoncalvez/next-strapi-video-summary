@@ -170,7 +170,7 @@ export function SummaryForm() {
                         />
                      )}
 
-                  <p className="text-muted-foreground/90 text-center font-light text-sm">
+                  <p className="text-muted-foreground text-center font-light text-sm">
                      Videos de hasta 60 minutos
                   </p>
                </CardFooter>
