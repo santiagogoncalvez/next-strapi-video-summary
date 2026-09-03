@@ -5,13 +5,13 @@ const config = ({
 }: Core.Config.Shared.ConfigParams): Core.Config.Plugin => ({
    email: {
       config: {
-         provider: "sendgrid",
+         provider: "strapi-provider-email-resend",
          providerOptions: {
-            apiKey: env("SENDGRID_API_KEY"),
+            apiKey: env("RESEND_API_KEY"),
          },
          settings: {
-            defaultFrom: env("SENDGRID_EMAIL"),
-            defaultReplyTo: env("SENDGRID_EMAIL"),
+            defaultFrom: env("RESEND_EMAIL"),
+            defaultReplyTo: env("RESEND_EMAIL"),
          },
       },
    },
