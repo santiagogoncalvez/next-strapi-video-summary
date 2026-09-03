@@ -1,5 +1,12 @@
+import {
+   AuthAction,
+   GITHUB_OAUTH_ERRORS,
+   GOOGLE_OAUTH_ERRORS,
+   OAUTH_DEFAULT_ERROR,
+} from "@/constants/messages/auth-errors";
 import { Favorite, Summary, SummaryWithFavorite } from "@/types/strapi";
 import { TranscriptSegment } from "@/types/summary";
+import { OAuthProviderSchema } from "@/validations/oauth";
 
 export function parseTranscript(transcript: string): TranscriptSegment[] {
    const matches = [
@@ -168,4 +175,36 @@ export function parseFieldErrors(
    return normalizedErrors
       .filter((message): message is string => Boolean(message))
       .map((message) => ({ message }));
+}
+
+const OAUTH_ERRORS = {
+   google: GOOGLE_OAUTH_ERRORS,
+   github: GITHUB_OAUTH_ERRORS,
+} as const;
+export function parseOAuthError(
+   searchParams: URLSearchParams,
+   action: AuthAction,
+): string | null {
+   const error = searchParams.get("error");
+   const provider = searchParams.get("provider");
+
+   if (!error || !provider) {
+      return null;
+   }
+
+   const providerResult = OAuthProviderSchema.safeParse(provider);
+
+   if (!providerResult.success) {
+      return OAUTH_DEFAULT_ERROR(undefined, action);
+   }
+
+   const errors = OAUTH_ERRORS[providerResult.data];
+
+   const errorValue = errors[error as keyof typeof errors];
+
+   if (!errorValue) {
+      return OAUTH_DEFAULT_ERROR(providerResult.data, action);
+   }
+
+   return typeof errorValue === "function" ? errorValue(action) : errorValue;
 }

@@ -2,33 +2,35 @@
 
 // import { Separator } from "@/components/ui/separator";
 import { AppLink } from "./custom-link";
-import {
-   // SiGithub,
-   SiGoogle,
-} from "react-icons/si";
+import { SiGithub, SiGoogle } from "react-icons/si";
 
-const STRAPI_URL =
-   process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337";
-
-export function AuthProviders() {
+export function AuthProviders({
+   variant = "login",
+}: {
+   variant?: "login" | "signup";
+}) {
    return (
       <div className="space-y-8 mb-8 mt-4">
          <div className="flex flex-col gap-4">
             <AppLink
                variant="highlighted"
-               href={`${STRAPI_URL}/api/connect/google`}
+               href={`/api/auth/google?from=${variant}`}
             >
                <SiGoogle />
-               Continuar con Google
+               {variant === "login"
+                  ? "Iniciar sesión con Google"
+                  : "Crear cuenta con Google"}
             </AppLink>
 
-            {/* <AppLink
+            <AppLink
                variant="outline"
-               href={`${STRAPI_URL}/api/connect/github`}
+               href={`/api/auth/github?from=${variant}`}
             >
                <SiGithub />
-               Continuar con GitHub
-            </AppLink> */}
+               {variant === "login"
+                  ? "Iniciar sesión con GitHub"
+                  : "Crear cuenta con GitHub"}
+            </AppLink>
          </div>
 
          <div className="flex items-center justify-center gap-2">

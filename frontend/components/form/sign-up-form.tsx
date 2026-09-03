@@ -2,7 +2,7 @@
 
 import {
    CardTitle,
-   CardDescription,
+   // CardDescription,
    CardHeader,
    CardContent,
    CardFooter,
@@ -11,15 +11,17 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { actions } from "@/actions";
-import { useActionState } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { SIGN_UP_FORM_STYLES } from "@/constants/styles";
 import { FormState } from "@/types/definitions";
 import { SubmitButton } from "./submit-button";
 import { AppLink } from "../custom/custom-link";
 import { PasswordInput } from "../custom/password-input";
 import { Field, FieldError, FieldLabel } from "../ui/field";
-import { parseFieldErrors } from "@/lib/parsers";
+import { parseFieldErrors, parseOAuthError } from "@/lib/parsers";
 import { AuthProviders } from "../custom/auth-providers";
+import { usePathname, useSearchParams } from "next/navigation";
+import { toast } from "sonner";
 
 const INITIAL_STATE: FormState = {
    success: false,
@@ -35,7 +37,24 @@ export function SignupForm() {
       INITIAL_STATE,
    );
 
-   // console.log(formState);
+   const pathname = usePathname();
+      const searchParams = useSearchParams();
+      const oauthErrorShown = useRef(false);
+   
+      useEffect(() => {
+         const message = parseOAuthError(searchParams, "signup");
+   
+         if (!message || oauthErrorShown.current) return;
+   
+         oauthErrorShown.current = true;
+   
+         toast.error(message, {
+            position: "top-center",
+            duration: 5000,
+         });
+   
+         window.history.replaceState(null, "", pathname);
+      }, [searchParams, pathname]);
 
    return (
       <div className={SIGN_UP_FORM_STYLES.container}>
@@ -50,7 +69,7 @@ export function SignupForm() {
                   </CardDescription> */}
                </CardHeader>
                <CardContent className={SIGN_UP_FORM_STYLES.content}>
-                  <AuthProviders />
+                  <AuthProviders variant="signup" />
                   <div className={SIGN_UP_FORM_STYLES.fieldGroup}>
                      <Field
                         className={SIGN_UP_FORM_STYLES.fieldGroup}
