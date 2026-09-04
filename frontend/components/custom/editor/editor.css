@@ -11,6 +11,10 @@
    height: 0px;
 }
 
+.markdown-editor ._selectTrigger_f3hmk_308 span {
+  color: var(--color-foreground) !important;
+}
+
 .mdxeditor-toolbar {
    border-radius: 0px;
    background-color: white !important;

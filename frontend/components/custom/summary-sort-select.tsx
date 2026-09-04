@@ -36,7 +36,11 @@ export function SummarySortSelect({className}:{className?: string}) {
 
    return (
       <Select value={sort} onValueChange={handleChange}>
-         <SelectTrigger className={cn("w-full", className)} size="lg">
+         <SelectTrigger
+            className={cn("w-full", className)}
+            size="lg"
+            aria-label="Ordenar por"
+         >
             <span className="text-muted-foreground">Ordenar por:</span>
             <SelectValue placeholder="Ordenar por" />
          </SelectTrigger>

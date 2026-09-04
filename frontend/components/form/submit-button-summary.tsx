@@ -21,6 +21,7 @@ export function SubmitButtonSummary({
    return (
       <Button
          type="submit"
+         aria-label="Generar resumen"
          aria-disabled={status.pending || loading}
          disabled={status.pending || loading || disabled}
          size={size}

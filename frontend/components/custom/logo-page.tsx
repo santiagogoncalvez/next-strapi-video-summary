@@ -22,6 +22,7 @@ export default function Logo({
             className,
          )}
          href={logoText.href}
+         aria-label="Ir al inicio"
       >
          <LogoIcon className={`${showText ? "size-10" : "size-8"}`} />
       </Link>

@@ -57,7 +57,8 @@ function ImageCard({
 
          <button
             type="button"
-            className="absolute inset-0 w-full"
+            className="absolute inset-0 w-full hover:cursor-pointer"
+            aria-label="Seleccionar una imagen"
             onClick={() => fileInput.current?.click()}
          />
       </div>

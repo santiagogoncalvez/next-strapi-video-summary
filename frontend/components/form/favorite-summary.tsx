@@ -92,15 +92,19 @@ export function SummaryFavoriteForm({
                loadingText=""
                icon={
                   <Heart
-                     className={cn(isFavorite && "fill-current", " size-4")}
+                     className={cn(
+                        isFavorite && "fill-current",
+                        `${variant === "card" ? "" : ""}`,
+                        `${variant === "card" ? "text-muted-foreground" : "text-primary"}`,
+                     )}
                      strokeWidth={1.5}
                   />
                }
                aria-label={
                   isFavorite ? "Eliminar de favoritos" : "Añadir a favoritos"
                }
-               variant={variant === "card" ? "none" : "ghost"}
-               size={variant === "card" ? "none" : "icon"}
+               variant={variant === "card" ? "secondary" : "ghost"}
+               size={variant === "card" ? "icon" : "icon"}
                onClick={(event) => {
                   event.stopPropagation();
                }}
