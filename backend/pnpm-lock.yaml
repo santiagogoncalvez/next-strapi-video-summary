@@ -41,6 +41,9 @@ importers:
       react-router-dom:
         specifier: ^6.0.0
         version: 6.30.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      strapi-provider-email-brevo:
+        specifier: ^1.0.4
+        version: 1.0.4
       strapi-provider-email-resend:
         specifier: ^1.0.4
         version: 1.0.4
@@ -6150,6 +6153,9 @@ packages:
   statuses@2.0.2:
     resolution: {integrity: sha512-DvEy55V3DB7uknRo+4iOGT5fP1slR8wQohVdknigZPMpMstaKJQWhwiYBACJE3Ul2pTnATihhBYnRhZQHGBiRw==}
     engines: {node: '>= 0.8'}
+
+  strapi-provider-email-brevo@1.0.4:
+    resolution: {integrity: sha512-eVRaWg6fD5NcoGifh4ZGYTgGk24VbJjrJ7dIAh9wzunURyzsYeD5mcHJknICRSMwUfKHEWGt2CoUuMG2tXXzpg==}
 
   strapi-provider-email-resend@1.0.4:
     resolution: {integrity: sha512-u40LfliYTTy5PqS9I6rV7xKfrvuA93MpJg4FEwwGseRfvH3OArNgORqUTag/zZmahYOJTxBUWFjcOhEO+SzbDA==}
@@ -12270,7 +12276,7 @@ snapshots:
 
   koa-send@5.0.1:
     dependencies:
-      debug: 4.3.4
+      debug: 4.4.3(supports-color@5.5.0)
       http-errors: 1.8.1
       resolve-path: 1.4.0
     transitivePeerDependencies:
@@ -14091,6 +14097,13 @@ snapshots:
   statuses@2.0.1: {}
 
   statuses@2.0.2: {}
+
+  strapi-provider-email-brevo@1.0.4:
+    dependencies:
+      axios: 1.18.1
+    transitivePeerDependencies:
+      - debug
+      - supports-color
 
   strapi-provider-email-resend@1.0.4:
     dependencies:

@@ -3,34 +3,15 @@ import type { Core } from "@strapi/strapi";
 const config = ({
    env,
 }: Core.Config.Shared.ConfigParams): Core.Config.Plugin => ({
-   // email: {
-   //    config: {
-   //       provider: "strapi-provider-email-resend",
-   //       providerOptions: {
-   //          apiKey: env("RESEND_API_KEY"),
-   //       },
-   //       settings: {
-   //          defaultFrom: env("RESEND_EMAIL"),
-   //          defaultReplyTo: env("RESEND_EMAIL"),
-   //       },
-   //    },
-   // },
-
    email: {
       config: {
-         provider: "nodemailer",
+         provider: "strapi-provider-email-brevo",
          providerOptions: {
-            host: env("SMTP_HOST", "smtp.gmail.com"),
-            port: env.int("SMTP_PORT", 587),
-            auth: {
-               user: env("SMTP_USERNAME"),
-               pass: env("SMTP_PASSWORD"),
-            },
-            // Opciones opcionales de seguridad para Nodemailer
-            secure: false, // false para puerto 587 (STARTTLS)
+            apiKey: env("BREVO_API_KEY"),
          },
          settings: {
-            defaultFrom: env("DEFAULT_FROM"),
+            defaultSenderEmail: env("DEFAULT_SENDER_EMAIL"),
+            defaultSenderName: env("DEFAULT_SENDER_NAME"),
             defaultReplyTo: env("DEFAULT_REPLY_TO"),
          },
       },
