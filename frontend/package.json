@@ -17,6 +17,8 @@
     "@react-pdf/renderer": "^4.8.1",
     "@react-pdf/types": "^2.13.1",
     "@santiagogoncalvez1/youtube-transcript-plus": "^1.4.0",
+    "@upstash/ratelimit": "^2.0.8",
+    "@upstash/redis": "^1.38.3",
     "ai": "^7.0.31",
     "axios": "^1.18.0",
     "class-variance-authority": "^0.7.1",

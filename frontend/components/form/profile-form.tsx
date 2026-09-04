@@ -102,14 +102,7 @@ export function ProfileForm({ user, className }: Readonly<ProfileFormProps>) {
                         />
                      </Field>
                   </div>
-
-                  <div
-                     className={cn(PROFILE_FORM_STYLES.fieldGroup, "space-y-2")}
-                  >
-                     <Label>Créditos</Label>
-
-                     <CountBox text={user.credits ?? 0} />
-                  </div>
+                  
                   <div className={PROFILE_FORM_STYLES.nameRow}>
                      <Field
                         className={PROFILE_FORM_STYLES.fieldGroup}

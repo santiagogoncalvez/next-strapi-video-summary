@@ -19,6 +19,7 @@ import { revalidatePath } from "next/cache";
 import { SUMMARY_MESSAGES } from "@/constants/messages/summary";
 import { SYSTEM_PROMPT } from "@/constants/prompts";
 import { MAX_SUMMARY_INPUT_TOKENS } from "@/constants/ia";
+import { summaryRateLimit } from "@/lib/rate-limit";
 
 const MAX_VIDEO_DURATION = 3600; // 60 minutos
 
@@ -41,8 +42,10 @@ export async function createSummaryAction(
    try {
       const user = await getUserMeService();
 
-      if ((user.credits || 0) < 1) {
-         throw new Error(SUMMARY_MESSAGES.ERROR.INSUFFICIENT_CREDITS);
+      const { success } = await summaryRateLimit.limit(`user:${user.id}`);
+
+      if (!success) {
+         throw new Error(SUMMARY_MESSAGES.ERROR.RATE_LIMIT_EXCEEDED);
       }
 
       const transcriptData = await services.summary.generateTranscript(videoId);

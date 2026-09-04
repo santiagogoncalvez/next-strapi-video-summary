@@ -74,7 +74,7 @@ export default function ConfirmEmail({ email }: { email: string }) {
                   <CardDescription className="text-center">
                      <p>
                         Te hemos enviado un enlace de confirmación a tu correo
-                        electrónico. Por favor, revisa tu bandeja de entrada y
+                        electrónico. Revisa tu bandeja de entrada y
                         haz clic en el enlace para verificar tu cuenta antes de
                         registrarte.
                      </p>

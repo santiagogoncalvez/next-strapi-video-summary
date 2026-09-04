@@ -19,5 +19,7 @@ export const SUMMARY_MESSAGES = {
       GENERATION_FAILED: "No se pudo generar el resumen.",
       TOKEN_LIMIT_EXCEEDED:
          "El contenido del video es demasiado grande para generar el resumen.",
+      RATE_LIMIT_EXCEEDED:
+         "Estás haciendo demasiadas solicitudes. Intentá nuevamente en unos minutos.",
    },
 } as const;

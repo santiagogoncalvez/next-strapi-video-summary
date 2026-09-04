@@ -13,7 +13,7 @@ export function AuthProviders({
       <div className="space-y-8 mb-8 mt-4">
          <div className="flex flex-col gap-4">
             <AppLink
-               variant="highlighted"
+               variant="outline"
                href={`/api/auth/google?from=${variant}`}
             >
                <SiGoogle />
