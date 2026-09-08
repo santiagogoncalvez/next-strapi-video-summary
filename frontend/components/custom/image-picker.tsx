@@ -25,7 +25,7 @@ function ImagePreview({ dataUrl }: { readonly dataUrl: string }) {
          alt="preview"
          height={200}
          width={200}
-         className="rounded-2xl w-full object-cover"
+         className="rounded-3xl w-full object-cover"
       />
    );
 }
@@ -43,7 +43,7 @@ function ImageCard({
 }) {
    return (
       <div className={cn("w-full relative", className)}>
-         <div className="flex items-center justify-center space-x-4 rounded-2xl border border-input/80 p-0 w-full aspect-square">
+         <div className="flex items-center justify-center space-x-4 rounded-3xl border border-input/80 p-0 w-full aspect-square">
             {error ? (
                <FieldError errors={parseFieldErrors(error)} />
             ) : dataUrl ? (

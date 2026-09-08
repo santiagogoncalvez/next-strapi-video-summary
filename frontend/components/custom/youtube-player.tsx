@@ -10,12 +10,12 @@ interface YouTubePlayerProps {
 }
 
 const styles = {
-   container: "relative w-full aspect-video rounded-2xl overflow-hidden",
+   container: "relative w-full aspect-video rounded-3xl overflow-hidden",
    skeletonWrapper: "absolute inset-0",
    skeleton: "w-full h-full animate-pulse",
    iconContainer: "absolute inset-0 flex items-center justify-center",
    playIcon: "w-16 h-16 text-gray-400 animate-bounce",
-   iframe: "absolute inset-0 w-full h-full rounded-2xl",
+   iframe: "absolute inset-0 w-full h-full rounded-3xl",
 };
 
 export function YouTubePlayer({ videoId, thumbnailUrl }: YouTubePlayerProps) {

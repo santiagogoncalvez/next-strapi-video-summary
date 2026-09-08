@@ -5,9 +5,9 @@ import { Footer } from "@/components/custom/footer";
 import { NOT_FOUND_STYLES } from "@/constants/styles";
 import FallbackHeader from "@/components/custom/fallback-header";
 import { usePathname } from "next/navigation";
-import { geistSans } from "./ui/fonts";
 import { Button } from "@/components/ui/button";
 import { AppLink } from "@/components/custom/custom-link";
+import { plusJakartaSans } from "./ui/fonts";
 
 interface IGlobalError {
    error: Error & { digest?: string };
@@ -19,7 +19,7 @@ export default function GlobalError({ error, reset }: IGlobalError) {
    const isHomePage = pathname === "/";
 
    return (
-      <html lang="en" className={`${geistSans.className} h-full antialiased`}>
+      <html lang="en" className={`${plusJakartaSans.className} h-full antialiased`}>
          <body className="min-h-full flex flex-col">
             <div className="w-full h-full flex flex-1 flex-col justify-center items-center">
                <FallbackHeader

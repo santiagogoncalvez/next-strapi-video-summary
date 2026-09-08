@@ -18,8 +18,8 @@ export function DashboardSidebarSkeleton() {
       <Sidebar collapsible="icon" variant="sidebar">
          {/* HEADER */}
          <SidebarHeader className="relative flex flex-row items-center justify-between border-b-0 bg-white">
-            <Skeleton className="h-6 w-16 rounded-md" />
-            <Skeleton className="size-8 rounded-md" />
+            <Skeleton className="h-6 w-16 rounded-lg" />
+            <Skeleton className="size-8 rounded-lg" />
          </SidebarHeader>
 
          {/* CONTENT */}
@@ -57,7 +57,7 @@ export function DashboardSidebarSkeleton() {
          {/* FOOTER (Skeleton para NavUser) */}
          <SidebarFooter className="bg-white">
             <div className="flex items-center gap-2 p-2">
-               <Skeleton className="size-8 shrink-0 rounded-lg" />
+               <Skeleton className="size-8 shrink-0 rounded-xl" />
                <div className="flex flex-col gap-1.5 flex-1 group-data-[collapsible=icon]:hidden">
                   <Skeleton className="h-3.5 w-24 rounded" />
                   <Skeleton className="h-3 w-32 rounded" />

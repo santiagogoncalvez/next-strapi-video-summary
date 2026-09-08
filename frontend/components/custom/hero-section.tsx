@@ -1,30 +1,41 @@
 import { HERO_SECTION_STYLES } from "@/constants/styles";
-import NavBar from "./nav-bar";
 import { HeroSectionProps } from "@/types/strapi";
-import { MediaImage } from "./media-image";
+import { HomeSummaryForm } from "../form/summary-form-hero";
 
 export function HeroSection({ data }: { readonly data: HeroSectionProps }) {
    if (!data) return null;
 
-   const { heading, subHeading, image, link, secondaryLink } = data;
+   const { heading, subHeading} = data;
    // console.log("user image:", image);
 
    return (
-      <header className={HERO_SECTION_STYLES.header}>
-         <MediaImage
-            alt={image.alternativeText ?? "Sin texto alternativo"}
-            className="absolute inset-0 object-cover w-full h-full aspect/16:9"
-            src={image.url}
-            height={1080}
-            width={1920}
-         />
+      <div className={HERO_SECTION_STYLES.header}>
+         <video
+            className="absolute inset-0 h-full w-full object-cover opacity-15"
+            autoPlay
+            muted
+            loop
+            playsInline
+            aria-hidden="true"
+         >
+            <source src="/videos/mesh-gradient.webm" type="video/mp4" />
+         </video>
+
+         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-b from-transparent to-white" />
+
          <div className={HERO_SECTION_STYLES.overlay}>
             <h1 className={HERO_SECTION_STYLES.heading}>{heading}</h1>
+
             <p className={HERO_SECTION_STYLES.subheading}>{subHeading}</p>
-            <div className="mt-8">
-               <NavBar link={link} secondaryLink={secondaryLink} isHero />
+
+            <div className="mt-8 flex w-full justify-center">
+               <HomeSummaryForm />
             </div>
+
+            <p className="mt-8 text-center text-sm font-light text-muted-foreground">
+               Gratis para empezar · Videos de hasta 60 minutos
+            </p>
          </div>
-      </header>
+      </div>
    );
 }

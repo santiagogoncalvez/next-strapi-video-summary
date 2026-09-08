@@ -81,7 +81,7 @@ export default function MDXEditorClient({
    const { resolvedTheme } = useTheme();
    const theme = [basicLight];
    return (
-      <div className="rounded-2xl border-0 border-sidebar-border/50">
+      <div className="rounded-3xl border-0 border-sidebar-border/50">
          <div
             className={cn("w-full markdown-editor relative", props.className)}
          >

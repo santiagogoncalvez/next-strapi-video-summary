@@ -18,11 +18,13 @@ export default async function RootLayout({
    const header = globalData?.data?.header || null;
    const footer = globalData?.data?.footer || null;
 
+   console.log(header.ctaButton);
+
    return (
       <div className="flex flex-col justify-center items-center h-full flex-1">
          <Header data={header} />
 
-         <main className="md:px-8 px-4 max-w-screen-2xl w-full flex flex-col justify-center items-center flex-1 min-h-full">
+         <main className="md:px-16 px-4 max-w-screen-2xl w-full flex flex-col justify-center items-center flex-1 min-h-full">
             {children}
          </main>
 

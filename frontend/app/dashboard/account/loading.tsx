@@ -9,7 +9,7 @@ const styles = {
    input: "h-10 w-full",
    textarea: "h-24 w-full",
    button: "h-10 w-24",
-   imageContainer: "h-48 w-full rounded-2xl",
+   imageContainer: "h-48 w-full rounded-3xl",
 };
 
 export default function AccountLoading() {

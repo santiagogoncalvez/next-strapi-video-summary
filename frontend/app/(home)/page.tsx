@@ -1,25 +1,13 @@
-import { FeaturesSection } from "@/components/custom/features-section";
+import { DashboardImageSection } from "@/components/custom/dashboard-image-section";
 import { HeroSection } from "@/components/custom/hero-section";
 import { loaders } from "@/data/loaders";
 import { validateApiResponse } from "@/services/error-handler";
-import {
-   FeaturesSectionProps,
-   HeroSectionProps,
-   StrapiSections,
-} from "@/types/strapi";
+import { HeroSectionProps, StrapiSections } from "@/types/strapi";
 
 function blockRenderer(section: StrapiSections, index: number) {
    switch (section.__component) {
       case "layout.hero-section":
          return <HeroSection key={index} data={section as HeroSectionProps} />;
-      case "layout.features-section":
-         // console.log("Sections data:", section);
-         return (
-            <FeaturesSection
-               key={index}
-               data={section as FeaturesSectionProps}
-            />
-         );
       default:
          return null;
    }
@@ -36,6 +24,9 @@ export default async function HomePage() {
    return (
       <main>
          {sections.map((section, index) => blockRenderer(section, index))}
+         <div className="py-20">
+            <DashboardImageSection/>
+         </div>
       </main>
    );
 }
