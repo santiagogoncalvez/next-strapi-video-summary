@@ -1,4 +1,7 @@
+import { BenefitsSection } from "@/components/custom/benefits-section";
 import { DashboardImageSection } from "@/components/custom/dashboard-image-section";
+import { FeaturesSection } from "@/components/custom/features-section";
+import { FinalCTASection } from "@/components/custom/final-cta-section";
 import { HeroSection } from "@/components/custom/hero-section";
 import { HowItWorksSection } from "@/components/custom/howIt-works-section";
 import { loaders } from "@/data/loaders";
@@ -25,11 +28,23 @@ export default async function HomePage() {
    return (
       <main className="w-full">
          {sections.map((section, index) => blockRenderer(section, index))}
-         <div className="py-16">
+         <div className="py-12">
             <DashboardImageSection />
          </div>
-         <div className="py-16">
+         <div className="py-12">
             <HowItWorksSection />
+         </div>
+
+         <div className="py-12">
+            <FeaturesSection />
+         </div>
+
+         <div className="py-12">
+            <BenefitsSection />
+         </div>
+
+         <div className="py-12">
+            <FinalCTASection />
          </div>
       </main>
    );

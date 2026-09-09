@@ -20,8 +20,8 @@ export default async function Header({ data }: Props) {
                <a className="h-fit" href="#como-funciona">
                   Cómo funciona
                </a>
-               <a className="h-fit" href="#detalles">
-                  Detalles
+               <a className="h-fit" href="#funciones">
+                  Funciones
                </a>
                <a className="h-fit" href="#beneficios">
                   Beneficios

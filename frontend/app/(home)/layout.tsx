@@ -3,7 +3,7 @@ import { loaders } from "@/data/loaders";
 import "../globals.css";
 import Header from "@/components/custom/header";
 import { validateApiResponse } from "@/services/error-handler";
-// import { Footer } from "@/components/custom/footer";
+import { Footer } from "@/components/custom/footer";
 
 export default async function RootLayout({
    children,
@@ -16,7 +16,7 @@ export default async function RootLayout({
    );
 
    const header = globalData?.data?.header || null;
-   // const footer = globalData?.data?.footer || null;
+   const footer = globalData?.data?.footer || null;
 
    console.log(header.ctaButton);
 
@@ -28,7 +28,7 @@ export default async function RootLayout({
             {children}
          </main>
 
-         {/* <Footer data={footer} /> */}
+         <Footer data={footer} />
       </div>
    );
 }

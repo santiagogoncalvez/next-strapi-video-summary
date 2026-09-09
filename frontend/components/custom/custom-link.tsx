@@ -1,14 +1,13 @@
 import Link from "next/link";
+import type { ComponentProps } from "react";
+
 import { VariantProps } from "class-variance-authority";
+
 import { BUTTON_VARIANTS } from "@/constants/styles";
 import { cn } from "@/lib/utils";
-import { ReactNode } from "react";
 
-type CustomLinkProps = {
-   href: string;
-   children?: ReactNode;
-   className?: string;
-} & VariantProps<typeof BUTTON_VARIANTS>;
+type CustomLinkProps = ComponentProps<typeof Link> &
+   VariantProps<typeof BUTTON_VARIANTS>;
 
 export function AppLink({
    href,
