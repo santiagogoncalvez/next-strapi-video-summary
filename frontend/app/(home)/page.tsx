@@ -1,5 +1,6 @@
 import { DashboardImageSection } from "@/components/custom/dashboard-image-section";
 import { HeroSection } from "@/components/custom/hero-section";
+import { HowItWorksSection } from "@/components/custom/howIt-works-section";
 import { loaders } from "@/data/loaders";
 import { validateApiResponse } from "@/services/error-handler";
 import { HeroSectionProps, StrapiSections } from "@/types/strapi";
@@ -22,10 +23,13 @@ export default async function HomePage() {
    const { sections } = data;
 
    return (
-      <main>
+      <main className="w-full">
          {sections.map((section, index) => blockRenderer(section, index))}
-         <div className="py-20">
-            <DashboardImageSection/>
+         <div className="py-16">
+            <DashboardImageSection />
+         </div>
+         <div className="py-16">
+            <HowItWorksSection />
          </div>
       </main>
    );

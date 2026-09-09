@@ -5,23 +5,22 @@ import { HomeSummaryForm } from "../form/summary-form-hero";
 export function HeroSection({ data }: { readonly data: HeroSectionProps }) {
    if (!data) return null;
 
-   const { heading, subHeading} = data;
-   // console.log("user image:", image);
+   const { heading, subHeading } = data;
 
    return (
       <div className={HERO_SECTION_STYLES.header}>
          <video
-            className="absolute inset-0 h-full w-full object-cover opacity-15"
+            className="absolute inset-0 h-full w-full object-cover opacity-10"
             autoPlay
             muted
             loop
             playsInline
             aria-hidden="true"
          >
-            <source src="/videos/mesh-gradient.webm" type="video/mp4" />
+            <source src="/videos/mesh-gradient.webm" type="video/webm" />
          </video>
 
-         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-linear-to-b from-transparent to-white" />
+         <div className="absolute inset-x-0 bottom-0 h-3/5 bg-linear-to-b from-transparent via-white/70 to-white" />
 
          <div className={HERO_SECTION_STYLES.overlay}>
             <h1 className={HERO_SECTION_STYLES.heading}>{heading}</h1>
