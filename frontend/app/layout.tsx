@@ -22,7 +22,7 @@ export default async function RootLayout({
    return (
       <html
          lang="en"
-         className={`${plusJakartaSans.className} ${plusJakartaSans.variable} ${geistMono.variable} h-full antialiased`}
+         className={`${plusJakartaSans.className} ${plusJakartaSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
       >
          <body className="min-h-full flex flex-col bg-white">
             {children}

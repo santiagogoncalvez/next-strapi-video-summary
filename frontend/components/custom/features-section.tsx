@@ -42,7 +42,7 @@ export function FeaturesSection() {
                </p>
             </div>
 
-            <div className="mt-12 space-y-24 md:space-y-6">
+            <div className="mt-8 space-y-24 md:space-y-8">
                {features.map((feature, index) => (
                   <article
                      key={feature.number}

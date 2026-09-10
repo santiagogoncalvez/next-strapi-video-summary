@@ -17,6 +17,8 @@ export const BUTTON_VARIANTS = cva(
             destructive:
                "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
             link: "text-primary underline-offset-4 hover:underline",
+            subtle:
+               "text-sm text-muted-foreground transition-colors hover:text-foreground",
             none: "",
          },
          size: {
@@ -68,10 +70,11 @@ export const SIGN_IN_FORM_STYLES = {
 };
 
 export const HERO_SECTION_STYLES = {
-   header: "relative  border-0 rounded-b-none rounded-3xl overflow-hidden rounded-4xl flex justify-center items-center",
+   header:
+      "relative  border-0 rounded-b-none rounded-3xl overflow-hidden rounded-4xl flex justify-center items-center",
    backgroundImage: "absolute inset-0 object-cover w-full h-full ",
    overlay:
-      "relative flex flex-col items-center justify-center h-full text-center bg-white/0 md:py-20 py-4 max-w-2xl",
+      "relative flex flex-col items-center justify-center h-full text-center bg-white/0 md:py-20 py-16 max-w-2xl",
    heading: "text-black text-4xl font-medium md:text-5xl lg:text-6xl",
    subheading: "mt-8 text-black text-lg md:text-lg lg:text-xl text-pretty",
    button: "mt-8 ",

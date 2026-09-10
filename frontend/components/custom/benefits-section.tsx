@@ -35,7 +35,7 @@ export function BenefitsSection() {
                </p>
             </div>
 
-            <div className="mt-12 grid gap-6 md:grid-cols-3">
+            <div className="mt-8 grid gap-6 md:grid-cols-3">
                {benefits.map((benefit) => {
                   const Icon = benefit.icon;
 

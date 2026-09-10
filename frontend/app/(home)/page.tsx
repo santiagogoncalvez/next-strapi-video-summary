@@ -28,22 +28,22 @@ export default async function HomePage() {
    return (
       <main className="w-full">
          {sections.map((section, index) => blockRenderer(section, index))}
-         <div className="py-12">
+         <div className="py-10">
             <DashboardImageSection />
          </div>
-         <div className="py-12">
+         <div id="como-funciona" className="py-10 scroll-mt-20">
             <HowItWorksSection />
          </div>
 
-         <div className="py-12">
+         <div id="funcionalidades" className="py-10 scroll-mt-20">
             <FeaturesSection />
          </div>
 
-         <div className="py-12">
+         <div id="beneficios" className="py-10 scroll-mt-20">
             <BenefitsSection />
          </div>
 
-         <div className="py-12">
+         <div className="py-10">
             <FinalCTASection />
          </div>
       </main>

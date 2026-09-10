@@ -41,14 +41,14 @@ export function HowItWorksSection() {
                </p>
             </div>
 
-            <div className="mt-12 grid gap-6 md:grid-cols-3">
+            <div className="mt-8 grid gap-8 md:grid-cols-3">
                {steps.map((step) => (
                   <article
                      key={step.number}
                      className="flex min-h-112 flex-col overflow-hidden rounded-3xl border border-sidebar-border/50"
                   >
                      <div className="flex flex-1 flex-col p-8">
-                        <span className="text-sm font-medium text-muted-foreground">
+                        <span className="text-base font-medium text-muted-foreground">
                            {step.number}
                         </span>
 

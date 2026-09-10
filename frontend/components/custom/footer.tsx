@@ -1,12 +1,9 @@
 import { type Footer } from "@/types/strapi";
-import Link from "next/link";
 
-import { FOOTER_STYLES } from "@/constants/styles";
 import Logo from "./logo-page";
-import { GithubIcon, YoutubeIcon } from "../icons/social-icons";
-import { ArrowUp } from "lucide-react";
 import { AppLink } from "./custom-link";
 import { SiGithub, SiYoutube } from "react-icons/si";
+import { ScrollToTop } from "./scroll-to-top";
 
 interface FooterProps {
    data?: Footer | null;
@@ -41,7 +38,7 @@ export function Footer({ data }: FooterProps) {
    const { logoText, socialLink } = data;
 
    return (
-      <footer className="w-full px-4 pb-8 pt-16 md:px-16">
+      <footer className="w-full px-4 pb-8 pt-10 md:px-16">
          <div className="mx-auto max-w-screen-2xl">
             <div className="flex justify-between">
                {/* Brand */}
@@ -61,12 +58,13 @@ export function Footer({ data }: FooterProps) {
                      <ul className="mt-4 flex flex-col gap-4">
                         {productLinks.map((link) => (
                            <li key={link.href}>
-                              <Link
+                              <AppLink
                                  href={link.href}
-                                 className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                                 variant="subtle"
+                                 size="none"
                               >
                                  {link.label}
-                              </Link>
+                              </AppLink>
                            </li>
                         ))}
                      </ul>
@@ -79,12 +77,13 @@ export function Footer({ data }: FooterProps) {
                      <ul className="mt-4 flex flex-col gap-4">
                         {accountLinks.map((link) => (
                            <li key={link.href}>
-                              <Link
+                              <AppLink
                                  href={link.href}
-                                 className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                                 variant="subtle"
+                                 size="none"
                               >
                                  {link.label}
-                              </Link>
+                              </AppLink>
                            </li>
                         ))}
                      </ul>
@@ -116,9 +115,7 @@ export function Footer({ data }: FooterProps) {
                      );
                   })}
 
-                  <AppLink href="#top" variant="ghost">
-                     Volver arriba <ArrowUp />
-                  </AppLink>
+                  <ScrollToTop />
                </div>
             </div>
          </div>
