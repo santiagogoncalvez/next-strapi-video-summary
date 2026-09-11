@@ -5,6 +5,7 @@ import Link from "next/link";
 import { LogoIcon } from "../icons/logo";
 import { Link as StrapiLink } from "@/types/strapi";
 import { cn } from "@/lib/utils";
+import { LogoMark } from "../icons/logo-mark";
 
 interface Props {
    showText?: boolean;
@@ -47,7 +48,11 @@ export default function Logo({
          aria-label="Ir al inicio"
          onClick={handleClick}
       >
-         <LogoIcon className={`${showText ? "size-10" : "size-8"}`} />
+         {showText ? (
+            <LogoIcon className="h-7 w-auto" />
+         ) : (
+            <LogoMark className="size-8" />
+         )}
       </Link>
    );
 }
