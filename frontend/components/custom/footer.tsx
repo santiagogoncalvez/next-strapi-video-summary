@@ -4,20 +4,15 @@ import Logo from "./logo-page";
 import { AppLink } from "./custom-link";
 import { SiGithub, SiYoutube } from "react-icons/si";
 import { ScrollToTop } from "./scroll-to-top";
+import { FooterProductNav } from "./footer-product-nav";
 
 interface FooterProps {
    data?: Footer | null;
 }
 
-const productLinks = [
-   { label: "Cómo funciona", href: "#como-funciona" },
-   { label: "Funcionalidades", href: "#funcionalidades" },
-   { label: "Beneficios", href: "#beneficios" },
-];
-
 const accountLinks = [
-   { label: "Crear cuenta", href: "/auth/signup" },
    { label: "Iniciar sesión", href: "/auth/login" },
+   { label: "Crear cuenta", href: "/auth/signup" },
 ];
 
 function selectSocialIcon(url: string) {
@@ -43,7 +38,7 @@ export function Footer({ data }: FooterProps) {
             <div className="flex justify-between">
                {/* Brand */}
                <div className="md:col-span-2">
-                  <Logo logoText={logoText} />
+                  <Logo logoText={logoText} scrollToTop/>
 
                   <p className="mt-4 max-w-sm text-sm leading-6 text-muted-foreground">
                      Resumí videos sin perder horas mirándolos.
@@ -52,23 +47,7 @@ export function Footer({ data }: FooterProps) {
 
                {/* Product */}
                <div className="flex gap-32">
-                  <nav aria-label="Producto">
-                     <h2 className="text-sm font-medium">Producto</h2>
-
-                     <ul className="mt-4 flex flex-col gap-4">
-                        {productLinks.map((link) => (
-                           <li key={link.href}>
-                              <AppLink
-                                 href={link.href}
-                                 variant="subtle"
-                                 size="none"
-                              >
-                                 {link.label}
-                              </AppLink>
-                           </li>
-                        ))}
-                     </ul>
-                  </nav>
+                  <FooterProductNav />
 
                   {/* Account */}
                   <nav aria-label="Cuenta">

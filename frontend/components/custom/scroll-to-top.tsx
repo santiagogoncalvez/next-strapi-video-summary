@@ -6,12 +6,18 @@ import { Button } from "../ui/button";
 export function ScrollToTop() {
    return (
       <Button
-         onClick={() =>
+         onClick={() => {
             window.scrollTo({
                top: 0,
                behavior: "smooth",
-            })
-         }
+            });
+
+            window.history.replaceState(
+               null,
+               "",
+               window.location.pathname + window.location.search,
+            );
+         }}
          variant="ghost"
          size="lg"
       >
