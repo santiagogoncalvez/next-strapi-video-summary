@@ -91,6 +91,9 @@ export function SummaryForm() {
       lastTimestamp.current = formState.timestamp;
 
       if (formState.success) {
+         // eslint-disable-next-line react-hooks/set-state-in-effect
+         setVideoId("");
+
          if (formState.message) {
             toast.success(formState.message, {
                position: "top-center",
