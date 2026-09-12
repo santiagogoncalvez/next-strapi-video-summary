@@ -20,7 +20,7 @@ export function HeroSection({ data }: { readonly data: HeroSectionProps }) {
             <source src="/videos/mesh-gradient.webm" type="video/webm" />
          </video>
 
-         <div className="absolute inset-x-0 bottom-0 h-3/5 bg-linear-to-b from-transparent via-white/70 to-white" />
+         <div className="absolute inset-x-0 bottom-0 h-3/5 bg-linear-to-b from-transparent via-background/70 to-background" />
 
          <div className={HERO_SECTION_STYLES.overlay}>
             <h1 className={HERO_SECTION_STYLES.heading}>{heading}</h1>

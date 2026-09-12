@@ -67,7 +67,7 @@ export function SidebarHome() {
          <SheetContent
             side="left"
             showCloseButton={false}
-            className="w-72 bg-white p-0 text-foreground border-0!"
+            className="w-72 bg-background p-0 text-foreground border-0!"
          >
             <SheetHeader className="sr-only">
                <SheetTitle>Menú de navegación</SheetTitle>
@@ -77,7 +77,7 @@ export function SidebarHome() {
             </SheetHeader>
 
             <div className="flex h-full w-full flex-col">
-               <div className="flex items-center justify-between border-b-0 bg-white p-4">
+               <div className="flex items-center justify-between border-b-0 bg-background p-4">
                   <Logo
                      logoText={{
                         id: 0,

@@ -391,7 +391,7 @@ function SidebarSeparator({
       <Separator
          data-slot="sidebar-separator"
          data-sidebar="separator"
-         className={cn("mx-2 w-auto bg-black", className)}
+         className={cn("mx-2 w-auto bg-foreground", className)}
          {...props}
       />
    );

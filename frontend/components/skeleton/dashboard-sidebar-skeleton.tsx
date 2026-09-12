@@ -17,13 +17,13 @@ export function DashboardSidebarSkeleton() {
    return (
       <Sidebar collapsible="icon" variant="sidebar">
          {/* HEADER */}
-         <SidebarHeader className="relative flex flex-row items-center justify-between border-b-0 bg-white">
+         <SidebarHeader className="relative flex flex-row items-center justify-between border-b-0 bg-background">
             <Skeleton className="h-6 w-16 rounded-lg" />
             <Skeleton className="size-8 rounded-lg" />
          </SidebarHeader>
 
          {/* CONTENT */}
-         <SidebarContent className="bg-white">
+         <SidebarContent className="bg-background">
             {/* Grupo General */}
             <SidebarGroup>
                <SidebarGroupContent>
@@ -55,7 +55,7 @@ export function DashboardSidebarSkeleton() {
          </SidebarContent>
 
          {/* FOOTER (Skeleton para NavUser) */}
-         <SidebarFooter className="bg-white">
+         <SidebarFooter className="bg-background">
             <div className="flex items-center gap-2 p-2">
                <Skeleton className="size-8 shrink-0 rounded-xl" />
                <div className="flex flex-col gap-1.5 flex-1 group-data-[collapsible=icon]:hidden">

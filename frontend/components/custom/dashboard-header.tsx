@@ -233,7 +233,7 @@ export default function DashboardHeader({
                   className={isEditingTitle ? "" : "hidden"}
                />
                <h1
-                  className={`text-normal text-black font-medium whitespace-nowrap overflow-x-auto [scrollbar-none] [&::-webkit-scrollbar]:hidden ${isEditingTitle ? "hidden" : ""}`}
+                  className={`text-normal text-foreground font-medium whitespace-nowrap overflow-x-auto [scrollbar-none] [&::-webkit-scrollbar]:hidden ${isEditingTitle ? "hidden" : ""}`}
                   onClick={
                      summaryRoute
                         ? () => {

@@ -86,7 +86,7 @@ export function DashboardSidebar({
          <Sidebar collapsible="icon" variant={variant}>
             {/* HEADER: Branding o Logo de la App */}
             <SidebarHeader
-               className={`relative flex flex-row  items-center border-b-0 bg-white justify-between`}
+               className={`relative flex flex-row  items-center border-b-0 bg-background justify-between`}
             >
                <Logo
                   logoText={{
@@ -113,7 +113,7 @@ export function DashboardSidebar({
             </SidebarHeader>
 
             {/* CONTENT: Navegación principal (scrolleable) */}
-            <SidebarContent className={`bg-white`}>
+            <SidebarContent className={`bg-background`}>
                {principalSidebarGroups.map((group) => (
                   <SidebarGroup
                      key={group.label}

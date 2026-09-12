@@ -74,9 +74,9 @@ export const HERO_SECTION_STYLES = {
       "relative  border-0 rounded-b-none rounded-3xl overflow-hidden rounded-4xl flex justify-center items-center",
    backgroundImage: "absolute inset-0 object-cover w-full h-full ",
    overlay:
-      "relative flex flex-col items-center justify-center h-full text-center bg-white/0 md:py-20 py-16 px-4 max-w-2xl",
-   heading: "text-black text-4xl font-medium md:text-5xl lg:text-6xl",
-   subheading: "mt-8 text-black text-lg md:text-lg lg:text-xl text-pretty",
+      "relative flex flex-col items-center justify-center h-full text-center bg-background/0 md:py-20 py-16 px-4 max-w-2xl",
+   heading: "text-foreground text-4xl font-medium md:text-5xl lg:text-6xl",
+   subheading: "mt-8 text-foreground text-lg md:text-lg lg:text-xl text-pretty",
    button: "mt-8 ",
 };
 
@@ -92,7 +92,7 @@ export const FEATURES_SECTION_STYLES = {
 
 export const FOOTER_STYLES = {
    footer:
-      "w-full border-t border-t-foreground/10  text-black flex justify-center",
+      "w-full border-t border-t-foreground/10  text-foreground flex justify-center",
    container:
       "w-full md:px-16 px-4 flex flex-col md:flex-row items-center md:justify-between justify-center md:gap-0 gap-2",
    text: "text-sm text-gray-800 text-center",
@@ -108,7 +108,7 @@ export const NOT_FOUND_STYLES = {
    content: "w-full max-w-2xl  text-center space-y-8",
    textSection: "space-y-4",
    heading404:
-      "text-black text-2xl font-medium md:text-3xl lg:text-4xl select-none",
+      "text-foreground text-2xl font-medium md:text-3xl lg:text-4xl select-none",
    headingContainer: "relative flex flex-col items-center justify-center",
    pageTitle: "sm:text-2xl text-xl  font-normal text-gray-800 mb-4",
    description: "text-lg text-gray-600 max-w-md  leading-relaxed",

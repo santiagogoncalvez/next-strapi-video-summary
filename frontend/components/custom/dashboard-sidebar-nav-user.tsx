@@ -36,7 +36,7 @@ export function NavUser({
    const profileImageSrc = getMediaUrl(user.image?.url ?? "");
 
    return (
-      <SidebarFooter className="border-t-0 bg-white">
+      <SidebarFooter className="border-t-0 bg-background">
          <SidebarMenu>
             <SidebarMenuItem>
                <DropdownMenu>

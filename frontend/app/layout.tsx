@@ -25,7 +25,7 @@ export default async function RootLayout({
          lang="en"
          className={`${plusJakartaSans.className} ${plusJakartaSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
       >
-         <body className="min-h-full flex flex-col bg-white">
+         <body className="min-h-full flex flex-col bg-background">
             {children}
 
             <Toaster />
