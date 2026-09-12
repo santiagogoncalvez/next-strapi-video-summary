@@ -13,6 +13,7 @@ interface Props {
    dark?: boolean;
    className?: string;
    scrollToTop?: boolean;
+   onClick?: () => void;
 }
 
 export default function Logo({
@@ -20,22 +21,25 @@ export default function Logo({
    logoText,
    className,
    scrollToTop = false,
+   onClick = () => {},
 }: Props) {
    const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-      if (!scrollToTop) return;
+      if (scrollToTop) {
+         event.preventDefault();
 
-      event.preventDefault();
+         window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+         });
 
-      window.scrollTo({
-         top: 0,
-         behavior: "smooth",
-      });
+         window.history.replaceState(
+            null,
+            "",
+            window.location.pathname + window.location.search,
+         );
+      }
 
-      window.history.replaceState(
-         null,
-         "",
-         window.location.pathname + window.location.search,
-      );
+      onClick();
    };
 
    return (
@@ -49,7 +53,7 @@ export default function Logo({
          onClick={handleClick}
       >
          {showText ? (
-            <LogoIcon className="h-7 w-auto" />
+            <LogoIcon className="h-6 w-auto" />
          ) : (
             <LogoMark className="size-8" />
          )}

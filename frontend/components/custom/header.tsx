@@ -1,8 +1,8 @@
 import NavBar from "./nav-bar";
 import Logo from "@/components/custom/logo-page";
 import { type Header } from "@/types/strapi";
-import { AppLink } from "./custom-link";
 import { HeaderNav } from "./header-nav";
+import { SidebarHome } from "./sidebar-home";
 
 interface Props {
    data?: Header | null;
@@ -18,15 +18,19 @@ export default async function Header({ data }: Props) {
                <Logo logoText={data.logoText} scrollToTop />
             </div>
 
-            <div className="flex items-center gap-8 text-sm">
+            <div className="lg:flex hidden items-center gap-8 text-sm">
                <HeaderNav />
             </div>
 
-            <div className="w-65 flex justify-end">
+            <div className="lg:flex hidden w-65 justify-end">
                <NavBar
                   link={data.ctaButton}
                   secondaryLink={data.secondaryCtaButton}
                />
+            </div>
+
+            <div className="lg:hidden">
+               <SidebarHome />
             </div>
          </div>
       </header>

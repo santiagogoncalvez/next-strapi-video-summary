@@ -92,7 +92,7 @@ export function DashboardSidebar({
                   logoText={{
                      id: 0,
                      href: "/",
-                     label: "RESU",
+                     label: "resu",
                   }}
                   showText={false}
                   className={`transition-opacity ${!open ? "group-hover:opacity-0" : "pl-2"}`}

@@ -8,7 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
    const metadata = await loaders.getMetaData();
 
    return {
-      title: metadata.data.title ?? "RESU | Resume tus videos",
+      title: metadata.data.title ?? "resu | Resume tus videos",
       description:
          metadata.data.description ?? "Plataforma para resumir videos",
    };

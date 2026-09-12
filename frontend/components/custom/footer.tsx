@@ -33,12 +33,14 @@ export function Footer({ data }: FooterProps) {
    const { logoText, socialLink } = data;
 
    return (
-      <footer className="w-full px-4 pb-8 pt-10 md:px-16">
+      <footer
+         className="max-w-screen-2xl w-full md:px-16 px-4 pb-8 pt-10 "
+      >
          <div className="mx-auto max-w-screen-2xl">
-            <div className="flex justify-between">
+            <div className="flex justify-between flex-wrap gap-8">
                {/* Brand */}
                <div className="md:col-span-2">
-                  <Logo logoText={logoText} scrollToTop/>
+                  <Logo logoText={logoText} scrollToTop />
 
                   <p className="mt-4 max-w-sm text-sm leading-6 text-muted-foreground">
                      Resumí videos sin perder horas mirándolos.
@@ -46,7 +48,7 @@ export function Footer({ data }: FooterProps) {
                </div>
 
                {/* Product */}
-               <div className="flex gap-32">
+               <div className="flex flex-wrap sm:gap-x-32 gap-8 gap-y-8 justify-start">
                   <FooterProductNav />
 
                   {/* Account */}
@@ -71,8 +73,8 @@ export function Footer({ data }: FooterProps) {
             </div>
 
             {/* Bottom */}
-            <div className="mt-16 flex flex-col gap-4 border-t-0 border-sidebar-border/50 pt-6 text-sm text-muted-foreground md:flex-row md:items-center md:justify-center">
-               <p>© 2026 RESU</p>
+            <div className="sm:mt-16 mt-0 flex  gap-4 border-t-0 border-sidebar-border/50 pt-8 text-sm text-muted-foreground flex-row items-center justify-center flex-wrap">
+               <p>© 2026 resu</p>
 
                <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
                   {socialLink.map((link) => {
@@ -86,7 +88,7 @@ export function Footer({ data }: FooterProps) {
                            href={link.href}
                            target="_blank"
                            rel="noopener noreferrer"
-                           aria-label={`RESU en ${link.label}`}
+                           aria-label={`resu en ${link.label}`}
                            variant="ghost"
                         >
                            {icon}

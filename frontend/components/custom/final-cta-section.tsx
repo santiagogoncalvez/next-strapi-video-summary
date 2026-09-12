@@ -1,4 +1,10 @@
 import { AppLink } from "./custom-link";
+import NavBar from "./nav-bar";
+
+const accountLinks = [
+   { label: "Iniciar sesión", href: "/auth/login" },
+   { label: "Crear cuenta", href: "/auth/signup" },
+];
 
 export function FinalCTASection() {
    return (
@@ -15,18 +21,11 @@ export function FinalCTASection() {
                      ideas claras.
                   </p>
 
-                  <div className="flex gap-2">
-                     <AppLink
-                        href="/auth/login"
-                        variant="outline"
-                        className="dark mt-8"
-                     >
-                        Iniciar sesión
-                     </AppLink>
-                     <AppLink href="/auth/signup" className="dark mt-8">
-                        Crear mi cuenta
-                     </AppLink>
-                  </div>
+                  <NavBar
+                     link={accountLinks[0]}
+                     secondaryLink={accountLinks[1]}
+                     className="dark mt-8"
+                  />
                </div>
             </div>
          </div>

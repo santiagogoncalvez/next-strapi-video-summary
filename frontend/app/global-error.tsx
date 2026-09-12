@@ -19,7 +19,10 @@ export default function GlobalError({ error, reset }: IGlobalError) {
    const isHomePage = pathname === "/";
 
    return (
-      <html lang="en" className={`${plusJakartaSans.className} h-full antialiased`}>
+      <html
+         lang="en"
+         className={`${plusJakartaSans.className} h-full antialiased`}
+      >
          <body className="min-h-full flex flex-col">
             <div className="w-full h-full flex flex-1 flex-col justify-center items-center">
                <FallbackHeader
@@ -37,7 +40,7 @@ export default function GlobalError({ error, reset }: IGlobalError) {
                      logoText: {
                         id: 30,
                         href: "/",
-                        label: "RESU",
+                        label: "resu",
                      },
                   }}
                />
@@ -120,7 +123,7 @@ export default function GlobalError({ error, reset }: IGlobalError) {
 
                <Footer
                   data={{
-                     text: "®RESU. Todos los derechos reservados.",
+                     text: "®resu. Todos los derechos reservados.",
                      socialLink: [
                         {
                            id: 34,
@@ -132,7 +135,7 @@ export default function GlobalError({ error, reset }: IGlobalError) {
                      logoText: {
                         id: 33,
                         href: "/",
-                        label: "RESU",
+                        label: "resu",
                      },
                   }}
                />

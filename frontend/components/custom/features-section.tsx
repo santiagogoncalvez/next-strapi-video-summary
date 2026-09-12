@@ -7,7 +7,7 @@ const features = [
       description:
          "Editá cada resumen como si fuera tu propio documento. Agregá notas, resaltá ideas importantes, reorganizá el contenido y ajustalo antes de guardarlo.",
       image: "/images/dashboard-section-home.png",
-      alt: "Editor de resúmenes de RESU",
+      alt: "Editor de resúmenes de resu",
    },
    {
       number: "2.",
@@ -15,15 +15,15 @@ const features = [
       description:
          "Guardá tus resúmenes en un solo lugar, marcá tus favoritos y encontrá rápidamente los videos que ya procesaste.",
       image: "/images/dashboard-section-home.png",
-      alt: "Biblioteca de resúmenes de RESU",
+      alt: "Biblioteca de resúmenes de resu",
    },
    {
       number: "3.",
       title: "Resúmenes estructurados",
       description:
-         "RESU organiza las ideas principales y las presenta de forma clara para que puedas recorrer el contenido sin volver al video.",
+         "Organiza las ideas principales y las presenta de forma clara para que puedas recorrer el contenido sin volver al video.",
       image: "/images/dashboard-section-home.png",
-      alt: "Resumen estructurado de un video en RESU",
+      alt: "Resumen estructurado de un video en resu",
    },
 ];
 
@@ -46,7 +46,7 @@ export function FeaturesSection() {
                {features.map((feature, index) => (
                   <article
                      key={feature.number}
-                     className="grid items-center gap-10 md:grid-cols-2 md:gap-16"
+                     className="grid items-center gap-8 md:grid-cols-2 md:gap-16"
                   >
                      <div
                         className={
