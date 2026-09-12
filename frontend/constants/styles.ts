@@ -174,7 +174,7 @@ export const SUMMARY_FORM_STYLES = {
    content: "space-y-4",
    fieldGroup: "",
    footer: "flex flex-col space-y-4",
-   button: "absolute top-1/2 -translate-y-1/2 right-3",
+   button: "mr-2",
    prompt:
       "mt-0 text-center text-sm flex flex-wrap justify-center items-center gap-2",
    link: "ml-2",

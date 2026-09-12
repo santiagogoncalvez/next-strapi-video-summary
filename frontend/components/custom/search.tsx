@@ -2,10 +2,13 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
-import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
 import { SearchIcon } from "lucide-react";
+import {
+   InputGroup,
+   InputGroupAddon,
+   InputGroupInput,
+} from "../ui/input-group";
 
 interface SearchProps {
    className?: string;
@@ -54,19 +57,17 @@ export function Search({ className }: SearchProps) {
    }
 
    return (
-      <div className={cn("relative", className)}>
-         <SearchIcon
-            className="absolute left-2 top-1/2 size-4 -translate-y-1/2 pointer-events-none text-muted-foreground"
-            strokeWidth={1.5}
-         />
-
-         <Input
+      <InputGroup className={className}>
+         <InputGroupInput
             type="text"
             placeholder="Buscar resumen..."
             value={value}
             onChange={(e) => handleChange(e.target.value)}
-            className="w-full pl-8"
          />
-      </div>
+
+         <InputGroupAddon>
+            <SearchIcon className="text-muted-foreground" strokeWidth={1.5} />
+         </InputGroupAddon>
+      </InputGroup>
    );
 }

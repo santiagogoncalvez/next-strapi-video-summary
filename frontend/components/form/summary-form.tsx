@@ -2,7 +2,6 @@
 import { useActionState, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
-import { Input } from "@/components/ui/input";
 import {
    Card,
    CardContent,
@@ -19,6 +18,12 @@ import { SubmitButtonSummary } from "./submit-button-summary";
 import { Field, FieldError } from "../ui/field";
 import { getFormErrorMessage } from "@/actions/helpers";
 import { parseFieldErrors } from "@/lib/parsers";
+import {
+   InputGroup,
+   InputGroupAddon,
+   InputGroupInput,
+} from "../ui/input-group";
+import { LinkIcon } from "lucide-react";
 
 const INITIAL_STATE: FormState = {
    success: false,
@@ -133,8 +138,8 @@ export function SummaryForm() {
                      className="w-full"
                      data-invalid={!!formState.zodErrors?.videoId}
                   >
-                     <div className="relative w-full">
-                        <Input
+                     <InputGroup className="h-14 shadow-[0_1px_4px_rgba(0,0,0,0.06)]">
+                        <InputGroupInput
                            id="videoId"
                            name="videoId"
                            type="text"
@@ -142,16 +147,26 @@ export function SummaryForm() {
                            value={videoId}
                            onChange={(event) => setVideoId(event.target.value)}
                            required
-                           className="h-14 pl-4 pr-14 shadow-[0_1px_4px_rgba(0,0,0,0.06)]"
                            aria-invalid={!!formState.zodErrors?.videoId}
+                           disabled={false}
+                           className="h-14"
                         />
 
-                        <SubmitButtonSummary
-                           className={SUMMARY_FORM_STYLES.button}
-                           disabled={!videoId.trim()}
-                           loading={isPending}
-                        />
-                     </div>
+                        <InputGroupAddon className="h-14">
+                           <LinkIcon
+                              className="text-muted-foreground ml-2 mr-2"
+                              strokeWidth={1.5}
+                           />
+                        </InputGroupAddon>
+
+                        <InputGroupAddon align="inline-end" className="h-14">
+                           <SubmitButtonSummary
+                              className={SUMMARY_FORM_STYLES.button}
+                              disabled={!videoId.trim()}
+                              loading={isPending}
+                           />
+                        </InputGroupAddon>
+                     </InputGroup>
                   </Field>
                </CardContent>
 
