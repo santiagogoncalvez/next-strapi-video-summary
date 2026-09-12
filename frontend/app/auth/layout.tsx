@@ -1,6 +1,15 @@
 import Logo from "@/components/custom/logo-page";
 import { loaders } from "@/data/loaders";
 import { validateApiResponse } from "@/services/error-handler";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+   title: {
+      template: "%s | resu",
+      default: "Cuenta | resu",
+   },
+   description: "Gestioná el acceso y la configuración de tu cuenta en resu.",
+};
 
 export default async function AuthLayout({
    children,

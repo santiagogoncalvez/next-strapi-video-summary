@@ -116,6 +116,10 @@ export function ResetPassword({ code }: { code: string }) {
                         )}
                      />
                   )}
+
+                  <FieldError
+                     errors={parseFieldErrors(formState.zodErrors?.code)}
+                  />
                </CardFooter>
             </Card>
 

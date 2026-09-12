@@ -1,6 +1,13 @@
 import GeneralLoading from "@/components/custom/general-loader";
 import { ResetPassword } from "@/components/form/reset-password";
 import { Suspense } from "react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+   title: "Restablecer contraseña",
+   description:
+      "Elegí una nueva contraseña para recuperar el acceso a tu cuenta de resu.",
+};
 
 function ResetPasswordContent({
    searchParams,

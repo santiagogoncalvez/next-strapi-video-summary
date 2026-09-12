@@ -47,7 +47,7 @@ export const SIGN_UP_FORM_STYLES = {
    container: "w-full max-w-sm flex flex-col gap-4 justify-center items-center",
    header: "space-y-1",
    title: "sm:text-2xl text-xl  font-medium text-center",
-   content: "space-y-4",
+   content: "space-y-4 mt-4",
    fieldGroup: "",
    footer: "flex flex-col space-y-4",
    button: "w-full",
@@ -74,7 +74,7 @@ export const HERO_SECTION_STYLES = {
       "relative  border-0 rounded-b-none rounded-3xl overflow-hidden rounded-4xl flex justify-center items-center",
    backgroundImage: "absolute inset-0 object-cover w-full h-full ",
    overlay:
-      "relative flex flex-col items-center justify-center h-full text-center bg-white/0 md:py-20 py-16 max-w-2xl",
+      "relative flex flex-col items-center justify-center h-full text-center bg-white/0 md:py-20 py-16 px-4 max-w-2xl",
    heading: "text-black text-4xl font-medium md:text-5xl lg:text-6xl",
    subheading: "mt-8 text-black text-lg md:text-lg lg:text-xl text-pretty",
    button: "mt-8 ",

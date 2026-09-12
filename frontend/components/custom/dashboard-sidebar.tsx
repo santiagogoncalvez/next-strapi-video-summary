@@ -76,15 +76,10 @@ export function DashboardSidebar({
 
    // Cierra el sidebar mobile cada vez que cambia la ruta
    useEffect(() => {
-      console.log("change pathname");
       if (isMobile) {
          setOpenMobile(false);
       }
    }, [pathname, isMobile, setOpenMobile]);
-
-   useEffect(() => {
-      console.log("change pathname");
-   }, [pathname]);
 
    return (
       <div className={cn("group", className)}>

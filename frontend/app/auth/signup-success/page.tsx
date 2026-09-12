@@ -7,6 +7,12 @@ import {
    CardTitle,
 } from "@/components/ui/card";
 import { SIGN_IN_FORM_STYLES } from "@/constants/styles";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+   title: "Cuenta creada",
+   description: "Tu cuenta de resu fue creada correctamente.",
+};
 
 export default function EmailConfirmed() {
    return (
@@ -22,7 +28,7 @@ export default function EmailConfirmed() {
                      Ahora puedes iniciar sesión en tu cuenta.
                   </CardDescription>
                </CardHeader>
-               <CardFooter className={`${SIGN_IN_FORM_STYLES.footer}`}>
+               <CardFooter className={`${SIGN_IN_FORM_STYLES.footer} mt-4`}>
                   <AppLink
                      href="/auth/login"
                      className={SIGN_IN_FORM_STYLES.button}

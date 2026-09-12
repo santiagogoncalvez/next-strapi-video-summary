@@ -47,6 +47,16 @@ export function HowItWorksSection() {
                      key={step.number}
                      className="flex flex-col overflow-hidden rounded-3xl border border-sidebar-border/50"
                   >
+                     <div className="mt-auto border-t-0 border-sidebar-border/50">
+                        <Image
+                           src={step.image}
+                           alt={step.alt}
+                           width={1920}
+                           height={1080}
+                           className="h-auto w-full"
+                        />
+                     </div>
+
                      <div className="flex flex-1 flex-col p-8">
                         <span className="text-base font-medium text-muted-foreground">
                            {step.number}
@@ -59,16 +69,6 @@ export function HowItWorksSection() {
                         <p className="mt-4 text-sm leading-6 text-muted-foreground">
                            {step.description}
                         </p>
-                     </div>
-
-                     <div className="mt-auto border-t-0 border-sidebar-border/50">
-                        <Image
-                           src={step.image}
-                           alt={step.alt}
-                           width={1920}
-                           height={1080}
-                           className="h-auto w-full"
-                        />
                      </div>
                   </article>
                ))}

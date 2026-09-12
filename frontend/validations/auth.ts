@@ -90,6 +90,7 @@ interface ZodError {
    videoId?: string[];
    title?: string[];
    content?: string[];
+   code?: string[];
 }
 
 export type ZodErrors = ZodError | null;

@@ -19,6 +19,7 @@ import { SubmitButton } from "./submit-button";
 import { AppLink } from "../custom/custom-link";
 import { Field, FieldError, FieldLabel } from "../ui/field";
 import { parseFieldErrors } from "@/lib/parsers";
+import { cn } from "@/lib/utils";
 
 const COOLDOWN_TIME = 30;
 
@@ -79,7 +80,7 @@ export default function ForgotPassword() {
                      </p>
                   </CardDescription>
                </CardHeader>
-               <CardContent className={SIGN_IN_FORM_STYLES.content}>
+               <CardContent className={cn(SIGN_IN_FORM_STYLES.content, "mt-4")}>
                   <Field
                      className={SIGN_IN_FORM_STYLES.fieldGroup}
                      data-invalid={!!formState.zodErrors?.email}

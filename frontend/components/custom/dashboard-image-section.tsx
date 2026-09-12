@@ -3,19 +3,19 @@ import Image from "next/image";
 const images = [
    {
       src: "/images/dashboard-section-home.png",
-      alt: "Dashboard de RESU",
+      alt: "Dashboard de resu",
    },
    {
       src: "/images/dashboard-section-home.png",
-      alt: "Resumen de un video en RESU",
+      alt: "Resumen de un video en resu",
    },
    {
       src: "/images/dashboard-section-home.png",
-      alt: "Editor de resúmenes de RESU",
+      alt: "Editor de resúmenes de resu",
    },
    {
       src: "/images/dashboard-section-home.png",
-      alt: "Vista de resumen de RESU",
+      alt: "Vista de resumen de resu",
    },
 ];
 
@@ -26,7 +26,7 @@ export function DashboardImageSection() {
             {images.map((image, index) => (
                <div
                   key={`${image.src}-${index}`}
-                  className="w-[35vw] shrink-0 overflow-hidden rounded-3xl border border-sidebar-border/50"
+                  className="2xl:w-[20vw] w-[35vw] shrink-0 overflow-hidden rounded-3xl border border-sidebar-border/50"
                >
                   <Image
                      src={image.src}

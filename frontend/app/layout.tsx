@@ -10,7 +10,8 @@ export async function generateMetadata(): Promise<Metadata> {
    return {
       title: metadata.data.title ?? "resu | Resume tus videos",
       description:
-         metadata.data.description ?? "Plataforma para resumir videos",
+         metadata.data.description ??
+         "Resume videos de YouTube con inteligencia artificial y ahorrá tiempo.",
    };
 }
 

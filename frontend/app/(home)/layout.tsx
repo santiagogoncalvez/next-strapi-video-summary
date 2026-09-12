@@ -18,8 +18,6 @@ export default async function RootLayout({
    const header = globalData?.data?.header || null;
    const footer = globalData?.data?.footer || null;
 
-   console.log(header.ctaButton);
-
    return (
       <div className="flex flex-col justify-center items-center h-full flex-1">
          <Header data={header} />

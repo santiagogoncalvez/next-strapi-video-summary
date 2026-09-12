@@ -7,6 +7,31 @@ import DashboardHeaderSkeleton, {
    DashboardHeaderAsync,
 } from "@/components/custom/dashboard-header-async";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Metadata } from "next";
+import { loaders } from "@/data/loaders";
+
+export async function generateMetadata({
+   params,
+}: {
+   params: Params;
+}): Promise<Metadata> {
+   const { documentId } = await params;
+
+   if (!documentId) {
+      return {
+         title: "Resumen",
+         description: "Resumen de un video generado con resu.",
+      };
+   }
+
+   const res = await loaders.getSummaryWithFavoriteByDocumentId(documentId);
+   const summary = res?.data ?? res; // Adaptado según la respuesta de tu API/Strapi
+
+   return {
+      title: summary.title ?? "Resumen",
+      description: "Resumen de un video generado con resu.",
+   };
+}
 
 function PageContentSkeleton() {
    return (

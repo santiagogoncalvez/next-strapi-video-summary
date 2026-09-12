@@ -205,7 +205,7 @@ export default function DashboardHeader({
                      size="icon"
                      variant="ghost"
                   >
-                     <ChevronLeft />
+                     <ChevronLeft strokeWidth={1.5} />
                   </AppLink>
                )}
 
