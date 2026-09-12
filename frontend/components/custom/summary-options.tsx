@@ -39,7 +39,7 @@ import { SummaryDeleteForm } from "../form/delete-summary";
 import { SummaryFavoriteForm } from "../form/favorite-summary";
 import { SummaryWithFavorite } from "@/types/strapi";
 import { AppLink } from "./custom-link";
-import { MutableRefObject, RefObject } from "react";
+import { useRef } from "react";
 
 interface SummaryOptionsProps {
    summary: SummaryWithFavorite;
@@ -52,8 +52,6 @@ interface SummaryOptionsProps {
    onDownloadMarkdown: () => void;
    onDownloadPdf: () => void;
    onEditTitle: () => void;
-   titleInputRef: RefObject<HTMLInputElement | null>;
-   shouldFocusTitleInput: MutableRefObject<boolean>;
 }
 
 export function SummaryOptions({
@@ -63,9 +61,9 @@ export function SummaryOptions({
    onDownloadMarkdown,
    onDownloadPdf,
    onEditTitle,
-   titleInputRef,
-   shouldFocusTitleInput,
 }: SummaryOptionsProps) {
+   const shouldOpenTitleDialog = useRef(false);
+
    return (
       <>
          <SummaryFavoriteForm
@@ -89,17 +87,7 @@ export function SummaryOptions({
                   </Button>
                </DropdownMenuTrigger>
 
-               <DropdownMenuContent
-                  align="end"
-                  sideOffset={4}
-                  className="w-56"
-                  onCloseAutoFocus={(event) => {
-                     if (shouldFocusTitleInput.current) {
-                        event.preventDefault();
-                        titleInputRef.current?.focus();
-                     }
-                  }}
-               >
+               <DropdownMenuContent align="end" sideOffset={4} className="w-56">
                   {summaryAction && (
                      <DropdownMenuItem asChild>
                         <Link
@@ -181,10 +169,10 @@ export function SummaryOptions({
 
                <DrawerContent
                   onCloseAutoFocus={(event) => {
-                     if (shouldFocusTitleInput.current) {
-                        event.preventDefault();
-                        titleInputRef.current?.focus();
-                     }
+                     if (!shouldOpenTitleDialog.current) return;
+
+                     event.preventDefault();
+                     shouldOpenTitleDialog.current = false;
                   }}
                >
                   <DrawerHeader>
@@ -216,7 +204,10 @@ export function SummaryOptions({
                      <DrawerClose asChild>
                         <Button
                            type="button"
-                           onClick={onEditTitle}
+                           onClick={() => {
+                              shouldOpenTitleDialog.current = true;
+                              onEditTitle();
+                           }}
                            variant="ghost"
                            className="justify-start font-normal"
                         >

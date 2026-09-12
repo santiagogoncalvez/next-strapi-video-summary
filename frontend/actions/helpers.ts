@@ -118,7 +118,9 @@ export function handleStrapiError(error: unknown): never {
 
    console.error("Strapi Error:", error);
 
-   const message = getStrapiErrorMessage(error.error?.message ?? "");
+   const message = getStrapiErrorMessage(
+      error.error?.message ?? COMMON_MESSAGES.ERROR.REQUEST_FAILED,
+   );
 
    throw {
       ...error,

@@ -96,6 +96,16 @@ export function throwError(message = "An unexpected error occurred"): never {
    throw new Error(message);
 }
 
+export function throwStrapiError(
+   message = "An unexpected Strapi error occurred",
+): never {
+   throw {
+      error: {
+         message,
+      },
+   };
+}
+
 export function getTranslation(
    translations: Record<string, unknown>,
    key: string,

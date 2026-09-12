@@ -25,7 +25,7 @@ export default function NavBar({
       >
          <AppLink
             href={secondaryLink.href}
-            variant="outline"
+            variant="ghost"
             className={isHero ? "text-base px-4 py-6" : ""}
          >
             {secondaryLink.label}

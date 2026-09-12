@@ -7,8 +7,7 @@ import { Check, ChevronLeft, Eye, Pencil } from "lucide-react";
 import { SubmitButton } from "../form/submit-button";
 import { ThumbnailAvatar } from "./thumbnail-avatar";
 
-import { useEffect, useRef, useState } from "react";
-import { SummaryTitleForm } from "../form/edit-summary-title";
+import { useState } from "react";
 import { toast } from "sonner";
 import { SummaryWithFavorite } from "@/types/strapi";
 import removeMarkdown from "remove-markdown";
@@ -16,6 +15,7 @@ import MarkdownPDFDocument from "@/utils/pdfRenderer";
 import { pdf } from "@react-pdf/renderer";
 import { SummaryOptions } from "./summary-options";
 import { AppLink } from "./custom-link";
+import { SummaryTitleDialog } from "./summary-title-dialog";
 
 function getSummaryRoute(pathname: string) {
    if (!/^\/dashboard\/summaries\/[^/]+(?:\/edit)?$/.test(pathname)) {
@@ -67,10 +67,8 @@ export default function DashboardHeader({
    updateIsPending?: boolean;
    updateIsDirty?: boolean;
 }) {
-   const [isEditingTitle, setIsEditingTitle] = useState(false);
-   const [titleEditKey, setTitleEditKey] = useState(0);
-   const titleInputRef = useRef<HTMLInputElement>(null);
-   const shouldFocusTitleInput = useRef(false);
+   const [isTitleDialogOpen, setIsTitleDialogOpen] = useState(false);
+   const [titleDialogKey, setTitleDialogKey] = useState(0);
 
    const pathname = usePathname();
 
@@ -186,13 +184,6 @@ export default function DashboardHeader({
       }
    };
 
-   useEffect(() => {
-      if (isEditingTitle) {
-         titleInputRef.current?.focus();
-         titleInputRef.current?.select();
-      }
-   }, [isEditingTitle]);
-
    const isSummaryPage = summaryRoute && summary?.documentId;
 
    return (
@@ -221,27 +212,8 @@ export default function DashboardHeader({
                   />
                )}
 
-               <SummaryTitleForm
-                  key={titleEditKey}
-                  title={title}
-                  documentId={summary?.documentId}
-                  onFinishEditing={() => {
-                     shouldFocusTitleInput.current = false;
-                     setIsEditingTitle(false);
-                  }}
-                  inputRef={titleInputRef}
-                  className={isEditingTitle ? "" : "hidden"}
-               />
                <h1
-                  className={`text-normal text-foreground font-medium whitespace-nowrap overflow-x-auto [scrollbar-none] [&::-webkit-scrollbar]:hidden ${isEditingTitle ? "hidden" : ""}`}
-                  onClick={
-                     summaryRoute
-                        ? () => {
-                             setTitleEditKey((key) => key + 1);
-                             setIsEditingTitle(true);
-                          }
-                        : undefined
-                  }
+                  className={`text-normal text-foreground font-medium whitespace-nowrap overflow-x-auto [scrollbar-none] [&::-webkit-scrollbar]:hidden`}
                >
                   {pageTitle}
                </h1>
@@ -283,18 +255,23 @@ export default function DashboardHeader({
                      onDownloadMarkdown={handleDownloadMarkdown}
                      onDownloadPdf={handleDownloadPdf}
                      onEditTitle={() => {
-                        shouldFocusTitleInput.current = true;
-                        setTitleEditKey((key) => key + 1);
-                        setIsEditingTitle(true);
+                        setTitleDialogKey((key) => key + 1);
+                        setIsTitleDialogOpen(true);
                      }}
-                     titleInputRef={titleInputRef}
-                     shouldFocusTitleInput={shouldFocusTitleInput}
                   />
                </>
             ) : (
                <div className="size-8 opacity-0" />
             )}
          </div>
+
+         <SummaryTitleDialog
+            key={titleDialogKey}
+            open={isTitleDialogOpen}
+            onOpenChange={setIsTitleDialogOpen}
+            title={title}
+            documentId={summary?.documentId}
+         />
       </header>
    );
 }
