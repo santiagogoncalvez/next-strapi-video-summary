@@ -76,10 +76,15 @@ export function DashboardSidebar({
 
    // Cierra el sidebar mobile cada vez que cambia la ruta
    useEffect(() => {
+      console.log("change pathname");
       if (isMobile) {
          setOpenMobile(false);
       }
    }, [pathname, isMobile, setOpenMobile]);
+
+   useEffect(() => {
+      console.log("change pathname");
+   }, [pathname]);
 
    return (
       <div className={cn("group", className)}>
@@ -96,6 +101,11 @@ export function DashboardSidebar({
                   }}
                   showText={false}
                   className={`transition-opacity ${!open ? "group-hover:opacity-0" : "pl-2"}`}
+                  onClick={() => {
+                     if (isMobile) {
+                        setOpenMobile(false);
+                     }
+                  }}
                />
                <SidebarTrigger
                   className={cn(
@@ -122,7 +132,14 @@ export function DashboardSidebar({
                                     asChild
                                     isActive={item.url === pathname}
                                  >
-                                    <Link href={item.url}>
+                                    <Link
+                                       onClick={() => {
+                                          if (isMobile) {
+                                             setOpenMobile(false);
+                                          }
+                                       }}
+                                       href={item.url}
+                                    >
                                        <item.icon strokeWidth={1.5} />
                                        <span>{item.name}</span>
                                     </Link>
@@ -152,7 +169,14 @@ export function DashboardSidebar({
                                        asChild
                                        isActive={pathname.includes(href)}
                                     >
-                                       <Link href={href}>
+                                       <Link
+                                          onClick={() => {
+                                             if (isMobile) {
+                                                setOpenMobile(false);
+                                             }
+                                          }}
+                                          href={href}
+                                       >
                                           <span>{summary.title}</span>
                                        </Link>
                                     </SidebarMenuButton>
@@ -166,7 +190,15 @@ export function DashboardSidebar({
             </SidebarContent>
 
             {/* FOOTER: Botón de ayuda o usuario */}
-            <NavUser user={user} isSidebarOpen={open} />
+            <NavUser
+               user={user}
+               isSidebarOpen={open}
+               onClick={() => {
+                  if (isMobile) {
+                     setOpenMobile(false);
+                  }
+               }}
+            />
 
             {/* RAIL: Permite hacer click/arrastrar en el borde para colapsar en desktop */}
             <SidebarRail />

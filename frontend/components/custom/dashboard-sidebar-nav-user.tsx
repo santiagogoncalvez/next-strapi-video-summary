@@ -25,9 +25,14 @@ import { getMediaUrl } from "./media-image";
 interface NavUserProps {
    user: User;
    isSidebarOpen: boolean;
+   onClick?: () => void;
 }
 
-export function NavUser({ user, isSidebarOpen }: NavUserProps) {
+export function NavUser({
+   user,
+   isSidebarOpen,
+   onClick = () => {},
+}: NavUserProps) {
    const profileImageSrc = getMediaUrl(user.image?.url ?? "");
 
    return (
@@ -115,6 +120,7 @@ export function NavUser({ user, isSidebarOpen }: NavUserProps) {
                            <Link
                               href="/dashboard/account"
                               className="hover:cursor-pointer"
+                              onClick={onClick}
                            >
                               <UserIcon strokeWidth={1.5} />
                               <span>Cuenta</span>

@@ -1,9 +1,8 @@
-import { AppLink } from "./custom-link";
 import NavBar from "./nav-bar";
 
 const accountLinks = [
-   { label: "Iniciar sesión", href: "/auth/login" },
    { label: "Crear cuenta", href: "/auth/signup" },
+   { label: "Iniciar sesión", href: "/auth/login" },
 ];
 
 export function FinalCTASection() {

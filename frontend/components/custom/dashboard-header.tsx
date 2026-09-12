@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import { SidebarTrigger } from "../ui/sidebar";
 import { cn } from "@/lib/utils";
-import { Check, Eye, Pencil } from "lucide-react";
+import { Check, ChevronLeft, Eye, Pencil } from "lucide-react";
 import { SubmitButton } from "../form/submit-button";
 import { ThumbnailAvatar } from "./thumbnail-avatar";
 
@@ -15,6 +15,7 @@ import removeMarkdown from "remove-markdown";
 import MarkdownPDFDocument from "@/utils/pdfRenderer";
 import { pdf } from "@react-pdf/renderer";
 import { SummaryOptions } from "./summary-options";
+import { AppLink } from "./custom-link";
 
 function getSummaryRoute(pathname: string) {
    if (!/^\/dashboard\/summaries\/[^/]+(?:\/edit)?$/.test(pathname)) {
@@ -197,7 +198,19 @@ export default function DashboardHeader({
    return (
       <header className="max-w-full w-full p-4 shadow-none border-b-0 border-sidebar-border/50 flex justify-between items-center gap-4">
          <div className="flex gap-4 items-center min-w-0 flex-1">
-            <SidebarTrigger className={cn("size-8 md:hidden flex")} />
+            <div className="flex gap-2 items-center justify-center">
+               {summaryRoute === "edit" && (
+                  <AppLink
+                     href={pathname.replace(/\/edit$/, "")}
+                     size="icon"
+                     variant="ghost"
+                  >
+                     <ChevronLeft />
+                  </AppLink>
+               )}
+
+               <SidebarTrigger className={cn("size-8 md:hidden flex")} />
+            </div>
 
             <div className="flex gap-2 items-center justify-start min-w-0 flex-1">
                {summaryRoute && summary?.thumbnailUrl && title && (

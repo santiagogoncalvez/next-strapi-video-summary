@@ -26,8 +26,8 @@ const productLinks = [
 ];
 
 const accountLinks = [
-   { label: "Iniciar sesión", href: "/auth/login" },
    { label: "Crear cuenta", href: "/auth/signup" },
+   { label: "Iniciar sesión", href: "/auth/login" },
 ];
 
 export function SidebarHome() {
@@ -67,7 +67,7 @@ export function SidebarHome() {
          <SheetContent
             side="left"
             showCloseButton={false}
-            className="w-72 bg-white p-0 text-foreground"
+            className="w-72 bg-white p-0 text-foreground border-0!"
          >
             <SheetHeader className="sr-only">
                <SheetTitle>Menú de navegación</SheetTitle>
