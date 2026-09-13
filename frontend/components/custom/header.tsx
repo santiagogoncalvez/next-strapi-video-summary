@@ -8,7 +8,7 @@ interface Props {
    data?: Header | null;
 }
 
-export default async function Header({ data }: Props) {
+export default function Header({ data }: Props) {
    if (!data) return null;
 
    return (

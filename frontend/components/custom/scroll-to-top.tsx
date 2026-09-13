@@ -21,7 +21,7 @@ export function ScrollToTop() {
          variant="ghost"
          size="lg"
       >
-         Volver arriba <ArrowUp />
+         Volver arriba <ArrowUp strokeWidth={1.5} />
       </Button>
    );
 }
