@@ -4,7 +4,7 @@ export function FormError({ error, className }: { error?: string[]; className?: 
    if (!error) return null;
 
    return error.map((err, index) => (
-      <div key={index} className={cn("text-red-500 text-xs", className)}>
+      <div key={index} className={cn("text-destructive text-xs", className)}>
          {err}
       </div>
    ));

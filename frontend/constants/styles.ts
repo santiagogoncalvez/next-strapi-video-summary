@@ -7,6 +7,8 @@ export const BUTTON_VARIANTS = cva(
       variants: {
          variant: {
             default: "bg-primary text-primary-foreground hover:bg-primary/80",
+            "default-dark":
+               "bg-primary-foreground text-primary hover:bg-primary-foreground/80",
             outline:
                "border-foreground/10 bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
             highlighted:
@@ -14,6 +16,8 @@ export const BUTTON_VARIANTS = cva(
             secondary:
                "bg-secondary text-secondary-foreground hover:bg-secondary/90 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
             ghost: "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
+            "ghost-dark":
+               "text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground aria-expanded:bg-primary-foreground/10 aria-expanded:text-primary-foreground",
             destructive:
                "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
             link: "text-primary underline-offset-4 hover:underline",
@@ -78,63 +82,6 @@ export const HERO_SECTION_STYLES = {
    heading: "text-foreground text-4xl font-medium md:text-5xl lg:text-6xl",
    subheading: "mt-8 text-foreground text-lg md:text-lg lg:text-xl text-pretty",
    button: "mt-8 ",
-};
-
-export const FEATURES_SECTION_STYLES = {
-   container: "flex-1",
-   section: "container px-4 py-12 md:px-6 lg:py-24",
-   grid: "grid gap-8 md:grid-cols-3",
-   featureCard: "flex flex-col items-center text-center",
-   icon: "w-12 h-12 mb-4 text-gray-900",
-   heading: "mb-4 text-2xl font-medium",
-   description: "text-gray-500",
-};
-
-export const FOOTER_STYLES = {
-   footer:
-      "w-full border-t border-t-foreground/10  text-foreground flex justify-center",
-   container:
-      "w-full md:px-16 px-4 flex flex-col md:flex-row items-center md:justify-between justify-center md:gap-0 gap-2",
-   text: "text-sm text-gray-800 text-center",
-   socialContainer: "md:w-40 w-fit flex justify-end gap-4",
-   socialLink: "transition-all hover:text-gray-800",
-   icon: "h-6 w-6",
-   srOnly: "sr-only",
-};
-
-export const NOT_FOUND_STYLES = {
-   container:
-      "bg-gradient-to-br flex items-center justify-center p-16 w-full h-full flex-1",
-   content: "w-full max-w-2xl  text-center space-y-8",
-   textSection: "space-y-4",
-   heading404:
-      "text-foreground text-2xl font-medium md:text-3xl lg:text-4xl select-none",
-   headingContainer: "relative flex flex-col items-center justify-center",
-   pageTitle: "sm:text-2xl text-xl  font-normal text-gray-800 mb-4",
-   description: "text-lg text-gray-600 max-w-md  leading-relaxed",
-   illustrationContainer: "flex justify-center",
-   illustration: "relative animate-pulse",
-   searchCircle:
-      "w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center transition-all duration-300 hover:bg-gray-300",
-   searchIcon: "w-8 h-8 text-gray-400",
-   errorBadge:
-      "absolute -top-2 -right-2 w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center animate-bounce",
-   errorSymbol: "text-gray-500 text-xs font-medium",
-   buttonContainer:
-      "flex flex-col sm:flex-row gap-4 justify-center items-center",
-   button: "min-w-[160px]",
-   buttonContent: "flex items-center gap-2",
-   buttonIcon: "w-4 h-4",
-   outlineButton: "min-w-[160px] bg-transparent",
-   errorDetails:
-      "mt-8 p-4 bg-red-50 border border-red-200 rounded-xl text-left text-sm text-red-800",
-   errorTitle: "font-medium mb-2",
-};
-
-export const LOADING_STYLES = {
-   overlay:
-      "fixed inset-0 flex items-center justify-center bg-gray-100 bg-opacity-60",
-   spinner: "animate-spin h-12 w-12",
 };
 
 export const PROFILE_FORM_STYLES = {

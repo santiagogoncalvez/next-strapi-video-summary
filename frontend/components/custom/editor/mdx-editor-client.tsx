@@ -58,20 +58,28 @@ import type { ForwardedRef } from "react";
 import esES from "./translations/es-es.json";
 
 const lucideIcons: Partial<Record<IconKey, React.ReactElement>> = {
-   undo: <Undo2 strokeWidth={1.5} />,
-   redo: <Redo2 strokeWidth={1.5} />,
-   format_bold: <Bold strokeWidth={1.5} />,
-   format_italic: <Italic strokeWidth={1.5} />,
-   format_underlined: <Underline strokeWidth={1.5} />,
-   format_list_checked: <ListChecks strokeWidth={1.5} />,
-   code: <Code2 strokeWidth={1.5} />,
-   arrow_drop_down: <ChevronDownIcon strokeWidth={1.5} />,
-   link: <Link strokeWidth={1.5} />,
-   format_list_bulleted: <List strokeWidth={1.5} />,
-   format_list_numbered: <ListOrdered strokeWidth={1.5} />,
-   table: <Table strokeWidth={1.5} />,
-   horizontal_rule: <Minus strokeWidth={1.5} />,
-   frame_source: <SquareCode strokeWidth={1.5} />,
+   undo: <Undo2 strokeWidth={1.5}  />,
+   redo: <Redo2 strokeWidth={1.5}  />,
+   format_bold: <Bold strokeWidth={1.5}  />,
+   format_italic: <Italic strokeWidth={1.5}  />,
+   format_underlined: (
+      <Underline strokeWidth={1.5}  />
+   ),
+   format_list_checked: (
+      <ListChecks strokeWidth={1.5}  />
+   ),
+   code: <Code2 strokeWidth={1.5}  />,
+   arrow_drop_down: (
+      <ChevronDownIcon strokeWidth={1.5}  />
+   ),
+   link: <Link strokeWidth={1.5}  />,
+   format_list_bulleted: <List strokeWidth={1.5}  />,
+   format_list_numbered: (
+      <ListOrdered strokeWidth={1.5}  />
+   ),
+   table: <Table strokeWidth={1.5}  />,
+   horizontal_rule: <Minus strokeWidth={1.5}  />,
+   frame_source: <SquareCode strokeWidth={1.5}  />,
 };
 
 export default function MDXEditorClient({
@@ -87,7 +95,7 @@ export default function MDXEditorClient({
          >
             <MDXEditor
                key={resolvedTheme}
-               contentEditableClassName="prose prose-neutral max-w-none relative px-0! py-4!"
+               contentEditableClassName="prose! prose-neutral! dark:prose-invert! max-w-none relative px-0! py-4!"
                translation={(key, defaultValue, interpolations) =>
                   getTranslation(esES, key, defaultValue, interpolations)
                }

@@ -6,7 +6,7 @@ interface MarkdownViewerProps {
 
 export function MarkdownViewer({ content }: MarkdownViewerProps) {
    return (
-      <article className="prose prose-neutral max-w-none">
+      <article className="prose prose-neutral dark:prose-invert max-w-none">
          <ReactMarkdown>{content}</ReactMarkdown>
       </article>
    );

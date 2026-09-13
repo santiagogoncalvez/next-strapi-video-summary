@@ -23,7 +23,8 @@ export function FinalCTASection() {
                   <NavBar
                      link={accountLinks[0]}
                      secondaryLink={accountLinks[1]}
-                     className="dark mt-8"
+                     className="mt-8"
+                     invertedTheme
                   />
                </div>
             </div>

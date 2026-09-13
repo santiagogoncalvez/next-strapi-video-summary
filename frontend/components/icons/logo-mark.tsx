@@ -11,7 +11,7 @@ export function LogoMark(props: React.SVGProps<SVGSVGElement>) {
          <g clipPath="url(#clip0_10_58)">
             <path
                d="M60.035 24.1468C68.035 28.7656 68.035 40.3126 60.035 44.9314L21.035 67.4481C13.035 72.0669 3.03503 66.2934 3.03503 57.0558V12.0225C3.03503 2.78486 13.035 -2.98864 21.035 1.63016L60.035 24.1468Z"
-               fill="black"
+               fill="var(--foreground)"
             />
             <mask
                id="mask0_10_58"
@@ -24,19 +24,19 @@ export function LogoMark(props: React.SVGProps<SVGSVGElement>) {
             >
                <path
                   d="M60.035 24.1423C68.035 28.7611 68.035 40.3081 60.035 44.9269L21.035 67.4435C13.035 72.0623 3.03503 66.2888 3.03503 57.0512L3.03503 12.0179C3.03503 2.78029 13.035 -2.9932 21.035 1.6256L60.035 24.1423Z"
-                  fill="black"
+                  fill="var(--foreground)"
                />
             </mask>
             <g mask="url(#mask0_10_58)">
                <path
                   d="M23.035 77.223V30.7519H30.8808V39.2874L30.0186 38.0803C31.1107 35.4363 32.7776 33.4821 35.0192 32.2176C37.2609 30.8956 39.9911 30.2346 43.2099 30.2346H46.055V37.8217H42.0028C38.7266 37.8217 36.0826 38.8563 34.0708 40.9255C32.0591 42.9372 31.0532 45.8111 31.0532 49.5472V77.223H23.035Z"
-                  fill="white"
+                  fill="var(--background)"
                />
             </g>
          </g>
          <defs>
             <clipPath id="clip0_10_58">
-               <rect width="69.07" height="69.0737" fill="white" />
+               <rect width="69.07" height="69.0737" fill="var(--background)" />
             </clipPath>
          </defs>
       </svg>

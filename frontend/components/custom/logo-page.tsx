@@ -47,7 +47,7 @@ import { usePathname } from "next/navigation";
       return (
          <Link
             className={cn(
-               "flex w-fit items-center gap-1 text-[1.7rem] font-normal",
+               "flex w-fit items-center gap-1 text-[1.7rem] font-normal text-foreground",
                className,
             )}
             href={logoText.href}

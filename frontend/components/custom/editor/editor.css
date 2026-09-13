@@ -11,20 +11,107 @@
    height: 0px;
 }
 
+.markdown-editor ._selectTrigger_f3hmk_308 {
+   background: var(--color-background) !important;
+   border-color: var(--color-input) !important;
+   border-width: 1px !important;
+   border-style: solid !important;
+   border-radius: var(--radius-md) !important;
+}
+
+.mdxeditor-select-content {
+   background: var(--color-popover) !important;
+   border-color: var(--color-input) !important;
+   border-width: 1px !important;
+   border-style: solid !important;
+   border-radius: var(--radius-md) !important;
+   overflow: hidden;
+   color: var(--color-popover-foreground) !important;
+}
+
+.mdxeditor-select-content [role="presentation"] {
+   box-shadow: none !important;
+}
+
+.mdxeditor-select-content [role="option"] {
+   border-radius: var(--radius-md) !important;
+}
+
+.mdxeditor-select-content [role="option"]:hover {
+   cursor: pointer;
+   background: var(--color-accent) !important;
+}
+
+.mdxeditor-select-content [role="option"][data-highlighted] {
+   background: var(--color-accent) !important;
+   color: var(--color-popover-foreground) !important;
+}
+
+.mdxeditor-select-content [role="option"][data-state="checked"] {
+   background: var(--color-accent) !important;
+   color: var(--color-popover-foreground) !important;
+}
+
+.markdown-editor button:hover {
+   cursor: pointer !important;
+   background: var(--color-muted) !important;
+}
+
+.markdown-editor button {
+   border-radius: var(--radius-md) !important;
+   color: var(--color-foreground) !important;
+}
+
+.markdown-editor button svg {
+   color: var(--color-foreground) !important;
+}
+
+.markdown-editor button:disabled svg {
+   color: var(--color-muted-foreground) !important;
+}
+
+.markdown-editor button[aria-checked="true"] svg {
+   color: var(--color-foreground) !important;
+}
+
+.markdown-editor button[aria-checked="true"] {
+   background: var(--color-muted) !important;
+}
+
 .markdown-editor ._selectTrigger_f3hmk_308 span {
-  color: var(--color-foreground) !important;
+   color: var(--color-foreground) !important;
 }
 
 .mdxeditor-toolbar {
    border-radius: 0px;
-   background-color: white !important;
+   background-color: var(--color-background) !important;
    position: sticky;
    top: 0;
-   border:0px;
+   border: 0px;
    border-color: transparent;
    padding-left: 0px;
    padding-right: 0px;
    /* padding-top: 2rem; */
+}
+
+/* .dark ._codeMirrorToolbar_f3hmk_408 ._iconButton_f3hmk_456 svg{
+   color: var(--color-background) !important;
+}
+
+._codeMirrorToolbar_f3hmk_408 ._iconButton_f3hmk_456:hover svg{
+   color: var(--color-foreground) !important;
+} */
+
+._codeMirrorToolbar_f3hmk_408 {
+   background: var(--color-background) !important;
+}
+
+.markdown-editor [role="checkbox"] {
+  padding-top: 20px !important;
+}
+
+.markdown-editor code span {
+  background: var(--color-muted) !important;
 }
 
 .dark .dark-editor {

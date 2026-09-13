@@ -1,8 +1,9 @@
-import {geistMono, plusJakartaSans } from "./ui/fonts";
+import { geistMono, plusJakartaSans } from "./ui/fonts";
 import { Toaster } from "@/components/ui/sonner";
 import { loaders } from "@/data/loaders";
 import type { Metadata } from "next";
 import "./globals.css";
+import { ThemeProvider } from "next-themes";
 
 export async function generateMetadata(): Promise<Metadata> {
    const metadata = await loaders.getMetaData();
@@ -23,12 +24,15 @@ export default async function RootLayout({
    return (
       <html
          lang="en"
+         suppressHydrationWarning
          className={`${plusJakartaSans.className} ${plusJakartaSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
       >
          <body className="min-h-full flex flex-col bg-background">
-            {children}
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+               {children}
 
-            <Toaster />
+               <Toaster />
+            </ThemeProvider>
          </body>
       </html>
    );

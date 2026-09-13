@@ -10,7 +10,7 @@ export function HeroSection({ data }: { readonly data: HeroSectionProps }) {
    return (
       <div className={HERO_SECTION_STYLES.header}>
          <video
-            className="absolute inset-0 h-full w-full object-cover opacity-10"
+            className="absolute inset-0 h-full w-full object-cover opacity-10 dark:opacity-2"
             autoPlay
             muted
             loop

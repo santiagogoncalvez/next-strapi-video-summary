@@ -14,7 +14,7 @@ const styles = {
    skeletonWrapper: "absolute inset-0",
    skeleton: "w-full h-full animate-pulse",
    iconContainer: "absolute inset-0 flex items-center justify-center",
-   playIcon: "w-16 h-16 text-gray-400 animate-bounce",
+   playIcon: "w-16 h-16 text-muted-foreground animate-bounce",
    iframe: "absolute inset-0 w-full h-full rounded-3xl",
 };
 
