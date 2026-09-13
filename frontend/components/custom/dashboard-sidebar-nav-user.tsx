@@ -76,9 +76,9 @@ export function NavUser({
                   {/* POPUP / DROPDOWN */}
                   <DropdownMenuContent
                      side="bottom"
-                     align="center"
+                     align={`${isSidebarOpen ? "center" : "start"}`}
                      sideOffset={4}
-                     className="md:max-w-[calc(var(--sidebar-width)-2rem)] max-w-[calc(var(--sidebar-width-mobile)-2rem)]"
+                     className="md:w-[calc(var(--sidebar-width)-2rem)]"
                      style={
                         {
                            "--sidebar-width": SIDEBAR_WIDTH,
