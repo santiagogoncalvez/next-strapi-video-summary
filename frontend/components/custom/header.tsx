@@ -15,7 +15,7 @@ export default function Header({ data }: Props) {
       <header className="sticky top-0 z-50 w-full border-b-0 border-sidebar-border/50 flex justify-center bg-background">
          <div className="max-w-screen-2xl w-full  flex justify-between md:px-16 px-4 py-4 ">
             <div className="w-65 flex justify-start">
-               <Logo logoText={data.logoText} scrollToTop />
+               <Logo logoText={data.logoText} />
             </div>
 
             <div className="lg:flex hidden items-center gap-8 text-sm">

@@ -91,7 +91,7 @@ export function DashboardSidebar({
                <Logo
                   logoText={{
                      id: 0,
-                     href: "/",
+                     href: "/dashboard",
                      label: "resu",
                   }}
                   showText={false}

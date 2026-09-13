@@ -84,7 +84,6 @@ export function SidebarHome() {
                         href: "/",
                         label: "resu",
                      }}
-                     scrollToTop
                      onClick={() => setOpen(false)}
                   />
 

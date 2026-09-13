@@ -40,7 +40,7 @@ export function Footer({ data }: FooterProps) {
             <div className="flex justify-between flex-wrap gap-8">
                {/* Brand */}
                <div className="md:col-span-2">
-                  <Logo logoText={logoText} scrollToTop />
+                  <Logo logoText={logoText} />
 
                   <p className="mt-4 max-w-sm text-sm leading-6 text-muted-foreground">
                      Resumí videos sin perder horas mirándolos.
