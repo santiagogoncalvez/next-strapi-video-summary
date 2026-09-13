@@ -64,7 +64,7 @@ export function AccountAppearanceSection({ className }: Readonly<Props>) {
                            <SelectValue placeholder="Tema" />
                         </SelectTrigger>
 
-                        <SelectContent position="popper">
+                        <SelectContent position="popper" align="end">
                            <SelectItem value="system">Sistema</SelectItem>
                            <SelectItem value="light">Claro</SelectItem>
                            <SelectItem value="dark">Oscuro</SelectItem>

@@ -22,6 +22,7 @@ import { parseFieldErrors, parseOAuthError } from "@/lib/parsers";
 import { AuthProviders } from "../custom/auth-providers";
 import { usePathname, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 const INITIAL_STATE: FormState = {
    success: false,
@@ -68,7 +69,7 @@ export function SignupForm() {
                      Introduce tus datos para crear una nueva cuenta.
                   </CardDescription> */}
                </CardHeader>
-               <CardContent className={SIGN_UP_FORM_STYLES.content}>
+               <CardContent className={cn(SIGN_UP_FORM_STYLES.content, "mt-0")}>
                   <AuthProviders variant="signup" />
                   <div className={SIGN_UP_FORM_STYLES.fieldGroup}>
                      <Field

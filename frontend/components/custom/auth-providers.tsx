@@ -1,35 +1,65 @@
 "use client";
 
+import { useState } from "react";
 // import { Separator } from "@/components/ui/separator";
 import { AppLink } from "./custom-link";
 import { SiGithub, SiGoogle } from "react-icons/si";
+import { Loader2 } from "lucide-react";
 
 export function AuthProviders({
    variant = "login",
 }: {
    variant?: "login" | "signup";
 }) {
+   const [loadingProvider, setLoadingProvider] = useState<
+      "google" | "github" | null
+   >(null);
+
+   const isLoading = loadingProvider !== null;
+
    return (
       <div className="space-y-8 mb-8 mt-4">
          <div className="flex flex-col gap-4">
             <AppLink
                variant="outline"
                href={`/api/auth/google?from=${variant}`}
+               onClick={() => setLoadingProvider("google")}
+               aria-disabled={isLoading}
             >
-               <SiGoogle />
-               {variant === "login"
-                  ? "Iniciar sesión con Google"
-                  : "Crear cuenta con Google"}
+               {loadingProvider === "google" ? (
+                  <Loader2 className="animate-spin" />
+               ) : (
+                  <SiGoogle />
+               )}
+
+               {loadingProvider === "google"
+                  ? variant === "login"
+                     ? "Iniciando sesión con Google"
+                     : "Creando cuenta con Google"
+                  : variant === "login"
+                    ? "Iniciar sesión con Google"
+                    : "Crear cuenta con Google"}
             </AppLink>
 
             <AppLink
                variant="outline"
                href={`/api/auth/github?from=${variant}`}
+               onClick={() => setLoadingProvider("github")}
+               aria-disabled={isLoading}
             >
-               <SiGithub />
-               {variant === "login"
-                  ? "Iniciar sesión con GitHub"
-                  : "Crear cuenta con GitHub"}
+               {loadingProvider === "github" ? (
+                  <Loader2 className="animate-spin" />
+               ) : (
+                  <SiGithub />
+               )}
+
+               {loadingProvider === "github"
+                  ? variant === "login"
+                     ? "Iniciando sesión con GitHub"
+                     : "Creando cuenta con GitHub"
+                  : variant === "login"
+                    ? "Iniciar sesión con GitHub"
+                    : "Crear cuenta con GitHub"}
             </AppLink>
          </div>
 
