@@ -188,20 +188,18 @@ export default function DashboardHeader({
 
    return (
       <header className="max-w-full w-full p-4 shadow-none border-b-0 border-sidebar-border/50 flex justify-between items-center gap-4">
-         <div className="flex gap-4 items-center min-w-0 flex-1">
-            <div className="flex gap-2 items-center justify-center">
-               {summaryRoute === "edit" && (
-                  <AppLink
-                     href={pathname.replace(/\/edit$/, "")}
-                     size="icon"
-                     variant="ghost"
-                  >
-                     <ChevronLeft strokeWidth={1.5} />
-                  </AppLink>
-               )}
+         <div className="flex gap-2 items-center min-w-0 flex-1">
+            {summaryRoute === "edit" && (
+               <AppLink
+                  href={pathname.replace(/\/edit$/, "")}
+                  size="icon"
+                  variant="ghost"
+               >
+                  <ChevronLeft strokeWidth={1.5} />
+               </AppLink>
+            )}
 
-               <SidebarTrigger className={cn("size-8 md:hidden flex")} />
-            </div>
+            <SidebarTrigger className={cn("size-8 md:hidden flex")} />
 
             <div className="flex gap-2 items-center justify-start min-w-0 flex-1">
                {summaryRoute && summary?.thumbnailUrl && title && (
