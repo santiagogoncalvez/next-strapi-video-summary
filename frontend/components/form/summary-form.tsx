@@ -39,8 +39,6 @@ export function SummaryForm({
    pendingVideoId?: string;
    pendingVideoTimestamp?: string;
 }) {
-   console.log("PENDING VIDEO ID from SummaryForm:", pendingVideoId);
-
    const router = useRouter();
 
    const [formState, formAction, isPending] = useActionState(
@@ -147,13 +145,6 @@ export function SummaryForm({
       if (isPending) return;
       if (videoId !== pendingVideoId) return;
 
-      console.log("AUTO SUBMIT:", {
-         pendingVideoId,
-         pendingVideoTimestamp,
-         videoId,
-         isValid: formRef.current?.checkValidity(),
-      });
-
       submittedVideoTimestamp.current = pendingVideoTimestamp;
       formRef.current?.requestSubmit();
    }, [pendingVideoId, pendingVideoTimestamp, videoId, isPending]);
@@ -231,7 +222,7 @@ export function SummaryForm({
                      )}
 
                   <p className="text-muted-foreground text-center font-light text-sm">
-                     Videos de hasta 60 minutos
+                     Videos de hasta 2 horas
                   </p>
                </CardFooter>
             </Card>

@@ -4,6 +4,7 @@ import { SYSTEM_PROMPT } from "@/constants/prompts";
 import { google } from "@ai-sdk/google"; // Importamos el provider de Google
 import { generateText } from "ai";
 import { handleAIError } from "../error-handler";
+import { cleanSummary } from "@/lib/utils";
 
 export async function generateSummary(content: string, template?: string) {
    const systemPrompt = template || SYSTEM_PROMPT;
@@ -21,7 +22,7 @@ export async function generateSummary(content: string, template?: string) {
             : 4000,
       });
 
-      return text;
+      return cleanSummary(text);
    } catch (error) {
       handleAIError(error);
    }

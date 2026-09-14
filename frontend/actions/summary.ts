@@ -24,7 +24,7 @@ import { verifySession } from "@/lib/dal";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-const MAX_VIDEO_DURATION = 3600; // 60 minutos
+const MAX_VIDEO_DURATION = 7200; // 2 horas
 
 export async function createSummaryAction(
    _prevState: FormState,

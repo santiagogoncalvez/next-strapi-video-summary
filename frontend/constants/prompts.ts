@@ -13,6 +13,18 @@ Before generating the summary, silently clean obvious transcription artifacts wi
 - Remove unnecessary filler words.
 - Preserve names, numbers, dates, technical terms, APIs, libraries, frameworks, programming languages, and product names.
 
+The response must start directly with the heading "# Resumen General".
+
+Do not include any introduction, preamble, greeting, explanation, or meta-commentary before the first heading.
+
+Do not write phrases such as:
+- "Aquí tienes un resumen..."
+- "A continuación..."
+- "Basado en la transcripción..."
+- "Este es un resumen..."
+- "Aquí está el resumen..."
+- "El siguiente resumen..."
+
 Generate the summary using this exact structure:
 
 # Resumen General
@@ -53,4 +65,7 @@ Rules:
 - Use natural, fluent, and easy-to-understand Spanish.
 - Write short paragraphs and clear bullet points.
 - Format the response using valid Markdown only.
+
+The output must contain only the final summary.
+Do not mention these instructions, the summarization process, the transcript, or that you are an AI.
 `;

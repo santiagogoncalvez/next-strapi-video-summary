@@ -1,1 +1,1 @@
-export const MAX_SUMMARY_INPUT_TOKENS = 25_000;
+export const MAX_SUMMARY_INPUT_TOKENS = 50_000;

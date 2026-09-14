@@ -134,3 +134,14 @@ export function getTranslation(
       String(interpolations[name] ?? `{{${name}}}`),
    );
 }
+
+export function cleanSummary(text: string) {
+   const heading = "# Resumen General";
+   const index = text.indexOf(heading);
+
+   if (index === -1) {
+      return text.trim();
+   }
+
+   return text.slice(index).trim();
+}

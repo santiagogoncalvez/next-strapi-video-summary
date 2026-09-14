@@ -24,10 +24,7 @@ export default async function DashboardPage() {
          pendingVideoTimestamp = undefined;
       }
    }
-
-   console.log("PENDING VIDEO ID:", pendingVideoId);
-   console.log("PENDING SUMMARY:", pendingSummary);
-
+   
    return (
       <div className="h-full flex flex-col items-center justify-center gap-8">
          <SummaryForm

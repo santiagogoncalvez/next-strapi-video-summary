@@ -92,7 +92,7 @@ export function HomeSummaryForm() {
                      )}
 
                   <p className="text-muted-foreground text-center font-light text-sm">
-                     Gratis para empezar · Videos de hasta 60 minutos
+                     Gratis para empezar · Videos de hasta 2 horas
                   </p>
                </CardFooter>
             </Card>
