@@ -95,21 +95,23 @@ export function SummaryTitleForm({
          action={updateTitleFormAction}
          className={cn(`flex items-center gap-1`, className)}
       >
-         <Field data-invalid={!!updateTitleFormState.zodErrors?.title}>
-            <Input
-               ref={inputRef}
-               id="title"
-               name="title"
-               type="text"
-               placeholder="Ingresar título de resumen"
-               value={currentTitle}
-               onChange={(event) => setCurrentTitle(event.target.value)}
-               onKeyDown={handleKeyDown}
-               onBlur={handleBlur}
-               inputSize="sm"
-               aria-invalid={!!updateTitleFormState.zodErrors?.title}
-            />
-         </Field>
+         <fieldset disabled={updateTitleIsPending}>
+            <Field data-invalid={!!updateTitleFormState.zodErrors?.title}>
+               <Input
+                  ref={inputRef}
+                  id="title"
+                  name="title"
+                  type="text"
+                  placeholder="Ingresar título de resumen"
+                  value={currentTitle}
+                  onChange={(event) => setCurrentTitle(event.target.value)}
+                  onKeyDown={handleKeyDown}
+                  onBlur={handleBlur}
+                  inputSize="sm"
+                  aria-invalid={!!updateTitleFormState.zodErrors?.title}
+               />
+            </Field>
+         </fieldset>
 
          <input type="hidden" name="documentId" value={documentId} />
 

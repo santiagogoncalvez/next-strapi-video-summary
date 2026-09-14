@@ -80,28 +80,34 @@ export default function ConfirmEmail({ email }: { email: string }) {
                      </p>
                   </CardDescription>
                </CardHeader>
-               <CardContent className={cn(SIGN_IN_FORM_STYLES.content, "mt-4")}>
-                  <Field
-                     className={SIGN_IN_FORM_STYLES.fieldGroup}
-                     data-invalid={!!formState.zodErrors?.email}
+               
+               <fieldset disabled={isPending}>
+                  <CardContent
+                     className={cn(SIGN_IN_FORM_STYLES.content, "mt-4")}
                   >
-                     <FieldLabel htmlFor="email">
-                        ¿No recibiste el correo electrónico? Revisa tu carpeta
-                        de correo no deseado o intenta reenviarlo abajo.
-                     </FieldLabel>
-                     <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        placeholder="pablo@gmail.com"
-                        defaultValue={formState.data?.email ?? ""}
-                        aria-invalid={!!formState.zodErrors?.email}
-                     />
-                     <FieldError
-                        errors={parseFieldErrors(formState.zodErrors?.email)}
-                     />
-                  </Field>
-               </CardContent>
+                     <Field
+                        className={SIGN_IN_FORM_STYLES.fieldGroup}
+                        data-invalid={!!formState.zodErrors?.email}
+                     >
+                        <FieldLabel htmlFor="email">
+                           ¿No recibiste el correo electrónico? Revisa tu
+                           carpeta de correo no deseado o intenta reenviarlo
+                           abajo.
+                        </FieldLabel>
+                        <Input
+                           id="email"
+                           name="email"
+                           type="email"
+                           placeholder="pablo@gmail.com"
+                           defaultValue={formState.data?.email ?? ""}
+                           aria-invalid={!!formState.zodErrors?.email}
+                        />
+                        <FieldError
+                           errors={parseFieldErrors(formState.zodErrors?.email)}
+                        />
+                     </Field>
+                  </CardContent>
+               </fieldset>
 
                <CardFooter className={`${SIGN_IN_FORM_STYLES.footer}`}>
                   <SubmitButton

@@ -11,7 +11,7 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { actions } from "@/actions";
-import { useActionState, useEffect, useRef } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { SIGN_IN_FORM_STYLES } from "@/constants/styles";
 import { FormState } from "@/types/definitions";
 import { SubmitButton } from "./submit-button";
@@ -44,6 +44,9 @@ export function SigninForm({
    const searchParams = useSearchParams();
    const oauthErrorShown = useRef(false);
    const lastPendingVideoTimestamp = useRef<string | null>(null);
+   const [providerPending, setProviderPending] = useState(false);
+
+   const isAuthPending = isPending || providerPending;
 
    useEffect(() => {
       const message = parseOAuthError(searchParams, "login");
@@ -87,68 +90,78 @@ export function SigninForm({
                      Introduce tus datos para iniciar sesión en tu cuenta.
                   </CardDescription> */}
                </CardHeader>
-               <CardContent className={SIGN_IN_FORM_STYLES.content}>
-                  <AuthProviders />
 
-                  <Field
-                     className={SIGN_IN_FORM_STYLES.fieldGroup}
-                     data-invalid={!!formState.zodErrors?.identifier}
-                  >
-                     <FieldLabel htmlFor="identifier">
-                        Nombre de usuario o correo electrónico
-                     </FieldLabel>
-
-                     <Input
-                        id="identifier"
-                        name="identifier"
-                        type="text"
-                        placeholder="pablo o pablo@gmail.com"
-                        defaultValue={formState.data?.identifier ?? ""}
-                        aria-invalid={!!formState.zodErrors?.identifier}
+               <fieldset disabled={isAuthPending}>
+                  <CardContent className={SIGN_IN_FORM_STYLES.content}>
+                     <AuthProviders
+                        disabled={isAuthPending}
+                        onProviderClick={() => setProviderPending(true)}
                      />
 
-                     <FieldError
-                        errors={parseFieldErrors(
-                           formState.zodErrors?.identifier,
-                        )}
-                     />
-                  </Field>
-
-                  <Field
-                     className={SIGN_IN_FORM_STYLES.fieldGroup}
-                     data-invalid={!!formState.zodErrors?.password}
-                  >
-                     <FieldLabel htmlFor="password">Contraseña</FieldLabel>
-
-                     <PasswordInput
-                        id="password"
-                        name="password"
-                        type="password"
-                        placeholder="Ingresar contraseña"
-                        defaultValue={formState.data?.password ?? ""}
-                        aria-invalid={!!formState.zodErrors?.password}
-                     />
-
-                     <FieldError
-                        errors={parseFieldErrors(formState.zodErrors?.password)}
-                     />
-
-                     <AppLink
-                        href="/auth/forgot-password"
-                        variant="link"
-                        size="none"
-                        className="w-fit!"
+                     <Field
+                        className={SIGN_IN_FORM_STYLES.fieldGroup}
+                        data-invalid={!!formState.zodErrors?.identifier}
                      >
-                        ¿Olvidaste tu contraseña?
-                     </AppLink>
-                  </Field>
-               </CardContent>
+                        <FieldLabel htmlFor="identifier">
+                           Nombre de usuario o correo electrónico
+                        </FieldLabel>
+
+                        <Input
+                           id="identifier"
+                           name="identifier"
+                           type="text"
+                           placeholder="pablo o pablo@gmail.com"
+                           defaultValue={formState.data?.identifier ?? ""}
+                           aria-invalid={!!formState.zodErrors?.identifier}
+                        />
+
+                        <FieldError
+                           errors={parseFieldErrors(
+                              formState.zodErrors?.identifier,
+                           )}
+                        />
+                     </Field>
+
+                     <Field
+                        className={SIGN_IN_FORM_STYLES.fieldGroup}
+                        data-invalid={!!formState.zodErrors?.password}
+                     >
+                        <FieldLabel htmlFor="password">Contraseña</FieldLabel>
+
+                        <PasswordInput
+                           id="password"
+                           name="password"
+                           type="password"
+                           placeholder="Ingresar contraseña"
+                           defaultValue={formState.data?.password ?? ""}
+                           aria-invalid={!!formState.zodErrors?.password}
+                        />
+
+                        <FieldError
+                           errors={parseFieldErrors(
+                              formState.zodErrors?.password,
+                           )}
+                        />
+
+                        <AppLink
+                           href="/auth/forgot-password"
+                           variant="link"
+                           size="none"
+                           className="w-fit!"
+                        >
+                           ¿Olvidaste tu contraseña?
+                        </AppLink>
+                     </Field>
+                  </CardContent>
+               </fieldset>
+
                <CardFooter className={`${SIGN_IN_FORM_STYLES.footer}`}>
                   <SubmitButton
                      className={SIGN_IN_FORM_STYLES.button}
                      text="Iniciar sesión"
                      loadingText="Iniciando sesión"
                      loading={isPending}
+                     disabled={isAuthPending}
                   />
 
                   {formState.strapiErrors && (

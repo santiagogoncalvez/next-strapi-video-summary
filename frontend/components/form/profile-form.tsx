@@ -82,97 +82,101 @@ export function ProfileForm({ user, className }: Readonly<ProfileFormProps>) {
                   </CardDescription>
                </CardHeader>
 
-               <CardContent className={PROFILE_FORM_STYLES.content}>
-                  <div className={PROFILE_FORM_STYLES.nameRow}>
-                     <Field className={PROFILE_FORM_STYLES.fieldGroup}>
-                        <FieldLabel htmlFor="username">
-                           Nombre de usuario
-                        </FieldLabel>
-                        <Input
-                           id="username"
-                           name="username"
-                           placeholder="pablo"
-                           defaultValue={user.username ?? ""}
-                           disabled
-                        />
-                     </Field>
+               <fieldset disabled={isPending}>
+                  <CardContent className={PROFILE_FORM_STYLES.content}>
+                     <div className={PROFILE_FORM_STYLES.nameRow}>
+                        <Field className={PROFILE_FORM_STYLES.fieldGroup}>
+                           <FieldLabel htmlFor="username">
+                              Nombre de usuario
+                           </FieldLabel>
+                           <Input
+                              id="username"
+                              name="username"
+                              placeholder="pablo"
+                              defaultValue={user.username ?? ""}
+                              disabled
+                           />
+                        </Field>
 
-                     <Field className={PROFILE_FORM_STYLES.fieldGroup}>
-                        <FieldLabel htmlFor="email">
-                           Correo electrónico
-                        </FieldLabel>
-                        <Input
-                           id="email"
-                           name="email"
-                           placeholder="pablo@gmail.com"
-                           defaultValue={user.email ?? ""}
-                           disabled
-                        />
-                     </Field>
-                  </div>
+                        <Field className={PROFILE_FORM_STYLES.fieldGroup}>
+                           <FieldLabel htmlFor="email">
+                              Correo electrónico
+                           </FieldLabel>
+                           <Input
+                              id="email"
+                              name="email"
+                              placeholder="pablo@gmail.com"
+                              defaultValue={user.email ?? ""}
+                              disabled
+                           />
+                        </Field>
+                     </div>
 
-                  <div className={PROFILE_FORM_STYLES.nameRow}>
+                     <div className={PROFILE_FORM_STYLES.nameRow}>
+                        <Field
+                           className={PROFILE_FORM_STYLES.fieldGroup}
+                           data-invalid={!!formState.zodErrors?.firstName}
+                        >
+                           <FieldLabel htmlFor="firstName">Nombre</FieldLabel>
+                           <Input
+                              id="firstName"
+                              name="firstName"
+                              placeholder="Nombre"
+                              defaultValue={
+                                 formState.data?.firstName ??
+                                 user.firstName ??
+                                 ""
+                              }
+                              aria-invalid={!!formState.zodErrors?.firstName}
+                           />
+                           <FieldError
+                              errors={parseFieldErrors(
+                                 formState.zodErrors?.firstName,
+                              )}
+                           />
+                        </Field>
+
+                        <Field
+                           className={PROFILE_FORM_STYLES.fieldGroup}
+                           data-invalid={!!formState.zodErrors?.lastName}
+                        >
+                           <FieldLabel htmlFor="lastName">Apellido</FieldLabel>
+                           <Input
+                              id="lastName"
+                              name="lastName"
+                              placeholder="Apellido"
+                              defaultValue={
+                                 formState.data?.lastName ?? user.lastName ?? ""
+                              }
+                              aria-invalid={!!formState.zodErrors?.lastName}
+                           />
+                           <FieldError
+                              errors={parseFieldErrors(
+                                 formState.zodErrors?.lastName,
+                              )}
+                           />
+                        </Field>
+                     </div>
+
                      <Field
                         className={PROFILE_FORM_STYLES.fieldGroup}
-                        data-invalid={!!formState.zodErrors?.firstName}
+                        data-invalid={!!formState.zodErrors?.bio}
                      >
-                        <FieldLabel htmlFor="firstName">Nombre</FieldLabel>
-                        <Input
-                           id="firstName"
-                           name="firstName"
-                           placeholder="Nombre"
-                           defaultValue={
-                              formState.data?.firstName ?? user.firstName ?? ""
-                           }
-                           aria-invalid={!!formState.zodErrors?.firstName}
+                        <FieldLabel htmlFor="bio">Biografía</FieldLabel>
+                        <Textarea
+                           id="bio"
+                           name="bio"
+                           placeholder="Escribe tu biografía aquí..."
+                           className={PROFILE_FORM_STYLES.textarea}
+                           defaultValue={formState.data?.bio ?? user.bio ?? ""}
+                           aria-invalid={!!formState.zodErrors?.bio}
                         />
                         <FieldError
-                           errors={parseFieldErrors(
-                              formState.zodErrors?.firstName,
-                           )}
+                           errors={parseFieldErrors(formState.zodErrors?.bio)}
                         />
                      </Field>
-
-                     <Field
-                        className={PROFILE_FORM_STYLES.fieldGroup}
-                        data-invalid={!!formState.zodErrors?.lastName}
-                     >
-                        <FieldLabel htmlFor="lastName">Apellido</FieldLabel>
-                        <Input
-                           id="lastName"
-                           name="lastName"
-                           placeholder="Apellido"
-                           defaultValue={
-                              formState.data?.lastName ?? user.lastName ?? ""
-                           }
-                           aria-invalid={!!formState.zodErrors?.lastName}
-                        />
-                        <FieldError
-                           errors={parseFieldErrors(
-                              formState.zodErrors?.lastName,
-                           )}
-                        />
-                     </Field>
-                  </div>
-
-                  <Field
-                     className={PROFILE_FORM_STYLES.fieldGroup}
-                     data-invalid={!!formState.zodErrors?.bio}
-                  >
-                     <FieldLabel htmlFor="bio">Biografía</FieldLabel>
-                     <Textarea
-                        id="bio"
-                        name="bio"
-                        placeholder="Escribe tu biografía aquí..."
-                        className={PROFILE_FORM_STYLES.textarea}
-                        defaultValue={formState.data?.bio ?? user.bio ?? ""}
-                        aria-invalid={!!formState.zodErrors?.bio}
-                     />
-                     <FieldError
-                        errors={parseFieldErrors(formState.zodErrors?.bio)}
-                     />
-                  </Field>
-               </CardContent>
+                  </CardContent>
+               </fieldset>
 
                <CardFooter className={PROFILE_FORM_STYLES.footer}>
                   <SubmitButton

@@ -8,8 +8,12 @@ import { Loader2 } from "lucide-react";
 
 export function AuthProviders({
    variant = "login",
+   disabled = false,
+   onProviderClick = () => {},
 }: {
    variant?: "login" | "signup";
+   disabled?: boolean;
+   onProviderClick?: () => void;
 }) {
    const [loadingProvider, setLoadingProvider] = useState<
       "google" | "github" | null
@@ -23,8 +27,11 @@ export function AuthProviders({
             <AppLink
                variant="outline"
                href={`/api/auth/google?from=${variant}`}
-               onClick={() => setLoadingProvider("google")}
-               aria-disabled={isLoading}
+               onClick={() => {
+                  onProviderClick();
+                  setLoadingProvider("google");
+               }}
+               aria-disabled={isLoading || disabled}
             >
                {loadingProvider === "google" ? (
                   <Loader2 className="animate-spin" />
@@ -44,8 +51,11 @@ export function AuthProviders({
             <AppLink
                variant="outline"
                href={`/api/auth/github?from=${variant}`}
-               onClick={() => setLoadingProvider("github")}
-               aria-disabled={isLoading}
+               onClick={() => {
+                  onProviderClick();
+                  setLoadingProvider("github");
+               }}
+               aria-disabled={isLoading || disabled}
             >
                {loadingProvider === "github" ? (
                   <Loader2 className="animate-spin" />

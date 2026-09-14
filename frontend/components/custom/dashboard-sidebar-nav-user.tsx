@@ -62,9 +62,9 @@ export function NavUser({
                            <span className="truncate font-medium">
                               {user.username}
                            </span>
-                           <span className="truncate text-xs text-muted-foreground">
+                           {/* <span className="truncate text-xs text-muted-foreground">
                               {user.email}
-                           </span>
+                           </span> */}
                         </div>
                         <ChevronsUpDown
                            className="ml-auto size-4 text-muted-foreground"

@@ -60,69 +60,75 @@ export function ChangePassword() {
                      actualizar tus credenciales.
                   </CardDescription>
                </CardHeader>
-               <CardContent className={SIGN_UP_FORM_STYLES.content}>
-                  <Field
-                     className={SIGN_UP_FORM_STYLES.fieldGroup}
-                     data-invalid={!!formState.zodErrors?.password}
-                  >
-                     <FieldLabel htmlFor="password">Contraseña</FieldLabel>
-                     <PasswordInput
-                        id="password"
-                        name="password"
-                        type="password"
-                        placeholder="Ingresar contraseña"
-                        defaultValue={formState.data?.password ?? ""}
-                        aria-invalid={!!formState.zodErrors?.password}
-                     />
-                     <FieldError
-                        errors={parseFieldErrors(formState.zodErrors?.password)}
-                     />
-                  </Field>
 
-                  <Field
-                     className={SIGN_UP_FORM_STYLES.fieldGroup}
-                     data-invalid={!!formState.zodErrors?.newPassword}
-                  >
-                     <FieldLabel htmlFor="newPassword">
-                        Nueva contraseña
-                     </FieldLabel>
-                     <PasswordInput
-                        id="newPassword"
-                        name="newPassword"
-                        type="password"
-                        placeholder="Ingresar nueva contraseña"
-                        defaultValue={formState.data?.newPassword ?? ""}
-                        aria-invalid={!!formState.zodErrors?.newPassword}
-                     />
-                     <FieldError
-                        errors={parseFieldErrors(
-                           formState.zodErrors?.newPassword,
-                        )}
-                     />
-                  </Field>
+               <fieldset disabled={isPending}>
+                  <CardContent className={SIGN_UP_FORM_STYLES.content}>
+                     <Field
+                        className={SIGN_UP_FORM_STYLES.fieldGroup}
+                        data-invalid={!!formState.zodErrors?.password}
+                     >
+                        <FieldLabel htmlFor="password">Contraseña actual</FieldLabel>
+                        <PasswordInput
+                           id="password"
+                           name="password"
+                           type="password"
+                           placeholder="Ingresar contraseña"
+                           defaultValue={formState.data?.password ?? ""}
+                           aria-invalid={!!formState.zodErrors?.password}
+                        />
+                        <FieldError
+                           errors={parseFieldErrors(
+                              formState.zodErrors?.password,
+                           )}
+                        />
+                     </Field>
 
-                  <Field
-                     className={SIGN_UP_FORM_STYLES.fieldGroup}
-                     data-invalid={!!formState.zodErrors?.confirmPassword}
-                  >
-                     <FieldLabel htmlFor="confirmPassword">
-                        Confirmar contraseña
-                     </FieldLabel>
-                     <PasswordInput
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        type="password"
-                        placeholder="Confirmar contraseña"
-                        defaultValue={formState.data?.confirmPassword ?? ""}
-                        aria-invalid={!!formState.zodErrors?.confirmPassword}
-                     />
-                     <FieldError
-                        errors={parseFieldErrors(
-                           formState.zodErrors?.confirmPassword,
-                        )}
-                     />
-                  </Field>
-               </CardContent>
+                     <Field
+                        className={SIGN_UP_FORM_STYLES.fieldGroup}
+                        data-invalid={!!formState.zodErrors?.newPassword}
+                     >
+                        <FieldLabel htmlFor="newPassword">
+                           Nueva contraseña
+                        </FieldLabel>
+                        <PasswordInput
+                           id="newPassword"
+                           name="newPassword"
+                           type="password"
+                           placeholder="Ingresar nueva contraseña"
+                           defaultValue={formState.data?.newPassword ?? ""}
+                           aria-invalid={!!formState.zodErrors?.newPassword}
+                        />
+                        <FieldError
+                           errors={parseFieldErrors(
+                              formState.zodErrors?.newPassword,
+                           )}
+                        />
+                     </Field>
+
+                     <Field
+                        className={SIGN_UP_FORM_STYLES.fieldGroup}
+                        data-invalid={!!formState.zodErrors?.confirmPassword}
+                     >
+                        <FieldLabel htmlFor="confirmPassword">
+                           Confirmar contraseña
+                        </FieldLabel>
+                        <PasswordInput
+                           id="confirmPassword"
+                           name="confirmPassword"
+                           type="password"
+                           placeholder="Confirmar contraseña"
+                           defaultValue={formState.data?.confirmPassword ?? ""}
+                           aria-invalid={!!formState.zodErrors?.confirmPassword}
+                        />
+                        <FieldError
+                           errors={parseFieldErrors(
+                              formState.zodErrors?.confirmPassword,
+                           )}
+                        />
+                     </Field>
+                  </CardContent>
+               </fieldset>
+
                <CardFooter className={`${SIGN_UP_FORM_STYLES.footer}`}>
                   <SubmitButton
                      className={SIGN_UP_FORM_STYLES.button}

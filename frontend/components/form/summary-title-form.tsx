@@ -62,23 +62,30 @@ export function SummaryTitleForm({
 
    return (
       <form action={formAction} className="space-y-5">
-         <Field data-invalid={!!formState.zodErrors?.title} className="gap-2">
-            <FieldLabel htmlFor="title">Nombre</FieldLabel>
+         <fieldset disabled={isPending}>
+            <Field
+               data-invalid={!!formState.zodErrors?.title}
+               className="gap-2"
+            >
+               <FieldLabel htmlFor="title">Nombre</FieldLabel>
 
-            <Input
-               id="title"
-               name="title"
-               type="text"
-               placeholder="Ingresar nombre del resumen"
-               value={currentTitle}
-               onChange={(event) => setCurrentTitle(event.target.value)}
-               aria-invalid={!!formState.zodErrors?.title}
-               disabled={isPending}
-               autoFocus
-            />
+               <Input
+                  id="title"
+                  name="title"
+                  type="text"
+                  placeholder="Ingresar nombre del resumen"
+                  value={currentTitle}
+                  onChange={(event) => setCurrentTitle(event.target.value)}
+                  aria-invalid={!!formState.zodErrors?.title}
+                  disabled={isPending}
+                  autoFocus
+               />
 
-            <FieldError errors={parseFieldErrors(formState.zodErrors?.title)} />
-         </Field>
+               <FieldError
+                  errors={parseFieldErrors(formState.zodErrors?.title)}
+               />
+            </Field>
+         </fieldset>
 
          <input type="hidden" name="documentId" value={documentId ?? ""} />
 
