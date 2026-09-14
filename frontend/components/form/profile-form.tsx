@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { toast } from "sonner";
 
 import {
@@ -43,7 +43,15 @@ export function ProfileForm({ user, className }: Readonly<ProfileFormProps>) {
       INITIAL_STATE,
    );
 
+   const lastTimestamp = useRef<number | null>(null);
+
    useEffect(() => {
+      if (!formState.timestamp) return;
+
+      if (formState.timestamp === lastTimestamp.current) return;
+
+      lastTimestamp.current = formState.timestamp;
+
       if (formState.success) {
          toast.success(formState.message, {
             position: "top-center",
@@ -102,7 +110,7 @@ export function ProfileForm({ user, className }: Readonly<ProfileFormProps>) {
                         />
                      </Field>
                   </div>
-                  
+
                   <div className={PROFILE_FORM_STYLES.nameRow}>
                      <Field
                         className={PROFILE_FORM_STYLES.fieldGroup}

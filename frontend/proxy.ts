@@ -31,11 +31,7 @@ export async function proxy(request: NextRequest) {
       }
 
       // 5. Redirigir a /dashboard si el usuario está autenticado
-      if (
-         isPublicRoute &&
-         session?.jwt &&
-         !request.nextUrl.pathname.startsWith("/dashboard")
-      ) {
+      if (isPublicRoute && session?.jwt && currentPath !== "/") {
          return NextResponse.redirect(new URL("/dashboard", request.nextUrl));
       }
 

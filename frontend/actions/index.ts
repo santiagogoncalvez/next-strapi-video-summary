@@ -10,6 +10,7 @@ import {
 import { toggleFavoriteSummaryAction } from "./favorite";
 import { updateProfileAction, updateProfileImageAction } from "./profile";
 import {
+   createHomeSummaryAction,
    createSummaryAction,
    deleteSummaryAction,
    updateSummaryAction,
@@ -35,8 +36,9 @@ export const actions = {
       updateSummaryAction,
       deleteSummaryAction,
       updateSummaryTitleAction,
+      createHomeSummaryAction,
    },
    favorite: {
-      toggleFavoriteSummaryAction
-   }
+      toggleFavoriteSummaryAction,
+   },
 };

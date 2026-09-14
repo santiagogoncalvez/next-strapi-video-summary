@@ -31,7 +31,11 @@ const INITIAL_STATE: FormState = {
    data: { identifier: "", password: "" },
 };
 
-export function SigninForm() {
+export function SigninForm({
+   pendingVideoTimestamp,
+}: {
+   pendingVideoTimestamp?: string;
+}) {
    const [formState, formAction, isPending] = useActionState(
       actions.auth.loginUserAction,
       INITIAL_STATE,
@@ -39,6 +43,7 @@ export function SigninForm() {
    const pathname = usePathname();
    const searchParams = useSearchParams();
    const oauthErrorShown = useRef(false);
+   const lastPendingVideoTimestamp = useRef<string | null>(null);
 
    useEffect(() => {
       const message = parseOAuthError(searchParams, "login");
@@ -54,6 +59,21 @@ export function SigninForm() {
 
       window.history.replaceState(null, "", pathname);
    }, [searchParams, pathname]);
+
+   useEffect(() => {
+      if (!pendingVideoTimestamp) return;
+
+      if (pendingVideoTimestamp === lastPendingVideoTimestamp.current) {
+         return;
+      }
+
+      lastPendingVideoTimestamp.current = pendingVideoTimestamp;
+
+      toast.info("Iniciá sesión para continuar con tu resumen.", {
+         position: "top-center",
+         duration: 5000,
+      });
+   }, [pendingVideoTimestamp]);
 
    return (
       <div className={SIGN_IN_FORM_STYLES.container}>

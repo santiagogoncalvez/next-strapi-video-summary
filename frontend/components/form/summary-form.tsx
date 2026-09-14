@@ -32,7 +32,15 @@ const INITIAL_STATE: FormState = {
    zodErrors: null,
 };
 
-export function SummaryForm() {
+export function SummaryForm({
+   pendingVideoId,
+   pendingVideoTimestamp,
+}: {
+   pendingVideoId?: string;
+   pendingVideoTimestamp?: string;
+}) {
+   console.log("PENDING VIDEO ID from SummaryForm:", pendingVideoId);
+
    const router = useRouter();
 
    const [formState, formAction, isPending] = useActionState(
@@ -40,9 +48,12 @@ export function SummaryForm() {
       INITIAL_STATE,
    );
 
-   const [videoId, setVideoId] = useState(formState.data?.videoId ?? "");
+   const [videoId, setVideoId] = useState(
+      pendingVideoId ?? formState.data?.videoId ?? "",
+   );
 
    const lastTimestamp = useRef<number | null>(null);
+   const formRef = useRef<HTMLFormElement>(null);
 
    useEffect(() => {
       if (!isPending) return;
@@ -83,6 +94,7 @@ export function SummaryForm() {
          toast.dismiss(toastId);
       };
    }, [isPending]);
+
    useEffect(() => {
       if (!formState.timestamp) return;
 
@@ -120,9 +132,35 @@ export function SummaryForm() {
       }
    }, [formState, router]);
 
+   const submittedVideoTimestamp = useRef<string | null>(null);
+
+   useEffect(() => {
+      if (!pendingVideoId) return;
+
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setVideoId(pendingVideoId);
+   }, [pendingVideoId]);
+
+   useEffect(() => {
+      if (!pendingVideoId || !pendingVideoTimestamp) return;
+      if (submittedVideoTimestamp.current === pendingVideoTimestamp) return;
+      if (isPending) return;
+      if (videoId !== pendingVideoId) return;
+
+      console.log("AUTO SUBMIT:", {
+         pendingVideoId,
+         pendingVideoTimestamp,
+         videoId,
+         isValid: formRef.current?.checkValidity(),
+      });
+
+      submittedVideoTimestamp.current = pendingVideoTimestamp;
+      formRef.current?.requestSubmit();
+   }, [pendingVideoId, pendingVideoTimestamp, videoId, isPending]);
+
    return (
       <div className={SUMMARY_FORM_STYLES.container}>
-         <form action={formAction} className="w-full">
+         <form ref={formRef} action={formAction} className="w-full">
             <Card>
                <CardHeader className={SUMMARY_FORM_STYLES.header}>
                   <CardTitle className={SUMMARY_FORM_STYLES.title}>
@@ -137,40 +175,44 @@ export function SummaryForm() {
                </CardHeader>
 
                <CardContent className={SUMMARY_FORM_STYLES.content}>
-                  <Field
-                     className="w-full"
-                     data-invalid={!!formState.zodErrors?.videoId}
-                  >
-                     <InputGroup className="h-14 shadow-[0_1px_4px_rgba(0,0,0,0.06)]">
-                        <InputGroupInput
-                           id="videoId"
-                           name="videoId"
-                           type="text"
-                           placeholder="https://youtu.be/dQw4w9WgXcQ"
-                           value={videoId}
-                           onChange={(event) => setVideoId(event.target.value)}
-                           required
-                           aria-invalid={!!formState.zodErrors?.videoId}
-                           disabled={false}
-                           className="h-14"
-                        />
-
-                        <InputGroupAddon className="h-14">
-                           <LinkIcon
-                              className="text-muted-foreground ml-2 mr-2"
-                              strokeWidth={1.5}
+                  <fieldset disabled={isPending}>
+                     <Field
+                        className="w-full"
+                        data-invalid={!!formState.zodErrors?.videoId}
+                     >
+                        <InputGroup className="h-14 shadow-[0_1px_4px_rgba(0,0,0,0.06)]">
+                           <InputGroupInput
+                              id="videoId"
+                              name="videoId"
+                              type="text"
+                              placeholder="https://youtu.be/dQw4w9WgXcQ"
+                              value={videoId}
+                              onChange={(event) =>
+                                 setVideoId(event.target.value)
+                              }
+                              required
+                              aria-invalid={!!formState.zodErrors?.videoId}
+                              disabled={false}
+                              className="h-14"
                            />
-                        </InputGroupAddon>
 
-                        <InputGroupAddon align="inline-end" className="h-14">
-                           <SubmitButtonSummary
-                              className={SUMMARY_FORM_STYLES.button}
-                              disabled={!videoId.trim()}
-                              loading={isPending}
-                           />
-                        </InputGroupAddon>
-                     </InputGroup>
-                  </Field>
+                           <InputGroupAddon className="h-14">
+                              <LinkIcon
+                                 className="text-muted-foreground ml-2 mr-2"
+                                 strokeWidth={1.5}
+                              />
+                           </InputGroupAddon>
+
+                           <InputGroupAddon align="inline-end" className="h-14">
+                              <SubmitButtonSummary
+                                 className={SUMMARY_FORM_STYLES.button}
+                                 disabled={!videoId.trim()}
+                                 loading={isPending}
+                              />
+                           </InputGroupAddon>
+                        </InputGroup>
+                     </Field>
+                  </fieldset>
                </CardContent>
 
                <CardFooter className={SUMMARY_FORM_STYLES.footer}>

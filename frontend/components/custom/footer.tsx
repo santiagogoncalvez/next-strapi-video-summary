@@ -17,11 +17,11 @@ const accountLinks = [
 
 function selectSocialIcon(url: string) {
    if (url.includes("youtube")) {
-      return <SiYoutube />;
+      return <SiYoutube aria-label="logo de YouTube" />;
    }
 
    if (url.includes("github")) {
-      return <SiGithub />;
+      return <SiGithub aria-label="logo de GitHub" />;
    }
 
    return null;
@@ -33,9 +33,7 @@ export function Footer({ data }: FooterProps) {
    const { logoText, socialLink } = data;
 
    return (
-      <footer
-         className="max-w-screen-2xl w-full md:px-16 px-4 pb-8 pt-10 "
-      >
+      <footer className="max-w-screen-2xl w-full md:px-16 px-4 pb-8 pt-10 ">
          <div className="mx-auto max-w-screen-2xl">
             <div className="flex justify-between flex-wrap gap-8">
                {/* Brand */}

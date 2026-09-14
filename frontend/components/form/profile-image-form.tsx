@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useRef } from "react";
 
 import { actions } from "@/actions";
 import { cn } from "@/lib/utils";
@@ -27,6 +27,7 @@ import {
 import { toast } from "sonner";
 import { FieldError } from "../ui/field";
 import { parseFieldErrors } from "@/lib/parsers";
+import { useRouter } from "next/navigation";
 
 interface ProfileImageFormProps {
    image?: Image | null;
@@ -41,19 +42,30 @@ const INITIAL_STATE: FormState = {
 };
 
 export function ProfileImageForm({ image, className }: ProfileImageFormProps) {
+   const router = useRouter();
    const [formState, formAction, isPending] = useActionState(
       actions.profile.updateProfileImageAction,
       INITIAL_STATE,
    );
 
+   const lastTimestamp = useRef<number | null>(null);
+
    useEffect(() => {
+      if (!formState.timestamp) return;
+
+      if (formState.timestamp === lastTimestamp.current) return;
+
+      lastTimestamp.current = formState.timestamp;
+
       if (formState.success) {
          toast.success(formState.message, {
             position: "top-center",
             duration: 3000,
          });
+
+         router.refresh();
       }
-   }, [formState.success, formState.message, formState.timestamp]);
+   }, [formState.success, formState.message, formState.timestamp, router]);
 
    return (
       <div className={IMAGE_FORM_STYLES.container}>

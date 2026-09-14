@@ -5,14 +5,35 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 
+const appUrl = process.env.VERCEL_URL
+   ? `https://${process.env.VERCEL_URL}`
+   : "http://localhost:3000";
+
 export async function generateMetadata(): Promise<Metadata> {
    const metadata = await loaders.getMetaData();
 
    return {
+      metadataBase: new URL(appUrl),
       title: metadata.data.title ?? "resu | Resume tus videos",
       description:
          metadata.data.description ??
          "Resume videos de YouTube con inteligencia artificial y ahorrá tiempo.",
+      openGraph: {
+         type: "website",
+         locale: "es_AR",
+         siteName: "resu",
+         title: "resu | Resume tus videos",
+         description:
+            "Resume tus videos de YouTube con inteligencia artificial.",
+         images: [
+            {
+               url: "/og.png",
+               width: 1200,
+               height: 630,
+               alt: "resu | Resume tus videos",
+            },
+         ],
+      },
    };
 }
 

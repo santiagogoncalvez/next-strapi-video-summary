@@ -36,7 +36,7 @@ export function AccountAppearanceSection({ className }: Readonly<Props>) {
                   </CardTitle>
 
                   <CardDescription>
-                     Elegí cómo querés ver RESU y personalizá el tema de la
+                     Elegí cómo querés ver resu y personalizá el tema de la
                      plataforma.
                   </CardDescription>
                </CardHeader>

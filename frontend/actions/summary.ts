@@ -20,6 +20,9 @@ import { SUMMARY_MESSAGES } from "@/constants/messages/summary";
 import { SYSTEM_PROMPT } from "@/constants/prompts";
 import { MAX_SUMMARY_INPUT_TOKENS } from "@/constants/ia";
 import { summaryRateLimit } from "@/lib/rate-limit";
+import { verifySession } from "@/lib/dal";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 const MAX_VIDEO_DURATION = 3600; // 60 minutos
 
@@ -27,6 +30,9 @@ export async function createSummaryAction(
    _prevState: FormState,
    formData: FormData,
 ): Promise<FormState> {
+   const cookieStore = await cookies();
+   cookieStore.delete("pending_summary");
+
    const fields = {
       videoId: formData.get("videoId") as string,
    };
@@ -220,4 +226,47 @@ export async function deleteSummaryAction(
 
       return handleActionError(error, fields);
    }
+}
+
+export async function createHomeSummaryAction(
+   _prevState: FormState,
+   formData: FormData,
+): Promise<FormState> {
+   const fields = {
+      videoId: formData.get("videoId") as string,
+   };
+
+   const validatedFields = SummarySchema.safeParse(fields);
+
+   if (!validatedFields.success) {
+      return getValidationErrorState(validatedFields.error, fields);
+   }
+
+   const videoId = validatedFields.data.videoId;
+
+   const cookieStore = await cookies();
+
+   const pendingSummary = JSON.stringify({
+      videoId,
+      createdAt: Date.now(),
+   });
+
+   cookieStore.set("pending_summary", pendingSummary, {
+      maxAge: 60 * 10,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+   });
+
+   const { isAuth } = await verifySession();
+
+   if (!isAuth) {
+      redirect("/auth/login");
+   }
+
+   // Por ahora no hacemos el resumen.
+   // Después conectamos acá createSummaryAction / la lógica de generación.
+
+   redirect("/dashboard");
 }
