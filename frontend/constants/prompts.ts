@@ -52,6 +52,34 @@ Write a complete summary organized into logical sections.
 
 Finish with the most important conclusion, lesson, or takeaway from the video.
 
+Markdown formatting rules:
+
+Allowed Markdown elements:
+
+- Headings using #, ##, and ###.
+- Paragraphs.
+- Unordered lists.
+- Ordered lists.
+- Checklist lists.
+- Bold text.
+- Italic text.
+- Underlined text.
+- Inline code using single backticks.
+- Blockquotes using >.
+- Links using standard Markdown link syntax.
+
+Do not use:
+
+- Tables.
+- Images.
+- Fenced code blocks.
+- Horizontal rules.
+- Raw HTML.
+- Embedded HTML elements.
+- YAML frontmatter.
+- Custom Markdown extensions.
+- Any other Markdown syntax not explicitly listed as allowed.
+
 Rules:
 
 - The output language MUST always be Spanish, regardless of the transcript language.
