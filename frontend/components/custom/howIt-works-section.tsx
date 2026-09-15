@@ -6,15 +6,15 @@ const steps = [
       title: "Pegá el enlace",
       description:
          "Copiá el link de cualquier video de YouTube y dejá que resu haga el resto.",
-      image: "/images/dashboard-section-home.png",
-      alt: "Dashboard de resu",
+      image: "/images/pega-el-enlace.png",
+      alt: "Pegar un enlace de YouTube en resu",
    },
    {
       number: "2.",
       title: "Dejá que resu lo procese",
       description:
          "Analiza el contenido y lo transforma en un resumen claro, ordenado y fácil de entender.",
-      image: "/images/dashboard-section-home.png",
+      image: "/images/procesamiento-video.png",
       alt: "Procesamiento de un video en resu",
    },
    {
@@ -22,7 +22,7 @@ const steps = [
       title: "Leé, editá y guardá",
       description:
          "Revisá el resultado, ajustalo a tu gusto y guardalo para volver cuando quieras.",
-      image: "/images/dashboard-section-home.png",
+      image: "/images/resumen-video.png",
       alt: "Resumen de un video en resu",
    },
 ];
